@@ -1,0 +1,7 @@
+Good morning, my name is Marcos Romão and today I'll be presenting my Thesis proposal and dissertation plan.
+
+Nowadays, 5G networks have evolved into the foundational principle of many applications, with different architectures and use cases, such as critical role applications, the communication between IoT devices, industrial automation, virtual reality, augmented reality, and many others.
+
+This shift has given a special focus on the development of flexible, open-source tools which allow us to bypass proprietary hardware and software, enabling us to freely experiment with these networks without such hurdles.
+
+However, deploying these complex, software intensive networks presents a significant challenge, necessitating extensive knowledge about 5G networks and accessible implementation strategies.

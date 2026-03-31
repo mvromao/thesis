@@ -1,0 +1,74 @@
+This is BibTeX, Version 0.99d (TeX Live 2025)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: template.aux
+The style file: biblatex.bst
+This database file appears more than once: Bibliography/bibliography.bib
+---line 11 of file template.aux
+ : \bibdata{template-blx,Bibliography/bibliography,Bibliography/bibliography
+ :                                                                          ,./NOVAthesisFiles/fix-bib}
+I'm skipping whatever remains of this command
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated field_info (elt_size=4) to 12420 items from 5000.
+Database file #1: template-blx.bib
+Database file #2: Bibliography/bibliography.bib
+Warning--entry type for "ch2intro_featureEngineering" isn't style-file defined
+--line 304 of file Bibliography/bibliography.bib
+Biblatex version: 3.21
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+You've used 53 entries,
+            6402 wiz_defined-function locations,
+            1588 strings with 28383 characters,
+and the built_in function-call counts, 510414 in all, are:
+= -- 43887
+> -- 6936
+< -- 1508
++ -- 16127
+- -- 3165
+* -- 36023
+:= -- 61105
+add.period$ -- 0
+call.type$ -- 53
+change.case$ -- 799
+chr.to.int$ -- 210
+cite$ -- 104
+duplicate$ -- 51566
+empty$ -- 43661
+format.name$ -- 3814
+if$ -- 100823
+int.to.chr$ -- 0
+int.to.str$ -- 124
+missing$ -- 0
+newline$ -- 1975
+num.names$ -- 2392
+pop$ -- 19749
+preamble$ -- 1
+purify$ -- 1220
+quote$ -- 0
+skip$ -- 9654
+stack$ -- 0
+substring$ -- 85216
+swap$ -- 8171
+text.length$ -- 1232
+text.prefix$ -- 6
+top$ -- 1
+type$ -- 1789
+warning$ -- 0
+while$ -- 7180
+width$ -- 0
+write$ -- 1923
+(There was 1 error message)

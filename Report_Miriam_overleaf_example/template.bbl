@@ -1,0 +1,1975 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global/global}
+  \entry{MLprospects_ch2intro}{inbook}{}{}
+    \name{author}{3}{}{%
+      {{hash=PA}{%
+         family={Pramod},
+         familyi={P\bibinitperiod},
+         given={Akshara},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=NHS}{%
+         family={Naicker},
+         familyi={N\bibinitperiod},
+         given={Harsh\bibnamedelima Sankar},
+         giveni={H\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=TAK}{%
+         family={Tyagi},
+         familyi={T\bibinitperiod},
+         given={Amit\bibnamedelima Kumar},
+         giveni={A\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Wiley}%
+    }
+    \strng{namehash}{PANHSTAK1}
+    \strng{fullhash}{PANHSTAK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1002/9781119785750.ch18
+    \endverb
+    \field{pages}{463\bibrangedash 490}
+    \field{title}{Machine Learning and Deep Learning: Open Issues and Future Research Directions for the Next 10 Years}
+    \field{journaltitle}{Computational Analysis and Deep Learning for Medical Care}
+    \field{month}{07}
+    \field{year}{2021}
+  \endentry
+
+  \entry{ch2intro_featureEngineering}{misc}{}{}
+    \name{author}{4}{}{%
+      {{hash=VT}{%
+         family={Verdonck},
+         familyi={V\bibinitperiod},
+         given={Tim},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=BB}{%
+         family={Baesens},
+         familyi={B\bibinitperiod},
+         given={Bart},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=�M}{%
+         family={Óskarsdóttir},
+         familyi={�\bibinitperiod},
+         given={María},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=vBS}{%
+         prefix={vanden},
+         prefixi={v\bibinitperiod},
+         family={Broucke},
+         familyi={B\bibinitperiod},
+         given={Seppe},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \keyw{Applied machine learning,Data engineering,Featurization,Interpretability}
+    \strng{namehash}{VT+1}
+    \strng{fullhash}{VTBB�MBSv1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1007/s10994-021-06042-2
+    \endverb
+    \field{issn}{15730565}
+    \field{title}{Special issue on feature engineering editorial}
+    \field{journaltitle}{Machine Learning}
+    \field{year}{2021}
+  \endentry
+
+  \entry{SOA_FMCW_biLSTM}{article}{}{}
+    \name{author}{4}{}{%
+      {{hash=SA}{%
+         family={Shrestha},
+         familyi={S\bibinitperiod},
+         given={Aman},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=LH}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Haobo},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=KJL}{%
+         family={Kernec},
+         familyi={K\bibinitperiod},
+         given={Julien\bibnamedelima Le},
+         giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+      {{hash=FF}{%
+         family={Fioranelli},
+         familyi={F\bibinitperiod},
+         given={Francesco},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{2}{%
+      {Institute of Electrical}%
+      {Electronics Engineers Inc.}%
+    }
+    \keyw{FMCW radar,LSTM and Bi-LSTM networks,classification,micro-Doppler,remote activity monitoring}
+    \strng{namehash}{SA+1}
+    \strng{fullhash}{SALHKJLFF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1109/JSEN.2020.3006386
+    \endverb
+    \field{issn}{15581748}
+    \field{issue}{22}
+    \field{pages}{13607\bibrangedash 13619}
+    \field{title}{Continuous Human Activity Classification from FMCW Radar with Bi-LSTM Networks}
+    \field{volume}{20}
+    \field{journaltitle}{IEEE Sensors Journal}
+    \field{month}{11}
+    \field{year}{2020}
+  \endentry
+
+  \entry{FMCWtempofeature}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=RSJ}{%
+         family={Ryu},
+         familyi={R\bibinitperiod},
+         given={Si-Jung},
+         giveni={S\bibinithyphendelim J\bibinitperiod},
+      }}%
+      {{hash=SJS}{%
+         family={Suh},
+         familyi={S\bibinitperiod},
+         given={Jun-Seuk},
+         giveni={J\bibinithyphendelim S\bibinitperiod},
+      }}%
+      {{hash=BSH}{%
+         family={Baek},
+         familyi={B\bibinitperiod},
+         given={Seung-Hwan},
+         giveni={S\bibinithyphendelim H\bibinitperiod},
+      }}%
+      {{hash=HS}{%
+         family={Hong},
+         familyi={H\bibinitperiod},
+         given={Songcheol},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=KJH}{%
+         family={Kim},
+         familyi={K\bibinitperiod},
+         given={Jong-Hwan},
+         giveni={J\bibinithyphendelim H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RSJ+1}
+    \strng{fullhash}{RSJSJSBSHHSKJH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1109/JSEN.2018.2859815
+    \endverb
+    \field{number}{18}
+    \field{pages}{7593\bibrangedash 7602}
+    \field{title}{Feature-Based Hand Gesture Recognition Using an FMCW Radar and its Temporal Feature Analysis}
+    \field{volume}{18}
+    \field{journaltitle}{IEEE Sensors Journal}
+    \field{year}{2018}
+  \endentry
+
+  \entry{IETBiometricsCameras}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=GK}{%
+         family={Grm},
+         familyi={G\bibinitperiod},
+         given={Klemen},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=�V}{%
+         family={Štruc},
+         familyi={�\bibinitperiod},
+         given={Vitomir},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=AA}{%
+         family={Artiges},
+         familyi={A\bibinitperiod},
+         given={Anais},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=CM}{%
+         family={Caron},
+         familyi={C\bibinitperiod},
+         given={Matthieu},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=EHK}{%
+         family={Ekenel},
+         familyi={E\bibinitperiod},
+         given={Hazım\bibnamedelima K.},
+         giveni={H\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+    }
+    \keyw{learning (artificial intelligence), face recognition, feedforward neural nets, computer vision, data compression, image coding, brightness, image colour analysis, deep learning model strength, deep learning model weakness, face recognition, image degradations, deep convolutional neural network based approach, computer vision tasks, model architectures, learning techniques, deep CNN models, labelled faces in the wild dataset, image quality, blur, Joint Photographic Experts Group compression, occlusion, noise, image brightness, contrast, missing pixels, model characteristics, CNN architecture, colour information, descriptor computation, face verification performance, AlexNet, VGG-Face, GoogLeNet, SqueezeNet, compression artifacts, descriptor-computation strategy}
+    \strng{namehash}{GK+1}
+    \strng{fullhash}{GK�VAACMEHK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Convolutional neural network (CNN) based approaches are the state of the art in various computer vision tasks including face recognition. Considerable research effort is currently being directed toward further improving CNNs by focusing on model architectures and training techniques. However, studies systematically exploring the strengths and weaknesses of existing deep models for face recognition are still relatively scarce. In this paper, we try to fill this gap and study the effects of different covariates on the verification performance of four recent CNN models using the Labelled Faces in the Wild dataset. Specifically, we investigate the influence of covariates related to image quality and model characteristics, and analyse their impact on the face verification performance of different deep CNN models. Based on comprehensive and rigorous experimentation, we identify the strengths and weaknesses of the deep learning models, and present key areas for potential future research. Our results indicate that high levels of noise, blur, missing pixels, and brightness have a detrimental effect on the verification performance of all models, whereas the impact of contrast changes and compression artefacts is limited. We find that the descriptor-computation strategy and colour information does not have a significant influence on performance.%
+    }
+    \verb{doi}
+    \verb https://doi.org/10.1049/iet-bmt.2017.0083
+    \endverb
+    \verb{eprint}
+    \verb https://ietresearch.onlinelibrary.wiley.com/doi/pdf/10.1049/iet-bmt.2
+    \verb 017.0083
+    \endverb
+    \field{number}{1}
+    \field{pages}{81\bibrangedash 89}
+    \field{title}{Strengths and weaknesses of deep learning models for face recognition against image degradations}
+    \verb{url}
+    \verb https://ietresearch.onlinelibrary.wiley.com/doi/abs/10.1049/iet-bmt.2
+    \verb 017.0083
+    \endverb
+    \field{volume}{7}
+    \field{journaltitle}{IET Biometrics}
+    \field{year}{2018}
+  \endentry
+
+  \entry{ultrasonic}{inproceedings}{}{}
+    \name{author}{4}{}{%
+      {{hash=KAU}{%
+         family={Kulkarni},
+         familyi={K\bibinitperiod},
+         given={Akshaya\bibnamedelima U},
+         giveni={A\bibinitperiod\bibinitdelim U\bibinitperiod},
+      }}%
+      {{hash=PAM}{%
+         family={Potdar},
+         familyi={P\bibinitperiod},
+         given={Amit\bibnamedelima M},
+         giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=HS}{%
+         family={Hegde},
+         familyi={H\bibinitperiod},
+         given={Suresh},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=BVP}{%
+         family={Baligar},
+         familyi={B\bibinitperiod},
+         given={Vishwanath\bibnamedelima P},
+         giveni={V\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KAU+1}
+    \strng{fullhash}{KAUPAMHSBVP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2019 1st International Conference on Advances in Information Technology (ICAIT)}
+    \verb{doi}
+    \verb 10.1109/ICAIT47043.2019.8987259
+    \endverb
+    \field{pages}{204\bibrangedash 209}
+    \field{title}{RADAR based Object Detector using Ultrasonic Sensor}
+    \field{year}{2019}
+  \endentry
+
+  \entry{ultrasonicRadar}{inproceedings}{}{}
+    \name{author}{3}{}{%
+      {{hash=PMV}{%
+         family={Paulet},
+         familyi={P\bibinitperiod},
+         given={Marius\bibnamedelima Valerian},
+         giveni={M\bibinitperiod\bibinitdelim V\bibinitperiod},
+      }}%
+      {{hash=SA}{%
+         family={Salceanu},
+         familyi={S\bibinitperiod},
+         given={Andrei},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=NOM}{%
+         family={Neacsu},
+         familyi={N\bibinitperiod},
+         given={Oana\bibnamedelima Maria},
+         giveni={O\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{PMVSANOM1}
+    \strng{fullhash}{PMVSANOM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2016 International Conference and Exposition on Electrical and Power Engineering (EPE)}
+    \verb{doi}
+    \verb 10.1109/ICEPE.2016.7781400
+    \endverb
+    \field{pages}{551\bibrangedash 554}
+    \field{title}{Ultrasonic radar}
+    \field{year}{2016}
+  \endentry
+
+  \entry{radarHistory}{inproceedings}{}{}
+    \name{author}{2}{}{%
+      {{hash=STK}{%
+         family={Sarkar},
+         familyi={S\bibinitperiod},
+         given={Tapan\bibnamedelima K.},
+         giveni={T\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+      {{hash=SPM}{%
+         family={Salazar\bibnamedelima Palma},
+         familyi={S\bibinitperiod\bibinitdelim P\bibinitperiod},
+         given={Magdalena},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{STKSPM1}
+    \strng{fullhash}{STKSPM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2014 44th European Microwave Conference}
+    \verb{doi}
+    \verb 10.1109/EuMC.2014.6986539
+    \endverb
+    \field{pages}{734\bibrangedash 737}
+    \field{title}{A history of the evolution of RADAR}
+    \field{year}{2014}
+  \endentry
+
+  \entry{fmcwBookJankiraman}{book}{}{}
+    \name{author}{1}{}{%
+      {{hash=JM}{%
+         family={Jankiraman},
+         familyi={J\bibinitperiod},
+         given={Mohinder},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Artech House}%
+    }
+    \strng{namehash}{JM1}
+    \strng{fullhash}{JM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{FMCW Radar Design}
+    \field{year}{2018}
+  \endentry
+
+  \entry{radarHealthcare}{article}{}{}
+    \name{author}{6}{}{%
+      {{hash=FDF}{%
+         family={Fioranelli},
+         familyi={F\bibinitperiod},
+         given={Dr\bibnamedelima Francesco},
+         giveni={D\bibinitperiod\bibinitdelim F\bibinitperiod},
+      }}%
+      {{hash=SDSA}{%
+         family={Shah},
+         familyi={S\bibinitperiod},
+         given={Dr\bibnamedelima Syed\bibnamedelima Aziz},
+         giveni={D\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=LH}{%
+         family={Li1},
+         familyi={L\bibinitperiod},
+         given={Haobo},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=SA}{%
+         family={Shrestha},
+         familyi={S\bibinitperiod},
+         given={Aman},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=YDS}{%
+         family={Yang},
+         familyi={Y\bibinitperiod},
+         given={Dr\bibnamedelima Shufan},
+         giveni={D\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=KDJL}{%
+         family={Kernec},
+         familyi={K\bibinitperiod},
+         given={Dr\bibnamedelima Julien\bibnamedelima Le},
+         giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FDF+1}
+    \strng{fullhash}{FDFSDSALHSAYDSKDJL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1049/el.2019.2378
+    \endverb
+    \field{pages}{1022\bibrangedash 1024}
+    \field{title}{Radar sensing for healthcare}
+    \field{volume}{55}
+    \field{journaltitle}{Electronics Letters}
+    \field{month}{09}
+    \field{year}{2019}
+    \field{urlday}{16}
+    \field{urlmonth}{02}
+    \field{urlyear}{2022}
+  \endentry
+
+  \entry{radarApplications}{book}{}{}
+    \name{author}{1}{}{%
+      {{hash=KG}{%
+         family={Kouemou},
+         familyi={K\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IntechOpen}%
+    }
+    \strng{namehash}{KG1}
+    \strng{fullhash}{KG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{isbn}{9789533070292}
+    \field{title}{Radar Technology}
+    \verb{url}
+    \verb https://books.google.pt/books?id=aRKaDwAAQBAJ
+    \endverb
+    \field{year}{2010}
+  \endentry
+
+  \entry{radarEnvironmentalAppli}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=KR}{%
+         family={Knight},
+         familyi={K\bibinitperiod},
+         given={Rosemary},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KR1}
+    \strng{fullhash}{KR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{1}
+    \field{pages}{229\bibrangedash 255}
+    \field{title}{Ground penetrating radar for environmental applications}
+    \field{volume}{29}
+    \field{journaltitle}{Annual Review of Earth and Planetary Sciences}
+    \field{year}{2001}
+  \endentry
+
+  \entry{radarApplicationsIeee}{inproceedings}{}{}
+    \name{author}{1}{}{%
+      {{hash=BF}{%
+         family={Bekkadal},
+         familyi={B\bibinitperiod},
+         given={F.},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BF1}
+    \strng{fullhash}{BF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{17th International Conference on Applied Electromagnetics and Communications, 2003. ICECom 2003.}
+    \verb{doi}
+    \verb 10.1109/ICECOM.2003.1290942
+    \endverb
+    \field{pages}{6\bibrangedash 12}
+    \field{title}{Novel radar technology and applications}
+    \field{year}{2003}
+  \endentry
+
+  \entry{FMCWTexas}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=RK}{%
+         family={Ramasubramanian},
+         familyi={R\bibinitperiod},
+         given={Karthik},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=IT}{%
+         family={Instruments},
+         familyi={I\bibinitperiod},
+         given={T},
+         giveni={T},
+      }}%
+    }
+    \strng{namehash}{RKIT1}
+    \strng{fullhash}{RKIT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Using a complex-baseband architecture in FMCW radar systems}
+    \field{journaltitle}{Texas Instruments}
+    \field{year}{2017}
+  \endentry
+
+  \entry{FMCWmixer_equations}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=BG}{%
+         family={Brooker},
+         familyi={B\bibinitperiod},
+         given={Graham},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BG1}
+    \strng{fullhash}{BG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Understanding millimetre wave FMCW radars}
+    \field{journaltitle}{1st International Conference on Sensing Technology}
+    \field{month}{01}
+    \field{year}{2005}
+  \endentry
+
+  \entry{velocityRadar}{inproceedings}{}{}
+    \name{author}{1}{}{%
+      {{hash=GME}{%
+         family={Guerrero-Men{\'e}ndez},
+         familyi={G\bibinithyphendelim M\bibinitperiod},
+         given={Eloi},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GME1}
+    \strng{fullhash}{GME1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Frequency-modulated continuous-wave radar in automotive applications}
+    \field{year}{2018}
+  \endentry
+
+  \entry{windowFunctionsSpectralLeakage}{inbook}{}{}
+    \name{author}{1}{}{%
+      {{hash=LCS}{%
+         family={Lessard},
+         familyi={L\bibinitperiod},
+         given={Charles\bibnamedelima S.},
+         giveni={C\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer International Publishing}%
+    }
+    \strng{namehash}{LCS1}
+    \strng{fullhash}{LCS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    The purpose of window functions is to minimize a phenomenon called ``Spectral Leakage,'' which is the result of selecting a finite time interval and a nonorthogonal trigonometric basis function over the interval of analysis. Only frequencies that coincide with the basis function will project on a single basis vector, such as shown in Fig. 16.1. Signals, which include frequencies not on the basis set, will not be periodic in the observing interval (often referred to as the ``Observation or Observing Window''). The periodic extension of a signal with a period that is not equal to the fundamental period of the window (as in Fig. 16.2) will produce discontinuities at the boundaries of the observing interval. It is these discontinuities that cause the frequency leakage of the signal across the spectrum.%
+    }
+    \field{booktitle}{Signal Processing of Random Physiological Signals}
+    \verb{doi}
+    \verb 10.1007/978-3-031-01610-3_16
+    \endverb
+    \field{isbn}{978-3-031-01610-3}
+    \field{pages}{175\bibrangedash 193}
+    \field{title}{Window Functions and Spectral Leakage}
+    \verb{url}
+    \verb https://doi.org/10.1007/978-3-031-01610-3_16
+    \endverb
+    \list{location}{1}{%
+      {Cham}%
+    }
+    \field{year}{2006}
+  \endentry
+
+  \entry{windowFFTS}{misc}{}{}
+    \list{organization}{1}{%
+      {www.ni.com}%
+    }
+    \field{labeltitlesource}{title}
+    \field{title}{Understanding FFTs and Windowing}
+    \verb{url}
+    \verb https://www.ni.com/pt-pt/innovations/white-papers/06/understanding-ff
+    \verb ts-and-windowing.html
+    \endverb
+    \field{month}{12}
+    \field{year}{2021}
+    \field{urlday}{23}
+    \field{urlmonth}{01}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{SOA_1DFFT_freqFeatures}{inproceedings}{}{}
+    \name{author}{11}{}{%
+      {{hash=BJ}{%
+         family={Bhatia},
+         familyi={B\bibinitperiod},
+         given={Jyoti},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=DA}{%
+         family={Dayal},
+         familyi={D\bibinitperiod},
+         given={Aveen},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=JA}{%
+         family={Jha},
+         familyi={J\bibinitperiod},
+         given={Ajit},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=VSK}{%
+         family={Vishvakarma},
+         familyi={V\bibinitperiod},
+         given={Santosh\bibnamedelima K.},
+         giveni={S\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Soumya},
+         familyi={S\bibinitperiod},
+         given={J},
+         giveni={J},
+      }}%
+      {{hash=SMB}{%
+         family={Srinivas},
+         familyi={S\bibinitperiod},
+         given={M.\bibnamedelima B.},
+         giveni={M\bibinitperiod\bibinitdelim B\bibinitperiod},
+      }}%
+      {{hash=YPK}{%
+         family={Yalavarthy},
+         familyi={Y\bibinitperiod},
+         given={Phaneendra\bibnamedelima K.},
+         giveni={P\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+      {{hash=KA}{%
+         family={Kumar},
+         familyi={K\bibinitperiod},
+         given={Abhinav},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=LV}{%
+         family={Lalitha},
+         familyi={L\bibinitperiod},
+         given={V.},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=KS}{%
+         family={Koorapati},
+         familyi={K\bibinitperiod},
+         given={Sagar},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=CLR}{%
+         family={Cenkeramaddi},
+         familyi={C\bibinitperiod},
+         given={Linga\bibnamedelima Reddy},
+         giveni={L\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BJ+1}
+    \strng{fullhash}{BJDAJAVSKSJSMBYPKKALVKSCLR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2021 International Conference on COMmunication Systems \& NETworkS (COMSNETS)}
+    \verb{doi}
+    \verb 10.1109/COMSNETS51098.2021.9352894
+    \endverb
+    \field{pages}{111\bibrangedash 115}
+    \field{title}{Object Classification Technique for mmWave FMCW Radars using Range-FFT Features}
+    \field{year}{2021}
+  \endentry
+
+  \entry{SOA_Magnitude_Phase_Features}{inproceedings}{}{}
+    \name{author}{4}{}{%
+      {{hash=GP}{%
+         family={Goswami},
+         familyi={G\bibinitperiod},
+         given={Piyali},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=RS}{%
+         family={Rao},
+         familyi={R\bibinitperiod},
+         given={Sandeep},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=BS}{%
+         family={Bharadwaj},
+         familyi={B\bibinitperiod},
+         given={Sachin},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=NA}{%
+         family={Nguyen},
+         familyi={N\bibinitperiod},
+         given={Amanda},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GP+1}
+    \strng{fullhash}{GPRSBSNA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2019 IEEE International Conference on Consumer Electronics (ICCE)}
+    \verb{doi}
+    \verb 10.1109/ICCE.2019.8662006
+    \endverb
+    \field{pages}{1\bibrangedash 4}
+    \field{title}{Real-Time Multi-Gesture Recognition using 77 GHz FMCW MIMO Single Chip Radar}
+    \field{year}{2019}
+  \endentry
+
+  \entry{SOA_DRDTmap_features}{article}{}{}
+    \name{author}{8}{}{%
+      {{hash=DC}{%
+         family={Ding},
+         familyi={D\bibinitperiod},
+         given={Chuanwei},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=HH}{%
+         family={Hong},
+         familyi={H\bibinitperiod},
+         given={Hong},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=ZY}{%
+         family={Zou},
+         familyi={Z\bibinitperiod},
+         given={Yu},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=CH}{%
+         family={Chu},
+         familyi={C\bibinitperiod},
+         given={Hui},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=ZX}{%
+         family={Zhu},
+         familyi={Z\bibinitperiod},
+         given={Xiaohua},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=FF}{%
+         family={Fioranelli},
+         familyi={F\bibinitperiod},
+         given={Francesco},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=LKJ}{%
+         family={Le\bibnamedelima Kernec},
+         familyi={L\bibinitperiod\bibinitdelim K\bibinitperiod},
+         given={Julien},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=LC}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Changzhi},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{DC+1}
+    \strng{fullhash}{DCHHZYCHZXFFLKJLC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1109/TGRS.2019.2908758
+    \endverb
+    \field{number}{9}
+    \field{pages}{6821\bibrangedash 6831}
+    \field{title}{Continuous Human Motion Recognition With a Dynamic Range-Doppler Trajectory Method Based on FMCW Radar}
+    \field{volume}{57}
+    \field{journaltitle}{IEEE Transactions on Geoscience and Remote Sensing}
+    \field{year}{2019}
+  \endentry
+
+  \entry{featureSelectionStudyofSeveralMethods}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=BCV}{%
+         family={Bolón-Canedo},
+         familyi={B\bibinithyphendelim C\bibinitperiod},
+         given={Verónica},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=SMN}{%
+         family={Sánchez-Maroño},
+         familyi={S\bibinithyphendelim M\bibinitperiod},
+         given={Noelia},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=ABA}{%
+         family={Alonso-Betanzos},
+         familyi={A\bibinithyphendelim B\bibinitperiod},
+         given={Amparo},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BCVSMNABA1}
+    \strng{fullhash}{BCVSMNABA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1007/s10115-012-0487-8
+    \endverb
+    \field{pages}{483\bibrangedash 519}
+    \field{title}{A review of feature selection methods on synthetic data}
+    \field{volume}{34}
+    \field{journaltitle}{Knowledge and Information Systems}
+    \field{month}{03}
+    \field{year}{2012}
+  \endentry
+
+  \entry{featureSelection_embedded}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=CG}{%
+         family={Chandrashekar},
+         familyi={C\bibinitperiod},
+         given={Girish},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=SF}{%
+         family={Sahin},
+         familyi={S\bibinitperiod},
+         given={Ferat},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CGSF1}
+    \strng{fullhash}{CGSF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Plenty of feature selection methods are available in literature due to the availability of data with hundreds of variables leading to data with very high dimension. Feature selection methods provides us a way of reducing computation time, improving prediction performance, and a better understanding of the data in machine learning or pattern recognition applications. In this paper we provide an overview of some of the methods present in literature. The objective is to provide a generic introduction to variable elimination which can be applied to a wide array of machine learning problems. We focus on Filter, Wrapper and Embedded methods. We also apply some of the feature selection techniques on standard datasets to demonstrate the applicability of feature selection techniques.%
+    }
+    \verb{doi}
+    \verb https://doi.org/10.1016/j.compeleceng.2013.11.024
+    \endverb
+    \field{issn}{0045-7906}
+    \field{note}{40th-year commemorative issue}
+    \field{number}{1}
+    \field{pages}{16\bibrangedash 28}
+    \field{title}{A survey on feature selection methods}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S0045790613003066
+    \endverb
+    \field{volume}{40}
+    \field{journaltitle}{Computers \& Electrical Engineering}
+    \field{year}{2014}
+  \endentry
+
+  \entry{featureSelection_wrapper}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=MS}{%
+         family={Maldonado},
+         familyi={M\bibinitperiod},
+         given={Sebastián},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=WR}{%
+         family={Weber},
+         familyi={W\bibinitperiod},
+         given={Richard},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MSWR1}
+    \strng{fullhash}{MSWR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1016/j.ins.2009.02.014
+    \endverb
+    \field{pages}{2208\bibrangedash 2217}
+    \field{title}{A wrapper method for feature selection using Support Vector Machines}
+    \field{volume}{179}
+    \field{journaltitle}{Information Sciences}
+    \field{month}{06}
+    \field{year}{2009}
+    \field{urlday}{19}
+    \field{urlmonth}{11}
+    \field{urlyear}{2018}
+  \endentry
+
+  \entry{featureSelection_Wrapper_knn}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=WA}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={Aiguo},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=AN}{%
+         family={An},
+         familyi={A\bibinitperiod},
+         given={Ning},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=CG}{%
+         family={Chen},
+         familyi={C\bibinitperiod},
+         given={Guilin},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=LL}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Lian},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=AG}{%
+         family={Alterovitz},
+         familyi={A\bibinitperiod},
+         given={Gil},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \keyw{Gene selection, Microarray data, Wrapper, Filter, -nearest-neighbor}
+    \strng{namehash}{WA+1}
+    \strng{fullhash}{WAANCGLLAG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Wrapper-based feature subset selection (FSS) methods tend to obtain better classification accuracy than filter methods but are considerably more time-consuming, particularly for applications that have thousands of features, such as microarray data analysis. Accelerating this process without degrading its high accuracy would be of great value for gene expression analysis. In this study, we explored how to reduce the time complexity of wrapper-based FSS with an embedded K-Nearest-Neighbor (KNN) classifier. Instead of considering KNN as a black box, we proposed to construct a classifier distance matrix and incrementally update the matrix to accelerate the calculation of the relevance criteria in evaluating the quality of the candidate features. Extensive experiments on eight publicly available microarray datasets were first conducted to demonstrate the effectiveness of the wrapper methods with KNN for selecting informative features. To demonstrate the performance gain in terms of time cost reduction, we then conducted experiments on the eight microarray datasets with the embedded KNN classifiers and analyzed the theoretical time/space complexity. Both the experimental results and theoretical analysis demonstrated that the proposed approach markedly accelerates the wrapper-based feature selection process without degrading the high classification accuracy, and the space complexity analysis indicated that the additional space overhead is affordable in practice.%
+    }
+    \verb{doi}
+    \verb https://doi.org/10.1016/j.knosys.2015.03.009
+    \endverb
+    \field{issn}{0950-7051}
+    \field{pages}{81\bibrangedash 91}
+    \field{title}{Accelerating wrapper-based feature selection with K-nearest-neighbor}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S0950705115001033
+    \endverb
+    \field{volume}{83}
+    \field{journaltitle}{Knowledge-Based Systems}
+    \field{year}{2015}
+  \endentry
+
+  \entry{featureSelectionWithApplications}{inproceedings}{}{}
+    \name{author}{3}{}{%
+      {{hash=JA}{%
+         family={Jović},
+         familyi={J\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=BK}{%
+         family={Brkić},
+         familyi={B\bibinitperiod},
+         given={K.},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=BN}{%
+         family={Bogunović},
+         familyi={B\bibinitperiod},
+         given={N.},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{JABKBN1}
+    \strng{fullhash}{JABKBN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2015 38th International Convention on Information and Communication Technology, Electronics and Microelectronics (MIPRO)}
+    \verb{doi}
+    \verb 10.1109/MIPRO.2015.7160458
+    \endverb
+    \field{pages}{1200\bibrangedash 1205}
+    \field{title}{A review of feature selection methods with applications}
+    \field{year}{2015}
+  \endentry
+
+  \entry{comprehensiveReviewFeatureExtraction}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=ZR}{%
+         family={Zebari},
+         familyi={Z\bibinitperiod},
+         given={Rizgar},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=AA}{%
+         family={Abdulazeez},
+         familyi={A\bibinitperiod},
+         given={Adnan},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=ZD}{%
+         family={Zeebaree},
+         familyi={Z\bibinitperiod},
+         given={Diyar},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=ZD}{%
+         family={Zebari},
+         familyi={Z\bibinitperiod},
+         given={Dilovan},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Saeed},
+         familyi={S\bibinitperiod},
+         given={Jwan},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ZR+1}
+    \strng{fullhash}{ZRAAZDZDSJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{2}
+    \field{pages}{56\bibrangedash 70}
+    \field{title}{A comprehensive review of dimensionality reduction techniques for feature selection and feature extraction}
+    \field{volume}{1}
+    \field{journaltitle}{Journal of Applied Science and Technology Trends}
+    \field{year}{2020}
+  \endentry
+
+  \entry{featureExtraction_PCA_LSI}{inproceedings}{}{}
+    \name{author}{2}{}{%
+      {{hash=SFP}{%
+         family={Shah},
+         familyi={S\bibinitperiod},
+         given={Foram\bibnamedelima P.},
+         giveni={F\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=PV}{%
+         family={Patel},
+         familyi={P\bibinitperiod},
+         given={Vibha},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SFPPV1}
+    \strng{fullhash}{SFPPV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2016 International Conference on Wireless Communications, Signal Processing and Networking (WiSPNET)}
+    \verb{doi}
+    \verb 10.1109/WiSPNET.2016.7566545
+    \endverb
+    \field{pages}{2264\bibrangedash 2268}
+    \field{title}{A review on feature selection and feature extraction for text classification}
+    \field{year}{2016}
+  \endentry
+
+  \entry{ibm_Chess_ML}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=I}{%
+         family={IBM},
+         familyi={I\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {www.ibm.com}%
+    }
+    \strng{namehash}{I1}
+    \strng{fullhash}{I1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{What is machine learning?}
+    \verb{url}
+    \verb https://www.ibm.com/topics/machine-learning
+    \endverb
+  \endentry
+
+  \entry{AI_ML_DL}{inproceedings}{}{}
+    \name{author}{1}{}{%
+      {{hash=OP}{%
+         family={Ongsulee},
+         familyi={O\bibinitperiod},
+         given={Pariwat},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{OP1}
+    \strng{fullhash}{OP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2017 15th International Conference on ICT and Knowledge Engineering (ICT\&KE)}
+    \verb{doi}
+    \verb 10.1109/ICTKE.2017.8259629
+    \endverb
+    \field{pages}{1\bibrangedash 6}
+    \field{title}{Artificial intelligence, machine learning and deep learning}
+    \field{year}{2017}
+  \endentry
+
+  \entry{knn}{inproceedings}{}{}
+    \name{author}{4}{}{%
+      {{hash=TK}{%
+         family={Taunk},
+         familyi={T\bibinitperiod},
+         given={Kashvi},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=DS}{%
+         family={De},
+         familyi={D\bibinitperiod},
+         given={Sanjukta},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=VS}{%
+         family={Verma},
+         familyi={V\bibinitperiod},
+         given={Srishti},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SA}{%
+         family={Swetapadma},
+         familyi={S\bibinitperiod},
+         given={Aleena},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{TK+1}
+    \strng{fullhash}{TKDSVSSA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2019 International Conference on Intelligent Computing and Control Systems (ICCS)}
+    \verb{doi}
+    \verb 10.1109/ICCS45141.2019.9065747
+    \endverb
+    \field{pages}{1255\bibrangedash 1260}
+    \field{title}{A Brief Review of Nearest Neighbor Algorithm for Learning and Classification}
+    \field{year}{2019}
+  \endentry
+
+  \entry{naivebayes}{inproceedings}{}{}
+    \name{author}{4}{}{%
+      {{hash=KS}{%
+         family={K},
+         familyi={K},
+         given={Sibhi},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=STI}{%
+         family={S},
+         familyi={S},
+         given={Thanvir\bibnamedelima Ibrahim},
+         giveni={T\bibinitperiod\bibinitdelim I\bibinitperiod},
+      }}%
+      {{hash=MA}{%
+         family={Malik},
+         familyi={M\bibinitperiod},
+         given={Akil},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=RPJI}{%
+         family={R},
+         familyi={R},
+         given={Praveen Joe\bibnamedelima I},
+         giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim I\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KS+1}
+    \strng{fullhash}{KSSTIMARPJI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2022 Third International Conference on Intelligent Computing Instrumentation and Control Technologies (ICICICT)}
+    \verb{doi}
+    \verb 10.1109/ICICICT54557.2022.9917745
+    \endverb
+    \field{pages}{695\bibrangedash 699}
+    \field{title}{Career Prediction Using Naive Bayes}
+    \field{year}{2022}
+  \endentry
+
+  \entry{svm}{inproceedings}{}{}
+    \name{author}{3}{}{%
+      {{hash=BAC}{%
+         family={Braun},
+         familyi={B\bibinitperiod},
+         given={Andreas\bibnamedelima Ch.},
+         giveni={A\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+      {{hash=WU}{%
+         family={Weidner},
+         familyi={W\bibinitperiod},
+         given={Uwe},
+         giveni={U\bibinitperiod},
+      }}%
+      {{hash=HS}{%
+         family={Hinz},
+         familyi={H\bibinitperiod},
+         given={Stefan},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BACWUHS1}
+    \strng{fullhash}{BACWUHS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2011 3rd Workshop on Hyperspectral Image and Signal Processing: Evolution in Remote Sensing (WHISPERS)}
+    \verb{doi}
+    \verb 10.1109/WHISPERS.2011.6080861
+    \endverb
+    \field{pages}{1\bibrangedash 4}
+    \field{title}{Support vector machines, import vector machines and relevance vector machines for hyperspectral classification — A comparison}
+    \field{year}{2011}
+  \endentry
+
+  \entry{svm2}{inproceedings}{}{}
+    \name{author}{3}{}{%
+      {{hash=YY}{%
+         family={Yang},
+         familyi={Y\bibinitperiod},
+         given={Yujun},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=LJ}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Jianping},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=YY}{%
+         family={Yang},
+         familyi={Y\bibinitperiod},
+         given={Yimei},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{YYLJYY1}
+    \strng{fullhash}{YYLJYY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2015 12th International Computer Conference on Wavelet Active Media Technology and Information Processing (ICCWAMTIP)}
+    \verb{doi}
+    \verb 10.1109/ICCWAMTIP.2015.7493959
+    \endverb
+    \field{pages}{121\bibrangedash 124}
+    \field{title}{The research of the fast SVM classifier method}
+    \field{year}{2015}
+  \endentry
+
+  \entry{anns}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=CM}{%
+         family={Chen},
+         familyi={C\bibinitperiod},
+         given={Mingzhe},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=CU}{%
+         family={Challita},
+         familyi={C\bibinitperiod},
+         given={Ursula},
+         giveni={U\bibinitperiod},
+      }}%
+      {{hash=SW}{%
+         family={Saad},
+         familyi={S\bibinitperiod},
+         given={Walid},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=YC}{%
+         family={Yin},
+         familyi={Y\bibinitperiod},
+         given={Changchuan},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=DM}{%
+         family={Debbah},
+         familyi={D\bibinitperiod},
+         given={Mérouane},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CM+1}
+    \strng{fullhash}{CMCUSWYCDM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1109/COMST.2019.2926625
+    \endverb
+    \field{number}{4}
+    \field{pages}{3039\bibrangedash 3071}
+    \field{title}{Artificial Neural Networks-Based Machine Learning for Wireless Networks: A Tutorial}
+    \field{volume}{21}
+    \field{journaltitle}{IEEE Communications Surveys \& Tutorials}
+    \field{year}{2019}
+  \endentry
+
+  \entry{activationFunctions}{inproceedings}{}{}
+    \name{author}{3}{}{%
+      {{hash=DB}{%
+         family={Ding},
+         familyi={D\bibinitperiod},
+         given={Bin},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=QH}{%
+         family={Qian},
+         familyi={Q\bibinitperiod},
+         given={Huimin},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=ZJ}{%
+         family={Zhou},
+         familyi={Z\bibinitperiod},
+         given={Jun},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{DBQHZJ1}
+    \strng{fullhash}{DBQHZJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2018 Chinese Control And Decision Conference (CCDC)}
+    \verb{doi}
+    \verb 10.1109/CCDC.2018.8407425
+    \endverb
+    \field{pages}{1836\bibrangedash 1841}
+    \field{title}{Activation functions and their characteristics in deep neural networks}
+    \field{year}{2018}
+  \endentry
+
+  \entry{CNNs_intro}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=OK}{%
+         family={O'Shea},
+         familyi={O\bibinitperiod},
+         given={Keiron},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=NR}{%
+         family={Nash},
+         familyi={N\bibinitperiod},
+         given={Ryan},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{OKNR1}
+    \strng{fullhash}{OKNR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{An Introduction to Convolutional Neural Networks}
+    \field{journaltitle}{ArXiv e-prints}
+    \field{month}{11}
+    \field{year}{2015}
+  \endentry
+
+  \entry{cnnsGraphs}{misc}{}{}
+    \name{author}{6}{}{%
+      {{hash=WT}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={Tianqi},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=WCK}{%
+         family={Wen},
+         familyi={W\bibinitperiod},
+         given={Chao-Kai},
+         giveni={C\bibinithyphendelim K\bibinitperiod},
+      }}%
+      {{hash=WH}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={Hanqing},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=GF}{%
+         family={Gao},
+         familyi={G\bibinitperiod},
+         given={Feifei},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=JT}{%
+         family={Jiang},
+         familyi={J\bibinitperiod},
+         given={Tao},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=JS}{%
+         family={Jin},
+         familyi={J\bibinitperiod},
+         given={Shi},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {arXiv}%
+    }
+    \keyw{Information Theory (cs.IT), FOS: Computer and information sciences, FOS: Computer and information sciences}
+    \strng{namehash}{WT+1}
+    \strng{fullhash}{WTWCKWHGFJTJS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.48550/ARXIV.1710.05312
+    \endverb
+    \field{title}{Deep Learning for Wireless Physical Layer: Opportunities and Challenges}
+    \verb{url}
+    \verb https://arxiv.org/abs/1710.05312
+    \endverb
+    \field{year}{2017}
+  \endentry
+
+  \entry{RNNs_book}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=YZ}{%
+         family={Yi},
+         familyi={Y\bibinitperiod},
+         given={Zhang},
+         giveni={Z\bibinitperiod},
+      }}%
+      {{hash=TK}{%
+         family={Tan},
+         familyi={T\bibinitperiod},
+         given={K},
+         giveni={K},
+      }}%
+    }
+    \strng{namehash}{YZTK1}
+    \strng{fullhash}{YZTK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1007/978-1-4757-3819-3_1
+    \endverb
+    \field{title}{Convergence Analysis of Recurrent Neural Networks}
+    \field{volume}{13}
+    \field{month}{01}
+    \field{year}{2004}
+  \endentry
+
+  \entry{RNNs}{report}{}{}
+    \name{author}{3}{}{%
+      {{hash=ML}{%
+         family={Medsker},
+         familyi={M\bibinitperiod},
+         given={LR},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=JDL}{%
+         family={Jain},
+         familyi={J\bibinitperiod},
+         given={DC\bibnamedelima LC},
+         giveni={D\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+      {{hash=WBRLNY}{%
+         family={Washington},
+         familyi={W\bibinitperiod},
+         given={Boca Raton London New\bibnamedelima York},
+         giveni={B\bibinitperiod\bibinitdelim R\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim N\bibinitperiod\bibinitdelim Y\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MLJDLWBRLNY1}
+    \strng{fullhash}{MLJDLWBRLNY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{RECURRENT NEURAL NETWORKS E dited by Design and Applications}
+    \field{year}{2001}
+  \endentry
+
+  \entry{RNNs_tecnico}{report}{}{}
+    \name{author}{4}{}{%
+      {{hash=NRFL}{%
+         family={Neves},
+         familyi={N\bibinitperiod},
+         given={Rodrigo Filipe\bibnamedelima Leandro},
+         giveni={R\bibinitperiod\bibinitdelim F\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+      {{hash=dCSMFRRMG}{%
+         prefix={de},
+         prefixi={d\bibinitperiod},
+         family={Castro Silvio Miguel Fragoso\bibnamedelima Rodrigues},
+         familyi={C\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim F\bibinitperiod\bibinitdelim R\bibinitperiod},
+         given={Rui Manuel\bibnamedelima Gameiro},
+         giveni={R\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=SHCDCN}{%
+         family={Supervisor},
+         familyi={S\bibinitperiod},
+         given={Horácio Cláudio De Campos\bibnamedelima Neto},
+         giveni={H\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim N\bibinitperiod},
+      }}%
+      {{hash=dCRMG}{%
+         prefix={de},
+         prefixi={d\bibinitperiod},
+         family={Castro},
+         familyi={C\bibinitperiod},
+         given={Rui Manuel\bibnamedelima Gameiro},
+         giveni={R\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{NRFL+1}
+    \strng{fullhash}{NRFLCSMFRRMGdSHCDCNCRMGd1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{An Overview of Deep Learning Strategies for Time Series Prediction Electrical and Computer Engineering Examination Committee}
+    \field{year}{2018}
+  \endentry
+
+  \entry{RNNproblems1}{book}{}{}
+    \name{author}{3}{}{%
+      {{hash=GI}{%
+         family={Goodfellow},
+         familyi={G\bibinitperiod},
+         given={Ian},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=BY}{%
+         family={Bengio},
+         familyi={B\bibinitperiod},
+         given={Yoshua},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=CA}{%
+         family={Courville},
+         familyi={C\bibinitperiod},
+         given={Aaron},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {Google Books}%
+    }
+    \list{publisher}{1}{%
+      {MIT Press}%
+    }
+    \strng{namehash}{GIBYCA1}
+    \strng{fullhash}{GIBYCA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Deep Learning}
+    \verb{url}
+    \verb https://books.google.pt/books?id=omivDQAAQBAJ&lpg=PR5&ots=MNT2iopFQQ&
+    \verb dq=Deep\%20Learning\%20(Adaptive\%20Computation\%20and\%20Machine\%20
+    \verb Learning\%20series)&lr&hl=pt-PT&pg=PA191#v=onepage&q=Deep\%20Learning
+    \verb \%20(Adaptive\%20Computation\%20and\%20Machine\%20Learning\%20series)
+    \verb &f=false
+    \endverb
+    \field{month}{11}
+    \field{year}{2016}
+    \field{urlday}{27}
+    \field{urlmonth}{01}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{RNNproblems2}{report}{}{}
+    \name{author}{3}{}{%
+      {{hash=ML}{%
+         family={Medsker},
+         familyi={M\bibinitperiod},
+         given={LR},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=JDL}{%
+         family={Jain},
+         familyi={J\bibinitperiod},
+         given={DC\bibnamedelima LC},
+         giveni={D\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+      {{hash=WBRLNY}{%
+         family={Washington},
+         familyi={W\bibinitperiod},
+         given={Boca Raton London New\bibnamedelima York},
+         giveni={B\bibinitperiod\bibinitdelim R\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim N\bibinitperiod\bibinitdelim Y\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MLJDLWBRLNY1}
+    \strng{fullhash}{MLJDLWBRLNY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{RECURRENT NEURAL NETWORKS E dited by Design and Applications}
+    \field{year}{2001}
+  \endentry
+
+  \entry{GRUs_Cho2014}{article}{}{}
+    \name{author}{7}{}{%
+      {{hash=CK}{%
+         family={Cho},
+         familyi={C\bibinitperiod},
+         given={Kyunghyun},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=vMB}{%
+         prefix={van},
+         prefixi={v\bibinitperiod},
+         family={Merrienboer},
+         familyi={M\bibinitperiod},
+         given={Bart},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=GC}{%
+         family={Gulcehre},
+         familyi={G\bibinitperiod},
+         given={Caglar},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=BD}{%
+         family={Bahdanau},
+         familyi={B\bibinitperiod},
+         given={Dzmitry},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=BF}{%
+         family={Bougares},
+         familyi={B\bibinitperiod},
+         given={Fethi},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=SH}{%
+         family={Schwenk},
+         familyi={S\bibinitperiod},
+         given={Holger},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=BY}{%
+         family={Bengio},
+         familyi={B\bibinitperiod},
+         given={Yoshua},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CK+1}
+    \strng{fullhash}{CKMBvGCBDBFSHBY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation}
+    \verb{url}
+    \verb http://arxiv.org/abs/1406.1078
+    \endverb
+    \field{month}{06}
+    \field{year}{2014}
+  \endentry
+
+  \entry{GANS_ieee}{article}{}{}
+    \name{author}{6}{}{%
+      {{hash=CA}{%
+         family={Creswell},
+         familyi={C\bibinitperiod},
+         given={Antonia},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=WT}{%
+         family={White},
+         familyi={W\bibinitperiod},
+         given={Tom},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=DV}{%
+         family={Dumoulin},
+         familyi={D\bibinitperiod},
+         given={Vincent},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=AK}{%
+         family={Arulkumaran},
+         familyi={A\bibinitperiod},
+         given={Kai},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sengupta},
+         familyi={S\bibinitperiod},
+         given={Biswa},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=BAA}{%
+         family={Bharath},
+         familyi={B\bibinitperiod},
+         given={Anil\bibnamedelima A.},
+         giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CA+1}
+    \strng{fullhash}{CAWTDVAKSBBAA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1109/MSP.2017.2765202
+    \endverb
+    \field{number}{1}
+    \field{pages}{53\bibrangedash 65}
+    \field{title}{Generative Adversarial Networks: An Overview}
+    \field{volume}{35}
+    \field{journaltitle}{IEEE Signal Processing Magazine}
+    \field{year}{2018}
+  \endentry
+
+  \entry{GANSgoogle}{misc}{}{}
+    \list{organization}{1}{%
+      {Google Developers}%
+    }
+    \field{labeltitlesource}{title}
+    \field{title}{Overview of GAN Structure  |  Generative Adversarial Networks}
+    \verb{url}
+    \verb https://developers.google.com/machine-learning/gan/gan_structure
+    \endverb
+    \field{year}{2019}
+  \endentry
+
+  \entry{autoencoders}{article}{}{}
+    \name{author}{3}{}{%
+      {{hash=BD}{%
+         family={Bank},
+         familyi={B\bibinitperiod},
+         given={Dor},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=KN}{%
+         family={Koenigstein},
+         familyi={K\bibinitperiod},
+         given={Noam},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=GR}{%
+         family={Giryes},
+         familyi={G\bibinitperiod},
+         given={Raja},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BDKNGR1}
+    \strng{fullhash}{BDKNGR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Autoencoders}
+    \verb{url}
+    \verb http://arxiv.org/abs/2003.05991
+    \endverb
+    \field{month}{03}
+    \field{year}{2020}
+  \endentry
+
+  \entry{SOA_FMCWtempofeature}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=RSJ}{%
+         family={Ryu},
+         familyi={R\bibinitperiod},
+         given={Si\bibnamedelima Jung},
+         giveni={S\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=SJS}{%
+         family={Suh},
+         familyi={S\bibinitperiod},
+         given={Jun\bibnamedelima Seuk},
+         giveni={J\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=BSH}{%
+         family={Baek},
+         familyi={B\bibinitperiod},
+         given={Seung\bibnamedelima Hwan},
+         giveni={S\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=HS}{%
+         family={Hong},
+         familyi={H\bibinitperiod},
+         given={Songcheol},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=KJH}{%
+         family={Kim},
+         familyi={K\bibinitperiod},
+         given={Jong\bibnamedelima Hwan},
+         giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{2}{%
+      {Institute of Electrical}%
+      {Electronics Engineers Inc.}%
+    }
+    \keyw{FMCW radar,Gesture recognition,evolutionary algorithm,feature analysis,feature selection}
+    \strng{namehash}{RSJ+1}
+    \strng{fullhash}{RSJSJSBSHHSKJH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1109/JSEN.2018.2859815
+    \endverb
+    \field{issn}{1530437X}
+    \field{issue}{18}
+    \field{pages}{7593\bibrangedash 7602}
+    \field{title}{Feature-Based Hand Gesture Recognition Using an FMCW Radar and its Temporal Feature Analysis}
+    \field{volume}{18}
+    \field{journaltitle}{IEEE Sensors Journal}
+    \field{month}{09}
+    \field{year}{2018}
+  \endentry
+
+  \entry{SOA_microDoppler_fmcw}{inproceedings}{}{}
+    \name{author}{4}{}{%
+      {{hash=SY}{%
+         family={Sun},
+         familyi={S\bibinitperiod},
+         given={Yuliang},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=FT}{%
+         family={Fei},
+         familyi={F\bibinitperiod},
+         given={Tai},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=SF}{%
+         family={Schliep},
+         familyi={S\bibinitperiod},
+         given={Frank},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=PN}{%
+         family={Pohl},
+         familyi={P\bibinitperiod},
+         given={Nils},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{2}{%
+      {Institute of Electrical}%
+      {Electronics Engineers Inc.}%
+    }
+    \keyw{FMCW automotive radar,gesture recognition,handcrafted feature,supervised learning,μD signature}
+    \strng{namehash}{SY+1}
+    \strng{fullhash}{SYFTSFPN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1109/ICMIM.2018.8443507
+    \endverb
+    \field{isbn}{9781538617250}
+    \field{title}{Gesture Classification with Handcrafted Micro-Doppler Features using a FMCW Radar}
+    \field{journaltitle}{2018 IEEE MTT-S International Conference on Microwaves for Intelligent Mobility, ICMIM 2018}
+    \field{month}{08}
+    \field{year}{2018}
+  \endentry
+
+  \entry{SOA_datasetPortability}{inproceedings}{}{}
+    \name{author}{2}{}{%
+      {{hash=SSA}{%
+         family={Shah},
+         familyi={S\bibinitperiod},
+         given={Syed\bibnamedelima Aziz},
+         giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=FF}{%
+         family={Fioranelli},
+         familyi={F\bibinitperiod},
+         given={Francesco},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{2}{%
+      {Institute of Electrical}%
+      {Electronics Engineers Inc.}%
+    }
+    \keyw{Fall Detection,Machine Learning,Radar Technology,Transfer Learning}
+    \strng{namehash}{SSAFF1}
+    \strng{fullhash}{SSAFF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1109/RADAR41533.2019.171307
+    \endverb
+    \field{isbn}{9781728126609}
+    \field{title}{Human Activity Recognition: Preliminary Results for Dataset Portability using FMCW Radar}
+    \field{journaltitle}{2019 International Radar Conference, RADAR 2019}
+    \field{month}{09}
+    \field{year}{2019}
+  \endentry
+
+  \entry{SOA_phaseExtraction}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=HK}{%
+         family={Han},
+         familyi={H\bibinitperiod},
+         given={Kawon},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=HS}{%
+         family={Hong},
+         familyi={H\bibinitperiod},
+         given={Songcheol},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{2}{%
+      {Institute of Electrical}%
+      {Electronics Engineers Inc.}%
+    }
+    \keyw{Body motion,frequency-modulated continuous-wave (FMCW) radar,phase extraction,range migration,vital sign}
+    \strng{namehash}{HKHS1}
+    \strng{fullhash}{HKHS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1109/LMWC.2020.3010262
+    \endverb
+    \field{issn}{15581764}
+    \field{issue}{9}
+    \field{pages}{927\bibrangedash 930}
+    \field{title}{Phase-extraction method with multiple frequencies of FMCW radar for human body motion tracking}
+    \field{volume}{30}
+    \field{journaltitle}{IEEE Microwave and Wireless Components Letters}
+    \field{month}{09}
+    \field{year}{2020}
+  \endentry
+
+  \entry{Cruz2022}{inproceedings}{}{}
+    \name{author}{3}{}{%
+      {{hash=CR}{%
+         family={Cruz},
+         familyi={C\bibinitperiod},
+         given={Ricardo},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=FA}{%
+         family={Furtado},
+         familyi={F\bibinitperiod},
+         given={Antonio},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=OR}{%
+         family={Oliveira},
+         familyi={O\bibinitperiod},
+         given={Rodolfo},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{2}{%
+      {Institute of Electrical}%
+      {Electronics Engineers Inc.}%
+    }
+    \keyw{Context Awareness,Feature Engineering,Machine Learning,RF Active Sensing}
+    \strng{namehash}{CRFAOR1}
+    \strng{fullhash}{CRFAOR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{abstract}{%
+    Context awareness using Radio Frequency (RF) sensing systems has attracted increased attention due to its importance in future communication systems. In this work, we investigate the importance of multiple features in the classification of different RF human mobility scenarios. Considering a practical RF system operating in the 76-81 GHz band, we focus on different types of features computed from the RF time of flight. The importance of the features is then evaluated through its score computed with four methodologies: the Mutual Information (MI), the Analysis of Variance (ANOVA), the Recursive Feature Elimination (RFE), and the Feature Weighting algorithm (RelieF). The results indicate that the methodologies do not rank the multiple features coherently and some categories of features have lower importance. Moreover, when adopting a k-nearest Neighbor classifier the RFE methodology is shown to be advantageous as it achieves the highest accuracy with the smallest number of features.%
+    }
+    \verb{doi}
+    \verb 10.1109/VTC2022-Spring54318.2022.9860673
+    \endverb
+    \field{isbn}{9781665482431}
+    \field{issn}{15502252}
+    \field{title}{Assessment of Feature Selection for Context Awareness RF Sensing Systems}
+    \field{volume}{2022-June}
+    \field{journaltitle}{IEEE Vehicular Technology Conference}
+    \field{year}{2022}
+  \endentry
+\enddatalist
+\endinput
