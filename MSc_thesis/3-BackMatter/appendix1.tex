@@ -1,0 +1,77 @@
+%!TEX root = ../template.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% appendix1.tex
+%% NOVA thesis document file
+%%
+%% Chapter with example of appendix with a short dummy text
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{NT FILE appendix1.tex}%
+
+\chapter{4G Network Setup}
+\label{app:4G Network Setup}
+% In this section I will explain the necessary steps to set up a 4G network for testing purposes. This includes the hardware requirements, software configurations, and the testing procedures to ensure the network is functioning correctly.
+%
+% ||| MENTION SOMETHING LIKE THIS |||
+% Before developing the 5G network, a 4G network was set up to serve as a baseline for performance comparison. The 4G network setup involved the use of specific hardware components, including two machines, a Software Defined Radio (SDR), and antennas. The software stack for the 4G network was carefully selected to ensure optimal performance and compatibility with the hardware.
+% I want to mention how the 5G network was first developed as a starting point and preamble for the 5G network, to serve as a baseline that everything works as it should before moving on to the 5G network. The 4G network was known to work with all the chosen hardware and was well documented. 
+
+Before developing the 5G network testbed, a 4G network was first established to serve as a performance baseline and a proof-of-concept for all hardware and software components. The 4G network setup was essential for several reasons: 
+\begin{enumerate}
+    \item Validating that the chosen hardware and software stack functioned reliably
+    \item Establishing a known and well-documented reference point for network behavior
+    \item Identifying potential deployment hurdles before scaling to 5G complexity
+\end{enumerate} 
+
+This appendix documents the complete 4G testbed architecture, deployment procedures, and validation results. 
+
+The network stack consists of two dedicated machines running the backbone infrastructure: one running Open5GS for the \gls{EPC}, while the other runs srsRAN 4G for the \gls{RAN}. Readers can use this section as a guide for replicating the network, and as a foundation for understanding the experimental setup that enabled the 5G network development described in the main thesis.
+
+This section will provide a comprehensive guide on how the 4G network was established, including a description of the equipment used for the setup and the software chosen for the network stack, the necessary setup steps and specific configurations applied to optimize performance, and the testing methodologies employed to validate the network's functionality and performance.
+
+As an effort to make the network as reproducible as possible, the setup process will be detailed step-by-step, starting from the initial hardware assembly to the final testing phase. This will include instructions on how to connect the various components, configure the network settings, and troubleshoot common issues that may arise during the setup process.
+
+\section{System Architecture Overview}
+\label{sec:System_Architecture_Overview}
+
+The 4G testbed is a self-contained LTE system comprising three main functional domains:
+
+\begin{itemize}
+    \item \textbf{\gls{RAN}}: Handles air-interface communication using srsRAN \gls{eNB} software running on a dedicated machine, along with a Nuand BladeRF \gls{SDR} and appropriate antennas for signal transmission and reception
+    %for the core, also mention the routing of UE data to the internet
+    \item \textbf{\gls{EPC}}: Implements the core network functions using Open5GS software running on a separate machine, providing essential services such as authentication, mobility management, and data routing to the internet
+    \item \textbf{\gls{UE}}: Physical \gls{COTS} device configured to connect to the \gls{RAN} and access the services provided by the \gls{EPC}
+\end{itemize}
+
+Figure~\ref{fig:4g_architecture} presents the logical architecture.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{4G architecture.pdf}
+    \caption{Logical architecture of the 4G network, illustrating the interactions between the RAN, EPC, and UE components.}
+    \label{fig:4g_architecture}
+\end{figure}
+% hardware: describe the two machines, the SDR and antennas used for the 4G network setup, including their specifications and roles in the network.
+\section{Hardware Components}
+\label{sec:Hardware_Components}
+The hardware used for the 4G network setup is composed of two identical machines, a \glsxtrlong{SDR} and antennas.
+
+The computers running the 4G network are DELL Optiplex Micro 7020, with the following specifications:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Component} & \textbf{Machine 1} & \textbf{Machine 2} \\
+        \hline
+        CPU & Intel Core i7-14700T & Intel Core i7-14700T \\
+        \hline
+        RAM & 16 GB DDR5 & 16 GB DDR5 \\
+        \hline
+        Operating System & Ubuntu 22.04 LTS & Ubuntu 22.04 LTS \\
+        \hline
+        Storage & 512 GB SSD & 512 GB SSD \\
+        \hline
+    \end{tabular}
+    \caption{Specifications of the machines used for the 4G network setup.}
+\end{table}
+
+Data flows between the machines via a dedicated Ethernet backhaul network. The RAN on Machine 2 establishes a connection to the EPC on Machine 1 using SCTP (Stream Control Transmission Protocol). When a UE initiates a connection, the RAN forwards authentication requests to the core, which validates the subscriber and allocates IP resources. All user data packets then traverse through the core network functions before reaching their destination.

@@ -1,0 +1,27 @@
+ID,Task,Phase,Status,Notes
+1,List all modules in your exact setup (RAN Core UE Management),Pre-Writing,Not Started,Identify all components in actual deployment
+2,Gather network function list (from Open5GS or equivalent core),Pre-Writing,Not Started,AMF SMF UPF PGW etc
+3,Locate test results file,Pre-Writing,Not Started,Gatherer for Phase 3
+4,Locate CPU governor script file,Pre-Writing,Not Started,For Phase 2 section
+5,List all hurdles/blockers encountered (network config sync issues dependencies),Pre-Writing,Not Started,Document blockers for Phase 2
+6,Write intro paragraph (scope purpose software stack name),Phase 1: Architecture,Not Started,System overview introduction
+7,Create main architecture diagram (or adapt from existing drawio),Phase 1: Architecture,Not Started,Primary figure showing all modules and connections
+8,Write 2–3 sentence description of each module,Phase 1: Architecture,Not Started,What each does and what software runs on it
+9,Write module interaction section (how data flows between components),Phase 1: Architecture,Not Started,RAN-to-Core Core-to-UE Management flows
+10,Add supplementary diagram(s) if needed (protocol stack physical layout),Phase 1: Architecture,Not Started,Protocol stack and/or physical topology figures
+11,Verify/expand Hardware Components section,Phase 2: Implementation,Not Started,Already has basic table - expand details
+12,Write Physical Connectivity subsection (ethernet specs ports Hurdle #1),Phase 2: Implementation,Not Started,How machines connect physical cable requirements
+13,Document network interface setup (IPs naming Hurdle #2),Phase 2: Implementation,Not Started,NIC naming static IPs firewall rules with command examples
+14,List software stack per machine,Phase 2: Implementation,Not Started,Machine 1 (Core functions) Machine 2 (RAN/UE)
+15,Note any deployment hurdles (Hurdle #3 build issues sync dependencies),Phase 2: Implementation,Not Started,Version constraints compatibility notes
+16,Write Network Functions section (list functions roles key configs),Phase 2: Implementation,Not Started,Describe AMF SMF UPF PGW interactions and configuration
+17,Integrate CPU Governor script with explanation section,Phase 2: Implementation,Not Started,Why it matters for testbed + script snippet showing settings
+18,Write Testing Methodology section (what how tools),Phase 3: Validation,Not Started,What tested how measured tools duration runs
+19,Insert test results (tables/graphs),Phase 3: Validation,Not Started,Throughput latency reliability handover success rate
+20,Interpret results briefly,Phase 3: Validation,Not Started,What metrics tell about 4G baseline
+21,Write concluding bridge: why 4G baseline matters for 5G,Phase 3: Validation,Not Started,Connect to 5G development work
+22,Cross-check all figure references and captions,Final Polish,Not Started,Verify all diagrams are referenced correctly
+23,Verify acronyms are defined (or use \gls{} macros),Final Polish,Not Started,Ensure all acronyms use glossary entries
+24,Spell-check and consistency check (consistent terminology),Final Polish,Not Started,Uniform language across all sections
+25,Ensure citations/references to tools are accurate,Final Polish,Not Started,Open5GS srsLTE UERANSIM etc
+26,Proofread for LaTeX compile errors,Final Polish,Not Started,Final compilation check

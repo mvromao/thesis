@@ -1,0 +1,47 @@
+%!TEX root = ../template.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% chapter4.tex
+%% NOVA thesis document file
+%%
+%% Chapter with lots of dummy text
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{NT FILE chapter4.tex}%
+
+\chapter{Workplan}
+\label{cha:workplan}
+The workplan of this thesis project is structured into phases as follows.
+\section{Tasks}
+\label{sec:tasks}
+\begin{enumerate}
+    \item \textbf{Literature Review/State-of-the-Art Survey} ~\\
+    This task consistws of studying key chapters of reference books to understand the current trends, methodologies and challenges in 5G networks, both RAN and Core, as well as reviewing existing research papers and articles on 5G network deployments and performance evaluation techniques.
+    \item \textbf{Deployment of 5G RAN}~\\
+    This task involves deploying the 5G \gls{RAN} using software-defined radio platforms and open-source tools, such as srsLTE and the Nuand bladeRF xA4 \gls{SDR}. The \gls{RAN} will be configured and tested to ensure correct operation and connectivity with the 5G Core network.
+    \item \textbf{Deployment of 5G Core Network}~\\
+    Using the open-source platform Open5gs, a 5G Core will be deployed, integrating it with the previously deployed \gls{RAN} and verifying end-to-end connectivity. Essential network functions, such as \gls{AMF}, \gls{SMF}, \gls{UPF} and \gls{PCF}, will be configured and validated.
+    \item \textbf{Performance Evaluation}~\\
+    This phase focuses on evaluating the performance of the deployed 5G network. \glspl{KPI} such as throughput, latency, reliability and handover performance will be measured using appropriate testing tools and methodologies. The results will be analyzed to assess the network's performance under various conditions, as well as to identify potential bottlenecks and validate the network setup against expected standards and theoretical performance.
+    \item \textbf{Analysis and Reporting}~\\
+    In this final task, all findings, design choices, deployment procedures and performance evaluation results will be documented in the \glsxtrshort{MSc} thesis draft. 
+\end{enumerate}
+
+\section{Timeline}
+\label{sec:timeline}
+
+The workplan is structured over a period of nine months, with each task allocated a specific timeframe as follows:
+\begin{table}[!htbp]
+    \centering
+    \begin{tabular}{l|lllllllll|}
+        \cline{2-10}
+        & \multicolumn{9}{c|}{Month}                                                                                                                                                                                \\ \hline
+        \multicolumn{1}{|l|}{Task}                                          & \multicolumn{1}{l|}{1}                            & \multicolumn{1}{l|}{2}                        & \multicolumn{1}{l|}{3}                      & \multicolumn{1}{l|}{4}                      & \multicolumn{1}{l|}{5}                      & \multicolumn{1}{l|}{6}                      & \multicolumn{1}{l|}{7}                        & \multicolumn{1}{l|}{8}                      & 9 \\ \hline
+        \multicolumn{1}{|l|}{Literature Review/State-of-the-Art Survey}     & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}        & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}    & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}  & \multicolumn{1}{l|}{}                       & \multicolumn{1}{l|}{}                       & \multicolumn{1}{l|}{}                       & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                       &   \\ \hline
+        \multicolumn{1}{|l|}{Deployment of 5G RAN}                          & \multicolumn{1}{l|}{}                             & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}  & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}  & \multicolumn{1}{l|}{}                       & \multicolumn{1}{l|}{}                       & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                       &   \\ \hline
+        \multicolumn{1}{|l|}{Deployment of 5G Core Network}                 & \multicolumn{1}{l|}{}                             & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                       & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}  & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}  & \multicolumn{1}{l|}{}                       & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                       &   \\ \hline
+        \multicolumn{1}{|l|}{Performance Evaluation}                        & \multicolumn{1}{l|}{}                             & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                       & \multicolumn{1}{l|}{}                       & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}  & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}  & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}    & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}  & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}  \\ \hline
+        \multicolumn{1}{|l|}{Analysis and Reporting}                        & \multicolumn{1}{l|}{}                             & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                       & \multicolumn{1}{l|}{}                       & \multicolumn{1}{l|}{}                       & \multicolumn{1}{l|}{}                       & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}    & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}  & \multicolumn{1}{l|}{\cellcolor{blue!25}{}}  \\ \hline
+    \end{tabular}
+    \caption{Workplan Timeline}
+    \label{tab:workplan}
+\end{table}
