@@ -73,5 +73,97 @@ The computers running the 4G network are DELL Optiplex Micro 7020, with the foll
     \end{tabular}
     \caption{Specifications of the machines used for the 4G network setup.}
 \end{table}
-
+% TODO check text below
 Data flows between the machines via a dedicated Ethernet backhaul network. The RAN on Machine 2 establishes a connection to the EPC on Machine 1 using SCTP (Stream Control Transmission Protocol). When a UE initiates a connection, the RAN forwards authentication requests to the core, which validates the subscriber and allocates IP resources. All user data packets then traverse through the core network functions before reaching their destination.
+
+The radio interface of the 4G network is implemented using a Nuand BladeRF xA4 \gls{SDR}. This device connects the Machine 2 to provide the necessary radio capabilities for the \gls{RAN}.  In practical terms, the host machine executes the signal processing and network stack components, whereas the BladeRF xA4 manages the actual radio I/O. This separation of responsibilities improves flexibility, simplifies experimentation, and makes the overall testbed easier to adapt to different deployment scenarios.
+
+Below, in Figure~\ref{fig:network_photo}, shows the physical setup of the 4G network, including the two machines, the SDR, and the antennas. The photograph illustrates how the components are arranged in the lab environment, providing a visual reference for replicating the setup. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{example-image-a}
+\caption{\centering\small Photograph of the 4G network setup, showing the two machines, the Nuand BladeRF xA4 SDR, and the antennas used for the radio interface.}
+\label{fig:network_photo}
+\end{figure}
+
+
+\section{Software Components}
+\label{sec:Software_Components}
+%table with software components, versions
+
+\section{Software Setup}
+\label{sec:Software_Setup}
+
+\subsection{Open5GS}
+\label{sec:Open5GS}
+This section provides a step-by-step guide for installing and configuring Open5GS. The installation process comprises of the following steps:
+\begin{enumerate}
+    \item Installing MongoDB.
+    \item Adding the Open5GS repository and installing Open5GS packages.
+    \item Installing the WebUI for Open5GS.
+    \item Configuring Open5GS components (MME, HSS, SGW, PGW) according to the network requirements.
+\end{enumerate}
+The necessary steps and more information about the project and installation steps can be found in the official Open5GS documentation~\cite{open5gs_docs}. Unless otherwise specified, all steps should be executed on the machine designated to run the \gls{EPC} (Machine 1 in our setup).
+\subsubsection{Installing MongoDB}
+\label{sec:Installing_MongoDB}
+Open5GS depends on MongoDB as its database backend, where it stores subscriber information, network configurations, and operational data. Therefore, the first step in setting up Open5GS is to install MongoDB:
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+sudo apt update
+sudo apt install gnupg curl -y
+curl -fsSL https://pgp.mongodb.com/server-8.0.asc | \
+  sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
+
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/\
+    mongodb-server-8.0.gpg ] https://repo.mongodb.com/apt/ubuntu \
+    jammy/mongodb-enterprise/8.2 multiverse" | sudo tee \
+    /etc/apt/sources.list.d/mongodb-enterprise-8.2.list
+
+sudo apt update
+sudo apt-get install -y mongodb-org
+\end{verbatim}
+\end{tcolorbox}
+After executing the above commands, MongoDB will be installed on the machine. You can verify the installation by checking the MongoDB service status:
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+sudo systemctl status mongod
+\end{verbatim}
+\end{tcolorbox}
+In which the output should indicate that the MongoDB service is active and running:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{4G_MongoDB_response.png}
+    \caption{\small \centering Output of the command to check MongoDB service status, showing that the service is active and running.}
+    \label{fig:mongodb_status}
+\end{figure}
+To ensure MongoDB starts automatically on system boot, you can enable the service with the following command:
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+sudo systemctl enable mongod
+\end{verbatim}
+\end{tcolorbox}
+For more detailed instructions and troubleshooting guidance, refer to the official MongoDB installation documentation~\cite{mongodb_installation}.
+
+\subsubsection{Adding Open5GS Repository and Installing Open5GS Packages}
+\label{sec:Adding_Open5GS_Repository_and_Installing_Open5GS_Packages}
+After installing MongoDB, the next step is to add the Open5GS repository to the system and install the necessary Open5GS packages. This can be done by executing the following commands:
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+sudo add-apt-repository ppa:open5gs/latest
+sudo apt update
+sudo apt install open5gs
+\end{verbatim}
+\end{tcolorbox}
+This will install the Open5GS packages, including the core network functions such as MME, HSS, SGW, and PGW. After the installation is complete, you can verify that the Open5GS services are running correctly by checking their status:
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+sudo systemctl status open5gs-*
+\end{verbatim}
+\end{tcolorbox}
+
+\subsubsection{Installing WebUI for Open5GS}
+\label{sec:Installing_WebUI_for_Open5GS}
+
+\subsubsection{Configuring Open5GS Components}
+\label{sec:Configuring_Open5GS_Components}
