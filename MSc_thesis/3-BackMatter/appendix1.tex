@@ -82,8 +82,8 @@ Below, in Figure~\ref{fig:network_photo}, shows the physical setup of the 4G net
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{example-image-a}
-\caption{\centering\small Photograph of the 4G network setup, showing the two machines, the Nuand BladeRF xA4 SDR, and the antennas used for the radio interface.}
+\includegraphics[width=\textwidth]{IMG_9772.png}
+\caption{\centering\small Photograph of the 4G network setup, showing the two machines, connected by an ethernet cable, the Nuand BladeRF xA4 SDR, and the antennas used for the radio interface.}
 \label{fig:network_photo}
 \end{figure}
 
@@ -164,6 +164,40 @@ sudo systemctl status open5gs-*
 
 \subsubsection{Installing WebUI for Open5GS}
 \label{sec:Installing_WebUI_for_Open5GS}
+Open5GS provides a WebUI for easier management of subscriber information, network configurations, and monitoring. The interface depends on Node.js, which needs to be installed first (on most Ubuntu builds, Node.js comes already pre-installed). 
+To install Node.js, you can use the following commands:
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+sudo apt update
+sudo apt install -y ca-certificates curl gnupg
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key |
+sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+
+NODE_MAJOR=20
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg]
+https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" |
+sudo tee /etc/apt/sources.list.d/nodesource.list
+
+sudo apt update
+sudo apt install nodejs -y
+\end{verbatim}
+\end{tcolorbox}
+After installing Node.js, you can proceed to install the Open5GS WebUI by running the following command:
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+curl -fsSL https://open5gs.org/open5gs/assets/webui/install | 
+sudo -E bash -
+\end{verbatim}
+\end{tcolorbox}
+You can access the WebUI by navigating to `http://localhost:9999` in your web browser. The default login credentials are:
+\begin{itemize}
+    \item Username: admin
+    \item Password: 1423
+\end{itemize}
 
 \subsubsection{Configuring Open5GS Components}
 \label{sec:Configuring_Open5GS_Components}
+To get the 4G network running, the Open5GS components need to be configured according to the network requirements. 
+
+% Mention the IPs to attach and to connect to the RAN 
