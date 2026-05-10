@@ -39,7 +39,7 @@ The 4G testbed is a self-contained LTE system comprising three main functional d
 \begin{itemize}
     \item \textbf{\gls{RAN}}: Handles air-interface communication using srsRAN \gls{eNB} software running on a dedicated machine, along with a Nuand BladeRF \gls{SDR} and appropriate antennas for signal transmission and reception
     %for the core, also mention the routing of UE data to the internet
-    \item \textbf{\gls{EPC}}: Implements the core network functions using Open5GS software running on a separate machine, providing essential services such as authentication, mobility management, and data routing to the internet
+    \item \textbf{\gls{EPC}}: Implements the core network functions using Open5GS software running on a separate machine, providing essential services such as authentication, user management, and data routing to the internet
     \item \textbf{\gls{UE}}: Physical \gls{COTS} device configured to connect to the \gls{RAN} and access the services provided by the \gls{EPC}
 \end{itemize}
 
@@ -74,9 +74,9 @@ The computers running the 4G network are DELL Optiplex Micro 7020, with the foll
     \caption{Specifications of the machines used for the 4G network setup.}
 \end{table}
 % TODO check text below
-Data flows between the machines via a dedicated Ethernet backhaul network. The RAN on Machine 2 establishes a connection to the EPC on Machine 1 using SCTP (Stream Control Transmission Protocol). When a UE initiates a connection, the RAN forwards authentication requests to the core, which validates the subscriber and allocates IP resources. All user data packets then traverse through the core network functions before reaching their destination.
+Data flows between the machines via a dedicated Ethernet backhaul network. The RAN on Machine 2 establishes a connection to the EPC on Machine 1 using \gls{SCTP}. When a UE initiates a connection, the RAN forwards authentication requests to the core, which validates the subscriber and allocates IP resources. All user data packets then traverse through the core network functions before reaching their destination.
 
-The radio interface of the 4G network is implemented using a Nuand BladeRF xA4 \gls{SDR}. This device connects the Machine 2 to provide the necessary radio capabilities for the \gls{RAN}.  In practical terms, the host machine executes the signal processing and network stack components, whereas the BladeRF xA4 manages the actual radio I/O. This separation of responsibilities improves flexibility, simplifies experimentation, and makes the overall testbed easier to adapt to different deployment scenarios.
+The radio interface of the 4G network is implemented using a Nuand BladeRF xA4 \gls{SDR}. This device connects the Machine 2 to provide the necessary radio capabilities for the \gls{RAN}.  In practical terms, the host machine executes the signal processing and network stack components, whereas the BladeRF xA4 manages the actual radio I/O. This separation of responsibilities improves flexibility, simplifies experimentation, and makes the overall testbed easier to implement andadapt to different deployment scenarios.
 
 Below, in Figure~\ref{fig:network_photo}, shows the physical setup of the 4G network, including the two machines, the SDR, and the antennas. The photograph illustrates how the components are arranged in the lab environment, providing a visual reference for replicating the setup. 
 
@@ -91,10 +91,70 @@ Below, in Figure~\ref{fig:network_photo}, shows the physical setup of the 4G net
 \section{Software Components}
 \label{sec:Software_Components}
 %table with software components, versions
+\section{Connection between the machines}
+\label{sec:Connection_between_the_machines}
+Before starting the setup, it is essential to first establish a connection between the two machines which will host the 4G network components. This connection is crucial as it enables the exchange of control and user data between the \gls{EPC} and the \gls{RAN}. The machines are connected via a ethernet cable, and the necessary network configurations are applied to ensure proper communication (\ref{fig:4g_connection}).
+\begin{figure} [H]
+\centering
+\includegraphics[width=0.8\textwidth]{4G connection.pdf}
+\caption{\centering\small Diagram illustrating the connection between the two machines in the 4G network setup.}
+\label{fig:4g_connection}
+\end{figure} 
+The steps to enable this connection are similar on both machines, differing only in the specific IP addresses assigned to each machine.
 
+Connect both machines with an Ethernet cable and check the available network interfaces using the following command:
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+ip a
+\end{verbatim}
+\end{tcolorbox}
+The output shows the available network interfaces, including the Ethernet interface (in this case enp0s31f6) (\ref{fig:ip_a_output}).
+\begin{figure}[H]
+    \centering
+    \rule{00.8\textwidth}{4cm}
+    %\includegraphics[width=\textwidth]{4G_ip_a_output.png}
+    \caption{\small \centering Output of the `ip a` command, showing the available network interfaces, including the Ethernet interface (enp0s31f6).}
+    \label{fig:ip_a_output}
+\end{figure}
+
+Enable the Ethernet interface (if disabled) and assign a static IP address to it.
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+sudo ip link set enp0s31f6 up
+sudo ip addr add 10.0.0.10/24 dev enp0s31f6
+\end{verbatim}
+\end{tcolorbox}
+{\centering \small Core: 10.0.0.10/24 \hspace{1cm} RAN: 10.0.0.20/24\\}
+
+To make the connection persistent across reboots, the network configuration needs to be added to the Netplan configuration file. This file may have a different name from the one in this example. Open the Netplan configuration file on \colorbox{gray!20}{\texttt{/etc/netplan/01-netcfg.yaml}} using a text editor and add the following configuration to assign a static IP address to the Ethernet interface:
+\begin{tcolorbox}[colback=gray!20, colframe=black,boxrule=1pt, arc=0pt]
+\begin{verbatim}
+    %TODO
+\end{verbatim}
+\end{tcolorbox}
+After saving the changes, apply the new network configuration using the following command:
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+sudo netplan apply
+\end{verbatim}
+\end{tcolorbox}
+Finally, verify that the machines can communicate with each other by pinging the assigned IP addresses. From Machine 1:
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+ping 10.0.0.20
+\end{verbatim}
+\end{tcolorbox}
+The output should show successful ping responses, indicating that the machines are connected and can communicate with each other (\ref{fig:ping_output}).
+\begin{figure}[H]
+    \centering
+    \rule{0.8\textwidth}{4cm}
+    %\includegraphics[width=\textwidth]{4G_ping_output.png}
+    \caption{\small \centering Output of the ping command, showing successful responses between the two machines, indicating that they are connected and can communicate with each other.}
+    \label{fig:ping_output}
+\end{figure}
+Having established a successful connection between the two machines, the next step is to proceed with the installation and configuration of the software components necessary for the 4G network setup.
 \section{Software Setup}
 \label{sec:Software_Setup}
-
 \subsection{Open5GS}
 \label{sec:Open5GS}
 This section provides a step-by-step guide for installing and configuring Open5GS. The installation process comprises of the following steps:
@@ -198,6 +258,57 @@ You can access the WebUI by navigating to `http://localhost:9999` in your web br
 
 \subsubsection{Configuring Open5GS Components}
 \label{sec:Configuring_Open5GS_Components}
-To get the 4G network running, the Open5GS components need to be configured according to the network requirements. 
+After installing Open5GS and the WebUI, the next step is to configure the core network components (MME, HSS, SGW, PGW) according to the network requirements and adhering to the legal regulations. In Open5GS, the configuration files for these components are located in the \colorbox{gray!20}{\texttt{/etc/open5gs/}} directory, with each component having its own file.
 
-% Mention the IPs to attach and to connect to the RAN 
+First modify the MME configuration file, on \colorbox{gray!20}{\texttt{/etc/open5gs/mme.yaml}}, to set the PLMN ID, TAC and IP address to attach the MME. Unless issued one by the national state regulator, use the international test PLMN ID (001/01), which is the one used in this configuration.
+\begin{minted}{diff}
+--- a/configs/open5gs/mme.yaml.in
++++ b/configs/open5gs/mme.yaml.in
+@@ -10,7 +10,7 @@ mme:
+     freeDiameter: @sysconfdir@/freeDiameter/mme.conf
+     s1ap:
+       server:
+-        - address: 127.0.0.2
++        - address: 10.0.0.10
+     gtpc:
+       server:
+         - address: 127.0.0.2
+@@ -25,14 +25,14 @@ mme:
+           port: 9090
+     gummei:
+       plmn_id:
+-        mcc: 999
+-        mnc: 70
++        mcc: 001
++        mnc: 01
+       mme_gid: 2
+       mme_code: 1
+     tai:
+       plmn_id:
+-        mcc: 999
+-        mnc: 70
++        mcc: 001
++        mnc: 01
+       tac: 1
+     security:
+         integrity_order : [ EIA2, EIA1, EIA0 ]
+\end{minted}
+
+Modify the SGWU configuration file, on \colorbox{gray!20}{\texttt{/etc/open5gs/sgwu.yaml}}, to set the GTP-U IP address.
+\begin{minted}{diff}
+--- a/configs/open5gs/sgwu.yaml.in
++++ b/configs/open5gs/sgwu.yaml.in
+@@ -15,7 +15,7 @@ sgwu:
+ #          - address: 127.0.0.3
+     gtpu:
+       server:
+-        - address: 127.0.0.6
++        - address: 10.0.0.10
+\end{minted}
+After modifying the configuration files, restart the Open5GS daemons to apply the changes:
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+sudo systemctl restart open5gs-mmed
+sudo systemctl restart open5gs-sgwud
+\end{verbatim}
+\end{tcolorbox}
