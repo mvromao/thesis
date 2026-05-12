@@ -74,7 +74,7 @@ The computers running the 4G network are DELL Optiplex Micro 7020, with the foll
     \caption{Specifications of the machines used for the 4G network setup.}
 \end{table}
 % TODO check text below
-Data flows between the machines via a dedicated Ethernet backhaul network. The RAN on Machine 2 establishes a connection to the EPC on Machine 1 using \gls{SCTP}. When a UE initiates a connection, the RAN forwards authentication requests to the core, which validates the subscriber and allocates IP resources. All user data packets then traverse through the core network functions before reaching their destination.
+Data flows between the machines via a dedicated Ethernet backhaul network, composed of the two computers. The RAN on Machine 2 establishes a connection to the EPC on Machine 1 using \gls{SCTP}. 
 
 The radio interface of the 4G network is implemented using a Nuand BladeRF xA4 \gls{SDR}. This device connects the Machine 2 to provide the necessary radio capabilities for the \gls{RAN}.  In practical terms, the host machine executes the signal processing and network stack components, whereas the BladeRF xA4 manages the actual radio I/O. This separation of responsibilities improves flexibility, simplifies experimentation, and makes the overall testbed easier to implement andadapt to different deployment scenarios.
 
@@ -312,3 +312,20 @@ sudo systemctl restart open5gs-mmed
 sudo systemctl restart open5gs-sgwud
 \end{verbatim}
 \end{tcolorbox}
+
+\subsection{SDR Configuration}
+\label{sec:SDR_Configuration}
+\subsubsection{NuandBladeRF xA4 FPGA firmmware}
+\label{sec:Nuand_BladeRF_xA4_FPGA_firmware}
+
+\subsubsection{Nuand BladeRF xA4 drivers}
+\label{sec:Nuand_BladeRF_xA4_drivers}
+
+\subsubsection{SoapySDR}
+\label{sec:SoapySDR}
+
+\subsection{srsRAN 4G}
+\label{sec:srsRAN_4G}
+
+\section{Running the network}
+\label{sec:Running_the_network}
