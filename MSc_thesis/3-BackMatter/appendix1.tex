@@ -127,11 +127,17 @@ sudo ip addr add 10.0.0.10/24 dev enp0s31f6
 {\centering \small Core: 10.0.0.10/24 \hspace{1cm} RAN: 10.0.0.20/24\\}
 
 To make the connection persistent across reboots, the network configuration needs to be added to the Netplan configuration file. This file may have a different name from the one in this example. Open the Netplan configuration file on \colorbox{gray!20}{\texttt{/etc/netplan/01-netcfg.yaml}} using a text editor and add the following configuration to assign a static IP address to the Ethernet interface:
-\begin{tcolorbox}[colback=gray!20, colframe=black,boxrule=1pt, arc=0pt]
-\begin{verbatim}
-    %TODO
-\end{verbatim}
-\end{tcolorbox}
+\begin{minted}[bgcolor=gray!20,frame=single,framerule=0.8pt,rulecolor=\color{black}]{yaml}
+    # Let NetworkManager manage all devices on this system
+    network:
+      version: 2
+      renderer: NetworkManager
+      ethernets:
+        enp0s31f6:
+          dhcp4: false
+          addresses:
+            - 10.0.0.10/24
+\end{minted}
 After saving the changes, apply the new network configuration using the following command:
 \begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
 \begin{verbatim}
@@ -181,7 +187,7 @@ echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/\
     /etc/apt/sources.list.d/mongodb-enterprise-8.2.list
 
 sudo apt update
-sudo apt-get install -y mongodb-org
+sudo apt install -y mongodb-org
 \end{verbatim}
 \end{tcolorbox}
 After executing the above commands, MongoDB will be installed on the machine. You can verify the installation by checking the MongoDB service status:
@@ -312,14 +318,38 @@ sudo systemctl restart open5gs-mmed
 sudo systemctl restart open5gs-sgwud
 \end{verbatim}
 \end{tcolorbox}
+Having completed the configuration of the Core components, the next step is to proceed with the installation and configuration of the RAN components, which will be covered in the next section.
 
 \subsection{SDR Configuration}
 \label{sec:SDR_Configuration}
-\subsubsection{NuandBladeRF xA4 FPGA firmmware}
+Before proceeding with the installation of srsRAN 4G, it is necessary to first configure the Nuand BladeRF xA4 \gls{SDR} and install the necessary drivers to bridge the connection between the software and the hardware. This procedure consists of the following steps:
+\begin{enumerate}
+    \item Setting up the Nuand drivers and firmware for the BladeRF xA4.
+    \item Installing SoapySDR, which provides a common interface for SDR devices.
+\end{enumerate}
+\subsubsection{Setting up the Nuand drivers and firmware for the BladeRF xA4}
 \label{sec:Nuand_BladeRF_xA4_FPGA_firmware}
 
-\subsubsection{Nuand BladeRF xA4 drivers}
-\label{sec:Nuand_BladeRF_xA4_drivers}
+Nuand provides official Ubuntu package repositories (PPAs) that simplify the installation of the BladeRF software in Ubuntu systems. Through these repositories, users can quickly install both the required host tools and libraries using the standard package manager, and the necessary firmware for the FPGA, without needing to build everything manually from source. To enable the PPA:
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+sudo add-apt-repository ppa:nuandllc/bladerf
+sudo apt update
+\end{verbatim}
+\end{tcolorbox}
+After enabling the PPA, you can install the BladeRF software and firmware using the following command:
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+sudo apt install bladerf
+sudo apt install bladerf-fpga-hostedx40
+\end{verbatim}
+\end{tcolorbox}
+To bridge the connection between the BladeRF xA4 and the \gls{RAN}, SoapySDR will be used, which will be covered in the next section (\ref{sec:SoapySDR}). For this to work, the header files for the BladeRF drivers need to be installed:
+\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
+\begin{verbatim}
+sudo apt install libbladerf-dev
+\end{verbatim}
+\end{tcolorbox}
 
 \subsubsection{SoapySDR}
 \label{sec:SoapySDR}
