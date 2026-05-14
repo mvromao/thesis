@@ -46,11 +46,30 @@
 
 \usepackage{makecell}      % Multiline table cells and control vertical and horizontal alignment
 
+\usepackage{listings}
+
 \usepackage{tcolorbox}    % pretty print color boxes
+\tcbuselibrary{listings}
+
+\newtcblisting{code}{
+  colback=gray!20,
+  colframe=black,
+  boxrule=1pt,
+  boxsep=0pt,
+  arc=0pt,
+  listing only,            % Only shows the code, no output box
+  listing options={
+    breaklines=true,       % This enables the word wrap
+    breakatwhitespace=true, % Prevents breaking in the middle of words
+    basicstyle=\ttfamily\small,
+    columns=fullflexible,
+    extendedchars=true,
+    literate={ }{ }1
+  }
+}
 
 \usepackage[table]{xcolor}
 
-\usepackage{listings}
 \usepackage{xcolor}
 
 \lstset{
@@ -59,6 +78,8 @@
   breaklines=true,
   escapeinside={(*}{*)} % This defines the escape delimiters
 }
+
+
 % \usepackage{indentfirst}       % Indent first list after a (sub)section title
 
 % \usepackage{algorithm2e}

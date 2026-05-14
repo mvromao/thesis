@@ -103,11 +103,9 @@ Before starting the setup, it is essential to first establish a connection betwe
 The steps to enable this connection are similar on both machines, differing only in the specific IP addresses assigned to each machine.
 
 Connect both machines with an Ethernet cable and check the available network interfaces using the following command:
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+\begin{code}
 ip a
-\end{verbatim}
-\end{tcolorbox}
+\end{code}
 The output shows the available network interfaces, including the Ethernet interface (in this case enp0s31f6) (\ref{fig:ip_a_output}).
 \begin{figure}[H]
     \centering
@@ -118,12 +116,10 @@ The output shows the available network interfaces, including the Ethernet interf
 \end{figure}
 
 Enable the Ethernet interface (if disabled) and assign a static IP address to it.
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+\begin{code}
 sudo ip link set enp0s31f6 up
 sudo ip addr add 10.0.0.10/24 dev enp0s31f6
-\end{verbatim}
-\end{tcolorbox}
+\end{code}
 {\centering \small Core: 10.0.0.10/24 \hspace{1cm} RAN: 10.0.0.20/24\\}
 
 To make the connection persistent across reboots, the network configuration needs to be added to the Netplan configuration file. This file may have a different name from the one in this example. Open the Netplan configuration file on \colorbox{gray!20}{\texttt{/etc/netplan/01-netcfg.yaml}} using a text editor and add the following configuration to assign a static IP address to the Ethernet interface:
@@ -139,17 +135,13 @@ To make the connection persistent across reboots, the network configuration need
             - 10.0.0.10/24
 \end{minted}
 After saving the changes, apply the new network configuration using the following command:
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+\begin{code}
 sudo netplan apply
-\end{verbatim}
-\end{tcolorbox}
+\end{code}
 Finally, verify that the machines can communicate with each other by pinging the assigned IP addresses. From Machine 1:
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+\begin{code}
 ping 10.0.0.20
-\end{verbatim}
-\end{tcolorbox}
+\end{code}
 The output should show successful ping responses, indicating that the machines are connected and can communicate with each other (\ref{fig:ping_output}).
 \begin{figure}[H]
     \centering
@@ -174,28 +166,21 @@ The necessary steps and more information about the project and installation step
 \subsubsection{Installing MongoDB}
 \label{sec:Installing_MongoDB}
 Open5GS depends on MongoDB as its database backend, where it stores subscriber information, network configurations, and operational data. Therefore, the first step in setting up Open5GS is to install MongoDB:
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+\begin{code}
 sudo apt update
 sudo apt install gnupg curl -y
-curl -fsSL https://pgp.mongodb.com/server-8.0.asc | \
-  sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
+curl -fsSL https://pgp.mongodb.com/server-8.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
 
-echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/\
-    mongodb-server-8.0.gpg ] https://repo.mongodb.com/apt/ubuntu \
-    jammy/mongodb-enterprise/8.2 multiverse" | sudo tee \
-    /etc/apt/sources.list.d/mongodb-enterprise-8.2.list
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.com/apt/ubuntu jammy/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 
 sudo apt update
 sudo apt install -y mongodb-org
-\end{verbatim}
-\end{tcolorbox}
-After executing the above commands, MongoDB will be installed on the machine. You can verify the installation by checking the MongoDB service status:
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+\end{code}
+After executing the above commands, MongoDB will be installed on the machine. We can then start and verify the installation of the MongoDB daemon:
+\begin{code}
+sudo systemctl start mongod
 sudo systemctl status mongod
-\end{verbatim}
-\end{tcolorbox}
+\end{code}
 In which the output should indicate that the MongoDB service is active and running:
 \begin{figure}[H]
     \centering
@@ -203,37 +188,30 @@ In which the output should indicate that the MongoDB service is active and runni
     \caption{\small \centering Output of the command to check MongoDB service status, showing that the service is active and running.}
     \label{fig:mongodb_status}
 \end{figure}
-To ensure MongoDB starts automatically on system boot, you can enable the service with the following command:
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+To ensure MongoDB starts automatically on system boot, we can enable the service with the following command:
+\begin{code}
 sudo systemctl enable mongod
-\end{verbatim}
-\end{tcolorbox}
+\end{code}
 For more detailed instructions and troubleshooting guidance, refer to the official MongoDB installation documentation~\cite{mongodb_installation}.
 
 \subsubsection{Adding Open5GS Repository and Installing Open5GS Packages}
 \label{sec:Adding_Open5GS_Repository_and_Installing_Open5GS_Packages}
 After installing MongoDB, the next step is to add the Open5GS repository to the system and install the necessary Open5GS packages. This can be done by executing the following commands:
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+\begin{code}
 sudo add-apt-repository ppa:open5gs/latest
 sudo apt update
-sudo apt install open5gs
-\end{verbatim}
-\end{tcolorbox}
-This will install the Open5GS packages, including the core network functions such as MME, HSS, SGW, and PGW. After the installation is complete, you can verify that the Open5GS services are running correctly by checking their status:
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+sudo apt install open5gs -y
+\end{code}
+This will install the Open5GS packages, including the core network functions such as MME, HSS, SGW, and PGW. After the installation is complete, we can verify that the Open5GS services are running correctly by checking their status:
+\begin{code}
 sudo systemctl status open5gs-*
-\end{verbatim}
-\end{tcolorbox}
+\end{code}
 
 \subsubsection{Installing WebUI for Open5GS}
 \label{sec:Installing_WebUI_for_Open5GS}
 Open5GS provides a WebUI for easier management of subscriber information, network configurations, and monitoring. The interface depends on Node.js, which needs to be installed first (on most Ubuntu builds, Node.js comes already pre-installed). 
-To install Node.js, you can use the following commands:
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+To install Node.js, we can use the following commands:
+\begin{code}
 sudo apt update
 sudo apt install -y ca-certificates curl gnupg
 sudo mkdir -p /etc/apt/keyrings
@@ -241,22 +219,18 @@ curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key |
 sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 
 NODE_MAJOR=20
-echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg]
-https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" |
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" |
 sudo tee /etc/apt/sources.list.d/nodesource.list
 
 sudo apt update
 sudo apt install nodejs -y
-\end{verbatim}
-\end{tcolorbox}
-After installing Node.js, you can proceed to install the Open5GS WebUI by running the following command:
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+\end{code}
+After installing Node.js, we can proceed to install the Open5GS WebUI by running the following command:
+\begin{code}
 curl -fsSL https://open5gs.org/open5gs/assets/webui/install | 
 sudo -E bash -
-\end{verbatim}
-\end{tcolorbox}
-You can access the WebUI by navigating to `http://localhost:9999` in your web browser. The default login credentials are:
+\end{code}
+The WebUI can be accessed by navigating to `http://localhost:9999` in a web browser. The default login credentials are:
 \begin{itemize}
     \item Username: admin
     \item Password: 1423
@@ -312,12 +286,10 @@ Modify the SGWU configuration file, on \colorbox{gray!20}{\texttt{/etc/open5gs/s
 +        - address: 10.0.0.10
 \end{minted}
 After modifying the configuration files, restart the Open5GS daemons to apply the changes:
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+\begin{code}
 sudo systemctl restart open5gs-mmed
 sudo systemctl restart open5gs-sgwud
-\end{verbatim}
-\end{tcolorbox}
+\end{code}
 Having completed the configuration of the Core components, the next step is to proceed with the installation and configuration of the RAN components, which will be covered in the next section.
 
 \subsection{SDR Configuration}
@@ -331,31 +303,87 @@ Before proceeding with the installation of srsRAN 4G, it is necessary to first c
 \label{sec:Nuand_BladeRF_xA4_FPGA_firmware}
 
 Nuand provides official Ubuntu package repositories (PPAs) that simplify the installation of the BladeRF software in Ubuntu systems. Through these repositories, users can quickly install both the required host tools and libraries using the standard package manager, and the necessary firmware for the FPGA, without needing to build everything manually from source. To enable the PPA:
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+\begin{code}
 sudo add-apt-repository ppa:nuandllc/bladerf
 sudo apt update
-\end{verbatim}
-\end{tcolorbox}
-After enabling the PPA, you can install the BladeRF software and firmware using the following command:
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+\end{code}
+After enabling the PPA, we can install the BladeRF software and firmware using the following command:
+\begin{code}
 sudo apt install bladerf
 sudo apt install bladerf-fpga-hostedx40
-\end{verbatim}
-\end{tcolorbox}
+\end{code}
 To bridge the connection between the BladeRF xA4 and the \gls{RAN}, SoapySDR will be used, which will be covered in the next section (\ref{sec:SoapySDR}). For this to work, the header files for the BladeRF drivers need to be installed:
-\begin{tcolorbox}[colback=gray!20, colframe=black, boxrule=1pt, arc=0pt]
-\begin{verbatim}
+\begin{code}
 sudo apt install libbladerf-dev
-\end{verbatim}
-\end{tcolorbox}
-
+\end{code}
+With the BladeRF drivers installed, we can proceed into the installation of SoapySDR, which will allow us to use the BladeRF xA4 as the radio interface for the \gls{RAN}.
 \subsubsection{SoapySDR}
 \label{sec:SoapySDR}
+The SoapySDR component is comprised of two parts: the SoapySDR library, which is the main interface for all types of SDR devices, and the SoapyBladeRF plug-in, which provides specific support for the BladeRF xA4.
 
+First, we need to install the necessary dependencies:
+\begin{code}
+sudo apt install -y cmake g++ libpython3-dev python3-numpy swig
+\end{code}
+Afterwards, we can clone the SoapySDR repository and build the library:
+\begin{code}
+git clone https://github.com/pothosware/SoapySDR.git
+cd SoapySDR
+
+mkdir build
+cd build
+cmake ..
+make -j`nproc`
+sudo make install -j`nproc`
+sudo ldconfig 
+\end{code}
+To verify the installation of the SoapySDR library, we can run the following command:
+\begin{code}
+SoapySDRUtil --info
+\end{code}
+After installing SoapySDR, we can proceed to install the SoapyBladeRF plug-in, through their repository:
+\begin{code}
+git clone https://github.com/pothosware/SoapyBladeRF.git
+cd SoapyBladeRF
+
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+\end{code}  
+With both the SoapySDR library and the SoapyBladeRF plug-in installed, the BladeRF xA4 should now be recognized as an available SDR device, when running the following command:
+\begin{code}
+SoapySDRUtil --probe="driver=bladerf"
+\end{code}
+This command should output the details of the board, thus confirming that the BladeRF xA4 is properly configured and ready to be used as the radio interface for the \gls{RAN} in our 4G network setup. With the SDR configuration complete, we can now proceed to install and configure srsRAN 4G.
 \subsection{srsRAN 4G}
 \label{sec:srsRAN_4G}
+First, install the dependencies for srsRAN 4G:
+\begin{code}
+sudo apt-get install build-essential cmake libfftw3-dev libmbedtls-dev libboost-program-options-dev libconfig++-dev libsctp-dev
+\end{code}
+Then, clone the srsRAN repository and build the software:
+\begin{code}
+git clone https://github.com/srsRAN/srsRAN_4G.git
+cd srsRAN_4G
+mkdir build
+cd build
+cmake ../
+make
+make test
+\end{code}
+Proceed to install srsRAN 4G:
+\begin{code}
+sudo make install
+srsran_install_configs.sh user
+\end{code}
 
 \section{Running the network}
 \label{sec:Running_the_network}
+To ensure the best performance on the \gls{RAN} side, the srsRAN team provices a performance script to optimize the system for real-time processing. This script should be executed before running the \gls{RAN} components:
+\begin{code}
+\begin{code}
+# Download and execute the srsRAN performance tuning script
+curl -fsSL https://raw.githubusercontent.com/srsran/srsRAN_Project/main/scripts/srsran_performance | bash
+\end{code}
