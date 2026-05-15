@@ -17,11 +17,11 @@
 % I want to mention how the 5G network was first developed as a starting point and preamble for the 5G network, to serve as a baseline that everything works as it should before moving on to the 5G network. The 4G network was known to work with all the chosen hardware and was well documented. 
 
 Before developing the 5G network testbed, a 4G network was first established to serve as a performance baseline and a proof-of-concept for all hardware and software components. The 4G network setup was essential for several reasons: 
-\begin{enumerate}
-    \item Validating that the chosen hardware and software stack functioned reliably
+\begin{itemize}
+    \item Validating that the chosen hardware and software stack worked correclty
     \item Establishing a known and well-documented reference point for network behavior
     \item Identifying potential deployment hurdles before scaling to 5G complexity
-\end{enumerate} 
+\end{itemize} 
 
 This appendix documents the complete 4G testbed architecture, deployment procedures, and validation results. 
 
@@ -78,6 +78,21 @@ Data flows between the machines via a dedicated Ethernet backhaul network, compo
 
 The radio interface of the 4G network is implemented using a Nuand BladeRF xA4 \gls{SDR}. This device connects the Machine 2 to provide the necessary radio capabilities for the \gls{RAN}.  In practical terms, the host machine executes the signal processing and network stack components, whereas the BladeRF xA4 manages the actual radio I/O. This separation of responsibilities improves flexibility, simplifies experimentation, and makes the overall testbed easier to implement andadapt to different deployment scenarios.
 
+Attached to the xA4's SMA connectors are two \glspl{LNA}, along with two omnidirectional antennas.
+These \glspl{LNA} are used to amplify the TX/RX signals, improving the sensitivity of the \gls{RAN}, expanding its coverage area and allowing for better performance in terms of signal quality. 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{Brand} & \textbf{Type} & \textbf{Model} & \textbf{Transmission} \\
+        \hline
+        Nuand & \gls{LNA} & BT-100 & RX \\
+        \hline
+        Nuand & \gls{LNA} & BT-200 & TX \\
+        \hline
+    \end{tabular}
+    \caption{Hardware components used for the radio interface in the 4G network setup.}
+\end{table}  
 Below, in Figure~\ref{fig:network_photo}, shows the physical setup of the 4G network, including the two machines, the SDR, and the antennas. The photograph illustrates how the components are arranged in the lab environment, providing a visual reference for replicating the setup. 
 
 \begin{figure}[H]
@@ -91,6 +106,12 @@ Below, in Figure~\ref{fig:network_photo}, shows the physical setup of the 4G net
 \section{Software Components}
 \label{sec:Software_Components}
 %table with software components, versions
+The software stack of the network is composed mainly of three components:
+\begin{itemize}
+    \item Open5GS, for the core network functions, running on Machine 1.
+    \item srsRAN 4G, for the \gls{RAN}, running on Machine 2.
+    \item SoapySDR, bridging the connection between the BladeRF board and the srsRAN software, running on Machine 2.
+\end{itemize}
 \section{Connection between the machines}
 \label{sec:Connection_between_the_machines}
 Before starting the setup, it is essential to first establish a connection between the two machines which will host the 4G network components. This connection is crucial as it enables the exchange of control and user data between the \gls{EPC} and the \gls{RAN}. The machines are connected via a ethernet cable, and the necessary network configurations are applied to ensure proper communication (\ref{fig:4g_connection}).
@@ -382,7 +403,6 @@ srsran_install_configs.sh user
 \section{Running the network}
 \label{sec:Running_the_network}
 To ensure the best performance on the \gls{RAN} side, the srsRAN team provices a performance script to optimize the system for real-time processing. This script should be executed before running the \gls{RAN} components:
-\begin{code}
 \begin{code}
 # Download and execute the srsRAN performance tuning script
 curl -fsSL https://raw.githubusercontent.com/srsran/srsRAN_Project/main/scripts/srsran_performance | bash
