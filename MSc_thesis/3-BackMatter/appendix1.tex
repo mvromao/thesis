@@ -179,7 +179,7 @@ Having established a successful connection between the two machines, the next st
 This section provides a step-by-step guide for installing and configuring Open5GS. The installation process comprises of the following steps:
 \begin{enumerate}
     \item Installing MongoDB.
-    \item Adding the Open5GS repository and installing Open5GS packages.
+    \item Installing Open5GS.
     \item Installing the WebUI for Open5GS.
     \item Configuring Open5GS components (MME, HSS, SGW, PGW) according to the network requirements.
 \end{enumerate}
@@ -215,15 +215,15 @@ sudo systemctl enable mongod
 \end{code}
 For more detailed instructions and troubleshooting guidance, refer to the official MongoDB installation documentation~\cite{mongodb_installation}.
 
-\subsubsection{Adding Open5GS Repository and Installing Open5GS Packages}
-\label{sec:Adding_Open5GS_Repository_and_Installing_Open5GS_Packages}
-After installing MongoDB, the next step is to add the Open5GS repository to the system and install the necessary Open5GS packages. This can be done by executing the following commands:
+\subsubsection{Installing Open5GS}
+\label{sec:Installing_Open5GS}
+After installing MongoDB, the next step is to add the Open5GS repository to the system and install Open5GS. This can be done by executing the following commands:
 \begin{code}
 sudo add-apt-repository ppa:open5gs/latest
 sudo apt update
 sudo apt install open5gs -y
 \end{code}
-This will install the Open5GS packages, including the core network functions such as MME, HSS, SGW, and PGW. After the installation is complete, we can verify that the Open5GS services are running correctly by checking their status:
+This will install the Open5GS package. After the installation is complete, we can verify that the Open5GS services are running correctly by checking their status:
 \begin{code}
 sudo systemctl status open5gs-*
 \end{code}
@@ -306,7 +306,7 @@ Modify the SGWU configuration file, on \colorbox{gray!20}{\texttt{/etc/open5gs/s
 -        - address: 127.0.0.6
 +        - address: 10.0.0.10
 \end{minted}
-After modifying the configuration files, restart the Open5GS daemons to apply the changes:
+After modifying the configuration files, restart the Open5GS daemons to apply all changes:
 \begin{code}
 sudo systemctl restart open5gs-mmed
 sudo systemctl restart open5gs-sgwud
@@ -317,13 +317,13 @@ Having completed the configuration of the Core components, the next step is to p
 \label{sec:SDR_Configuration}
 Before proceeding with the installation of srsRAN 4G, it is necessary to first configure the Nuand BladeRF xA4 \gls{SDR} and install the necessary drivers to bridge the connection between the software and the hardware. This procedure consists of the following steps:
 \begin{enumerate}
-    \item Setting up the Nuand drivers and firmware for the BladeRF xA4.
-    \item Installing SoapySDR, which provides a common interface for SDR devices.
+    \item Setting up the Nuand drivers and firmware for the BladeRF xA4, with header files.
+    \item Installing SoapySDR.
 \end{enumerate}
 \subsubsection{Setting up the Nuand drivers and firmware for the BladeRF xA4}
 \label{sec:Nuand_BladeRF_xA4_FPGA_firmware}
 
-Nuand provides official Ubuntu package repositories (PPAs) that simplify the installation of the BladeRF software in Ubuntu systems. Through these repositories, users can quickly install both the required host tools and libraries using the standard package manager, and the necessary firmware for the FPGA, without needing to build everything manually from source. To enable the PPA:
+Nuand provides official Ubuntu package repositories (PPAs) that simplify the installation of the BladeRF software in Ubuntu systems. Through these repositories, users can quickly install both the required host tools and libraries and the necessary firmware for the FPGA using \colorbox{gray!20}{\texttt{apt}}, without needing to build everything manually from source. To enable the PPA:
 \begin{code}
 sudo add-apt-repository ppa:nuandllc/bladerf
 sudo apt update
@@ -338,7 +338,7 @@ To bridge the connection between the BladeRF xA4 and the \gls{RAN}, SoapySDR wil
 sudo apt install libbladerf-dev
 \end{code}
 With the BladeRF drivers installed, we can proceed into the installation of SoapySDR, which will allow us to use the BladeRF xA4 as the radio interface for the \gls{RAN}.
-\subsubsection{SoapySDR}
+\subsubsection{Installing SoapySDR}
 \label{sec:SoapySDR}
 The SoapySDR component is comprised of two parts: the SoapySDR library, which is the main interface for all types of SDR devices, and the SoapyBladeRF plug-in, which provides specific support for the BladeRF xA4.
 
@@ -399,11 +399,35 @@ Proceed to install srsRAN 4G:
 sudo make install
 srsran_install_configs.sh user
 \end{code}
-
+After installing srsRAN 4G, we need to modify the configuration files to set the correct IP address for the \gls{EPC} and the correct parameters for the radio interface. The configuration files are located in the \colorbox{gray!20}{\texttt{/usr/local/etc/srsran/}} directory, with separate files for the \gls{EPC} and the \gls{eNB}.
+% TODO: add diff of the configuration files, get from lab
+With everything ready, we can proceed to run the network, which will be covered in the next section (\ref{sec:Running_the_network}).
 \section{Running the network}
 \label{sec:Running_the_network}
-To ensure the best performance on the \gls{RAN} side, the srsRAN team provices a performance script to optimize the system for real-time processing. This script should be executed before running the \gls{RAN} components:
+\subsection{Preparing the system}
+To ensure the best performance on the \gls{RAN} side, the srsRAN team provices a performance script to optimize the system for real-time processing. This script should be executed before running the \gls{RAN} components, on Machine 2:
 \begin{code}
 # Download and execute the srsRAN performance tuning script
 curl -fsSL https://raw.githubusercontent.com/srsran/srsRAN_Project/main/scripts/srsran_performance | bash
 \end{code}
+On Machine 1, we need to add a route to the \gls{UE} subnet, so that the \gls{EPC} can route the traffic from the \gls{UE} to the internet:
+\begin{code}
+### Enable IPv4/IPv6 Forwarding
+$ sudo sysctl -w net.ipv4.ip_forward=1
+$ sudo sysctl -w net.ipv6.conf.all.forwarding=1
+
+### Add NAT Rule
+$ sudo iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
+$ sudo ip6tables -t nat -A POSTROUTING -s 2001:db8:cafe::/48 ! -o ogstun -j MASQUERADE
+\end{code}
+Now, to start the network, we need to first start the \gls{EPC} on Machine 2. On one command prompt window, run the following command:
+\begin{code}
+sudo srsepc
+\end{code}
+Machine 2 should now connect to Machine 1, and srsRAN should recognize the Open5GS network functions running on the other Machine. In another command prompt window, start the \gls{eNB} on Machine 2:
+\begin{code}
+sudo srsenb
+\end{code}
+Now the \gls{RAN} is up and running, and the \gls{UE} can connect to the network. 
+\section{Troubleshooting}
+\label{sec:Troubleshooting}
