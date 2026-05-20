@@ -1,0 +1,54 @@
+%!TEX root = ../template.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% provisioning_esim.tex
+%% NOVA thesis document file
+%%
+%% Chapter about provisioning the esim and connecting to the network
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{NT FILE provisioning_esim.tex}%
+
+\chapter{Provisioning the eSIM and connecting to the network}
+\label{ch:provisioning_esim}
+In this chapter, we will provision an eSIM profile for the testbench and connect to the network. We will create an eSIM profile through a provisioning server and follow the steps to activate it on our testbench. Once the eSIM is activated, we will verify the connection to the network and ensure that we can send and receive data. This process is crucial for testing the performance of our system under real network conditions.
+
+\section{Creating an eSIM profile}
+\label{sec:creating_esim_profile}
+To create an eSIM profile for our testbench, we will use Simlessly, specifically their \gls{RSP} tool, which allows custom eSIM profile creation. This platform requires an account to access the provisioning services.
+Once logged in, the user is greeted with a dashboard:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Simlessly/simlessly_dashboard.png}
+    \caption{Simlessly Dashboard}
+    \label{fig:simlessly_dashboard}
+\end{figure}
+From the dashboard, we can click the "Generate AC" button to create a new eSIM profile.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Simlessly/GenerateAC.png}
+    \caption{Generating an eSIM profile}
+    \label{fig:simlessly_generate_ac}
+\end{figure}
+After clicking the button, we are prompted to fill in the details for the eSIM profile. For the testbench, we will use the following keys:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l|l}
+        \hline
+        \textbf{Key} & \textbf{Value} \\
+        \hline
+        ICCID &  8900101000000000002 \\
+        IMSI &  101000000000002 \\
+        KI &  465B5CE8B199B49FAA5F0A2EE238A6BC \\
+        OPC &  E8ED289DEBA952E4B4C389C94229606A \\
+        \hline
+    \end{tabular}
+    \caption{eSIM profile details}
+    \label{tab:esim_profile_details}
+\end{table}
+Click on "Generate" to create the eSIM profile. Once generated, back on the dashboard, click on the QR code icon on the "AC QR code" column to display the Activation Code:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Simlessly/AC.png}
+    \caption{eSIM Activation Code}
+    \label{fig:esim_activation_code}
+\end{figure}
