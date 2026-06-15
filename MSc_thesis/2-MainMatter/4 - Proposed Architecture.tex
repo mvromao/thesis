@@ -1,0 +1,64 @@
+%!TEX root = ../template.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 4 - Proposed Architecture.tex
+%% NOVA thesis document file
+%%
+%% Chapter with proposed architecture
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% chktex-file 24
+\typeout{NT FILE 4 - Proposed Architecture}%
+
+\chapter{Proposed Architecture}
+\label{cha:proposed-architecture}
+
+This chapter revolves around the proposed architecture for implementing the 5G network, using free open-source software and \gls{SDR} hardware. The remainder of this chapter is structured as follows: Section 4.1 details the physical hardware assets, including the processing servers, software-defined radios, clock synchronization equipment, and user equipment. Section 4.2 describes the architectural implementation of the 5G Core Network, while Section 4.3 outlines the structure of the Radio Access Network. Finally, Section 4.4 illustrates the comprehensive system topology and the standardized interfaces bridging the entire environment, providing a logical transition into the physical implementation detailed in Chapter 5.
+
+\section{Hardware Components}
+\label{sec:hardware-components}
+The machines chosen for this project are two Dell Optiplex Micro 7080 machines, with the following specifications:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Component} & \textbf{Machine 1} & \textbf{Machine 2} \\
+        \hline
+        CPU & Intel Core i7-14700T & Intel Core i7-14700T \\
+        \hline
+        RAM & 16 GB DDR5 & 16 GB DDR5 \\
+        \hline
+        Operating System & Ubuntu 22.04 LTS & Ubuntu 22.04 LTS \\
+        \hline
+        Storage & 512 GB SSD & 512 GB SSD \\
+        \hline
+    \end{tabular}
+    \caption{Specifications of the machines used for the 5G network setup.}
+\end{table}
+The machines are connected to each other using an Ethernet cable, assigning static IP addresses to each one. Machine 1 is assigned the IP address space 10.0.0.10/24, while Machine 2 is assigned the IP address space 10.0.0.20/24. This setup allows for direct communication between the two machines, which is essential for the operation of the 5G network testbed.
+
+For the radio, two \glspl{SDR} were used:
+\begin{itemize}
+    \item \underline {National Instruments USRP B210}: This is a mid-level \gls{SDR} that uses UHD, the gold standard for \gls{SDR} development. These boards are widely used in research projects and testbeds, and they are natively compatible with most \gls{SDR} software. 
+    \item \underline {Nuand bladeRF xA4}: This is a cheaper mid-level \gls{SDR} that uses a proprietary library, libbladeRF, for communication with the host machine. It is less used than the USRP B210 in research projects, as it is not directly compatible with most software. Through the use of a wrapper library, it is possible to use this \gls{SDR} with most software which don't natively support it.  
+\end{itemize}
+
+Both of these boards use an Analog Devices AD9361 transceiver, which makes their \glsxtrshort{RF} capabilities theoretically similar. The main difference between them are their \glspl{FPGA}, in which the B210 uses a Xilinx Spartan-6, while the bladeRF xA4 uses an Intel Altera Cyclone V. 
+
+\textcolor{red}{Put here a picture of the two SDRs}
+
+Along with the \glspl{SDR}, a Leo Bodnar \gls{GPSDO} was used to provide a stable clock source for the radios, which is crucial for the proper operation of the 5G network, given the strict timing requirements of the 5G standard, and TDD operation. The \gls{GPSDO} provides a stable 10 MHz reference clock and a 1PPS signal, which are used to synchronize the \glspl{SDR} and ensure accurate timing for the transmission and reception of signals.
+
+\textcolor{red}{Put here a picture of the GPSDO}
+
+\section{Core}
+\label{sec:core}
+
+The core network is implemented using Open5GS, an open-source project that provides a complete 5G core network implementation, following the \gls{3GPP} Release 17 specifications. Open5GS is designed to be modular, with each network function individualized and implemented as a separate process, each one with a different configuration file on the machine. The core network is deployed on Machine 1.
+
+\section{\gls{RAN}}
+\label{sec:ran}
+
+The \gls{RAN} is implemented using the OCUDU Project {formerly known as srsRAN}, an open-source software suite that provides a complete 5G \gls{NR}, following the \gls{3GPP} Release 17 specifications. Written in both C and C++ languages, it is modular by design, allowing the developer to customize both the \gls{CU} and {DU} components of the gNodeB separately. The \gls{RAN} is deployed on Machine 2, and connects to the \gls{SDR} via USB 3.0. 
+
+\section{\glspl{UE}}
+\label{sec:ue}
+To connect to the network, two smartphones were used. The first one is a Motorola Moto G56 5G, which is a mid-range smartphone that supports 5G connectivity. The second one is a Xiaomi Redmi Note 14 5G, which is also a mid-range smartphone with 5G capabilities. Both smartphones were chosen due to their similar hardware specifications, eSIM and 5G support, but also because they have differing chipsets, the Moto G56 uses a MediaTek Dimensity 7060, while the Redmi Note 14 uses a Qualcomm Snapdragon. This allows for testing the compatibility of the network with different hardware, which is crucial for ensuring that the network can support a wide range of devices. Both smartphones are connected to the network using eSIM profiles, which are provisioned through a remote SIM provisioning service. 
