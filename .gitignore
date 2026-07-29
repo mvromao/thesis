@@ -1,0 +1,12 @@
+# Ignore raw logs and packet captures
+*.log
+*.pcap
+*.zip
+**/split/
+
+# Keep Parquet, CSV, JSON, and Python files
+!.gitignore
+!*.parquet
+!*.csv
+!*.json
+!*.py

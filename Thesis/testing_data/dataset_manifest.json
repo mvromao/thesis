@@ -1,0 +1,170 @@
+[
+    {
+        "tech": "4G",
+        "distance_m": 10,
+        "protocol": "TCP",
+        "direction": "DL",
+        "path": "4G/Loc_3_10m/TCP/DL"
+    },
+    {
+        "tech": "4G",
+        "distance_m": 10,
+        "protocol": "TCP",
+        "direction": "UL",
+        "path": "4G/Loc_3_10m/TCP/UL"
+    },
+    {
+        "tech": "4G",
+        "distance_m": 10,
+        "protocol": "UDP",
+        "direction": "DL",
+        "path": "4G/Loc_3_10m/UDP/DL"
+    },
+    {
+        "tech": "4G",
+        "distance_m": 10,
+        "protocol": "UDP",
+        "direction": "UL",
+        "path": "4G/Loc_3_10m/UDP/UL"
+    },
+    {
+        "tech": "4G",
+        "distance_m": 2,
+        "protocol": "TCP",
+        "direction": "DL",
+        "path": "4G/Loc_1_2m/TCP/DL"
+    },
+    {
+        "tech": "4G",
+        "distance_m": 2,
+        "protocol": "TCP",
+        "direction": "UL",
+        "path": "4G/Loc_1_2m/TCP/UL"
+    },
+    {
+        "tech": "4G",
+        "distance_m": 2,
+        "protocol": "UDP",
+        "direction": "DL",
+        "path": "4G/Loc_1_2m/UDP/DL"
+    },
+    {
+        "tech": "4G",
+        "distance_m": 2,
+        "protocol": "UDP",
+        "direction": "UL",
+        "path": "4G/Loc_1_2m/UDP/UL"
+    },
+    {
+        "tech": "4G",
+        "distance_m": 5,
+        "protocol": "TCP",
+        "direction": "DL",
+        "path": "4G/Loc_2_5m/TCP/DL"
+    },
+    {
+        "tech": "4G",
+        "distance_m": 5,
+        "protocol": "TCP",
+        "direction": "UL",
+        "path": "4G/Loc_2_5m/TCP/UL"
+    },
+    {
+        "tech": "4G",
+        "distance_m": 5,
+        "protocol": "UDP",
+        "direction": "DL",
+        "path": "4G/Loc_2_5m/UDP/DL"
+    },
+    {
+        "tech": "4G",
+        "distance_m": 5,
+        "protocol": "UDP",
+        "direction": "UL",
+        "path": "4G/Loc_2_5m/UDP/UL"
+    },
+    {
+        "tech": "5G",
+        "distance_m": 10,
+        "protocol": "TCP",
+        "direction": "DL",
+        "path": "5G/Loc_3_10m/TCP/DL"
+    },
+    {
+        "tech": "5G",
+        "distance_m": 10,
+        "protocol": "TCP",
+        "direction": "UL",
+        "path": "5G/Loc_3_10m/TCP/UL"
+    },
+    {
+        "tech": "5G",
+        "distance_m": 10,
+        "protocol": "UDP",
+        "direction": "DL",
+        "path": "5G/Loc_3_10m/UDP/DL"
+    },
+    {
+        "tech": "5G",
+        "distance_m": 10,
+        "protocol": "UDP",
+        "direction": "UL",
+        "path": "5G/Loc_3_10m/UDP/UL"
+    },
+    {
+        "tech": "5G",
+        "distance_m": 2,
+        "protocol": "TCP",
+        "direction": "DL",
+        "path": "5G/Loc_1_2m/TCP/DL"
+    },
+    {
+        "tech": "5G",
+        "distance_m": 2,
+        "protocol": "TCP",
+        "direction": "UL",
+        "path": "5G/Loc_1_2m/TCP/UL"
+    },
+    {
+        "tech": "5G",
+        "distance_m": 2,
+        "protocol": "UDP",
+        "direction": "DL",
+        "path": "5G/Loc_1_2m/UDP/DL"
+    },
+    {
+        "tech": "5G",
+        "distance_m": 2,
+        "protocol": "UDP",
+        "direction": "UL",
+        "path": "5G/Loc_1_2m/UDP/UL"
+    },
+    {
+        "tech": "5G",
+        "distance_m": 5,
+        "protocol": "TCP",
+        "direction": "DL",
+        "path": "5G/Loc_2_5m/TCP/DL"
+    },
+    {
+        "tech": "5G",
+        "distance_m": 5,
+        "protocol": "TCP",
+        "direction": "UL",
+        "path": "5G/Loc_2_5m/TCP/UL"
+    },
+    {
+        "tech": "5G",
+        "distance_m": 5,
+        "protocol": "UDP",
+        "direction": "DL",
+        "path": "5G/Loc_2_5m/UDP/DL"
+    },
+    {
+        "tech": "5G",
+        "distance_m": 5,
+        "protocol": "UDP",
+        "direction": "UL",
+        "path": "5G/Loc_2_5m/UDP/UL"
+    }
+]
