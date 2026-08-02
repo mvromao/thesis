@@ -1,0 +1,1128 @@
+[
+ {
+  "tech": "4G",
+  "location": "Loc_1_2m",
+  "protocol": "TCP",
+  "direction": "DL",
+  "levels": {
+   "I": 452486,
+   "D": 12
+  },
+  "layers": {
+   "ENB": 2,
+   "RRC": 41,
+   "MAC": 77035,
+   "S1AP": 24,
+   "COMN": 12,
+   "RF": 8,
+   "PHY0": 35535,
+   "PHY1": 35897,
+   "PHY2": 2,
+   "PHY": 2,
+   "RLC": 113037,
+   "PDCP": 120876,
+   "GTPU": 70026,
+   "STCK": 1
+  },
+  "templates": {},
+  "events": {
+   "rf_overflow": 4,
+   "rach": 3,
+   "crc_ok": 4177,
+   "rlc_drop": 30244,
+   "harq_maxretx": 3,
+   "crc_ko": 33
+  },
+  "lines": 1381525,
+  "hex_lines": 929027,
+  "t_first": "2026-07-28T13:23:47.948484",
+  "t_last": "2026-07-28T13:25:04.356363"
+ },
+ {
+  "tech": "4G",
+  "location": "Loc_1_2m",
+  "protocol": "TCP",
+  "direction": "UL",
+  "levels": {
+   "I": 463472,
+   "D": 12
+  },
+  "layers": {
+   "ENB": 2,
+   "RRC": 41,
+   "MAC": 134529,
+   "S1AP": 24,
+   "COMN": 12,
+   "RF": 8,
+   "PHY0": 48345,
+   "PHY1": 51080,
+   "PHY2": 2,
+   "PHY": 2,
+   "RLC": 108507,
+   "PDCP": 77834,
+   "GTPU": 43097,
+   "STCK": 1
+  },
+  "templates": {},
+  "events": {
+   "rf_overflow": 4,
+   "rach": 3,
+   "crc_ok": 28329,
+   "rlc_drop": 3,
+   "harq_maxretx": 3
+  },
+  "lines": 1119402,
+  "hex_lines": 655918,
+  "t_first": "2026-07-28T13:26:46.830113",
+  "t_last": "2026-07-28T13:27:33.245529"
+ },
+ {
+  "tech": "4G",
+  "location": "Loc_1_2m",
+  "protocol": "UDP",
+  "direction": "DL",
+  "levels": {
+   "I": 624494,
+   "D": 12
+  },
+  "layers": {
+   "ENB": 2,
+   "RRC": 41,
+   "MAC": 61279,
+   "S1AP": 24,
+   "COMN": 12,
+   "RF": 8,
+   "PHY0": 31562,
+   "PHY1": 30567,
+   "PHY2": 2,
+   "PHY": 2,
+   "RLC": 92889,
+   "PDCP": 233903,
+   "GTPU": 174214,
+   "STCK": 1
+  },
+  "templates": {},
+  "events": {
+   "rf_overflow": 4,
+   "rach": 3,
+   "crc_ok": 347,
+   "rlc_drop": 191778,
+   "harq_maxretx": 3
+  },
+  "lines": 2265968,
+  "hex_lines": 1641462,
+  "t_first": "2026-07-28T13:29:01.407236",
+  "t_last": "2026-07-28T13:29:39.814195"
+ },
+ {
+  "tech": "4G",
+  "location": "Loc_1_2m",
+  "protocol": "UDP",
+  "direction": "UL",
+  "levels": {
+   "I": 324691,
+   "D": 12
+  },
+  "layers": {
+   "ENB": 2,
+   "RRC": 41,
+   "MAC": 85332,
+   "S1AP": 24,
+   "COMN": 12,
+   "RF": 8,
+   "PHY0": 32373,
+   "PHY1": 31919,
+   "PHY2": 2,
+   "PHY": 2,
+   "RLC": 75794,
+   "PDCP": 66131,
+   "GTPU": 33062,
+   "STCK": 1
+  },
+  "templates": {},
+  "events": {
+   "rf_overflow": 4,
+   "rach": 3,
+   "crc_ok": 20989,
+   "rlc_drop": 19,
+   "harq_maxretx": 3,
+   "crc_ko": 87
+  },
+  "lines": 805493,
+  "hex_lines": 480790,
+  "t_first": "2026-07-28T13:30:46.669086",
+  "t_last": "2026-07-28T13:31:23.074912"
+ },
+ {
+  "tech": "4G",
+  "location": "Loc_2_5m",
+  "protocol": "TCP",
+  "direction": "DL",
+  "levels": {
+   "I": 447764,
+   "D": 12
+  },
+  "layers": {
+   "ENB": 2,
+   "RRC": 41,
+   "MAC": 76695,
+   "S1AP": 24,
+   "COMN": 12,
+   "RF": 8,
+   "PHY0": 35338,
+   "PHY1": 35138,
+   "PHY2": 2,
+   "PHY": 2,
+   "RLC": 112365,
+   "PDCP": 124002,
+   "GTPU": 64146,
+   "STCK": 1
+  },
+  "templates": {},
+  "events": {
+   "rf_overflow": 4,
+   "rach": 3,
+   "crc_ok": 4099,
+   "rlc_drop": 40003,
+   "harq_maxretx": 3
+  },
+  "lines": 1307811,
+  "hex_lines": 860035,
+  "t_first": "2026-07-28T13:32:29.886225",
+  "t_last": "2026-07-28T13:33:17.292119"
+ },
+ {
+  "tech": "4G",
+  "location": "Loc_2_5m",
+  "protocol": "TCP",
+  "direction": "UL",
+  "levels": {
+   "I": 469625,
+   "D": 12,
+   "W": 2
+  },
+  "layers": {
+   "ENB": 2,
+   "RRC": 38,
+   "MAC": 127759,
+   "S1AP": 17,
+   "COMN": 12,
+   "RF": 7,
+   "PHY0": 48489,
+   "PHY1": 46080,
+   "PHY2": 2,
+   "PHY": 2,
+   "RLC": 110392,
+   "PDCP": 88125,
+   "GTPU": 48713,
+   "STCK": 1
+  },
+  "templates": {
+   "[W] S1AP: Not handling feature - UERadioCapability": 1,
+   "[W] RRC: Not adding NAS message to connection reconfiguration. E-RAB id #": 1
+  },
+  "events": {
+   "rf_overflow": 3,
+   "rach": 3,
+   "crc_ok": 26396,
+   "rlc_drop": 6,
+   "harq_maxretx": 3,
+   "crc_ko": 14
+  },
+  "lines": 1186260,
+  "hex_lines": 716621,
+  "t_first": "2026-07-28T13:33:41.584589",
+  "t_last": "2026-07-28T13:34:29.987988"
+ },
+ {
+  "tech": "4G",
+  "location": "Loc_2_5m",
+  "protocol": "UDP",
+  "direction": "DL",
+  "levels": {
+   "I": 623053,
+   "D": 12,
+   "W": 2
+  },
+  "layers": {
+   "ENB": 2,
+   "RRC": 38,
+   "MAC": 60752,
+   "S1AP": 17,
+   "COMN": 12,
+   "RF": 8,
+   "PHY0": 31570,
+   "PHY1": 30377,
+   "PHY2": 2,
+   "PHY": 2,
+   "RLC": 93943,
+   "PDCP": 234355,
+   "GTPU": 171988,
+   "STCK": 1
+  },
+  "templates": {
+   "[W] S1AP: Not handling feature - UERadioCapability": 1,
+   "[W] RRC: Not adding NAS message to connection reconfiguration. E-RAB id #": 1
+  },
+  "events": {
+   "rf_overflow": 4,
+   "rach": 3,
+   "crc_ok": 345,
+   "rlc_drop": 191125,
+   "harq_maxretx": 3
+  },
+  "lines": 2247364,
+  "hex_lines": 1624297,
+  "t_first": "2026-07-28T13:35:03.486631",
+  "t_last": "2026-07-28T13:35:47.890550"
+ },
+ {
+  "tech": "4G",
+  "location": "Loc_2_5m",
+  "protocol": "UDP",
+  "direction": "UL",
+  "levels": {
+   "I": 309620,
+   "D": 12,
+   "W": 2
+  },
+  "layers": {
+   "ENB": 2,
+   "RRC": 38,
+   "MAC": 83565,
+   "S1AP": 17,
+   "COMN": 12,
+   "RF": 8,
+   "PHY0": 31938,
+   "PHY1": 31124,
+   "PHY2": 11,
+   "PHY": 2,
+   "RLC": 72152,
+   "PDCP": 60512,
+   "GTPU": 30252,
+   "STCK": 1
+  },
+  "templates": {
+   "[W] S1AP: Not handling feature - UERadioCapability": 1,
+   "[W] RRC: Not adding NAS message to connection reconfiguration. E-RAB id #": 1
+  },
+  "events": {
+   "rf_overflow": 4,
+   "rach": 3,
+   "crc_ok": 20590,
+   "rlc_drop": 4,
+   "harq_maxretx": 3,
+   "crc_ko": 4
+  },
+  "lines": 755018,
+  "hex_lines": 445384,
+  "t_first": "2026-07-28T13:36:15.552786",
+  "t_last": "2026-07-28T13:36:54.958453"
+ },
+ {
+  "tech": "4G",
+  "location": "Loc_3_10m",
+  "protocol": "TCP",
+  "direction": "DL",
+  "levels": {
+   "I": 301180,
+   "D": 12
+  },
+  "layers": {
+   "ENB": 2,
+   "RRC": 41,
+   "MAC": 73046,
+   "S1AP": 24,
+   "COMN": 12,
+   "RF": 8,
+   "PHY0": 34471,
+   "PHY1": 33823,
+   "PHY2": 2,
+   "PHY": 2,
+   "RLC": 67514,
+   "PDCP": 61403,
+   "GTPU": 30843,
+   "STCK": 1
+  },
+  "templates": {},
+  "events": {
+   "rf_overflow": 4,
+   "rach": 3,
+   "crc_ok": 3131,
+   "rlc_drop": 19149,
+   "harq_maxretx": 3,
+   "crc_ko": 8
+  },
+  "lines": 759619,
+  "hex_lines": 458427,
+  "t_first": "2026-07-28T13:40:54.561312",
+  "t_last": "2026-07-28T13:41:39.968777"
+ },
+ {
+  "tech": "4G",
+  "location": "Loc_3_10m",
+  "protocol": "TCP",
+  "direction": "UL",
+  "levels": {
+   "I": 451288,
+   "D": 12,
+   "W": 2
+  },
+  "layers": {
+   "ENB": 2,
+   "RRC": 38,
+   "MAC": 133772,
+   "S1AP": 17,
+   "COMN": 12,
+   "RF": 7,
+   "PHY0": 51302,
+   "PHY1": 48302,
+   "PHY2": 5,
+   "PHY": 2,
+   "RLC": 104402,
+   "PDCP": 72916,
+   "GTPU": 40524,
+   "STCK": 1
+  },
+  "templates": {
+   "[W] S1AP: Not handling feature - UERadioCapability": 1,
+   "[W] RRC: Not adding NAS message to connection reconfiguration. E-RAB id #": 1
+  },
+  "events": {
+   "rf_overflow": 3,
+   "rach": 3,
+   "crc_ok": 27564,
+   "rlc_drop": 191,
+   "harq_maxretx": 3,
+   "crc_ko": 611
+  },
+  "lines": 1073284,
+  "hex_lines": 621982,
+  "t_first": "2026-07-28T13:42:07.376293",
+  "t_last": "2026-07-28T13:42:54.781238"
+ },
+ {
+  "tech": "4G",
+  "location": "Loc_3_10m",
+  "protocol": "UDP",
+  "direction": "DL",
+  "levels": {
+   "I": 1724367,
+   "D": 12,
+   "W": 2
+  },
+  "layers": {
+   "ENB": 2,
+   "RRC": 38,
+   "MAC": 180723,
+   "S1AP": 17,
+   "COMN": 12,
+   "RF": 8,
+   "PHY0": 92510,
+   "PHY1": 90021,
+   "PHY2": 2,
+   "PHY": 2,
+   "RLC": 200947,
+   "PDCP": 645049,
+   "GTPU": 515049,
+   "STCK": 1
+  },
+  "templates": {
+   "[W] S1AP: Not handling feature - UERadioCapability": 1,
+   "[W] RRC: Not adding NAS message to connection reconfiguration. E-RAB id #": 1
+  },
+  "events": {
+   "rf_overflow": 4,
+   "rach": 3,
+   "crc_ok": 927,
+   "rlc_drop": 585743,
+   "harq_maxretx": 3
+  },
+  "lines": 6357088,
+  "hex_lines": 4632707,
+  "t_first": "2026-07-28T13:43:16.335499",
+  "t_last": "2026-07-28T13:44:33.734298"
+ },
+ {
+  "tech": "4G",
+  "location": "Loc_3_10m",
+  "protocol": "UDP",
+  "direction": "UL",
+  "levels": {
+   "I": 295047,
+   "D": 12,
+   "W": 2
+  },
+  "layers": {
+   "ENB": 2,
+   "RRC": 38,
+   "MAC": 83116,
+   "S1AP": 17,
+   "COMN": 12,
+   "RF": 8,
+   "PHY0": 32215,
+   "PHY1": 30854,
+   "PHY2": 8,
+   "PHY": 2,
+   "RLC": 68414,
+   "PDCP": 53586,
+   "GTPU": 26788,
+   "STCK": 1
+  },
+  "templates": {
+   "[W] S1AP: Not handling feature - UERadioCapability": 1,
+   "[W] RRC: Not adding NAS message to connection reconfiguration. E-RAB id #": 1
+  },
+  "events": {
+   "rf_overflow": 4,
+   "rach": 3,
+   "crc_ok": 20455,
+   "rlc_drop": 13,
+   "harq_maxretx": 3,
+   "crc_ko": 67
+  },
+  "lines": 698349,
+  "hex_lines": 403288,
+  "t_first": "2026-07-28T13:45:04.830960",
+  "t_last": "2026-07-28T13:45:47.240242"
+ },
+ {
+  "tech": "5G",
+  "location": "Loc_1_2m",
+  "protocol": "TCP",
+  "direction": "DL",
+  "levels": {
+   "I": 504611,
+   "E": 1,
+   "W": 4
+  },
+  "layers": {
+   "GNB": 8,
+   "CONFIG": 2,
+   "GTPU": 79373,
+   "DU-MNG": 22,
+   "DU": 10,
+   "CU-CP": 16,
+   "NGAP": 28,
+   "CU-UP": 11,
+   "CU-UP-E1": 18,
+   "CU-CP-E1": 20,
+   "DU-F1": 45,
+   "CU-CP-F1": 44,
+   "SCHED": 32861,
+   "MAC": 28847,
+   "PHY": 68805,
+   "FAPI": 1,
+   "RLC": 190954,
+   "CU-UEMNG": 2,
+   "RRC": 27,
+   "PDCP": 103505,
+   "SEC": 10,
+   "SDAP": 2,
+   "CU-F1-U": 2,
+   "DU-F1-U": 3
+  },
+  "templates": {
+   "[E] PHY: [    #] The modulator is busy.": 1,
+   "[W] FAPI: [   #] Sector##: Real-time failure in FAPI: Received late DL_TTI.request from slot #": 1,
+   "[W] PHY: [    #] Real-time failure in lower PHY: Downlink data late for sector # and slot #.": 1,
+   "[W] SCHED: [    #] cell=#, slot=#: Discarding error indication. Cause: Scheduler results associated with the slot of the error indication have already been erased (current": 1,
+   "[W] DU-MNG: ue=# rnti=#x#: RLF detected with cause \"MAC max consecutive HARQ NACKs/DTX reached\". Timer of # msec to release UE started...": 1
+  },
+  "events": {
+   "modulator_busy": 1,
+   "fapi_late": 1,
+   "phy_dl_late": 1,
+   "phy_rt_failure": 1,
+   "sched_err_ind": 1,
+   "rlc_drop": 129,
+   "rach": 2,
+   "crc_ok": 4229,
+   "harq_maxretx": 8,
+   "crc_ko": 1079,
+   "rlf": 2,
+   "release": 9
+  },
+  "lines": 1935597,
+  "hex_lines": 1430873,
+  "t_first": "2026-07-25T10:24:47.718984",
+  "t_last": "2026-07-25T10:25:37.738106"
+ },
+ {
+  "tech": "5G",
+  "location": "Loc_1_2m",
+  "protocol": "TCP",
+  "direction": "UL",
+  "levels": {
+   "I": 324392,
+   "E": 1,
+   "W": 3
+  },
+  "layers": {
+   "GNB": 8,
+   "CONFIG": 2,
+   "GTPU": 31456,
+   "DU-MNG": 30,
+   "DU": 10,
+   "CU-CP": 20,
+   "NGAP": 30,
+   "CU-UP": 11,
+   "CU-UP-E1": 18,
+   "CU-CP-E1": 20,
+   "DU-F1": 56,
+   "CU-CP-F1": 54,
+   "SCHED": 35288,
+   "MAC": 34107,
+   "PHY": 71572,
+   "RLC": 98061,
+   "CU-UEMNG": 3,
+   "RRC": 32,
+   "PDCP": 53597,
+   "SEC": 15,
+   "SDAP": 2,
+   "CU-F1-U": 2,
+   "DU-F1-U": 2
+  },
+  "templates": {
+   "[E] PHY: [    #] The modulator is busy.": 1,
+   "[W] PHY: [    #] Real-time failure in lower PHY: Downlink data late for sector # and slot #.": 1,
+   "[W] SCHED: [    #] cell=#, slot=#: Discarding error indication. Cause: Scheduler results associated with the slot of the error indication have already been erased (current": 1,
+   "[W] PHY: [  #] UL HARQ rnti=#x# h_id=#: failed to reserve buffer, identifier for retransmissions not found.": 1
+  },
+  "events": {
+   "modulator_busy": 1,
+   "phy_dl_late": 1,
+   "phy_rt_failure": 1,
+   "sched_err_ind": 1,
+   "rlc_drop": 23,
+   "rach": 3,
+   "crc_ok": 22259,
+   "harq_maxretx": 7,
+   "crc_ko": 1064,
+   "release": 13
+  },
+  "lines": 1001923,
+  "hex_lines": 677401,
+  "t_first": "2026-07-25T10:29:18.028115",
+  "t_last": "2026-07-25T10:31:18.800721"
+ },
+ {
+  "tech": "5G",
+  "location": "Loc_1_2m",
+  "protocol": "UDP",
+  "direction": "DL",
+  "levels": {
+   "I": 577946,
+   "W": 4
+  },
+  "layers": {
+   "GNB": 8,
+   "CONFIG": 2,
+   "GTPU": 150358,
+   "DU-MNG": 58,
+   "DU": 10,
+   "CU-CP": 28,
+   "NGAP": 55,
+   "CU-UP": 23,
+   "CU-UP-E1": 36,
+   "CU-CP-E1": 41,
+   "DU-F1": 98,
+   "CU-CP-F1": 97,
+   "SCHED": 32307,
+   "MAC": 27120,
+   "PHY": 72427,
+   "RLC": 202151,
+   "CU-UEMNG": 5,
+   "RRC": 55,
+   "PDCP": 93031,
+   "SEC": 25,
+   "SDAP": 5,
+   "CU-F1-U": 5,
+   "DU-F1-U": 5
+  },
+  "templates": {
+   "[W] PHY: [    #] Real-time failure in lower PHY: Downlink data late for sector # and slot #.": 1,
+   "[W] SCHED: [    #] cell=#, slot=#: Discarding error indication. Cause: Scheduler results associated with the slot of the error indication have already been erased (current": 1,
+   "[W] DU-MNG: ue=# rnti=#x#: RLF detected with cause \"MAC max consecutive HARQ NACKs/DTX reached\". Timer of # msec to release UE started...": 2
+  },
+  "events": {
+   "phy_dl_late": 1,
+   "phy_rt_failure": 1,
+   "sched_err_ind": 1,
+   "rlc_drop": 1331,
+   "rach": 5,
+   "crc_ok": 877,
+   "harq_maxretx": 18,
+   "crc_ko": 203,
+   "release": 31,
+   "rlf": 7
+  },
+  "lines": 2500954,
+  "hex_lines": 1922818,
+  "t_first": "2026-07-25T10:32:37.016570",
+  "t_last": "2026-07-25T10:33:46.285008"
+ },
+ {
+  "tech": "5G",
+  "location": "Loc_1_2m",
+  "protocol": "UDP",
+  "direction": "UL",
+  "levels": {
+   "I": 101584
+  },
+  "layers": {
+   "GNB": 8,
+   "CONFIG": 2,
+   "GTPU": 9651,
+   "DU-MNG": 34,
+   "DU": 10,
+   "CU-CP": 20,
+   "NGAP": 37,
+   "CU-UP": 15,
+   "CU-UP-E1": 24,
+   "CU-CP-E1": 27,
+   "DU-F1": 68,
+   "CU-CP-F1": 67,
+   "SCHED": 10391,
+   "MAC": 10214,
+   "PHY": 22020,
+   "RLC": 29538,
+   "CU-UEMNG": 3,
+   "RRC": 39,
+   "PDCP": 19392,
+   "SEC": 15,
+   "SDAP": 3,
+   "CU-F1-U": 3,
+   "DU-F1-U": 3
+  },
+  "templates": {},
+  "events": {
+   "rach": 3,
+   "crc_ok": 8918,
+   "harq_maxretx": 8,
+   "rlc_drop": 17,
+   "crc_ko": 150,
+   "release": 13
+  },
+  "lines": 304879,
+  "hex_lines": 203161,
+  "t_first": "2026-07-25T10:34:38.917668",
+  "t_last": "2026-07-25T10:35:38.487712"
+ },
+ {
+  "tech": "5G",
+  "location": "Loc_2_5m",
+  "protocol": "TCP",
+  "direction": "DL",
+  "levels": {
+   "I": 542467,
+   "W": 2
+  },
+  "layers": {
+   "GNB": 8,
+   "CONFIG": 2,
+   "GTPU": 84143,
+   "DU-MNG": 10,
+   "DU": 10,
+   "CU-CP": 12,
+   "NGAP": 13,
+   "CU-UP": 7,
+   "CU-UP-E1": 12,
+   "CU-CP-E1": 13,
+   "DU-F1": 24,
+   "CU-CP-F1": 23,
+   "SCHED": 37077,
+   "MAC": 31658,
+   "PHY": 76447,
+   "RLC": 203609,
+   "CU-UEMNG": 1,
+   "RRC": 13,
+   "PDCP": 109377,
+   "SEC": 5,
+   "SDAP": 1,
+   "CU-F1-U": 1,
+   "DU-F1-U": 1,
+   "RF": 2
+  },
+  "templates": {
+   "[W] RF: Real-time failure in RF: underflow": 2
+  },
+  "events": {
+   "rach": 1,
+   "crc_ok": 5312,
+   "harq_maxretx": 3,
+   "rlc_drop": 80,
+   "crc_ko": 986
+  },
+  "lines": 2072847,
+  "hex_lines": 1530296,
+  "t_first": "2026-07-25T10:36:55.733489",
+  "t_last": "2026-07-25T10:37:33.264958"
+ },
+ {
+  "tech": "5G",
+  "location": "Loc_2_5m",
+  "protocol": "TCP",
+  "direction": "UL",
+  "levels": {
+   "I": 274403,
+   "W": 2
+  },
+  "layers": {
+   "GNB": 8,
+   "CONFIG": 2,
+   "GTPU": 26857,
+   "DU-MNG": 10,
+   "DU": 10,
+   "CU-CP": 12,
+   "NGAP": 13,
+   "CU-UP": 7,
+   "CU-UP-E1": 12,
+   "CU-CP-E1": 13,
+   "DU-F1": 24,
+   "CU-CP-F1": 23,
+   "SCHED": 29726,
+   "MAC": 29262,
+   "FAPI": 1,
+   "PHY": 59905,
+   "RLC": 82942,
+   "CU-UEMNG": 1,
+   "RRC": 13,
+   "PDCP": 45555,
+   "SEC": 5,
+   "SDAP": 1,
+   "CU-F1-U": 1,
+   "DU-F1-U": 1,
+   "RF": 1
+  },
+  "templates": {
+   "[W] FAPI: [    #] Sector##: Real-time failure in FAPI: Received late DL_TTI.request from slot #": 1,
+   "[W] RF: Real-time failure in RF: underflow": 1
+  },
+  "events": {
+   "fapi_late": 1,
+   "rach": 1,
+   "crc_ok": 18796,
+   "harq_maxretx": 3,
+   "rlc_drop": 17,
+   "crc_ko": 290
+  },
+  "lines": 849660,
+  "hex_lines": 575173,
+  "t_first": "2026-07-25T10:39:24.125599",
+  "t_last": "2026-07-25T10:40:31.265221"
+ },
+ {
+  "tech": "5G",
+  "location": "Loc_2_5m",
+  "protocol": "UDP",
+  "direction": "DL",
+  "levels": {
+   "I": 657280,
+   "W": 1
+  },
+  "layers": {
+   "GNB": 8,
+   "CONFIG": 2,
+   "GTPU": 171063,
+   "DU-MNG": 10,
+   "DU": 10,
+   "CU-CP": 12,
+   "NGAP": 9,
+   "CU-UP": 7,
+   "CU-UP-E1": 12,
+   "CU-CP-E1": 13,
+   "DU-F1": 20,
+   "CU-CP-F1": 19,
+   "SCHED": 34761,
+   "MAC": 34275,
+   "PHY": 77678,
+   "RLC": 236619,
+   "CU-UEMNG": 1,
+   "RRC": 9,
+   "PDCP": 102744,
+   "SEC": 5,
+   "SDAP": 1,
+   "CU-F1-U": 1,
+   "DU-F1-U": 1,
+   "RF": 1
+  },
+  "templates": {
+   "[W] RF: Real-time failure in RF: underflow": 1
+  },
+  "events": {
+   "rach": 1,
+   "crc_ok": 1100,
+   "harq_maxretx": 3,
+   "rlc_drop": 968,
+   "crc_ko": 47
+  },
+  "lines": 2851396,
+  "hex_lines": 2194033,
+  "t_first": "2026-07-25T10:41:15.893665",
+  "t_last": "2026-07-25T10:41:52.283876"
+ },
+ {
+  "tech": "5G",
+  "location": "Loc_2_5m",
+  "protocol": "UDP",
+  "direction": "UL",
+  "levels": {
+   "I": 84789,
+   "W": 1
+  },
+  "layers": {
+   "GNB": 8,
+   "CONFIG": 2,
+   "GTPU": 2444,
+   "DU-MNG": 10,
+   "DU": 10,
+   "CU-CP": 12,
+   "NGAP": 9,
+   "CU-UP": 7,
+   "CU-UP-E1": 12,
+   "CU-CP-E1": 13,
+   "DU-F1": 20,
+   "CU-CP-F1": 19,
+   "SCHED": 14471,
+   "MAC": 14297,
+   "FAPI": 1,
+   "PHY": 29417,
+   "RLC": 19130,
+   "CU-UEMNG": 1,
+   "RRC": 9,
+   "PDCP": 4890,
+   "SEC": 5,
+   "SDAP": 1,
+   "CU-F1-U": 1,
+   "DU-F1-U": 1
+  },
+  "templates": {
+   "[W] FAPI: [    #] Sector##: Real-time failure in FAPI: Received late DL_TTI.request from slot #": 1
+  },
+  "events": {
+   "fapi_late": 1,
+   "rach": 1,
+   "crc_ok": 13254,
+   "harq_maxretx": 3,
+   "rlc_drop": 5,
+   "crc_ko": 156
+  },
+  "lines": 238127,
+  "hex_lines": 153255,
+  "t_first": "2026-07-25T10:42:34.293787",
+  "t_last": "2026-07-25T10:43:21.992488"
+ },
+ {
+  "tech": "5G",
+  "location": "Loc_3_10m",
+  "protocol": "TCP",
+  "direction": "DL",
+  "levels": {
+   "I": 652091,
+   "W": 2
+  },
+  "layers": {
+   "GNB": 8,
+   "CONFIG": 2,
+   "GTPU": 67458,
+   "DU-MNG": 10,
+   "DU": 10,
+   "CU-CP": 12,
+   "NGAP": 13,
+   "CU-UP": 7,
+   "CU-UP-E1": 12,
+   "CU-CP-E1": 13,
+   "DU-F1": 24,
+   "CU-CP-F1": 23,
+   "SCHED": 89550,
+   "MAC": 45238,
+   "PHY": 176230,
+   "RLC": 190227,
+   "CU-UEMNG": 1,
+   "RRC": 13,
+   "PDCP": 83234,
+   "SEC": 5,
+   "SDAP": 1,
+   "CU-F1-U": 1,
+   "DU-F1-U": 1
+  },
+  "templates": {
+   "[W] PHY: [    #] Real-time failure in lower PHY: Downlink data late for sector # and slot #.": 1,
+   "[W] SCHED: [    #] cell=#, slot=#: Discarding error indication. Cause: Scheduler results associated with the slot of the error indication have already been erased (current": 1
+  },
+  "events": {
+   "phy_dl_late": 1,
+   "phy_rt_failure": 1,
+   "sched_err_ind": 1,
+   "rlc_drop": 1705,
+   "rach": 1,
+   "crc_ok": 10178,
+   "harq_maxretx": 3,
+   "crc_ko": 11826
+  },
+  "lines": 2202721,
+  "hex_lines": 1550546,
+  "t_first": "2026-07-25T10:46:00.695113",
+  "t_last": "2026-07-25T10:47:16.995736"
+ },
+ {
+  "tech": "5G",
+  "location": "Loc_3_10m",
+  "protocol": "TCP",
+  "direction": "UL",
+  "levels": {
+   "I": 211768,
+   "W": 3
+  },
+  "layers": {
+   "GNB": 8,
+   "CONFIG": 2,
+   "GTPU": 7071,
+   "DU-MNG": 10,
+   "DU": 10,
+   "CU-CP": 12,
+   "NGAP": 10,
+   "CU-UP": 7,
+   "CU-UP-E1": 12,
+   "CU-CP-E1": 13,
+   "DU-F1": 22,
+   "CU-CP-F1": 21,
+   "SCHED": 35348,
+   "MAC": 34759,
+   "PHY": 71552,
+   "RLC": 51915,
+   "CU-UEMNG": 1,
+   "RRC": 11,
+   "PDCP": 10978,
+   "SEC": 5,
+   "SDAP": 1,
+   "CU-F1-U": 1,
+   "DU-F1-U": 1,
+   "RF": 1
+  },
+  "templates": {
+   "[W] PHY: [    #] Real-time failure in lower PHY: Downlink data late for sector # and slot #.": 1,
+   "[W] SCHED: [    #] cell=#, slot=#: Discarding error indication. Cause: Scheduler results associated with the slot of the error indication have already been erased (current": 1,
+   "[W] RF: Real-time failure in RF: underflow": 1
+  },
+  "events": {
+   "phy_dl_late": 1,
+   "phy_rt_failure": 1,
+   "sched_err_ind": 1,
+   "rlc_drop": 19,
+   "rach": 1,
+   "crc_ok": 29425,
+   "harq_maxretx": 3,
+   "crc_ko": 489
+  },
+  "lines": 598682,
+  "hex_lines": 386829,
+  "t_first": "2026-07-25T10:48:30.853606",
+  "t_last": "2026-07-25T10:49:59.772843"
+ },
+ {
+  "tech": "5G",
+  "location": "Loc_3_10m",
+  "protocol": "UDP",
+  "direction": "DL",
+  "levels": {
+   "I": 543547,
+   "W": 3
+  },
+  "layers": {
+   "GNB": 8,
+   "CONFIG": 2,
+   "GTPU": 171676,
+   "DU-MNG": 10,
+   "DU": 10,
+   "CU-CP": 12,
+   "NGAP": 9,
+   "CU-UP": 7,
+   "CU-UP-E1": 12,
+   "CU-CP-E1": 13,
+   "DU-F1": 20,
+   "CU-CP-F1": 19,
+   "SCHED": 39162,
+   "MAC": 36946,
+   "FAPI": 2,
+   "PHY": 86978,
+   "RLC": 150476,
+   "CU-UEMNG": 1,
+   "RRC": 9,
+   "PDCP": 58170,
+   "SEC": 5,
+   "SDAP": 1,
+   "CU-F1-U": 1,
+   "DU-F1-U": 1
+  },
+  "templates": {
+   "[W] FAPI: [    #] Sector##: Real-time failure in FAPI: Received late DL_TTI.request from slot #": 1,
+   "[W] FAPI: [    #] Sector##: Real-time failure in FAPI: Received late UL_TTI.request from slot #": 1,
+   "[W] PHY: [  #] Real-time failure in lower PHY: PRACH request late for sector #, slot # and start symbol #": 1
+  },
+  "events": {
+   "fapi_late": 2,
+   "rach": 2,
+   "crc_ok": 3113,
+   "harq_maxretx": 3,
+   "rlc_drop": 766,
+   "crc_ko": 119,
+   "phy_rt_failure": 1
+  },
+  "lines": 2234829,
+  "hex_lines": 1691197,
+  "t_first": "2026-07-25T10:50:38.193908",
+  "t_last": "2026-07-25T10:51:21.267335"
+ },
+ {
+  "tech": "5G",
+  "location": "Loc_3_10m",
+  "protocol": "UDP",
+  "direction": "UL",
+  "levels": {
+   "I": 92269,
+   "W": 1
+  },
+  "layers": {
+   "GNB": 8,
+   "CONFIG": 2,
+   "GTPU": 1912,
+   "DU-MNG": 10,
+   "DU": 10,
+   "CU-CP": 12,
+   "NGAP": 9,
+   "CU-UP": 7,
+   "CU-UP-E1": 12,
+   "CU-CP-E1": 13,
+   "DU-F1": 20,
+   "CU-CP-F1": 19,
+   "SCHED": 16515,
+   "MAC": 16182,
+   "PHY": 33743,
+   "RLC": 19952,
+   "CU-UEMNG": 1,
+   "RRC": 9,
+   "PDCP": 3825,
+   "SEC": 5,
+   "SDAP": 1,
+   "CU-F1-U": 1,
+   "DU-F1-U": 1,
+   "RF": 1
+  },
+  "templates": {
+   "[W] RF: Real-time failure in RF: underflow": 1
+  },
+  "events": {
+   "rach": 1,
+   "crc_ok": 15052,
+   "harq_maxretx": 3,
+   "rlc_drop": 8,
+   "crc_ko": 308
+  },
+  "lines": 254897,
+  "hex_lines": 162545,
+  "t_first": "2026-07-25T10:51:53.043000",
+  "t_last": "2026-07-25T10:52:47.768675"
+ }
+]
