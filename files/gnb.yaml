@@ -28,8 +28,8 @@ ru_sdr:
   clock: external
   sync: external
   otw_format: sc12
-  tx_gain: 50
-  rx_gain: 45
+  tx_gain: 89.75                       # device max
+  rx_gain: 60                          # swept at Loc 1 2026-08-02: 70 -> OVL, 63 -> OVL, 60 -> clean, PHR -1/0
 
 cell_cfg:
   dl_arfcn: 627340
@@ -41,18 +41,19 @@ cell_cfg:
   pci: 1
   tdd_ul_dl_cfg:
     dl_ul_tx_period: 5
-    nof_dl_slots: 3
-    nof_dl_symbols: 6
-    nof_ul_slots: 1
-    nof_ul_symbols: 2
-  pcg_p_nr_fr1: -15                    # Forces the phone to drop its tx power by 25 dB
+    nof_dl_slots: 2
+    nof_dl_symbols: 5
+    nof_ul_slots: 2
+    nof_ul_symbols: 5
+  # pcg_p_nr_fr1: -15                    # was capping UE tx power ~38 dB below normal; disabled for corrected campaign
   q_rx_lev_min: -70
 log:
   filename: /tmp/gnb.log
-  all_level: warning
+  all_level: info
+  hex_max_size: 0
 
 pcap:
-  mac_enable: false
+  mac_enable: true
   mac_filename: /tmp/gnb_mac.pcap
-  ngap_enable: false
+  ngap_enable: true
   ngap_filename: /tmp/gnb_ngap.pcap

@@ -22,14 +22,15 @@ Both configurations were read directly out of the log headers:
 | Bandwidth | 10 MHz (50 PRB) | 20 MHz (51 PRB, 30 kHz SCS) |
 | TDD pattern | n/a (FDD) | period 5 slots: 3 DL + 6 DL sym / 1 UL + 2 UL sym |
 | SDR gains | — | tx_gain 89.75 (device max), rx_gain 70 |
-| **UE power cap** | none | **`pcg_p_nr_fr1: -15`** — see §3 |
+| **UE power cap** | none | none — `pcg_p_nr_fr1` was **not active** during this campaign (verified from `gnb.log` startup dump); see correction in §3 |
 | Core | Open5GS EPC (shared machine) | Open5GS 5GC (same machine) |
 | Test dates | 2026-07-28 | 2026-07-25 |
 
 The core network is the same machine in both campaigns; everything on the RAN side differs.
 The 5G link has **2× the bandwidth**, but **2.5 dB more uplink path loss**
 (20·log₁₀(3410/2560)), **~23 % of the airtime for uplink** instead of 100 %, **no external
-RX amplification**, and a **configured cap on the handset's transmit power**.
+RX amplification**, and a still-unexplained ~33 dB uplink power-control deficit (see §3
+correction — not a configured power cap, cause TBD).
 Any "5G vs 4G" claim in the thesis must be framed as *this 5G deployment vs this 4G
 deployment*, not as a property of the standards.
 
@@ -135,38 +136,64 @@ absorbs the path loss and SINR stays put. In 5G the PHR is **negative at 2 metre
 line of sight** — the UE is already power-limited at the easiest test point and has nothing
 left to give. Every extra decibel of loss then lands directly on the received SINR.
 
-### The cause is a configured transmit-power cap on the handset
+### CORRECTION (2026-08-02): the transmit-power-cap explanation below is wrong
 
-`files/gnb.yaml` line 46 contains:
+Everything from here to the end of this subsection was written assuming `pcg_p_nr_fr1: -15`
+was active during the 2026-07-25 campaign. **It was not.** The gNB startup log for that
+campaign (`Thesis/testing_data/5G/Loc_1_2m/TCP/DL/gnb.log`) prints the full non-default
+config on boot:
 
-```yaml
-pcg_p_nr_fr1: -15    # Forces the phone to drop its tx power by 25 dB
+```
+2026-07-25T10:24:47 [CONFIG] gNB input configuration (only non-default values):
+cell_cfg:
+  ... (no pcg_p_nr_fr1 line — cell_cfg block ends at q_rx_lev_min / tdd_ul_dl_cfg)
+ru_sdr:
+  tx_gain: 89.75
+  rx_gain: 70
 ```
 
-`p-NR-FR1` (TS 38.331 `PhysicalCellGroupConfig`) caps the UE's **total configured maximum
-output power for FR1**. Setting it to −15 dBm reduces the handset's ceiling from the normal
-+23 dBm (power class 3) to −15 dBm — a **38 dB reduction**, applied at every location.
+Since this dump is explicitly "only non-default values," the absence of `pcg_p_nr_fr1`
+proves it was unset (commented out) for the whole campaign — confirmed directly by the
+person running the tests. The line's presence, uncommented, in the checked-in
+`files/gnb.yaml` does not reflect what actually ran; that file had drifted from the live
+config. **The measured PHR data in the table below is real and unchanged**, but the
+causal story attached to it — a configured power cap — is not what produced it.
 
-The measured PHR confirms it independently. Inverting the TS 38.213 §7.7.1 Type-1 PHR
-equation with the values actually read out of the logs (`p0-NominalWithGrant` = −76 dBm from
-SIB1, mean PUSCH allocation 42 PRB, 30 kHz SCS, α = 1) gives the implied path loss:
+The negative PHR and the constant ~33 dB unexplained excess (assuming P_CMAX = +23 dBm)
+are therefore still unexplained and need a different mechanism. The leading candidate,
+not yet confirmed: the declared `ss-PBCH-BlockPower` (−16 dBm) and/or `p0-NominalWithGrant`
+(−76 dBm) values feed directly into the UE's open-loop path-loss estimate and closed-loop
+power-control target. If either was left at an example/default value rather than calibrated
+against the actual RF chain (antenna, cabling, the unusually high `tx_gain: 89.75` = device
+max), the UE would systematically over- or under-estimate path loss by a constant offset at
+every location — the same signature originally (mis)attributed to the power cap. This has
+not been verified against an actual calibration reference and should not be stated as fact
+in the thesis until it is. Do not repeat the "configured to whisper" framing below without
+this caveat.
 
-| Location | measured PHR | implied loss if P_CMAX = **+23 dBm** | implied loss if P_CMAX = **−15 dBm** | free-space loss |
+### (Superseded) original text, kept for the numbers only — causal claim is wrong, see above
+
+The measured PHR, independent of the (incorrect) power-cap explanation. Inverting the
+TS 38.213 §7.7.1 Type-1 PHR equation with the values actually read out of the logs
+(`p0-NominalWithGrant` = −76 dBm from SIB1, mean PUSCH allocation 42 PRB, 30 kHz SCS, α = 1)
+gives the implied path loss:
+
+| Location | measured PHR | implied loss if P_CMAX = **+23 dBm** | implied loss if P_CMAX = **−15 dBm** (ruled out — cap was never active) | free-space loss |
 |---|---|---|---|---|
 | 2 m | −2.03 dB | 81.8 dB (**+32.7 dB excess**) | 43.8 dB (−5.3 dB) | 49.1 dB |
 | 5 m | −10.34 dB | 90.1 dB (**+33.0 dB excess**) | 52.1 dB (−5.0 dB) | 57.1 dB |
 | 10 m | −13.55 dB | 93.3 dB (**+30.2 dB excess**) | 55.3 dB (−7.8 dB) | 63.1 dB |
 
-Under the uncapped hypothesis the unexplained excess is **a constant ~33 dB at all three
-locations**. A constant offset that does not vary with distance or obstruction cannot be
-propagation — it is the signature of a fixed transmit-power reduction. Under the capped
-hypothesis the implied loss tracks free space to within 5–8 dB, which is exactly what
-antenna gain plus the uncalibrated declared `ss-PBCH-BlockPower` (−16 dBm) would produce.
+The constant ~33 dB excess across all three locations is still real and still not a
+propagation effect (it doesn't scale with distance), but its cause is now open — see the
+correction note above. **Do not cite the "−15 dBm cap" column as an explanation.**
 
-**So the 5G uplink was not broken by the radio environment. It was configured to whisper,
-and the SDR gains were then cranked to their limits (tx_gain 89.75 = device maximum,
-rx_gain 70, versus 50/45 in the reference config) to compensate.** This is a gain-staging
-mistake, and it accounts for essentially all of §2's factor B, §4, §5 and §6.
+The SDR gains were cranked to their limits regardless (tx_gain 89.75 = device maximum,
+rx_gain 70, versus 50/45 in the reference config) — that part of the record stands and is
+independently confirmed in today's lab session, where the same gain values reproduce
+receiver overload (OVL) at 2 m. Whether that gain-staging choice was a reaction to the
+(nonexistent) power cap or to something else (e.g. the same uncalibrated reference-power
+issue) is unknown.
 
 Secondary contributors, all much smaller and all still worth a sentence:
 
@@ -357,18 +384,25 @@ If more campaigns are planned, fix that first.
 
 ## Re-run plan
 
-The existing campaign is **not wasted** — keep every result. The contrast between the
-mis-staged configuration and a corrected one is itself a thesis contribution: *"the effect
-of UE transmit-power configuration and TDD pattern on uplink performance in an SDR
-testbed"* is a better section than another throughput table. Present the current data as
-the "as-deployed" condition and the re-run as the "corrected" condition.
+**Note (2026-08-02):** this plan was written assuming the power cap was the primary fault
+(see correction in §3 — it wasn't active in the original campaign). Step 0's TDD-pattern
+change and gain-sweep are still valid and were carried out; the "remove the power cap"
+framing below is superseded, kept for the record of what was reasoned at the time.
+
+The existing campaign is **not wasted** — keep every result. Present the current data as
+the "as-deployed" condition and the re-run as the "corrected" condition, but the thesis
+framing needs to shift from "UE transmit-power configuration" to whatever the §3
+correction ultimately identifies as the real cause of the ~33 dB deficit, plus the TDD
+pattern change.
 
 Priority order, assuming one lab session of roughly two hours.
 
 ### Step 0 — gain staging at Loc 1 (~25 min). Do this first; nothing else is valid without it.
 
-The single change that matters: **remove `pcg_p_nr_fr1: -15`** (or set it to `23`) so the
-handset can use its full power class 3 output.
+(Superseded) The single change that matters: **remove `pcg_p_nr_fr1: -15`** (or set it to
+`23`) so the handset can use its full power class 3 output. This line was in fact already
+inactive in the original campaign, so removing it changes nothing on its own — but leaving
+it removed is still correct, and the gain-staging fix below is independently necessary.
 
 That cap was almost certainly added to stop the receiver being overloaded by a UE at 2 m.
 Removing it while leaving `rx_gain: 70` and `tx_gain: 89.75` will simply move the problem
