@@ -1,0 +1,561 @@
+
+
+🕒 [16:18:13] ──🚀 Starting iPerf3 Test 1/1 ──
+
+iperf3 -c 10.45.0.1 -p 5201 -t 20 -i 1 -P 8 -u -b 100M -d -V
+
+ℹ️ Bandwidth too low for ramp-up. Skipping ramp logic.
+📊 🚀 Initiating iPerf3 client request...
+
+📊 iperf 3.19
+
+📊 Linux localhost 5.15.178-android13-8-31998796-abF731BXXS6FZC5 #1 SMP PREEMPT Tue Mar 31 10:13:01 UTC 2026 aarch64
+
+📊 Reading new State from the Server - current state is 0-Test reset
+
+📊 State change: client received and changed State to 9-PARAM_EXCHANGE - Client to Server Parameters Exchange
+
+📊 Time: Sun, 02 Aug 2026 15:18:13 UTC
+
+📊 Connecting to host 10.45.0.1, port 5201
+
+📊       Cookie: waemtwogq3jftlvyfmd5tojioes7yk4q3hrr
+
+📊       Target Bitrate: 100000000
+
+📊 Reading new State from the Server - current state is 9-PARAM_EXCHANGE - Client to Server Parameters Exchange
+
+📊 State change: client received and changed State to 10-CREATE_STREAMS
+
+📊 [134] local 10.45.0.4 port 42641 connected to 10.45.0.1 port 5201
+
+📊 [140] local 10.45.0.4 port 41978 connected to 10.45.0.1 port 5201
+
+📊 [161] local 10.45.0.4 port 37916 connected to 10.45.0.1 port 5201
+
+📊 [168] local 10.45.0.4 port 49554 connected to 10.45.0.1 port 5201
+
+📊 [146] local 10.45.0.4 port 57246 connected to 10.45.0.1 port 5201
+
+📊 [144] local 10.45.0.4 port 35126 connected to 10.45.0.1 port 5201
+
+📊 [149] local 10.45.0.4 port 42152 connected to 10.45.0.1 port 5201
+
+📊 [169] local 10.45.0.4 port 41269 connected to 10.45.0.1 port 5201
+
+📊 Reading new State from the Server - current state is 10-CREATE_STREAMS
+
+📊 State change: client received and changed State to 1-TEST_START - starting a new test
+
+📊 Starting Test: protocol: UDP, 8 streams, 1348 byte blocks, omitting 0 seconds, 20 second test, tos 0
+
+📊 Reading new State from the Server - current state is 1-TEST_START - starting a new test
+
+📊 State change: client received and changed State to 2-TEST_RUNNING
+
+📊 Thread FD 134 created
+
+📊 Thread FD 140 created
+
+📊 Thread FD 161 created
+
+📊 Thread FD 168 created
+
+📊 Thread FD 146 created
+
+📊 Thread FD 144 created
+
+📊 Thread FD 149 created
+
+📊 Thread FD 169 created
+
+📊 All threads created
+
+📊 [ ID] Interval           Transfer     Bitrate         Total Datagrams
+
+📊 [134]   0.00-1.00   sec   519 KBytes  4.24 Mbits/sec  395  
+
+📊 [140]   0.00-1.00   sec   334 KBytes  2.73 Mbits/sec  255  
+
+📊 [161]   0.00-1.00   sec   299 KBytes  2.44 Mbits/sec  228  
+
+📊 [168]   0.00-1.00   sec   299 KBytes  2.44 Mbits/sec  228  
+
+📊 [146]   0.00-1.00   sec   345 KBytes  2.82 Mbits/sec  263  
+
+📊 [144]   0.00-1.00   sec   395 KBytes  3.23 Mbits/sec  301  
+
+📊 [149]   0.00-1.00   sec   301 KBytes  2.46 Mbits/sec  230  
+
+📊 [169]   0.00-1.00   sec   498 KBytes  4.07 Mbits/sec  379  
+
+📊 [SUM]   0.00-1.00   sec  2.92 MBytes  24.4 Mbits/sec  2279  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]   1.00-2.00   sec   291 KBytes  2.39 Mbits/sec  221  
+
+📊 [140]   1.00-2.00   sec   219 KBytes  1.79 Mbits/sec  166  
+
+📊 [161]   1.00-2.00   sec   390 KBytes  3.20 Mbits/sec  296  
+
+📊 [168]   1.00-2.00   sec   176 KBytes  1.45 Mbits/sec  134  
+
+📊 [146]   1.00-2.00   sec   263 KBytes  2.16 Mbits/sec  200  
+
+📊 [144]   1.00-2.00   sec   353 KBytes  2.89 Mbits/sec  268  
+
+📊 [149]   1.00-2.00   sec   238 KBytes  1.95 Mbits/sec  181  
+
+📊 [169]   1.00-2.00   sec   174 KBytes  1.43 Mbits/sec  132  
+
+📊 [SUM]   1.00-2.00   sec  2.05 MBytes  17.3 Mbits/sec  1598  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]   2.00-3.00   sec   263 KBytes  2.15 Mbits/sec  200  
+
+📊 [140]   2.00-3.00   sec   359 KBytes  2.94 Mbits/sec  273  
+
+📊 [161]   2.00-3.00   sec   199 KBytes  1.63 Mbits/sec  151  
+
+📊 [168]   2.00-3.00   sec   282 KBytes  2.31 Mbits/sec  214  
+
+📊 [146]   2.00-3.00   sec   174 KBytes  1.42 Mbits/sec  132  
+
+📊 [144]   2.00-3.00   sec   201 KBytes  1.65 Mbits/sec  153  
+
+📊 [149]   2.00-3.00   sec   315 KBytes  2.58 Mbits/sec  239  
+
+📊 [169]   2.00-3.00   sec   287 KBytes  2.35 Mbits/sec  218  
+
+📊 [SUM]   2.00-3.00   sec  2.03 MBytes  17.0 Mbits/sec  1580  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]   3.00-4.00   sec   294 KBytes  2.41 Mbits/sec  223  
+
+📊 [140]   3.00-4.00   sec   280 KBytes  2.30 Mbits/sec  213  
+
+📊 [161]   3.00-4.00   sec   294 KBytes  2.41 Mbits/sec  223  
+
+📊 [168]   3.00-4.00   sec   240 KBytes  1.96 Mbits/sec  182  
+
+📊 [146]   3.00-4.00   sec   336 KBytes  2.75 Mbits/sec  255  
+
+📊 [144]   3.00-4.00   sec   342 KBytes  2.81 Mbits/sec  260  
+
+📊 [149]   3.00-4.00   sec   263 KBytes  2.16 Mbits/sec  200  
+
+📊 [169]   3.00-4.00   sec   244 KBytes  2.00 Mbits/sec  185  
+
+📊 [SUM]   3.00-4.00   sec  2.24 MBytes  18.8 Mbits/sec  1741  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]   4.00-5.00   sec   172 KBytes  1.41 Mbits/sec  131  
+
+📊 [140]   4.00-5.00   sec   215 KBytes  1.76 Mbits/sec  163  
+
+📊 [161]   4.00-5.00   sec   237 KBytes  1.94 Mbits/sec  180  
+
+📊 [168]   4.00-5.00   sec   194 KBytes  1.59 Mbits/sec  147  
+
+📊 [146]   4.00-5.00   sec   357 KBytes  2.92 Mbits/sec  271  
+
+📊 [144]   4.00-5.00   sec   253 KBytes  2.07 Mbits/sec  192  
+
+📊 [149]   4.00-5.00   sec   205 KBytes  1.68 Mbits/sec  156  
+
+📊 [169]   4.00-5.00   sec   216 KBytes  1.77 Mbits/sec  164  
+
+📊 [SUM]   4.00-5.00   sec  1.80 MBytes  15.1 Mbits/sec  1404  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]   5.00-6.00   sec   345 KBytes  2.83 Mbits/sec  262  
+
+📊 [140]   5.00-6.00   sec   263 KBytes  2.16 Mbits/sec  200  
+
+📊 [161]   5.00-6.00   sec   355 KBytes  2.91 Mbits/sec  270  
+
+📊 [168]   5.00-6.00   sec   299 KBytes  2.45 Mbits/sec  227  
+
+📊 [146]   5.00-6.00   sec   258 KBytes  2.11 Mbits/sec  196  
+
+📊 [144]   5.00-6.00   sec   346 KBytes  2.84 Mbits/sec  263  
+
+📊 [149]   5.00-6.00   sec   282 KBytes  2.31 Mbits/sec  214  
+
+📊 [169]   5.00-6.00   sec   242 KBytes  1.98 Mbits/sec  184  
+
+📊 [SUM]   5.00-6.00   sec  2.33 MBytes  19.6 Mbits/sec  1816  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]   6.00-7.00   sec   184 KBytes  1.51 Mbits/sec  140  
+
+📊 [140]   6.00-7.00   sec   307 KBytes  2.51 Mbits/sec  233  
+
+📊 [161]   6.00-7.00   sec   200 KBytes  1.64 Mbits/sec  152  
+
+📊 [168]   6.00-7.00   sec   204 KBytes  1.67 Mbits/sec  155  
+
+📊 [146]   6.00-7.00   sec   334 KBytes  2.74 Mbits/sec  254  
+
+📊 [144]   6.00-7.00   sec   263 KBytes  2.16 Mbits/sec  200  
+
+📊 [149]   6.00-7.00   sec   242 KBytes  1.99 Mbits/sec  184  
+
+📊 [169]   6.00-7.00   sec   348 KBytes  2.85 Mbits/sec  264  
+
+📊 [SUM]   6.00-7.00   sec  2.03 MBytes  17.1 Mbits/sec  1582  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]   7.00-8.00   sec   149 KBytes  1.22 Mbits/sec  113  
+
+📊 [140]   7.00-8.00   sec  77.7 KBytes   636 Kbits/sec  59  
+
+📊 [161]   7.00-8.00   sec   221 KBytes  1.81 Mbits/sec  168  
+
+📊 [168]   7.00-8.00   sec  82.9 KBytes   679 Kbits/sec  63  
+
+📊 [146]   7.00-8.00   sec   132 KBytes  1.08 Mbits/sec  100  
+
+📊 [144]   7.00-8.00   sec   137 KBytes  1.12 Mbits/sec  104  
+
+📊 [149]   7.00-8.00   sec   203 KBytes  1.66 Mbits/sec  154  
+
+📊 [169]   7.00-8.00   sec   132 KBytes  1.08 Mbits/sec  100  
+
+📊 [SUM]   7.00-8.00   sec  1.11 MBytes  9.28 Mbits/sec  861  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]   8.00-9.00   sec  85.6 KBytes   701 Kbits/sec  65  
+
+📊 [140]   8.00-9.00   sec   132 KBytes  1.08 Mbits/sec  100  
+
+📊 [161]   8.00-9.00   sec  94.8 KBytes   777 Kbits/sec  72  
+
+📊 [168]   8.00-9.00   sec  90.8 KBytes   744 Kbits/sec  69  
+
+📊 [146]   8.00-9.00   sec  90.8 KBytes   744 Kbits/sec  69  
+
+📊 [144]   8.00-9.00   sec  73.7 KBytes   604 Kbits/sec  56  
+
+📊 [149]   8.00-9.00   sec  84.2 KBytes   690 Kbits/sec  64  
+
+📊 [169]   8.00-9.00   sec   103 KBytes   841 Kbits/sec  78  
+
+📊 [SUM]   8.00-9.00   sec   754 KBytes  6.18 Mbits/sec  573  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]   9.00-10.00  sec  85.6 KBytes   700 Kbits/sec  65  
+
+📊 [140]   9.00-10.00  sec  73.7 KBytes   603 Kbits/sec  56  
+
+📊 [161]   9.00-10.00  sec   103 KBytes   841 Kbits/sec  78  
+
+📊 [168]   9.00-10.00  sec   104 KBytes   851 Kbits/sec  79  
+
+📊 [146]   9.00-10.00  sec  77.7 KBytes   636 Kbits/sec  59  
+
+📊 [144]   9.00-10.00  sec   108 KBytes   884 Kbits/sec  82  
+
+📊 [149]   9.00-10.00  sec  93.5 KBytes   765 Kbits/sec  71  
+
+📊 [169]   9.00-10.00  sec  73.7 KBytes   603 Kbits/sec  56  
+
+📊 [SUM]   9.00-10.00  sec   719 KBytes  5.88 Mbits/sec  546  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]  10.00-11.00  sec  75.0 KBytes   615 Kbits/sec  57  
+
+📊 [140]  10.00-11.00  sec  88.2 KBytes   723 Kbits/sec  67  
+
+📊 [161]  10.00-11.00  sec   111 KBytes   907 Kbits/sec  84  
+
+📊 [168]  10.00-11.00  sec  92.1 KBytes   755 Kbits/sec  70  
+
+📊 [146]  10.00-11.00  sec  94.8 KBytes   777 Kbits/sec  72  
+
+📊 [144]  10.00-11.00  sec   132 KBytes  1.08 Mbits/sec  100  
+
+📊 [149]  10.00-11.00  sec   109 KBytes   896 Kbits/sec  83  
+
+📊 [169]  10.00-11.00  sec  73.7 KBytes   604 Kbits/sec  56  
+
+📊 [SUM]  10.00-11.00  sec   775 KBytes  6.36 Mbits/sec  589  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]  11.00-12.00  sec   113 KBytes   927 Kbits/sec  86  
+
+📊 [140]  11.00-12.00  sec   207 KBytes  1.69 Mbits/sec  157  
+
+📊 [161]  11.00-12.00  sec   107 KBytes   873 Kbits/sec  81  
+
+📊 [168]  11.00-12.00  sec   236 KBytes  1.93 Mbits/sec  179  
+
+📊 [146]  11.00-12.00  sec   124 KBytes  1.01 Mbits/sec  94  
+
+📊 [144]  11.00-12.00  sec   109 KBytes   894 Kbits/sec  83  
+
+📊 [149]  11.00-12.00  sec  96.1 KBytes   787 Kbits/sec  73  
+
+📊 [169]  11.00-12.00  sec   168 KBytes  1.38 Mbits/sec  128  
+
+📊 [SUM]  11.00-12.00  sec  1.13 MBytes  9.49 Mbits/sec  881  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]  12.00-13.00  sec   222 KBytes  1.82 Mbits/sec  169  
+
+📊 [140]  12.00-13.00  sec   103 KBytes   842 Kbits/sec  78  
+
+📊 [161]  12.00-13.00  sec   132 KBytes  1.08 Mbits/sec  100  
+
+📊 [168]  12.00-13.00  sec   132 KBytes  1.08 Mbits/sec  100  
+
+📊 [146]  12.00-13.00  sec   101 KBytes   831 Kbits/sec  77  
+
+📊 [144]  12.00-13.00  sec   107 KBytes   874 Kbits/sec  81  
+
+📊 [149]  12.00-13.00  sec   100 KBytes   820 Kbits/sec  76  
+
+📊 [169]  12.00-13.00  sec   132 KBytes  1.08 Mbits/sec  100  
+
+📊 [SUM]  12.00-13.00  sec  1.00 MBytes  8.43 Mbits/sec  781  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]  13.00-14.00  sec   132 KBytes  1.08 Mbits/sec  100  
+
+📊 [140]  13.00-14.00  sec   205 KBytes  1.68 Mbits/sec  156  
+
+📊 [161]  13.00-14.00  sec   254 KBytes  2.08 Mbits/sec  193  
+
+📊 [168]  13.00-14.00  sec   245 KBytes  2.00 Mbits/sec  186  
+
+📊 [146]  13.00-14.00  sec   263 KBytes  2.16 Mbits/sec  200  
+
+📊 [144]  13.00-14.00  sec   209 KBytes  1.71 Mbits/sec  159  
+
+📊 [149]  13.00-14.00  sec   182 KBytes  1.49 Mbits/sec  138  
+
+📊 [169]  13.00-14.00  sec   140 KBytes  1.14 Mbits/sec  106  
+
+📊 [SUM]  13.00-14.00  sec  1.59 MBytes  13.3 Mbits/sec  1238  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]  14.00-15.00  sec   200 KBytes  1.64 Mbits/sec  152  
+
+📊 [140]  14.00-15.00  sec   132 KBytes  1.08 Mbits/sec  100  
+
+📊 [161]  14.00-15.00  sec   199 KBytes  1.63 Mbits/sec  151  
+
+📊 [168]  14.00-15.00  sec   132 KBytes  1.08 Mbits/sec  100  
+
+📊 [146]  14.00-15.00  sec   180 KBytes  1.48 Mbits/sec  137  
+
+📊 [144]  14.00-15.00  sec   230 KBytes  1.89 Mbits/sec  175  
+
+📊 [149]  14.00-15.00  sec   172 KBytes  1.41 Mbits/sec  131  
+
+📊 [169]  14.00-15.00  sec   178 KBytes  1.46 Mbits/sec  135  
+
+📊 [SUM]  14.00-15.00  sec  1.39 MBytes  11.7 Mbits/sec  1081  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]  15.00-16.00  sec   174 KBytes  1.42 Mbits/sec  132  
+
+📊 [140]  15.00-16.00  sec   172 KBytes  1.41 Mbits/sec  131  
+
+📊 [161]  15.00-16.00  sec   203 KBytes  1.66 Mbits/sec  154  
+
+📊 [168]  15.00-16.00  sec   284 KBytes  2.33 Mbits/sec  216  
+
+📊 [146]  15.00-16.00  sec   195 KBytes  1.59 Mbits/sec  148  
+
+📊 [144]  15.00-16.00  sec   229 KBytes  1.87 Mbits/sec  174  
+
+📊 [149]  15.00-16.00  sec   209 KBytes  1.71 Mbits/sec  159  
+
+📊 [169]  15.00-16.00  sec   170 KBytes  1.39 Mbits/sec  129  
+
+📊 [SUM]  15.00-16.00  sec  1.60 MBytes  13.4 Mbits/sec  1243  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]  16.00-17.00  sec   307 KBytes  2.52 Mbits/sec  233  
+
+📊 [140]  16.00-17.00  sec   357 KBytes  2.93 Mbits/sec  271  
+
+📊 [161]  16.00-17.00  sec   238 KBytes  1.95 Mbits/sec  181  
+
+📊 [168]  16.00-17.00  sec   267 KBytes  2.19 Mbits/sec  203  
+
+📊 [146]  16.00-17.00  sec   382 KBytes  3.13 Mbits/sec  290  
+
+📊 [144]  16.00-17.00  sec   348 KBytes  2.85 Mbits/sec  264  
+
+📊 [149]  16.00-17.00  sec   336 KBytes  2.75 Mbits/sec  255  
+
+📊 [169]  16.00-17.00  sec   288 KBytes  2.36 Mbits/sec  219  
+
+📊 [SUM]  16.00-17.00  sec  2.46 MBytes  20.7 Mbits/sec  1916  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]  17.00-18.00  sec   219 KBytes  1.79 Mbits/sec  166  
+
+📊 [140]  17.00-18.00  sec   355 KBytes  2.91 Mbits/sec  270  
+
+📊 [161]  17.00-18.00  sec   291 KBytes  2.38 Mbits/sec  221  
+
+📊 [168]  17.00-18.00  sec   197 KBytes  1.62 Mbits/sec  150  
+
+📊 [146]  17.00-18.00  sec   369 KBytes  3.02 Mbits/sec  280  
+
+📊 [144]  17.00-18.00  sec   307 KBytes  2.51 Mbits/sec  233  
+
+📊 [149]  17.00-18.00  sec   205 KBytes  1.68 Mbits/sec  156  
+
+📊 [169]  17.00-18.00  sec   271 KBytes  2.22 Mbits/sec  206  
+
+📊 [SUM]  17.00-18.00  sec  2.16 MBytes  18.1 Mbits/sec  1682  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]  18.00-19.00  sec   207 KBytes  1.70 Mbits/sec  157  
+
+📊 [140]  18.00-19.00  sec   220 KBytes  1.80 Mbits/sec  167  
+
+📊 [161]  18.00-19.00  sec   340 KBytes  2.79 Mbits/sec  258  
+
+📊 [168]  18.00-19.00  sec   361 KBytes  2.96 Mbits/sec  274  
+
+📊 [146]  18.00-19.00  sec   261 KBytes  2.14 Mbits/sec  198  
+
+📊 [144]  18.00-19.00  sec   222 KBytes  1.82 Mbits/sec  169  
+
+📊 [149]  18.00-19.00  sec   328 KBytes  2.69 Mbits/sec  249  
+
+📊 [169]  18.00-19.00  sec   222 KBytes  1.82 Mbits/sec  169  
+
+📊 [SUM]  18.00-19.00  sec  2.11 MBytes  17.7 Mbits/sec  1641  
+
+📊 Thread FD 134 stopped
+
+📊 Thread FD 140 stopped
+
+📊 Thread FD 161 stopped
+
+📊 Thread FD 168 stopped
+
+📊 Thread FD 146 stopped
+
+📊 Thread FD 144 stopped
+
+📊 Thread FD 149 stopped
+
+📊 Thread FD 169 stopped
+
+📊 Sender threads stopped
+
+📊 State change: State set to 4-TEST_END (from 2-TEST_RUNNING)
+
+📊 Reading new State from the Server - current state is 4-TEST_END
+
+📊 State change: client received and changed State to 13-EXCHANGE_RESULTS
+
+📊 Reading new State from the Server - current state is 13-EXCHANGE_RESULTS
+
+📊 State change: client received and changed State to 14-DISPLAY_RESULTS
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [134]  19.00-20.36  sec   344 KBytes  2.08 Mbits/sec  260  
+
+📊 [140]  19.00-20.36  sec   311 KBytes  1.88 Mbits/sec  235  
+
+📊 [161]  19.00-20.36  sec   201 KBytes  1.22 Mbits/sec  152  
+
+📊 [168]  19.00-20.36  sec   179 KBytes  1.08 Mbits/sec  135  
+
+📊 [146]  19.00-20.36  sec   265 KBytes  1.60 Mbits/sec  200  
+
+📊 [144]  19.00-20.36  sec   221 KBytes  1.34 Mbits/sec  167  
+
+📊 [149]  19.00-20.36  sec   234 KBytes  1.42 Mbits/sec  177  
+
+📊 [169]  19.00-20.36  sec   166 KBytes  1.00 Mbits/sec  125  
+
+📊 [SUM]  19.00-20.36  sec  1.88 MBytes  11.6 Mbits/sec  1451  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 Test Complete. Summary Results:
+
+📊 [ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams
+
+📊 [134]   0.00-20.36  sec  4.28 MBytes  1.76 Mbits/sec  0.000 ms  0/3327 (0%)  sender
+
+📊 [134]   0.00-20.65  sec  4.28 MBytes  1.74 Mbits/sec  1.157 ms  0/3327 (0%)  receiver
+
+📊 [140]   0.00-20.36  sec  4.31 MBytes  1.77 Mbits/sec  0.000 ms  0/3350 (0%)  sender
+
+📊 [140]   0.00-20.65  sec  4.31 MBytes  1.75 Mbits/sec  1.245 ms  0/3350 (0%)  receiver
+
+📊 [161]   0.00-20.36  sec  4.36 MBytes  1.80 Mbits/sec  0.000 ms  0/3393 (0%)  sender
+
+📊 [161]   0.00-20.65  sec  4.36 MBytes  1.77 Mbits/sec  8.929 ms  0/3393 (0%)  receiver
+
+📊 [168]   0.00-20.36  sec  4.00 MBytes  1.65 Mbits/sec  0.000 ms  0/3111 (0%)  sender
+
+📊 [168]   0.00-20.65  sec  4.00 MBytes  1.62 Mbits/sec  13.043 ms  0/3111 (0%)  receiver
+
+📊 [146]   0.00-20.36  sec  4.49 MBytes  1.85 Mbits/sec  0.000 ms  0/3495 (0%)  sender
+
+📊 [146]   0.00-20.65  sec  4.49 MBytes  1.82 Mbits/sec  20.678 ms  0/3495 (0%)  receiver
+
+📊 [144]   0.00-20.36  sec  4.48 MBytes  1.85 Mbits/sec  0.000 ms  0/3484 (0%)  sender
+
+📊 [144]   0.00-20.65  sec  4.48 MBytes  1.82 Mbits/sec  14.612 ms  0/3484 (0%)  receiver
+
+📊 [149]   0.00-20.36  sec  4.10 MBytes  1.69 Mbits/sec  0.000 ms  0/3190 (0%)  sender
+
+📊 [149]   0.00-20.65  sec  4.10 MBytes  1.67 Mbits/sec  9.595 ms  0/3190 (0%)  receiver
+
+📊 [169]   0.00-20.36  sec  4.03 MBytes  1.66 Mbits/sec  0.000 ms  0/3133 (0%)  sender
+
+📊 [169]   0.00-20.65  sec  4.03 MBytes  1.64 Mbits/sec  20.324 ms  0/3133 (0%)  receiver
+
+📊 [SUM]   0.00-20.36  sec  34.0 MBytes  14.0 Mbits/sec  0.000 ms  0/26483 (0%)  sender
+
+📊 [SUM]   0.00-20.65  sec  34.0 MBytes  13.8 Mbits/sec  11.198 ms  0/26483 (0%)  receiver
+
+📊 CPU Utilization: local/sender 17.7% (9.5%u/8.1%s), remote/receiver 0.6% (0.1%u/0.5%s)
+
+📊 State change: State set to 16-IPERF_DONE (from 14-DISPLAY_RESULTS)
+
+📊 Receiver threads stopped
+
+📊 
+
+📊 iperf Done.
+
+📊 [iPerf JNI] Test completed successfully.
+
+
+🏁 [End] Iteration 1
+✅ [Done] All iterations completed.
+
+📁 Logs saved in app-specific Downloads folder:
+   🔹 Part 1: iPerf3_20260802_161813_v2.2_1.txt
