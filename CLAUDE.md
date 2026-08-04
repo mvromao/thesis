@@ -26,13 +26,21 @@ software, benchmarked against a 4G baseline built on the same core hardware.
 - `Thesis/analysis/FINDINGS.md` — **the current source of truth on testbed status.** Full
   write-up of what the first 24-run campaign showed, root-cause analysis, and a concrete
   re-run plan. Read this before making any RAN config changes or drawing conclusions from data.
-- `Thesis/analysis/SESSION_LOG_2026-08-02.md` — **read this before continuing any in-progress
-  re-run work.** Blow-by-blow record of a lab session: the correction to FINDINGS.md's root
-  cause, every config change made on the live RAN host and why, the discovery that `gnb.log`
-  now carries native timestamped metrics (changes how data should be captured/parsed), the
-  finalized test methodology for the re-run campaign, and an open-items list. If a re-run
-  campaign is underway or was recently done, this file has the details CLAUDE.md summarizes
-  below.
+- `Thesis/analysis/SESSION_LOG_2026-08-02.md` — first re-run lab session: the correction to
+  FINDINGS.md's root cause, config changes made on the live RAN host, the discovery that
+  `gnb.log` carries native timestamped metrics, the finalized test methodology.
+- `Thesis/analysis/FINDINGS_RERUN_2026-08-02.md` — home analysis of that session's data
+  (39 reps). Found the uplink pathology mostly gone, but `rx_gain` had silently reverted to 70
+  (never actually applied at 60), Loc 2 data unusable, a 22 dB unexplained uplink jump between
+  campaigns, and multi-second downlink bufferbloat from an oversized RLC queue.
+- `Thesis/analysis/LAB_CHECKLIST_next_session.md` — the resulting checklist (rx_gain sweep
+  gate, Loc 2 re-measure, TDD isolation at Loc 3, unloaded-latency ping, RLC buffer resize).
+- `Thesis/analysis/SESSION_LOG_2026-08-03.md` — **read this before continuing any in-progress
+  work.** Execution of that checklist: `rx_gain: 60` confirmed and locked in (decisive BLER/MCS/
+  OVL improvement), full re-run matrix done, TDD isolation test run at Loc 3 (result not yet
+  read out of the data), pings done at all 3 locations, RLC buffer step not reached. Has a new
+  unresolved PHR anomaly and a full open-items/next-steps list. Data is on a USB flash drive,
+  not yet copied into `Thesis/testing_data/`.
 
 ## Known issue (as of the last campaign, 2026-07-25/28) — corrected 2026-08-02
 
