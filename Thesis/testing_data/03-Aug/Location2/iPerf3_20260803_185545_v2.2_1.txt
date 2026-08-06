@@ -1,0 +1,561 @@
+
+
+🕒 [18:55:45] ──🚀 Starting iPerf3 Test 1/1 ──
+
+iperf3 -c 10.45.0.1 -p 5201 -t 20 -i 1 -P 8 -R -u -b 100M -d -V
+
+ℹ️ Bandwidth too low for ramp-up. Skipping ramp logic.
+📊 🚀 Initiating iPerf3 client request...
+
+📊 iperf 3.19
+
+📊 Linux localhost 5.15.178-android13-8-31998796-abF731BXXS6FZC5 #1 SMP PREEMPT Tue Mar 31 10:13:01 UTC 2026 aarch64
+
+📊 Reading new State from the Server - current state is 0-Test reset
+
+📊 State change: client received and changed State to 9-PARAM_EXCHANGE - Client to Server Parameters Exchange
+
+📊 Time: Mon, 03 Aug 2026 17:55:45 UTC
+
+📊 Connecting to host 10.45.0.1, port 5201
+
+📊 Reverse mode, remote host 10.45.0.1 is sending
+
+📊       Cookie: f5a5nufkar2bdlvwgvzrpn7ytzmvsctcp72p
+
+📊       Target Bitrate: 100000000
+
+📊 Reading new State from the Server - current state is 9-PARAM_EXCHANGE - Client to Server Parameters Exchange
+
+📊 State change: client received and changed State to 10-CREATE_STREAMS
+
+📊 [135] local 10.45.0.4 port 38730 connected to 10.45.0.1 port 5201
+
+📊 [138] local 10.45.0.4 port 46878 connected to 10.45.0.1 port 5201
+
+📊 [132] local 10.45.0.4 port 52011 connected to 10.45.0.1 port 5201
+
+📊 [147] local 10.45.0.4 port 43149 connected to 10.45.0.1 port 5201
+
+📊 [140] local 10.45.0.4 port 54581 connected to 10.45.0.1 port 5201
+
+📊 [148] local 10.45.0.4 port 44911 connected to 10.45.0.1 port 5201
+
+📊 [142] local 10.45.0.4 port 38795 connected to 10.45.0.1 port 5201
+
+📊 [155] local 10.45.0.4 port 59263 connected to 10.45.0.1 port 5201
+
+📊 Reading new State from the Server - current state is 10-CREATE_STREAMS
+
+📊 State change: client received and changed State to 1-TEST_START - starting a new test
+
+📊 Starting Test: protocol: UDP, 8 streams, 1348 byte blocks, omitting 0 seconds, 20 second test, tos 0
+
+📊 Reading new State from the Server - current state is 1-TEST_START - starting a new test
+
+📊 State change: client received and changed State to 2-TEST_RUNNING
+
+📊 Thread FD 135 created
+
+📊 Thread FD 138 created
+
+📊 Thread FD 132 created
+
+📊 Thread FD 147 created
+
+📊 Thread FD 140 created
+
+📊 Thread FD 148 created
+
+📊 Thread FD 142 created
+
+📊 Thread FD 155 created
+
+📊 All threads created
+
+📊 [ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams
+
+📊 [135]   0.00-1.00   sec   404 KBytes  3.31 Mbits/sec  3.066 ms  1597/1904 (84%)  
+
+📊 [138]   0.00-1.00   sec   417 KBytes  3.42 Mbits/sec  2.972 ms  1593/1910 (83%)  
+
+📊 [132]   0.00-1.00   sec   396 KBytes  3.24 Mbits/sec  3.154 ms  1609/1910 (84%)  
+
+📊 [147]   0.00-1.00   sec   395 KBytes  3.23 Mbits/sec  3.144 ms  1604/1904 (84%)  
+
+📊 [140]   0.00-1.00   sec   357 KBytes  2.92 Mbits/sec  3.663 ms  1633/1904 (86%)  
+
+📊 [148]   0.00-1.00   sec   166 KBytes  1.36 Mbits/sec  8.091 ms  1778/1904 (93%)  
+
+📊 [142]   0.00-1.00   sec   153 KBytes  1.25 Mbits/sec  8.372 ms  1788/1904 (94%)  
+
+📊 [155]   0.00-1.00   sec   151 KBytes  1.24 Mbits/sec  5.864 ms  1758/1873 (94%)  
+
+📊 [SUM]   0.00-1.00   sec  2.38 MBytes  20.0 Mbits/sec  4.791 ms  13360/15213 (88%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]   1.00-2.00   sec   419 KBytes  3.43 Mbits/sec  2.511 ms  1745/2063 (85%)  
+
+📊 [138]   1.00-2.00   sec   424 KBytes  3.47 Mbits/sec  2.298 ms  1735/2057 (84%)  
+
+📊 [132]   1.00-2.00   sec   398 KBytes  3.25 Mbits/sec  2.398 ms  1751/2053 (85%)  
+
+📊 [147]   1.00-2.00   sec   383 KBytes  3.14 Mbits/sec  2.781 ms  1768/2059 (86%)  
+
+📊 [140]   1.00-2.00   sec   394 KBytes  3.22 Mbits/sec  2.572 ms  1732/2031 (85%)  
+
+📊 [148]   1.00-2.00   sec   180 KBytes  1.48 Mbits/sec  5.736 ms  1919/2056 (93%)  
+
+📊 [142]   1.00-2.00   sec   157 KBytes  1.28 Mbits/sec  5.902 ms  1937/2056 (94%)  
+
+📊 [155]   1.00-2.00   sec   141 KBytes  1.15 Mbits/sec  7.262 ms  1986/2093 (95%)  
+
+📊 [SUM]   1.00-2.00   sec  2.44 MBytes  20.4 Mbits/sec  3.932 ms  14573/16468 (88%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]   2.00-3.00   sec   487 KBytes  3.99 Mbits/sec  3.599 ms  3215/3585 (90%)  
+
+📊 [138]   2.00-3.00   sec   484 KBytes  3.97 Mbits/sec  4.114 ms  3217/3585 (90%)  
+
+📊 [132]   2.00-3.00   sec   471 KBytes  3.86 Mbits/sec  4.687 ms  3221/3579 (90%)  
+
+📊 [147]   2.00-3.00   sec   463 KBytes  3.80 Mbits/sec  3.824 ms  3235/3587 (90%)  
+
+📊 [140]   2.00-3.00   sec   442 KBytes  3.63 Mbits/sec  4.420 ms  3279/3615 (91%)  
+
+📊 [148]   2.00-3.00   sec   192 KBytes  1.58 Mbits/sec  6.977 ms  3438/3584 (96%)  
+
+📊 [142]   2.00-3.00   sec   196 KBytes  1.61 Mbits/sec  4.543 ms  3435/3584 (96%)  
+
+📊 [155]   2.00-3.00   sec   176 KBytes  1.45 Mbits/sec  6.311 ms  3439/3573 (96%)  
+
+📊 [SUM]   2.00-3.00   sec  2.84 MBytes  23.9 Mbits/sec  4.809 ms  26479/28692 (92%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]   3.00-4.00   sec   570 KBytes  4.67 Mbits/sec  4.062 ms  11631/12064 (96%)  
+
+📊 [138]   3.00-4.00   sec   549 KBytes  4.50 Mbits/sec  4.101 ms  11647/12064 (97%)  
+
+📊 [132]   3.00-4.00   sec   527 KBytes  4.31 Mbits/sec  3.555 ms  11674/12074 (97%)  
+
+📊 [147]   3.00-4.00   sec   519 KBytes  4.25 Mbits/sec  3.381 ms  11671/12065 (97%)  
+
+📊 [140]   3.00-4.00   sec   479 KBytes  3.93 Mbits/sec  4.295 ms  11693/12057 (97%)  
+
+📊 [148]   3.00-4.00   sec   190 KBytes  1.55 Mbits/sec  5.496 ms  11908/12052 (99%)  
+
+📊 [142]   3.00-4.00   sec   211 KBytes  1.73 Mbits/sec  6.418 ms  11898/12058 (99%)  
+
+📊 [155]   3.00-4.00   sec   207 KBytes  1.69 Mbits/sec  4.857 ms  11913/12070 (99%)  
+
+📊 [SUM]   3.00-4.00   sec  3.17 MBytes  26.6 Mbits/sec  4.521 ms  94035/96504 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]   4.00-5.00   sec   546 KBytes  4.47 Mbits/sec  4.106 ms  9970/10385 (96%)  
+
+📊 [138]   4.00-5.00   sec   565 KBytes  4.63 Mbits/sec  3.714 ms  9956/10385 (96%)  
+
+📊 [132]   4.00-5.00   sec   529 KBytes  4.33 Mbits/sec  2.811 ms  9983/10385 (96%)  
+
+📊 [147]   4.00-5.00   sec   503 KBytes  4.12 Mbits/sec  3.081 ms  10004/10386 (96%)  
+
+📊 [140]   4.00-5.00   sec   474 KBytes  3.88 Mbits/sec  3.921 ms  10034/10394 (97%)  
+
+📊 [148]   4.00-5.00   sec   242 KBytes  1.98 Mbits/sec  4.457 ms  10223/10407 (98%)  
+
+📊 [142]   4.00-5.00   sec   250 KBytes  2.05 Mbits/sec  5.139 ms  10211/10401 (98%)  
+
+📊 [155]   4.00-5.00   sec   217 KBytes  1.78 Mbits/sec  6.068 ms  10217/10382 (98%)  
+
+📊 [SUM]   4.00-5.00   sec  3.25 MBytes  27.2 Mbits/sec  4.162 ms  80598/83125 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]   5.00-6.00   sec   556 KBytes  4.55 Mbits/sec  3.250 ms  9037/9459 (96%)  
+
+📊 [138]   5.00-6.00   sec   553 KBytes  4.53 Mbits/sec  3.263 ms  9039/9459 (96%)  
+
+📊 [132]   5.00-6.00   sec   533 KBytes  4.37 Mbits/sec  4.202 ms  9053/9458 (96%)  
+
+📊 [147]   5.00-6.00   sec   537 KBytes  4.40 Mbits/sec  3.857 ms  9041/9449 (96%)  
+
+📊 [140]   5.00-6.00   sec   495 KBytes  4.06 Mbits/sec  3.011 ms  9083/9459 (96%)  
+
+📊 [148]   5.00-6.00   sec   240 KBytes  1.96 Mbits/sec  4.058 ms  9275/9457 (98%)  
+
+📊 [142]   5.00-6.00   sec   222 KBytes  1.82 Mbits/sec  3.836 ms  9277/9446 (98%)  
+
+📊 [155]   5.00-6.00   sec   208 KBytes  1.70 Mbits/sec  4.909 ms  9300/9458 (98%)  
+
+📊 [SUM]   5.00-6.00   sec  3.27 MBytes  27.4 Mbits/sec  3.798 ms  73105/75645 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]   6.00-7.00   sec   521 KBytes  4.27 Mbits/sec  3.624 ms  8701/9097 (96%)  
+
+📊 [138]   6.00-7.00   sec   536 KBytes  4.39 Mbits/sec  3.007 ms  8690/9097 (96%)  
+
+📊 [132]   6.00-7.00   sec   511 KBytes  4.18 Mbits/sec  3.538 ms  8710/9098 (96%)  
+
+📊 [147]   6.00-7.00   sec   509 KBytes  4.17 Mbits/sec  3.793 ms  8720/9107 (96%)  
+
+📊 [140]   6.00-7.00   sec   491 KBytes  4.02 Mbits/sec  3.877 ms  8724/9097 (96%)  
+
+📊 [148]   6.00-7.00   sec   274 KBytes  2.24 Mbits/sec  4.661 ms  8894/9102 (98%)  
+
+📊 [142]   6.00-7.00   sec   245 KBytes  2.00 Mbits/sec  4.077 ms  8927/9113 (98%)  
+
+📊 [155]   6.00-7.00   sec   197 KBytes  1.62 Mbits/sec  5.316 ms  8948/9098 (98%)  
+
+📊 [SUM]   6.00-7.00   sec  3.21 MBytes  26.9 Mbits/sec  3.987 ms  70314/72809 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]   7.00-8.00   sec   554 KBytes  4.54 Mbits/sec  4.244 ms  8852/9273 (95%)  
+
+📊 [138]   7.00-8.00   sec   544 KBytes  4.46 Mbits/sec  3.779 ms  9029/9442 (96%)  
+
+📊 [132]   7.00-8.00   sec   537 KBytes  4.40 Mbits/sec  3.677 ms  8865/9273 (96%)  
+
+📊 [147]   7.00-8.00   sec   525 KBytes  4.30 Mbits/sec  3.945 ms  9041/9440 (96%)  
+
+📊 [140]   7.00-8.00   sec   487 KBytes  3.99 Mbits/sec  4.219 ms  8904/9274 (96%)  
+
+📊 [148]   7.00-8.00   sec   270 KBytes  2.21 Mbits/sec  4.981 ms  9076/9281 (98%)  
+
+📊 [142]   7.00-8.00   sec   232 KBytes  1.90 Mbits/sec  5.245 ms  9091/9267 (98%)  
+
+📊 [155]   7.00-8.00   sec   200 KBytes  1.64 Mbits/sec  6.392 ms  9155/9307 (98%)  
+
+📊 [SUM]   7.00-8.00   sec  3.27 MBytes  27.4 Mbits/sec  4.560 ms  72013/74557 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]   8.00-9.00   sec   546 KBytes  4.47 Mbits/sec  3.392 ms  9043/9458 (96%)  
+
+📊 [138]   8.00-9.00   sec   544 KBytes  4.45 Mbits/sec  2.771 ms  8876/9289 (96%)  
+
+📊 [132]   8.00-9.00   sec   538 KBytes  4.41 Mbits/sec  3.892 ms  9043/9452 (96%)  
+
+📊 [147]   8.00-9.00   sec   504 KBytes  4.13 Mbits/sec  3.721 ms  8902/9285 (96%)  
+
+📊 [140]   8.00-9.00   sec   467 KBytes  3.83 Mbits/sec  4.029 ms  9101/9456 (96%)  
+
+📊 [148]   8.00-9.00   sec   283 KBytes  2.32 Mbits/sec  4.374 ms  9229/9444 (98%)  
+
+📊 [142]   8.00-9.00   sec   244 KBytes  1.99 Mbits/sec  4.597 ms  9261/9446 (98%)  
+
+📊 [155]   8.00-9.00   sec   224 KBytes  1.83 Mbits/sec  4.152 ms  9251/9421 (98%)  
+
+📊 [SUM]   8.00-9.00   sec  3.27 MBytes  27.4 Mbits/sec  3.866 ms  72706/75251 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]   9.00-10.00  sec   582 KBytes  4.77 Mbits/sec  2.507 ms  8682/9124 (95%)  
+
+📊 [138]   9.00-10.00  sec   571 KBytes  4.68 Mbits/sec  3.185 ms  8684/9118 (95%)  
+
+📊 [132]   9.00-10.00  sec   544 KBytes  4.46 Mbits/sec  3.291 ms  8717/9130 (95%)  
+
+📊 [147]   9.00-10.00  sec   509 KBytes  4.18 Mbits/sec  3.010 ms  8743/9130 (96%)  
+
+📊 [140]   9.00-10.00  sec   475 KBytes  3.89 Mbits/sec  3.932 ms  8756/9117 (96%)  
+
+📊 [148]   9.00-10.00  sec   258 KBytes  2.11 Mbits/sec  4.441 ms  8883/9079 (98%)  
+
+📊 [142]   9.00-10.00  sec   191 KBytes  1.56 Mbits/sec  5.585 ms  8972/9117 (98%)  
+
+📊 [155]   9.00-10.00  sec   200 KBytes  1.64 Mbits/sec  5.043 ms  8971/9123 (98%)  
+
+📊 [SUM]   9.00-10.00  sec  3.25 MBytes  27.3 Mbits/sec  3.874 ms  70408/72938 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]  10.00-11.00  sec   491 KBytes  4.02 Mbits/sec  4.776 ms  7955/8328 (96%)  
+
+📊 [138]  10.00-11.00  sec   484 KBytes  3.97 Mbits/sec  3.372 ms  7966/8334 (96%)  
+
+📊 [132]  10.00-11.00  sec   491 KBytes  4.02 Mbits/sec  3.778 ms  7955/8328 (96%)  
+
+📊 [147]  10.00-11.00  sec   461 KBytes  3.77 Mbits/sec  3.851 ms  7978/8328 (96%)  
+
+📊 [140]  10.00-11.00  sec   437 KBytes  3.58 Mbits/sec  4.605 ms  8004/8336 (96%)  
+
+📊 [148]  10.00-11.00  sec   237 KBytes  1.94 Mbits/sec  5.619 ms  8188/8368 (98%)  
+
+📊 [142]  10.00-11.00  sec   182 KBytes  1.49 Mbits/sec  6.220 ms  8210/8348 (98%)  
+
+📊 [155]  10.00-11.00  sec   191 KBytes  1.56 Mbits/sec  6.353 ms  8191/8336 (98%)  
+
+📊 [SUM]  10.00-11.00  sec  2.90 MBytes  24.3 Mbits/sec  4.822 ms  64447/66706 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]  11.00-12.00  sec   433 KBytes  3.55 Mbits/sec  4.077 ms  6913/7242 (95%)  
+
+📊 [138]  11.00-12.00  sec   409 KBytes  3.35 Mbits/sec  3.497 ms  6931/7242 (96%)  
+
+📊 [132]  11.00-12.00  sec   383 KBytes  3.14 Mbits/sec  3.160 ms  6951/7242 (96%)  
+
+📊 [147]  11.00-12.00  sec   417 KBytes  3.42 Mbits/sec  3.326 ms  6925/7242 (96%)  
+
+📊 [140]  11.00-12.00  sec   379 KBytes  3.11 Mbits/sec  3.564 ms  6954/7242 (96%)  
+
+📊 [148]  11.00-12.00  sec   246 KBytes  2.02 Mbits/sec  5.290 ms  7058/7245 (97%)  
+
+📊 [142]  11.00-12.00  sec   180 KBytes  1.48 Mbits/sec  4.389 ms  7102/7239 (98%)  
+
+📊 [155]  11.00-12.00  sec   180 KBytes  1.48 Mbits/sec  5.249 ms  7095/7232 (98%)  
+
+📊 [SUM]  11.00-12.00  sec  2.57 MBytes  21.5 Mbits/sec  4.069 ms  55929/57926 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]  12.00-13.00  sec   490 KBytes  4.01 Mbits/sec  3.717 ms  9071/9443 (96%)  
+
+📊 [138]  12.00-13.00  sec   480 KBytes  3.94 Mbits/sec  3.700 ms  9075/9440 (96%)  
+
+📊 [132]  12.00-13.00  sec   492 KBytes  4.03 Mbits/sec  4.054 ms  9066/9440 (96%)  
+
+📊 [147]  12.00-13.00  sec   494 KBytes  4.04 Mbits/sec  4.561 ms  9065/9440 (96%)  
+
+📊 [140]  12.00-13.00  sec   480 KBytes  3.94 Mbits/sec  4.539 ms  9075/9440 (96%)  
+
+📊 [148]  12.00-13.00  sec   254 KBytes  2.08 Mbits/sec  5.631 ms  9257/9450 (98%)  
+
+📊 [142]  12.00-13.00  sec   197 KBytes  1.62 Mbits/sec  5.411 ms  9295/9445 (98%)  
+
+📊 [155]  12.00-13.00  sec   188 KBytes  1.54 Mbits/sec  5.206 ms  9315/9458 (98%)  
+
+📊 [SUM]  12.00-13.00  sec  3.00 MBytes  25.2 Mbits/sec  4.602 ms  73219/75556 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]  13.00-14.00  sec   521 KBytes  4.27 Mbits/sec  4.194 ms  11127/11523 (97%)  
+
+📊 [138]  13.00-14.00  sec   538 KBytes  4.41 Mbits/sec  4.076 ms  11117/11526 (96%)  
+
+📊 [132]  13.00-14.00  sec   524 KBytes  4.29 Mbits/sec  3.428 ms  11128/11526 (97%)  
+
+📊 [147]  13.00-14.00  sec   488 KBytes  4.00 Mbits/sec  4.179 ms  11155/11526 (97%)  
+
+📊 [140]  13.00-14.00  sec   507 KBytes  4.15 Mbits/sec  4.000 ms  11132/11517 (97%)  
+
+📊 [148]  13.00-14.00  sec   307 KBytes  2.51 Mbits/sec  5.035 ms  11277/11510 (98%)  
+
+📊 [142]  13.00-14.00  sec   237 KBytes  1.94 Mbits/sec  4.180 ms  11335/11515 (98%)  
+
+📊 [155]  13.00-14.00  sec   207 KBytes  1.69 Mbits/sec  5.248 ms  11513/11670 (99%)  
+
+📊 [SUM]  13.00-14.00  sec  3.25 MBytes  27.3 Mbits/sec  4.292 ms  89784/92313 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]  14.00-15.00  sec   557 KBytes  4.56 Mbits/sec  3.015 ms  9592/10015 (96%)  
+
+📊 [138]  14.00-15.00  sec   570 KBytes  4.67 Mbits/sec  3.565 ms  9582/10015 (96%)  
+
+📊 [132]  14.00-15.00  sec   541 KBytes  4.43 Mbits/sec  3.281 ms  9604/10015 (96%)  
+
+📊 [147]  14.00-15.00  sec   508 KBytes  4.16 Mbits/sec  3.559 ms  9630/10016 (96%)  
+
+📊 [140]  14.00-15.00  sec   504 KBytes  4.13 Mbits/sec  2.904 ms  9641/10024 (96%)  
+
+📊 [148]  14.00-15.00  sec   315 KBytes  2.58 Mbits/sec  4.514 ms  9776/10015 (98%)  
+
+📊 [142]  14.00-15.00  sec   205 KBytes  1.68 Mbits/sec  4.701 ms  9863/10019 (98%)  
+
+📊 [155]  14.00-15.00  sec   183 KBytes  1.50 Mbits/sec  5.236 ms  9725/9864 (99%)  
+
+📊 [SUM]  14.00-15.00  sec  3.30 MBytes  27.7 Mbits/sec  3.847 ms  77413/79983 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]  15.00-16.00  sec   550 KBytes  4.51 Mbits/sec  3.563 ms  9013/9431 (96%)  
+
+📊 [138]  15.00-16.00  sec   536 KBytes  4.39 Mbits/sec  3.864 ms  9024/9431 (96%)  
+
+📊 [132]  15.00-16.00  sec   544 KBytes  4.45 Mbits/sec  3.384 ms  9018/9431 (96%)  
+
+📊 [147]  15.00-16.00  sec   531 KBytes  4.35 Mbits/sec  3.122 ms  9027/9430 (96%)  
+
+📊 [140]  15.00-16.00  sec   470 KBytes  3.85 Mbits/sec  3.363 ms  9074/9431 (96%)  
+
+📊 [148]  15.00-16.00  sec   294 KBytes  2.41 Mbits/sec  3.772 ms  9212/9435 (98%)  
+
+📊 [142]  15.00-16.00  sec   225 KBytes  1.84 Mbits/sec  5.367 ms  9260/9431 (98%)  
+
+📊 [155]  15.00-16.00  sec   245 KBytes  2.01 Mbits/sec  5.608 ms  9226/9412 (98%)  
+
+📊 [SUM]  15.00-16.00  sec  3.31 MBytes  27.8 Mbits/sec  4.005 ms  72854/75432 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]  16.00-17.00  sec   537 KBytes  4.40 Mbits/sec  3.667 ms  8698/9106 (96%)  
+
+📊 [138]  16.00-17.00  sec   552 KBytes  4.52 Mbits/sec  3.862 ms  8826/9245 (95%)  
+
+📊 [132]  16.00-17.00  sec   534 KBytes  4.38 Mbits/sec  3.252 ms  8700/9106 (96%)  
+
+📊 [147]  16.00-17.00  sec   490 KBytes  4.01 Mbits/sec  3.463 ms  8734/9106 (96%)  
+
+📊 [140]  16.00-17.00  sec   487 KBytes  3.99 Mbits/sec  3.561 ms  8871/9241 (96%)  
+
+📊 [148]  16.00-17.00  sec   296 KBytes  2.43 Mbits/sec  4.322 ms  9021/9246 (98%)  
+
+📊 [142]  16.00-17.00  sec   233 KBytes  1.91 Mbits/sec  5.409 ms  8936/9113 (98%)  
+
+📊 [155]  16.00-17.00  sec   226 KBytes  1.85 Mbits/sec  5.207 ms  8934/9106 (98%)  
+
+📊 [SUM]  16.00-17.00  sec  3.28 MBytes  27.5 Mbits/sec  4.093 ms  70720/73269 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]  17.00-18.00  sec   556 KBytes  4.55 Mbits/sec  2.682 ms  8851/9273 (95%)  
+
+📊 [138]  17.00-18.00  sec   525 KBytes  4.30 Mbits/sec  3.286 ms  8735/9134 (96%)  
+
+📊 [132]  17.00-18.00  sec   524 KBytes  4.29 Mbits/sec  3.648 ms  8866/9264 (96%)  
+
+📊 [147]  17.00-18.00  sec   520 KBytes  4.26 Mbits/sec  3.139 ms  8874/9269 (96%)  
+
+📊 [140]  17.00-18.00  sec   494 KBytes  4.04 Mbits/sec  3.081 ms  8759/9134 (96%)  
+
+📊 [148]  17.00-18.00  sec   315 KBytes  2.58 Mbits/sec  5.123 ms  8864/9103 (97%)  
+
+📊 [142]  17.00-18.00  sec   213 KBytes  1.75 Mbits/sec  3.169 ms  9098/9260 (98%)  
+
+📊 [155]  17.00-18.00  sec   229 KBytes  1.88 Mbits/sec  3.629 ms  9112/9286 (98%)  
+
+📊 [SUM]  17.00-18.00  sec  3.30 MBytes  27.6 Mbits/sec  3.470 ms  71159/73723 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]  18.00-19.00  sec   562 KBytes  4.60 Mbits/sec  3.967 ms  8978/9405 (95%)  
+
+📊 [138]  18.00-19.00  sec   509 KBytes  4.17 Mbits/sec  4.297 ms  9016/9403 (96%)  
+
+📊 [132]  18.00-19.00  sec   513 KBytes  4.21 Mbits/sec  3.623 ms  9022/9412 (96%)  
+
+📊 [147]  18.00-19.00  sec   477 KBytes  3.90 Mbits/sec  3.251 ms  9045/9407 (96%)  
+
+📊 [140]  18.00-19.00  sec   486 KBytes  3.98 Mbits/sec  2.673 ms  9038/9407 (96%)  
+
+📊 [148]  18.00-19.00  sec   375 KBytes  3.07 Mbits/sec  3.394 ms  9153/9438 (97%)  
+
+📊 [142]  18.00-19.00  sec   229 KBytes  1.88 Mbits/sec  4.490 ms  9075/9249 (98%)  
+
+📊 [155]  18.00-19.00  sec   234 KBytes  1.92 Mbits/sec  5.312 ms  9059/9237 (98%)  
+
+📊 [SUM]  18.00-19.00  sec  3.31 MBytes  27.7 Mbits/sec  3.876 ms  72386/74958 (97%)  
+
+📊 Sender threads stopped
+
+📊 State change: State set to 4-TEST_END (from 2-TEST_RUNNING)
+
+📊 Reading new State from the Server - current state is 4-TEST_END
+
+📊 State change: client received and changed State to 13-EXCHANGE_RESULTS
+
+📊 Reading new State from the Server - current state is 13-EXCHANGE_RESULTS
+
+📊 State change: client received and changed State to 14-DISPLAY_RESULTS
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 [135]  19.00-20.00  sec   537 KBytes  4.40 Mbits/sec  3.459 ms  8863/9271 (96%)  
+
+📊 [138]  19.00-20.00  sec   566 KBytes  4.64 Mbits/sec  3.590 ms  8843/9273 (95%)  
+
+📊 [132]  19.00-20.00  sec   499 KBytes  4.09 Mbits/sec  3.608 ms  8894/9273 (96%)  
+
+📊 [147]  19.00-20.00  sec   508 KBytes  4.16 Mbits/sec  2.448 ms  8890/9276 (96%)  
+
+📊 [140]  19.00-20.00  sec   494 KBytes  4.05 Mbits/sec  3.498 ms  8898/9273 (96%)  
+
+📊 [148]  19.00-20.00  sec   355 KBytes  2.91 Mbits/sec  4.315 ms  8987/9257 (97%)  
+
+📊 [142]  19.00-20.00  sec   225 KBytes  1.84 Mbits/sec  6.436 ms  9264/9435 (98%)  
+
+📊 [155]  19.00-20.00  sec   191 KBytes  1.56 Mbits/sec  6.040 ms  9302/9447 (98%)  
+
+📊 [SUM]  19.00-20.00  sec  3.30 MBytes  27.7 Mbits/sec  4.174 ms  71941/74505 (97%)  
+
+📊 - - - - - - - - - - - - - - - - - - - - - - - - -
+
+📊 Test Complete. Summary Results:
+
+📊 [ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams
+
+📊 [135]   0.00-20.02  sec   239 MBytes   100 Mbits/sec  0.000 ms  0/0 (0%)  sender
+
+📊 [135]   0.00-20.00  sec  10.2 MBytes  4.27 Mbits/sec  3.459 ms  161534/169449 (95%)  receiver
+
+📊 [138]   0.00-20.02  sec   239 MBytes   100 Mbits/sec  0.000 ms  0/0 (0%)  sender
+
+📊 [138]   0.00-20.00  sec  10.1 MBytes  4.24 Mbits/sec  3.590 ms  161581/169449 (95%)  receiver
+
+📊 [132]   0.00-20.02  sec   239 MBytes   100 Mbits/sec  0.000 ms  0/0 (0%)  sender
+
+📊 [132]   0.00-20.00  sec  9.79 MBytes  4.11 Mbits/sec  3.608 ms  161830/169449 (96%)  receiver
+
+📊 [147]   0.00-20.02  sec   239 MBytes   100 Mbits/sec  0.000 ms  0/0 (0%)  sender
+
+📊 [147]   0.00-20.00  sec  9.51 MBytes  3.99 Mbits/sec  2.448 ms  162052/169452 (96%)  receiver
+
+📊 [140]   0.00-20.02  sec   239 MBytes   100 Mbits/sec  0.000 ms  0/0 (0%)  sender
+
+📊 [140]   0.00-20.00  sec  9.08 MBytes  3.81 Mbits/sec  3.498 ms  162385/169449 (96%)  receiver
+
+📊 [148]   0.00-20.02  sec   239 MBytes   100 Mbits/sec  0.000 ms  0/0 (0%)  sender
+
+📊 [148]   0.00-20.00  sec  5.16 MBytes  2.17 Mbits/sec  4.315 ms  165416/169433 (98%)  receiver
+
+📊 [142]   0.00-20.02  sec   239 MBytes   100 Mbits/sec  0.000 ms  0/0 (0%)  sender
+
+📊 [142]   0.00-20.00  sec  4.13 MBytes  1.73 Mbits/sec  6.436 ms  166235/169446 (98%)  receiver
+
+📊 [155]   0.00-20.02  sec   239 MBytes   100 Mbits/sec  0.000 ms  0/0 (0%)  sender
+
+📊 [155]   0.00-20.00  sec  3.90 MBytes  1.64 Mbits/sec  6.040 ms  166410/169446 (98%)  receiver
+
+📊 [SUM]   0.00-20.02  sec  1.86 GBytes   800 Mbits/sec  0.000 ms  0/0 (0%)  sender
+
+📊 [SUM]   0.00-20.00  sec  61.9 MBytes  26.0 Mbits/sec  4.174 ms  1307443/1355573 (88%)  receiver
+
+📊 State change: State set to 16-IPERF_DONE (from 14-DISPLAY_RESULTS)
+
+📊 Thread FD 135 stopped
+
+📊 Thread FD 138 stopped
+
+📊 Thread FD 132 stopped
+
+📊 Thread FD 147 stopped
+
+📊 Thread FD 140 stopped
+
+📊 Thread FD 148 stopped
+
+📊 Thread FD 142 stopped
+
+📊 Thread FD 155 stopped
+
+📊 Receiver threads stopped
+
+📊 
+
+📊 iperf Done.
+
+📊 [iPerf JNI] Test completed successfully.
+
+
+🏁 [End] Iteration 1
+✅ [Done] All iterations completed.
+
+📁 Logs saved in app-specific Downloads folder:
+   🔹 Part 1: iPerf3_20260803_185545_v2.2_1.txt

@@ -1,0 +1,91 @@
+location,seq,rtt_ms
+"2 m, line of sight",1,27.5
+"2 m, line of sight",2,25.9
+"2 m, line of sight",3,24.1
+"2 m, line of sight",4,22.9
+"2 m, line of sight",5,21.0
+"2 m, line of sight",6,20.0
+"2 m, line of sight",7,19.0
+"2 m, line of sight",8,18.1
+"2 m, line of sight",9,17.8
+"2 m, line of sight",10,16.1
+"2 m, line of sight",11,34.9
+"2 m, line of sight",12,33.7
+"2 m, line of sight",13,32.1
+"2 m, line of sight",14,31.1
+"2 m, line of sight",15,29.9
+"2 m, line of sight",16,28.0
+"2 m, line of sight",17,27.0
+"2 m, line of sight",18,26.1
+"2 m, line of sight",19,25.1
+"2 m, line of sight",20,23.9
+"2 m, line of sight",21,22.0
+"2 m, line of sight",22,21.0
+"2 m, line of sight",23,20.0
+"2 m, line of sight",24,18.9
+"2 m, line of sight",25,17.7
+"2 m, line of sight",26,16.0
+"2 m, line of sight",27,34.9
+"2 m, line of sight",28,33.1
+"2 m, line of sight",29,32.0
+"2 m, line of sight",30,31.0
+"5 m, partition",1,26.3
+"5 m, partition",2,25.0
+"5 m, partition",3,23.9
+"5 m, partition",4,22.1
+"5 m, partition",5,41.0
+"5 m, partition",6,19.9
+"5 m, partition",7,38.0
+"5 m, partition",8,17.0
+"5 m, partition",9,16.1
+"5 m, partition",10,35.0
+"5 m, partition",11,33.9
+"5 m, partition",12,32.0
+"5 m, partition",13,31.1
+"5 m, partition",14,30.0
+"5 m, partition",15,29.1
+"5 m, partition",16,48.0
+"5 m, partition",17,27.0
+"5 m, partition",18,25.8
+"5 m, partition",19,24.1
+"5 m, partition",20,23.1
+"5 m, partition",21,22.0
+"5 m, partition",22,48.5
+"5 m, partition",23,19.5
+"5 m, partition",24,18.0
+"5 m, partition",25,17.1
+"5 m, partition",26,15.9
+"5 m, partition",27,41.6
+"5 m, partition",28,32.5
+"5 m, partition",29,30.9
+"5 m, partition",30,29.1
+"10 m, concrete wall",1,24.7
+"10 m, concrete wall",2,22.3
+"10 m, concrete wall",3,21.3
+"10 m, concrete wall",4,19.3
+"10 m, concrete wall",5,17.3
+"10 m, concrete wall",6,35.3
+"10 m, concrete wall",7,33.3
+"10 m, concrete wall",8,31.3
+"10 m, concrete wall",9,29.4
+"10 m, concrete wall",10,27.3
+"10 m, concrete wall",11,25.4
+"10 m, concrete wall",12,23.7
+"10 m, concrete wall",13,21.5
+"10 m, concrete wall",14,19.3
+"10 m, concrete wall",15,17.3
+"10 m, concrete wall",16,15.7
+"10 m, concrete wall",17,40.7
+"10 m, concrete wall",18,30.8
+"10 m, concrete wall",19,48.4
+"10 m, concrete wall",20,26.4
+"10 m, concrete wall",21,24.5
+"10 m, concrete wall",22,22.5
+"10 m, concrete wall",23,20.3
+"10 m, concrete wall",24,18.5
+"10 m, concrete wall",25,16.4
+"10 m, concrete wall",26,34.3
+"10 m, concrete wall",27,32.5
+"10 m, concrete wall",28,30.5
+"10 m, concrete wall",29,28.3
+"10 m, concrete wall",30,26.6

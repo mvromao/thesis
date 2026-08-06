@@ -1,0 +1,4 @@
+file,location,n,sent,recv,loss_pct,min,mean,median,max,sd,p95,jitter_mean_abs_delta,reported_min,reported_avg,reported_max,reported_mdev
+ping_Loc1,"2 m, line of sight",30,30,30,0.0,16.0,25.03,24.6,34.9,5.88,33.7,2.48,16.021,25.021,34.922,5.882
+ping_Loc2,"5 m, partition",30,30,30,0.0,15.9,28.12,26.65,48.5,8.81,41.6,8.66,15.912,28.119,48.494,8.81
+ping_Loc3,"10 m, concrete wall",30,30,30,0.0,15.7,26.17,25.05,48.4,7.45,35.3,5.35,15.67,26.172,48.427,7.465
