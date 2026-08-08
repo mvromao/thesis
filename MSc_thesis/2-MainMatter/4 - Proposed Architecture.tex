@@ -11,7 +11,7 @@
 \chapter{Proposed Architecture}
 \label{cha:proposed-architecture}
 
-This chapter revolves around the proposed architecture for implementing the 5G network, using free open-source software and \gls{SDR} hardware. The remainder of this chapter is structured as follows: Section 4.1 details the physical hardware assets, including the processing servers, software-defined radios, clock synchronization equipment, and user equipment. Section 4.2 describes the architectural implementation of the 5G Core Network, while Section 4.3 outlines the structure of the Radio Access Network. Finally, Section 4.4 illustrates the comprehensive system topology and the standardized interfaces bridging the entire environment, providing a logical transition into the physical implementation detailed in Chapter 5.
+This chapter revolves around the proposed architecture for implementing the 5G network, using free open-source software and \gls{SDR} hardware. This chapter is structured as follows: Section 4.1 details the physical hardware assets, software-defined radios, clock synchronization equipment, and user equipment. Section 4.2 describes the architectural implementation of the 5G Core Network, while Section 4.3 outlines the structure of the Radio Access Network. Section 4.4 illustrates the comprehensive system topology and the standardized interfaces bridging the entire environment, providing a logical transition into the physical implementation detailed in Chapter 5.
 
 \section{Hardware Components}
 \label{sec:hardware-components}
@@ -32,6 +32,7 @@ The machines chosen for this project are two Dell Optiplex Micro 7080 machines, 
         \hline
     \end{tabular}
     \caption{Specifications of the machines used for the 5G network setup.}
+    \label{tab:hardware-specifications}
 \end{table}
 The machines are connected to each other using an Ethernet cable, assigning static IP addresses to each one. Machine 1 is assigned the IP address space 10.0.0.10/24, while Machine 2 is assigned the IP address space 10.0.0.20/24. This setup allows for direct communication between the two machines, which is essential for the operation of the 5G network testbed.
 
@@ -52,12 +53,12 @@ Along with the \glspl{SDR}, a Leo Bodnar \gls{GPSDO} was used to provide a stabl
 \section{Core}
 \label{sec:core}
 
-The core network is implemented using Open5GS, an open-source project that provides a complete 5G core network implementation, following the \gls{3GPP} Release 17 specifications. Open5GS is designed to be modular, with each network function individualized and implemented as a separate process, each one with a different configuration file on the machine. The core network is deployed on Machine 1.
+The core network is implemented using Open5GS~\cite{open5gs_repo}, an open-source project that provides a complete 5G core network implementation, following the \gls{3GPP} Release 17 specifications. Open5GS is designed to be modular, with each network function individualized and implemented as a separate process, each one with a different configuration file on the machine. The core network is deployed on Machine 1.
 
 \section{\gls{RAN}}
 \label{sec:ran}
 
-The \gls{RAN} is implemented using the OCUDU Project {formerly known as srsRAN}, an open-source software suite that provides a complete 5G \gls{NR}, following the \gls{3GPP} Release 17 specifications. Written in both C and C++ languages, it is modular by design, allowing the developer to customize both the \gls{CU} and {DU} components of the gNodeB separately. The \gls{RAN} is deployed on Machine 2, and connects to the \gls{SDR} via USB 3.0. 
+The \gls{RAN} is implemented using the OCUDU Project~\cite{ocudu_project} {formerly known as srsRAN}, an open-source software suite that provides a complete 5G \gls{NR}, following the \gls{3GPP} Release 17 specifications. Written in both C and C++ languages, it is modular by design, allowing the developer to customize both the \gls{CU} and {DU} components of the gNodeB separately. The \gls{RAN} is deployed on Machine 2, and connects to the \gls{SDR} via USB 3.0. 
 
 \section{\glspl{UE}}
 \label{sec:ue}
