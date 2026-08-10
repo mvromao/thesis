@@ -8,7 +8,7 @@ software, benchmarked against a 4G baseline built on the same core hardware.
 - **5G RAN:** srsRAN Project gNB (OCUDU), USRP B210 + Leo Bodnar GPSDO, band n78 (3410.1 MHz),
   20 MHz / 30 kHz SCS, TDD.
 - **4G RAN:** srsRAN 4G `srsenb`, Nuand bladeRF xA4, band 7 FDD (DL 2680 / UL 2560 MHz), 10 MHz,
-  with a BT-100 LNA (RX) and BT-200 amp (TX) that the 5G rig lacks.
+  with a BT-200 LNA (RX) and BT-100 amp (TX) that the 5G rig lacks.
 - **Core:** Open5GS (5GC for 5G, EPC for 4G), same physical machine for both campaigns.
 - Configs live in `files/*.yaml` (`gnb.yaml`, `amf.yaml`, `smf.yaml`, `upf.yaml`, `nrf.yaml`) and
   are pushed to the core host's `/etc/open5gs` via `deploy_open5gs_configs.sh` (sparse-checkout

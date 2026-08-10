@@ -11,7 +11,7 @@
 \chapter{Proposed Architecture}
 \label{cha:proposed-architecture}
 
-This chapter revolves around the proposed architecture for implementing the 5G network, using free open-source software and \gls{SDR} hardware. This chapter is structured as follows: Section 4.1 details the physical hardware assets, software-defined radios, clock synchronization equipment, and user equipment. Section 4.2 describes the architectural implementation of the 5G Core Network, while Section 4.3 outlines the structure of the Radio Access Network. Section 4.4 illustrates the comprehensive system topology and the standardized interfaces bridging the entire environment, providing a logical transition into the physical implementation detailed in Chapter 5.
+This chapter revolves around the proposed architecture for implementing the 5G network, using free open-source software and \gls{SDR} hardware. This chapter is structured as follows: Section 4.1 details the physical hardware assets, software-defined radios, clock synchronization equipment, and user equipment. Section 4.2 describes the architectural implementation of the 5G Core Network, Section 4.3 outlines the structure of the Radio Access Network, Section 4.4 illustrates the comprehensive system topology and the standardized interfaces bridging the entire environment, providing a logical transition into the physical implementation detailed in Chapter 5.
 
 \section{Hardware Components}
 \label{sec:hardware-components}
@@ -36,7 +36,7 @@ The machines chosen for this project are two Dell Optiplex Micro 7080 machines, 
 \end{table}
 The machines are connected to each other using an Ethernet cable, assigning static IP addresses to each one. Machine 1 is assigned the IP address space 10.0.0.10/24, while Machine 2 is assigned the IP address space 10.0.0.20/24. This setup allows for direct communication between the two machines, which is essential for the operation of the 5G network testbed.
 
-For the radio, two \glspl{SDR} were used:
+For the radio, two \glspl{SDR} were chosen:
 \begin{itemize}
     \item \underline {National Instruments USRP B210}: This is a mid-level \gls{SDR} that uses UHD, the gold standard for \gls{SDR} development. These boards are widely used in research projects and testbeds, and they are natively compatible with most \gls{SDR} software. 
     \item \underline {Nuand bladeRF xA4}: This is a cheaper mid-level \gls{SDR} that uses a proprietary library, libbladeRF, for communication with the host machine. It is less used than the USRP B210 in research projects, as it is not directly compatible with most software. Through the use of a wrapper library, it is possible to use this \gls{SDR} with most software which don't natively support it.  
@@ -44,11 +44,7 @@ For the radio, two \glspl{SDR} were used:
 
 Both of these boards use an Analog Devices AD9361 transceiver, which makes their \glsxtrshort{RF} capabilities theoretically similar. The main difference between them are their \glspl{FPGA}, in which the B210 uses a Xilinx Spartan-6, while the bladeRF xA4 uses an Intel Altera Cyclone V. 
 
-\textcolor{red}{Put here a picture of the two SDRs}
-
-Along with the \glspl{SDR}, a Leo Bodnar \gls{GPSDO} was used to provide a stable clock source for the radios, which is crucial for the proper operation of the 5G network, given the strict timing requirements of the 5G standard, and TDD operation. The \gls{GPSDO} provides a stable 10 MHz reference clock and a 1PPS signal, which are used to synchronize the \glspl{SDR} and ensure accurate timing for the transmission and reception of signals.
-
-\textcolor{red}{Put here a picture of the GPSDO}
+Along with the \glspl{SDR}, a Leo Bodnar \gls{GPSDO} was chosen to provide a stable clock source for the radios, which is crucial for the proper operation of the 5G network, given the strict timing requirements of the 5G standard, and TDD operation. The \gls{GPSDO} provides a stable 10 MHz reference clock and a 1PPS signal, which are used to synchronize the \glspl{SDR} and ensure accurate timing for the transmission and reception of signals.
 
 \section{Core}
 \label{sec:core}

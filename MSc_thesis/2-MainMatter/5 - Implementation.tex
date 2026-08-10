@@ -16,58 +16,65 @@ This chapter documents the practical implementation of the testbed described in 
 \section{Actual Implementation}
 \label{sec:actual-implementation}
 
-Chapter~\ref{cha:proposed-architecture} proposed a two-machine deployment, with one machine hosting the core network and the other hosting the \gls{RAN}. In practice, the lab deployment used four machines instead: one running the 5G \gls{RAN}, another running the 4G \gls{RAN}, another machine running the core network (serving as a core for both generations), and a fourth reserved for a 4G \gls{NSA} deployment, which was ultimately not implemented. Each working \gls{RAN} was kept on its own dedicated machine rather than sharing a single host between radio access technologies, so that the 4G and 5G networks could run independently of one another rather than being intermingled on the same machine. This choice follows directly from one of the goals of this dissertation: to leave a working network testbed in place, rather than a single disposable experiment, for future projects to build on and explore.
+Chapter~\ref{cha:proposed-architecture} proposed a two-machine deployment, with one machine hosting the core network and the other hosting the \gls{RAN}. In practice, the lab deployment used four machines instead: one running the 5G \gls{RAN}, another running the 4G \gls{RAN}, another machine running the core network (serving as a core for both generations), and a fourth reserved for a 5G \gls{NSA} deployment, which was ultimately not implemented. Each working \gls{RAN} was kept on its own dedicated machine rather than sharing a single host between radio access technologies, so that the 4G and 5G networks could run independently of one another rather than being intermingled on the same machine. This choice follows directly from one of the goals of this dissertation: to leave a working network testbed in place, rather than a single disposable experiment, for future projects to build on and explore.
 
-All 4 machines are Dell Optiplex Micro 7080 machines, with the same specifications as those listed in Table~\ref{tab:hardware-specifications}. The machines are connected to each other through an ethernet switch, with static IP addresses assigned to each one, as shown in Figure~\ref{fig:ip-addresses}.
+All 4 machines are Dell Optiplex Micro 7080 machines, with the same specifications as those listed in Table~\ref{tab:hardware-specifications}. The machines are connected to each other through an ethernet switch, with static IP addresses assigned to each one, as shown in Figure~\ref{fig:ip-addresses}. A view of the laboratory bench, showing all four machines, is shown in Figure~\ref{fig:bench-machines}.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\textwidth]{IP-Addresses.pdf}
-    \caption{Network topology of the four machines, showing the role of each machine and its static IP address.}
+    \includegraphics[width=\textwidth]{IP-Addresses.pdf}
+    \caption{Network topology of the four machines, showing the role of each machine and its static IP address. The machine in gray was not used in the actual testbed, but was reserved for a 5G \gls{NSA} deployment.}
     \label{fig:ip-addresses}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\textwidth]{machines.jpg}
+    \includegraphics[width=\textwidth]{machines.jpg}
     \caption{The bench, showing all 4 machines. From left to right: 4G RAN, 5G NSA (unused), Core and 5G RAN.}
     \label{fig:bench-machines}
 \end{figure}
 
-Connected to the 4G \gls{RAN} machine is the Nuand bladeRF xA4, which was used for the 4G deployment. This board, unlike the B2901, was powered entirely over its USB connection to the RAN machine, with no separate power supply used.
-
-\textcolor{red}{Put here a picture of the bladeRF xA4 as actually connected/cabled on the bench.}
-
-Connected to the 5G \gls{RAN} machine is a NI USRP B2901, the National Instruments designation for the USRP B210 used in the proposed architecture. In addition to its USB connection to the RAN machine, the B2901 was connected to a wall socket through its own power supply, which was required to sustain the board at the gain settings used during testing. Along with the board, the Leo Bodnar GPSDO was connected to provide both a stable clock source and a 1PPS signal for synchronization. The GPSDO's GPS lock was verified using \texttt{lbgpsdo}~\cite{lbgpsdo}, an open-source command-line utility for configuring and querying Leo Bodnar GPSDO devices.
+Connected to the 4G \gls{RAN} machine is the Nuand bladeRF xA4 (Figure~\ref{fig:bladerf}), which was used for the 4G deployment. This board, unlike the B2901, was powered entirely over its USB connection to the RAN machine, with no separate power supply used.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\textwidth]{b2901_gpsdo.jpg}
+    \includegraphics[width=\textwidth]{bladeRF.jpg}
+    \caption{The Nuand bladeRF xA4, connected and cabled on the bench.}
+    \label{fig:bladerf}
+\end{figure}
+
+Connected to the 5G \gls{RAN} machine is a NI B2901 (Figure~\ref{fig:b2901-gpsdo}), the National Instruments designation for the USRP B210 used in the proposed architecture. In addition to its USB connection to the RAN machine, the B2901 was connected to a wall socket through its own power supply, which was required to sustain the board at the gain settings used during testing. Along with the board, the Leo Bodnar GPSDO was connected to provide both a stable clock source and a 1PPS signal for synchronization. The GPSDO's GPS lock was verified using \texttt{lbgpsdo}~\cite{lbgpsdo}, an open-source command-line utility for configuring and querying Leo Bodnar GPSDO devices.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{b2901_gpsdo.jpg}
     \caption{The B2901 and the Leo Bodnar GPSDO, as connected on the bench.}
     \label{fig:b2901-gpsdo}
 \end{figure}
 
-% TODO (antennas / RF front-end): mention the antenna used on each rig (type, gain, band coverage). Important: state the RF front-end asymmetry between the two rigs -- the 4G bladeRF has a BT-100 LNA on RX and a BT-200 amplifier on TX, while the 5G B2901 rig has neither. This isn't just a hardware inventory detail -- it's cited repeatedly in the later analysis as a contributing factor to the 4G/5G uplink link-budget difference, so it needs to be stated plainly here, not just implied.
-For both radios, the antennas used were the same. The 4G rig used a BT-100 \gls{LNA} on the RX Port and a BT-200 amplifier on the TX port, both are Nuand components, while the 5G rig had no additional RF front-end components. 
+For both radios, the antennas used were the same. The 4G rig used a BT-200 \gls{LNA} on the RX port and a BT-100 power amplifier on the TX port, both Nuand components, while the 5G rig had no additional RF front-end components.
 
-\textcolor{red}{Put here a picture of each antenna, and of the BT-100/BT-200 units on the 4G rig.}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{biastee components.jpg}
+    \caption{The BT-200 \gls{LNA} and BT-100 power amplifier bias tees, mounted on the bladeRF xA4's RX1 and TX1 ports respectively.}
+    \label{fig:biastee-components}
+\end{figure}
 
 % TODO (UE): the proposed architecture (Chapter 4) lists a Motorola Moto G56 5G and a Xiaomi Redmi Note 14 5G. Neither matches what was actually used -- state the deviation plainly, following the same "proposed vs. actual" pattern already used elsewhere in this section:
 %   - The Redmi Note 14 was never purchased; it was never part of the actual testbed.
 %   - The Moto G56 was used but struggled to connect to the network. The cause was never identified -- say so honestly rather than speculating on a reason.
 %   - A Samsung Galaxy Z Flip 5 (personal device) was brought in and used as the primary UE for the actual test campaigns, running the CellularLab app to generate iperf3 traffic.
 % eSIM provisioning doesn't need repeating here -- just point to Appendix/Annex (provisioning_esim.tex, \ref{ch:provisioning_esim}) where the full process is documented.
-For the \glspl{UE}, the initial proposed architecture (Chapter~\ref{cha:proposed-architecture}) listed a Motorola Moto G56 5G and a Xiaomi Redmi Note 14 5G. In practice, the Redmi Note 14 was never purchased and was not part of the actual testbed. Instead, a Samsung Galaxy Z Flip 5 (personal device) was brought in, used in the place of the Xiaomi, and became the primary \gls{UE} for the actual test campaigns, as during the tests, the Moto G56 struggled to connect to the network. The cause of this issue was never identified, and no speculation is made here.  
+For the \glspl{UE}, the initial proposed architecture (Chapter~\ref{cha:proposed-architecture}) listed a Motorola Moto G56 5G and a Xiaomi Redmi Note 14 5G. In practice, the Redmi Note 14 was never purchased and was not part of the actual testbed. Instead, a Samsung Galaxy Z Flip 5 (personal device) was brought in, in place of the Xiaomi, and became the primary \gls{UE} for the actual test campaigns, as during the tests, the Moto G56 struggled to connect to the network. The cause of this issue was never identified, and no speculation is made here.  
 
-\textcolor{red}{The Z Flip 5 is already visible in the three location photographs in Section~\ref{sec:test-methodology} (Figures~\ref{fig:photo-loc-a}--\ref{fig:photo-loc-c}) -- add a closeup here only if a dedicated shot (e.g.\ running CellularLab, or of the Moto G56) is wanted in addition.}
-
-\begin{table}
+\begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|}
         \hline
         \textbf{Device} & \textbf{Chipset} & \textbf{RAM / Storage}\\
         \hline
-        Motorola Moto G56 5G~\cite{gsmarena_moto_g56} & MediaTek Dimensity 7060 & 4\,GB / 128\,GB\\
+        Motorola Moto G56 5G~\cite{gsmarena_moto_g56} & MediaTek Dimensity 7060 & 8\,GB / 512\,GB\\
         \hline
         Samsung Galaxy Z Flip5~\cite{gsmarena_z_flip5} & Qualcomm Snapdragon 8 Gen 2 & 8\,GB / 512\,GB \\
         \hline
@@ -78,15 +85,17 @@ For the \glspl{UE}, the initial proposed architecture (Chapter~\ref{cha:proposed
     \label{tab:ue-comparison}
 \end{table}
 
-Finally, on the software side, the 5G OCUDU \gls{RAN}~\cite{ocudu_project} ran at commit 29dc1aede7, with the following static configuration:
+On the software side, the 5G OCUDU \gls{RAN}~\cite{ocudu_project} ran at commit 29dc1aede7, with the following static configuration:
 
-\begin{table}
+\begin{table}[H]
     \centering
     \begin{tabular}{|c|c|}
         \hline
         \textbf{Parameter} & \textbf{Value} \\
         \hline
-        Band & n78 \\
+        Band & n78 (TDD)\\
+        \hline
+        Downlink/Uplink centre frequency & 3410 MHz \\
         \hline
         \texttt{dl\_arfcn} & 627340 \\
         \hline
@@ -106,11 +115,12 @@ Finally, on the software side, the 5G OCUDU \gls{RAN}~\cite{ocudu_project} ran a
     \caption{Static configuration for the 5G OCUDU \gls{RAN}.}
     \label{tab:ocudu-config}
 \end{table}
-The parameters \texttt{rx\_gain} and the TDD structure were changed between testing rounds, and will be discussed further upon in Section~\ref{sec:test-methodology}.
+
+The parameter \texttt{rx\_gain} and the TDD structure were changed between testing rounds, and will be discussed further upon in Section~\ref{sec:test-methodology}.
 
 The 4G srsRAN \gls{RAN}~\cite{srsran_4g_repo} ran at commit 6bcbd9e5b, with no configuration changes across testing rounds:
 
-\begin{table}
+\begin{table}[H]
     \centering
     \begin{tabular}{|c|c|}
         \hline
@@ -126,25 +136,28 @@ The 4G srsRAN \gls{RAN}~\cite{srsran_4g_repo} ran at commit 6bcbd9e5b, with no c
         \hline
         PCI & 1 \\
         \hline
-        % TODO: PLMN, TAC, cell_id, tx_gain, rx_gain -- not present anywhere in plain text in
-        % enb.log (srsenb doesn't print a config summary the way OCUDU does; these are only
-        % encoded in an SIB1/NAS hex dump I'm not decoding by hand). Fill in from the actual
-        % enb.conf/rr.conf/sib.conf used, or from memory of what was set at the lab. PLMN 00101
-        % / TAC 7 (matching the 5G side, same shared core) is a reasonable guess but NOT
-        % confirmed from this log -- verify before stating it as fact.
+        PLMN & 00101 \\
+        \hline
+        TAC & 7 \\
+        \hline
+        Cell ID & 1 \\
+        \hline
+        \texttt{tx\_gain} & 66 \\
+        \hline
+        \texttt{rx\_gain} & 60 \\
+        \hline
     \end{tabular}
     \caption{Static configuration for the 4G srsRAN \gls{RAN}. No parameters changed across testing rounds.}
     \label{tab:srsran4g-config}
 \end{table}
 
-Finally, the Open5GS~\cite{open5gs_repo} core ran at version 2.4.6. Harking back to the reusability objective stated in the Introduction, all configuration files for the core were stored in a GitHub repository~\cite{thesis_repo} and a script to deploy them directly onto the core machine was created and made public, allowing anyone to redeploy the same core configuration without having to reconstruct it by hand. The script, \texttt{deploy\_open5gs\_configs.sh}, sparse-checks out the configuration files from the project's GitHub repository directly onto the core host. This approach ensures that the testbed's configuration can be easily replicated in the future, supporting the goal of reusability and facilitating further research or experimentation based on this work.
+Finally, the Open5GS~\cite{open5gs_repo} core ran at version 2.4.6. Harking back to the reusability objective stated in the Introduction, all configuration files for the core were made available in a GitHub repository~\cite{thesis_repo} and a script to deploy them directly onto the core machine was created and made public, allowing anyone to redeploy the same core configuration without having to reconstruct it by hand. The script, \texttt{deploy\_open5gs\_configs.sh}, sparse-checks out the configuration files from the project's GitHub repository directly onto the core host. This approach ensures that the testbed's configuration can be easily replicated in the future, supporting the goal of reusability and facilitating further research or experimentation based on this work.
 
 \section{Test Methodology}
 \label{sec:test-methodology}
+The network's performance was evaluated at three fixed \gls{UE} positions in the same room as the \gls{RAN}, chosen to combine increasing distance from the radio with different obstruction condition at each point. Figure~\ref{fig:lab-floor-plan} shows the top plan view of the room, and Figure~\ref{fig:test-location-heights} shows the elevation, giving the height of the radio and of the \gls{UE} at each location above the floor.
 
-The network's performance was evaluated at three fixed \gls{UE} positions in the same room as the \gls{RAN}, chosen to combine increasing distance from the radio with a distinct obstruction condition at each point. Figure~\ref{fig:lab-floor-plan} shows the top plan view of the room, and Figure~\ref{fig:test-location-heights} shows the elevation, giving the height of the radio and of the \gls{UE} at each location above the floor.
-
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{Lab_Floor_Plan.pdf}
     \caption{Plan view of the room, showing the radio position and the three \gls{UE} test locations, drawn to scale.}
@@ -158,67 +171,73 @@ The network's performance was evaluated at three fixed \gls{UE} positions in the
     \label{fig:test-location-heights}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{thickness_collage.jpg}
+    \caption{Tape-measure thickness readings for the two obstructions on the direct path: the concrete wall at Location C (25.3\,cm) and the office partition at Location B (3\,cm).}
+    \label{fig:thickness-collage}
+\end{figure}
+
+Material and thickness are recorded for each obstruction as they, not distance alone, account for the difference between the three locations: signal attenuation through a wall depends strongly on its material and thickness, particularly at the 3.4\,GHz centre frequency used by the 5G \gls{RAN}, so the three locations should be read as distance-plus-obstruction conditions rather than a simple distance sweep. 
+
+Besides obsctructions, the objects present in the room may account for signal attenuation as well. In Figure~\ref{fig:lab-floor-plan}, the objects shown in dark grey are metal furniture and equipment present in the room. None of these lie directly on the signal path between the \gls{RAN} and any of the three test locations, but their metal construction means they may still have contributed to reflections and multipath propagation, and should be kept in mind when interpreting the results. Other objects present in the room, such as the tables and doors presented on the diagram, present minimal attenuation and are not expected to have a significant effect on the results.
+
+These measurements are also intended to support a later comparison between the obstructions' theoretical attenuation and the attenuation actually observed in the collected data.
+
 \begin{table}
     \centering
-    \begin{tabular}{|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|}
         \hline
-        \textbf{Location} & \textbf{Distance} & \textbf{Height} & \textbf{Obstruction} & \textbf{Thickness} \\
+        \textbf{Location} & \textbf{Distance} & \textbf{Height} & \textbf{Obstruction} & \textbf{Material}& \textbf{Thickness} \\
         \hline
-        A & 2\,m  & 75\,cm & Clear line of sight & --- \\
+        A & 2\,m  & 75\,cm & Clear line of sight & --- & --- \\
         \hline
-        B & 6\,m  & 72\,cm & Office partition & 3\,cm \\
+        B & 6\,m  & 72\,cm & Office partition & Plastic and Felt & 3\,cm \\
         \hline
-        C & 10\,m & 59\,cm & Concrete wall & 25.5\,cm \\
+        C & 10\,m & 59\,cm & Concrete wall & Concrete & 25.3\,cm \\
         \hline
     \end{tabular}
-    \caption{The three test locations: distance from the radio, \gls{UE} height above the floor, and the obstruction on the direct path at each point. The radio itself was mounted at 94.9\,cm. All distances and heights were measured directly with a tape measure.}
+    \caption{The three test locations: distance from the radio, \gls{UE} height above the floor, the obstruction material and thickness on the direct path at each point. All distances, thicknesses and heights were measured directly with a tape measure.}
     \label{tab:test-locations}
 \end{table}
 
-Material and thickness are recorded for each obstruction as they, not distance alone, account for the difference between the three locations: signal attenuation through a wall depends strongly on its material and thickness, particularly at the 3.4\,GHz centre frequency used by the \gls{RAN}, so the three locations should be read as distance-plus-obstruction conditions rather than a simple distance sweep. These measurements are also intended to support a later comparison between the obstructions' theoretical attenuation and the attenuation actually observed in the collected data.
+At each location, a test was run for each generation of network, for both TCP and UDP, and for both uplink and downlink, giving four traffic conditions per location. For the 4G network, each of these conditions was tested once (n=1); for the 5G network, each was repeated three times (n=3). This difference was not a deliberate methodological choice about sample size per generation: the 4G network was only tested during the first round of testing, in which every combination, 4G and 5G, was only tested once. Subsequent rounds of testing focused exclusively on the 5G network, following configuration corrections described later in this chapter, and used three repetitions per condition from that point onward; the 4G network was deliberately left untouched throughout, so its results were never repeated. 
 
-At each location, a test was run for each generation of network, for both TCP and UDP, and for both uplink and downlink, giving four traffic conditions per location. For the 4G network, each of these conditions was tested once (n=1); for the 5G network, each was repeated three times (n=3) to obtain a mean and a spread rather than a single point measurement. This difference was not a deliberate methodological choice about sample size per generation: the 4G network was only tested during the first round of testing, in which every combination, 4G and 5G, was only tested once. Subsequent rounds of testing focused exclusively on the 5G network, following configuration corrections described later in this chapter, and used three repetitions per condition from that point onward; the 4G network was deliberately left untouched throughout, so its results were never repeated. 
+Every test consisted of an \texttt{iperf3} run lasting 20 seconds with 8 parallel streams, with the same parameters used across all tests regardless of generation, location, protocol, or direction. On the \gls{UE} side, these tests were run using the CellularLab app~\cite{cellularlab}; the \texttt{iperf3} server was hosted on the core machine.
 
-Every test consisted of an \texttt{iperf3} run lasting 20 seconds with 8 parallel streams, with the same parameters used across all tests regardless of generation, location, protocol, or direction. On the \gls{UE} side, these tests were run using the CellularLab app; the \texttt{iperf3} server was hosted on the core machine.
+Note on location B: throughout the raw data and analysis scripts, this location is referred to as ``Loc2'' or ``5\,m'', a nominal distance used before this survey was carried out. The precise, tape-measured distance is 6\,m, as reported above and used throughout this document; the ``5\,m'' label persists only in file and folder names inherited from before the measurement was taken.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{loc1.jpg}
-    \caption{Location A (2\,m, clear line of sight), with the \gls{UE} in place.}
-    \label{fig:photo-loc-a}
+    \includegraphics[width=\textwidth]{locations_collage.jpg}
+    \caption{The three test locations, with the \gls{UE} in place: (a) Location A, 2\,m, clear line of sight; (b) Location B, 6\,m, behind the office partition; (c) Location C, 10\,m, behind the concrete wall.}
+    \label{fig:photo-locations}
 \end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{loc2.jpg}
-    \caption{Location B (6\,m, behind the office partition), with the \gls{UE} in place.}
-    \label{fig:photo-loc-b}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{loc3.jpg}
-    \caption{Location C (10\,m, behind the concrete wall), with the \gls{UE} in place.}
-    \label{fig:photo-loc-c}
-\end{figure}
-
-Note on location B: throughout the raw data, analysis scripts, and earlier working documents for this project, this location is referred to as ``Loc2'' or ``5\,m'', a nominal distance used before this survey was carried out. The precise, tape-measured distance is 6\,m, as reported above and used throughout this document; the ``5\,m'' label persists only in file and folder names inherited from before the measurement was taken.
 
 %now new subsection about the test rounds
 \subsection{Test Round 1}
 \label{sec:test-round-1}
 
-This test round was the first to be run, on the 28th of July. It comprised of 24 tests, 12 for 4G and 5G generations, differing in location, protocol and direction, each with a single repetition. The 5G network was run with a 3:1 TDD structure, which was later found to structurally cap the maximum uplink airtime and was later rebalanced to a symmetrical 2:2 structure for Round 2. Running a single test for each configuration was also found to produce insufficient analytical data, thus not capturing the real behavior of the 5G network, so the following rounds were run with three repetitions per configuration. Results from this round are presented in Chapter~\ref{cha:results}.
+This test round was the first to be run, on the 28th of July. It comprised of 24 tests, 12 for 4G and 5G generations, differing in location, protocol and direction, each with a single repetition. The 5G network was run with a 3:1 TDD structure, remnant of the original OCUDU configuration used as a basis for the network configuration, which was later found to structurally cap the maximum uplink airtime and was later rebalanced to a symmetrical 2:2 structure for Round 2. Running a single test for each configuration was also found to produce insufficient analytical data, thus not capturing the real behavior of the 5G network, so the following rounds were run with three repetitions per configuration. Results from this round are presented in Chapter~\ref{cha:results}.
 
 \subsection{Test Round 2}
 \label{sec:test-round-2}
 
-This test round was run on the 2nd of August. The 5G network was reconfigured with the balanced 2:2 TDD structure devised after Round 1, and testing proceeded with three repetitions per configuration at each location; the 4G network was not re-tested. The TDD rebalance alone resolved the uplink problem from Round 1, with 5G uplink throughput matching the 4G baseline at 2\,m and 10\,m, though the downlink regressed as a trade-off for the additional uplink airtime. Location B, at 6\,m, produced unusable data this round, with the \gls{UE} re-attaching to the network 18 times during the session, and was excluded from analysis. A likely, though unconfirmed, explanation was only identified afterward: a full metal stand, belonging to an unrelated thesis project sharing the lab, was standing directly in the signal path between the \gls{UE} and \gls{RAN} at this location and was unnoticed at the time. Despite the nominal line-of-sight condition, a metal obstruction of this size may have been enough to block the link given the radio's otherwise limited transmit power. Keeping \texttt{rx\_gain} at 70 for this round was later found to be overloading the receiver at 2\,m, and measures were taken to address this issue on round 3. Results from this round are also presented in Chapter~\ref{cha:results}.
+\begin{wrapfigure}{r}{0.47\textwidth}
+    \centering
+    \includegraphics[width=0.47\textwidth]{stand.jpg}
+    \caption{The metal stand at Location B.}
+    \label{fig:stand}
+\end{wrapfigure}
+
+This test round was run on the 2nd of August. The 5G network was reconfigured with the balanced 2:2 TDD structure devised after Round 1, and testing proceeded with three repetitions per configuration at each location; the 4G network was not re-tested. The TDD rebalance alone resolved the uplink problem from Round 1, with 5G uplink throughput matching the 4G baseline at 2\,m and 10\,m, though the downlink regressed as a trade-off for the additional uplink airtime. Location B, at 6\,m, produced unusable data this round, with the \gls{UE} re-attaching to the network 18 times during the session, and was excluded from analysis.
+
+A likely, though unconfirmed, explanation was only identified afterward: a full metal stand (Figure~\ref{fig:stand}), belonging to an unrelated thesis project sharing the lab, was standing directly in the signal path between the \gls{UE} and \gls{RAN} at this location and was unnoticed at the time. Despite the nominal line-of-sight condition, a metal obstruction of this size may have been enough to block the link given the radio's otherwise limited transmit power. Keeping \texttt{rx\_gain} at 70 for this round was later found to be overloading the receiver at 2\,m, and measures were taken to address this issue on round 3. Results from this round are also presented in Chapter~\ref{cha:results}.
 
 \subsection{Test Round 3}
 \label{sec:test-round-3}
 
-Before this round, the metal stand identified as a likely obstruction at Location B (see Section~\ref{sec:test-round-2}) was moved out of the signal path, and a gain sweep was run at Location A to determine the optimal \texttt{rx\_gain} setting for the 5G network, resulting in a locked-in value of 60. This test round was run on the 3rd of August, with the 5G network reconfigured to this \texttt{rx\_gain} of 60, keeping the 2:2 TDD structure from Round 2, and with three repetitions per configuration; once again, the 4G network was not re-tested. This setting resolved the receiver overload found in Round 2, more than doubling 5G uplink throughput over the 4G baseline at 2\,m, but severely limited uplink performance at 10\,m, where throughput dropped to roughly a sixth of what \texttt{rx\_gain} 70 had achieved at the same location in Round 2. This showed that a fixed, manually-set receiver gain cannot serve every point in the cell, motivating a recommendation to investigate automatic gain control (AGC) as future work. Results from this round are presented in Chapter~\ref{cha:results}.
+Before this round, the metal stand identified as a likely obstruction at Location B was moved out of the signal path, and a gain sweep was run at Location A to determine the optimal \texttt{rx\_gain} setting for the 5G network, resulting in a locked-in value of 60. This test round was run on the 3rd of August, with the 5G network reconfigured to this \texttt{rx\_gain} of 60, keeping the 2:2 TDD structure from Round 2, and with three repetitions per configuration; once again, the 4G network was not re-tested. This setting resolved the receiver overload found in Round 2, more than doubling 5G uplink throughput over the 4G baseline at 2\,m, but severely limited uplink performance at 10\,m, where throughput dropped to roughly a sixth of what \texttt{rx\_gain} 70 had achieved at the same location in Round 2. This showed that a fixed, manually-set receiver gain cannot serve every point in the cell, motivating a recommendation to investigate \gls{AGC} as future work. Results from this round are presented in Chapter~\ref{cha:results}.
 
 Table~\ref{tab:test-rounds-summary} summarises the 5G configuration and data validity across the three rounds for reference; the reasoning behind each change is described above.
 
