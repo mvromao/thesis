@@ -49,6 +49,16 @@ Along with the \glspl{SDR}, a Leo Bodnar \gls{GPSDO} was chosen to provide a sta
 \section{Core}
 \label{sec:core}
 
+% TODO (Core): this section only frames Open5GS as the 5G core (5GC), but the same
+% deployment also provides the 4G EPC used for the baseline comparison -- state this
+% explicitly, since "compare 4G and 5G on shared core hardware" is a central point of the
+% thesis and a reader wouldn't learn that from this chapter otherwise. Also consider:
+%   - Naming the actual network functions in play instead of the vague "each network
+%     function individualized": AMF/SMF/UPF/NRF for the 5GC, MME/HSS/SGW/PGW for the EPC.
+%   - A one-line mention of the subscriber database (MongoDB, if that's what backs
+%     user_db.csv / the eSIM provisioning in the appendix).
+% Keep this at the conceptual/architecture level -- versions, config file paths, and
+% deploy_open5gs_configs.sh already live in Chapter 5, so avoid duplicating them here.
 The core network is implemented using Open5GS~\cite{open5gs_repo}, an open-source project that provides a complete 5G core network implementation, following the \gls{3GPP} Release 17 specifications. Open5GS is designed to be modular, with each network function individualized and implemented as a separate process, each one with a different configuration file on the machine. The core network is deployed on Machine 1.
 
 \section{\gls{RAN}}
