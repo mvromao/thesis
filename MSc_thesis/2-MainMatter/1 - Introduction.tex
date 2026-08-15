@@ -11,8 +11,50 @@
 \chapter{Introduction}
 \label{cha:introduction}
 
-\textcolor{red}{Not complete, motivation, objects, structure of the document should come here.}
+This chapter introduces the work developed in this dissertation. Section~\ref{sec:motivation} presents the motivation behind it, Section~\ref{sec:objectives-contributions} states its objectives and expected contributions, and Section~\ref{sec:report-structure} outlines the structure of the remainder of the document.
 
-Among the objectives of this dissertation is to leave, at its conclusion, a working 4G and 5G
-network testbed in place at the university, rather than a single disposable experiment, so
-that future projects can build on and explore it directly rather than starting from scratch.
+\section{Motivation}
+\label{sec:motivation}
+
+5G networks are no longer just an incremental evolution of mobile broadband; they are the technological foundation for a new generation of applications that demand infallible reliability, ultra-low latency and massive connectivity. From industrial automation~\cite{Khujamatov2021, brown2018ultrareliable, 13-electronics11030412}, immersive extended and augmented reality~\cite{16-TorresVega2020, LV2020158, 9363323} to \gls{IoT} applications~\cite{7835795, 8519960}, these use cases require a network architecture that can be reconfigured, scaled and tailored to their specific needs, placing enormous emphasis on programmability and softwarization across both the \gls{RAN} and  Core.
+
+Yet for a university research group, or any organisation without a commercial operator's budget, deploying 5G to actually explore these use cases is out of reach. 5G infrastructure imposes a significant capital barrier: an IEEE Access study estimated that a full 5G rollout across the United Kingdom alone would cost between £30 billion and £50 billion, dwarfing the £2.5 billion mobile network operators spend annually on capital expenditure~\cite{patwary2020potential}. Beyond the raw cost, commercial 5G infrastructure is closed by design, so research conducted on it is constrained by reproducibility limitations for researchers without access to the underlying, proprietary implementation. These financial and accessibility barriers have historically restricted real-world 5G \gls{SA} research to a small circle of well-funded operators and vendors, slowing innovation and deployment diversity, and have pushed research institutions and academic investigators instead towards open-source, software-defined alternatives, such as srsRAN~\cite{ocudu_project}, OpenAirInterface~\cite{oai5g_repo} and free5GC~\cite{free5gc_repo}, combined with commodity software-defined radio hardware~\cite{hasan2023building, tio2025exploring5g, mamushiane2023deploying}. Testbeds combining these open-source core platforms with software-defined radios on commodity servers have repeatedly demonstrated the feasibility of low-cost 5G network implementations~\cite{barbosa2025opensource}, and these platforms make it possible to validate architectural choices, reproduce results and teach the internals of a technology that, in its commercial form, is deliberately opaque.
+
+However, deploying a fully functional \gls{SA} 5G network from open-source components alone is still a non-trivial undertaking, and getting it running is only half the problem: without a clear performance baseline, it is difficult to tell whether a given result reflects a genuine property of 5G, a limitation of the specific open-source stack, or simply a misconfigured radio. The existing literature tends to report on open-source 5G deployments in isolation, publishing throughput and latency figures with no directly comparable predecessor built with the same tools, on the same hardware, to put those numbers in context; this lack of publicly available, comparable results has been noted directly in the literature~\cite{rouili2024evaluating}. A research group evaluating whether an open-source 5G testbed is viable for its needs is largely left to take those figures on faith.
+
+This dissertation addresses that gap by building not one but two open-source, \gls{SDR}-based cellular networks side by side: a 5G \gls{SA} network built on the OCUDU \gls{gNB}~\cite{ocudu_project} and Open5GS~\cite{open5gs_repo}, and a 4G network built on srsRAN 4G~\cite{srsran_4g_repo} and the same Open5GS core, running its \gls{EPC} components. Sharing the core hardware and, as far as the technologies allow, the test methodology between the two generations makes it possible to treat the 4G network as a genuine baseline for the 5G one, rather than presenting 5G performance figures with nothing to anchor them against. By relying exclusively on open-source software and commodity hardware, this work also aims to show that meaningful 5G \gls{SA} experimentation does not require a commercial operator's budget, lowering the barrier to entry for future 5G research at institutions in a similar position. Among the objectives of this dissertation is also to leave, at its conclusion, a working 4G and 5G network testbed in place at the university, so that future projects can build on and explore it directly instead of starting from scratch.
+
+\subsection{Objectives and Contributions}
+\label{sec:objectives-contributions}
+
+This subsection outlines the primary objectives defined for this dissertation, as well as the contributions expected from it.
+
+\noindent\underline{Objectives:}
+\begin{itemize}
+    \item Review the architecture, protocols and open-source implementations available for 5G networks, and the equivalent 4G components needed to build a comparable baseline.
+    \item Design and deploy an open-source, \gls{SDR}-based 5G \gls{SA} network and a 4G network, sharing the same core network hardware, using accessible \gls{COTS} equipment throughout.
+    \item Define and execute a test methodology capable of empirically comparing the two generations across multiple locations, traffic conditions and directions.
+    \item Diagnose and iteratively correct configuration issues surfaced during testing, documenting the reasoning behind each change rather than only the final configuration.
+    \item Leave a working, documented 4G and 5G testbed in place for future research and coursework at \gls{FCT}.
+\end{itemize}
+
+\noindent\underline{Expected Contributions:}
+\begin{itemize}
+    \item A functional, dual-generation 4G and 5G testbed, built entirely from open-source software and \gls{COTS} \gls{SDR} hardware, reusable by future projects.
+    \item An empirical, multi-round comparison of 4G and 5G performance, throughput, latency and reliability, under matched distance and traffic conditions.
+    \item A documented account of how specific configuration issues, namely the TDD slot structure and receiver gain staging, were diagnosed and corrected across successive test rounds, intended as a practical reference for others deploying a similar open-source stack.
+\end{itemize}
+
+\section{Report Structure}
+\label{sec:report-structure}
+
+The remainder of this document is structured as follows:
+
+\begin{itemize}
+    \item Chapter~\ref{cha:5g-fundamentals} introduces the fundamental concepts and architecture of 5G networks, covering both the \gls{RAN} and the core, as background for the chapters that follow.
+    \item Chapter~\ref{cha:state-of-the-art} surveys existing open-source 5G implementations and related testbed deployments described in the literature.
+    \item Chapter~\ref{cha:proposed-architecture} presents the architecture originally proposed for the testbed: the hardware components, the core network design, the \gls{RAN} design and the interfaces connecting them.
+    \item Chapter~\ref{cha:implementation} describes how the testbed was actually built, including deviations from the proposed architecture, and details the methodology used to evaluate it across three successive test rounds.
+    \item Chapter~\ref{cha:results} presents the results of the performance evaluation, comparing the 4G baseline against the 5G network as it evolved across test rounds.
+    \item Chapter~\ref{cha:conclusions} concludes the dissertation, summarising the main findings, their limitations, and the work left open for the future.
+\end{itemize}

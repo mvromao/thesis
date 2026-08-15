@@ -11,3 +11,141 @@
 \chapter{Results}
 \label{cha:results}
 
+This chapter presents the results of the performance evaluation of the 4G and 5G networks implemented in the testbed described in Chapter~\ref{cha:implementation}. 
+% ============================================================================
+% BASE STRUCTURE -- proposed storyline, drafted from Test_Data/analysis/FINDINGS.md,
+% FINDINGS_RERUN_2026-08-02.md and FINDINGS_RERUN_2026-08-03.md. Fill in numbers from
+% those files / the fig*.pdf figures they reference. Each section below notes which
+% round(s) the data comes from -- be explicit about this in the prose, since the 5G
+% config (TDD pattern, rx_gain) differs between rounds and the numbers aren't all
+% directly comparable to each other.
+%
+% Framing note for the whole chapter: there is no single "best" round to headline as
+% "the" 5G result. Round 2 (rx_gain 70) and Round 3 (rx_gain 60) each win at one distance
+% and lose badly at the other -- that's not a flaw in the presentation, it's the
+% headline finding of Section 5 below. Consider saying this explicitly near the start of
+% the chapter so the reader doesn't wonder why later sections mix numbers from different
+% rounds.
+
+% --- 1. Throughput overview (headline comparison) ---------------------------------
+% The chapter's opening result: 4G baseline vs 5G, TCP/UDP x UL/DL, at each location.
+% Source: FINDINGS.md S1 (Round 1, fig1_throughput.pdf) for the 4G baseline and the
+% "before" picture; FINDINGS_RERUN_2026-08-02.md S1 (fig7_tdd_rebalance.pdf) and
+% FINDINGS_RERUN_2026-08-03.md S1 (fig10_rxgain_tradeoff.pdf) for the two corrected
+% configurations. Recommend presenting Round1 -> Round2 -> Round3 as a progression per
+% location/direction rather than one static table, since the story IS the progression.
+% Headline numbers to hit:
+%   - Round 1: 5G uplink up to 21x worse than 4G at 10m (worst point).
+%   - Round 2: TDD rebalance alone recovers 5G uplink to ~match 4G at 2m and 10m, but
+%     downlink regresses as the airtime trade-off (quantify: DL 0.45-0.79x of Round-1 5G).
+%   - Round 3: rx_gain 60 pushes 2m uplink to 2x the 4G baseline, but 10m collapses to
+%     0.17x of Round 2's value. State plainly: neither Round 2 nor Round 3 is "the" 5G
+%     result, they bracket the same problem from both sides (see Section 5).
+%   - Location B (6m) throughput: excluded from Round 2 (unusable, see Section 4);
+%     recovered in Round 3 -- only report Round 1 and Round 3 numbers for this location.
+
+\section{4G vs 5G}
+\label{sec:4g-vs-5g}
+
+This section presents a comparison of the 4G baseline against the 5G network across the three test rounds described in Section~\ref{sec:test-methodology}, focusing on the evolution of performance metrics. Because the 5G configuration changed between rounds, namely the TDD structure and the \texttt{rx\_gain} setting, these results are presented as a progression rather than a single snapshot, tracking how each change affected throughput at each location and in each direction. As will become clear over the following sections, no single round can be presented as \emph{the} definitive 5G result: the configuration that performs best at short range is not the same as the one that performs best at long range, a trade-off examined in more detail later in this chapter.
+
+
+
+
+% --- 2. Uplink airtime/TDD decomposition -------------------------------------------
+% Source: FINDINGS.md S2. The cleanest quantitative result in the whole dataset --
+% worth its own section rather than folding into S1. Show the grants/s counting
+% (372-394/s at 3:1 vs ~800/s at 2:2, hard ceiling from slot structure) and the
+% multiplicative decomposition (airtime factor x link-budget factor = measured deficit,
+% exact at both 2m and 10m in Round 1). Note the TDD isolation re-run in Round 3 (S4 of
+% FINDINGS_RERUN_2026-08-03.md) was confounded by rx_gain 60 desensitising 10m -- report
+% it as inconclusive, not as a contradiction, and flag the "redo at rx_gain 70" follow-up
+% as future work.
+
+% --- 3. Uplink quality vs distance: SINR, PHR, and the rx_gain trade-off -----------
+% Source: FINDINGS.md S3 (Round 1 PHR/SINR, and the corrected-vs-superseded discussion of
+% the ~33dB deficit -- keep the correction framing, don't restate the disproven power-cap
+% explanation as fact) + FINDINGS_RERUN_2026-08-02.md S3 (front-end compression / OVL
+% evidence at rx_gain 70) + FINDINGS_RERUN_2026-08-03.md S1 and S3 (the rx_gain 60 sweep
+% results, and the PHR "anomaly" resolved as a PRB-allocation artifact -- worth a
+% sentence so a reader doesn't think there's still a mystery). This section should end on
+% the fixed-gain-vs-AGC finding, quoted near-verbatim from FINDINGS_RERUN_2026-08-03.md:
+% "rx_gain 70 is correct at 10m and overloads at 2m; rx_gain 60 is correct at 2m and
+% desensitises at 10m -- no single value works." This is probably the single most
+% citable sentence in the whole results chapter.
+
+% --- 4. Reliability: RLFs, re-attaches, and the Location B obstruction -------------
+% Source: FINDINGS.md S5 (Round 1: 9 RLFs at 2m from missed HARQ-ACKs, 0 in 4G) +
+% FINDINGS_RERUN_2026-08-02.md S2 (Round 2: Location B unusable, 18 re-attaches -- tie
+% this to the metal-stand obstruction already documented in Section~\ref{sec:test-round-2})
+% + FINDINGS_RERUN_2026-08-03.md S0/S5 (Round 3: attach behaviour "perfect" at every
+% location, 0 RLFs, stand removed). This section can double as evidence that the stand
+% hypothesis from the Methodology chapter is plausible, since its removal correlates
+% with the churn disappearing.
+
+% --- 5. TCP/uplink coupling: why downlink didn't benefit from 5G -------------------
+% Source: FINDINGS.md S4. One of the more interesting findings -- uplink BLER (53.7% at
+% 10m TCP DL vs 3.7% at the same distance/UDP) throttles the TCP downlink via lost ACKs,
+% even though the DL radio itself can sustain far more (proven by the UDP DL result at
+% the same distance/config). FINDINGS_RERUN_2026-08-03.md S5 has a nice confirming
+% coda: fixing the uplink in Round 3 also lifted 2m downlink TCP (16.5 -> 22.4 Mb/s).
+
+% --- 6. Unloaded latency ------------------------------------------------------------
+% Source: FINDINGS_RERUN_2026-08-03.md S6 (fig11_unloaded_latency.pdf), Round 3 only --
+% state plainly this was not measured in Rounds 1-2 and there is no 4G ping baseline to
+% compare against. Headline: 15.7-16.0ms floor, distance-independent (as expected --
+% propagation delay over 10m is negligible). The sawtooth/phase-beat analysis (RTT
+% cycling with the ~19ms uplink scheduling opportunity) is a nice, non-obvious result if
+% there's room for it, but the floor number alone is the one a reader will expect to see.
+
+% --- 7. Bufferbloat: the cost hiding inside the downlink numbers -------------------
+% Source: FINDINGS_RERUN_2026-08-02.md S8 (discovery, Round 2) + FINDINGS_RERUN_2026-08-03.md
+% S6 "Idle versus loaded" (Round 3, quantified against Section 6's floor: 35-81x RTT
+% inflation once a TCP download starts, from a 6.17MB RLC queue). Recommend placing this
+% right after Section 6 -- it reframes every downlink throughput number reported earlier
+% in the chapter ("10 Mb/s downlink" vs "10 Mb/s downlink at 2.7s RTT" are different
+% claims) and works well as a late "twist" rather than a footnote. State clearly this was
+% diagnosed but not fixed (RLC resize was deprioritised out of both lab sessions) --
+% frame as a concrete, well-evidenced future-work item, not an unresolved failure.
+
+% --- 8. Control-plane latency -------------------------------------------------------
+% Source: FINDINGS.md S8 (Round 1 only, fig6_control_plane.pdf). 5G SA attach ~2.2x
+% slower end-to-end than 4G (166ms vs 360ms RRC-request-to-bearer), but the air-interface
+% stages are comparable or faster -- the gap is procedural (more NAS round trips, split
+% registration/PDU-session-setup) and the SBI-based core shows up directly in a 5x
+% slower NG setup (9.5ms vs 1.9ms). Not re-measured in Rounds 2-3; say so.
+
+% --- 9. Software RAN feasibility: processing time vs slot deadline -----------------
+% Source: FINDINGS.md S7 (Round 1, fig4_processing_time.pdf). 5G p99 processing time
+% occasionally exceeds the 500us slot budget (up to 1.4x over) with real logged
+% consequences (late DL data, RF underflows); 4G never comes close to its 1ms budget.
+% Caveat honestly: different host machines, so state both specs and don't oversell it as
+% a clean apples-to-apples CPU comparison. FINDINGS_RERUN_2026-08-02.md S5 notes
+% real-time health improved after the TDD rebalance (less DL duty cycle, less PHY load)
+% -- worth a sentence tying back to Section 2/3.
+
+% --- 10. Operational lessons: logging cost --------------------------------------
+% Source: FINDINGS.md S9 (Round 1). 2.81GB / 1341s at info level, ~7.5GB/hour
+% extrapolated to continuous operation -- ties directly to the "leave a working testbed
+% for future projects" objective from the Introduction/Implementation chapters, so it's
+% worth keeping even though it's not a performance result. Concrete recommendation:
+% warning level / hex_max_size 0 for normal operation.
+
+% --- 11. Smaller findings (one paragraph or a summary table) -----------------------
+% Candidates, pick what's not already covered incidentally above: 256QAM usage on both
+% stacks (FINDINGS.md S10), UL HARQ using rv=0 only / no incremental redundancy
+% (FINDINGS.md S6 -- ties into Section 3's BLER discussion, consider merging there
+% instead), downlink PRB occupancy saturated in both systems, 4G RF-overflow-at-startup
+% as a benign artefact, TCP-vs-UDP protocol sensitivity being 5G-specific.
+
+% --- Open items to state honestly, not paper over -----------------------------------
+% - The original ~33dB power deficit's real cause (Section 3) is still unconfirmed --
+%   don't let Section 1's later fixes imply it was ever explained, only that later
+%   config changes (TDD, gain) improved on it empirically.
+% - The 22dB unexplained SINR jump at 10m between the July and August campaigns
+%   (FINDINGS_RERUN_2026-08-02.md S4) -- explicitly flagged there as "probably not a
+%   config effect." Don't claim the TDD change alone explains the 10m uplink recovery.
+%   Worth a sentence in Section 1 or 2 as a limitation.
+%   TODO once the 03-Aug data is copied from the flash drive per SESSION_LOG_2026-08-03.md
+%   sec:test-round-3 header: check whether it settles this.
+

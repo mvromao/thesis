@@ -11,14 +11,14 @@
 \chapter{Implementation}
 \label{cha:implementation}
 
-This chapter documents the practical implementation of the testbed described in Chapter~\ref{cha:proposed-architecture} and the methodology used to evaluate it.
+This chapter documents the practical implementation of the testbed described in Chapter~\ref{cha:proposed-architecture} and the methodology used to evaluate it. This chapter is structured as follows: Section~\ref{sec:actual-implementation} details the actual implementation of the testbed, the hardware and software used, and the configuration of the network. Section~\ref{sec:test-methodology} describes the methodology used to evaluate the performance of the network, including the test locations, traffic conditions, and test rounds. The results of these tests will follow in Chapter~\ref{cha:results}.
 
 \section{Actual Implementation}
 \label{sec:actual-implementation}
 
 Chapter~\ref{cha:proposed-architecture} proposed a two-machine deployment, with one machine hosting the core network and the other hosting the \gls{RAN}. In practice, the lab deployment used four machines instead: one running the 5G \gls{RAN}, another running the 4G \gls{RAN}, another machine running the core network (serving as a core for both generations), and a fourth reserved for a 5G \gls{NSA} deployment, which was ultimately not implemented. Each working \gls{RAN} was kept on its own dedicated machine rather than sharing a single host between radio access technologies, so that the 4G and 5G networks could run independently of one another rather than being intermingled on the same machine. This choice follows directly from one of the goals of this dissertation: to leave a working network testbed in place, rather than a single disposable experiment, for future projects to build on and explore.
 
-All 4 machines are Dell Optiplex Micro 7080 machines, with the same specifications as those listed in Table~\ref{tab:hardware-specifications}. The machines are connected to each other through an ethernet switch, with static IP addresses assigned to each one, as shown in Figure~\ref{fig:ip-addresses}. A view of the laboratory bench, showing all four machines, is shown in Figure~\ref{fig:bench-machines}.
+All 4 machines are Dell Optiplex Micro 7080 machines, with the same specifications as those listed in Table~\ref{tab:hardware-specifications}. The machines are connected to each other through an ethernet switch, with static IP addresses assigned to each one, as shown in Figure~\ref{fig:ip-addresses}.
 
 \begin{figure}
     \centering
@@ -27,23 +27,25 @@ All 4 machines are Dell Optiplex Micro 7080 machines, with the same specificatio
     \label{fig:ip-addresses}
 \end{figure}
 
-\begin{figure}
+A view of the laboratory bench, showing all four machines, is shown in Figure~\ref{fig:bench-machines}.
+
+\begin{figure} [H]
     \centering
     \includegraphics[width=\textwidth]{machines.jpg}
-    \caption{The bench, showing all 4 machines. From left to right: 4G RAN, 5G NSA (unused), Core and 5G RAN.}
+    \caption{The bench, showing all 4 machines. From left to right: 4G RAN, 5G NSA (unused), Core and 5G RAN. Connected to the 4G RAN machine is the bladeRF xA4, and on the rightmost side, connected to the 5G RAN machine, is the NI B2901.}
     \label{fig:bench-machines}
 \end{figure}
 
 Connected to the 4G \gls{RAN} machine is the Nuand bladeRF xA4 (Figure~\ref{fig:bladerf}), which was used for the 4G deployment. This board, unlike the B2901, was powered entirely over its USB connection to the RAN machine, with no separate power supply used.
 
-\begin{figure}
+Connected to the 5G \gls{RAN} machine is a NI B2901 (Figure~\ref{fig:b2901-gpsdo}), the National Instruments designation for the USRP B210 used in the proposed architecture. In addition to its USB connection to the RAN machine, the B2901 was connected to a wall socket through its own power supply, which was required to sustain the board at the gain settings used during testing. Along with the board, the Leo Bodnar GPSDO was connected to provide both a stable clock source and a 1PPS signal for synchronization. The GPSDO's GPS lock was verified using \texttt{lbgpsdo}~\cite{lbgpsdo}, an open-source command-line utility for configuring and querying Leo Bodnar GPSDO devices.
+
+\begin{figure} [H]
     \centering
     \includegraphics[width=\textwidth]{bladeRF.jpg}
     \caption{The Nuand bladeRF xA4, connected and cabled on the bench.}
     \label{fig:bladerf}
 \end{figure}
-
-Connected to the 5G \gls{RAN} machine is a NI B2901 (Figure~\ref{fig:b2901-gpsdo}), the National Instruments designation for the USRP B210 used in the proposed architecture. In addition to its USB connection to the RAN machine, the B2901 was connected to a wall socket through its own power supply, which was required to sustain the board at the gain settings used during testing. Along with the board, the Leo Bodnar GPSDO was connected to provide both a stable clock source and a 1PPS signal for synchronization. The GPSDO's GPS lock was verified using \texttt{lbgpsdo}~\cite{lbgpsdo}, an open-source command-line utility for configuring and querying Leo Bodnar GPSDO devices.
 
 \begin{figure}
     \centering
@@ -81,7 +83,7 @@ For the \glspl{UE}, the initial proposed architecture (Chapter~\ref{cha:proposed
         Xiaomi Redmi Note 14 5G~\cite{gsmarena_redmi_note14} & MediaTek Dimensity 7025 Ultra & 6\,GB / 128\,GB\\
         \hline
     \end{tabular}
-    \caption{Comparison of the three candidate \glspl{UE}. All three support \gls{NR} band n78, the band used by this testbed. Specifications for the Motorola and Samsung devices are the units actually used; the Xiaomi's are nominal, as proposed, since it was never purchased.}
+    \caption{Comparison of the three candidate \glspl{UE}. All three support \gls{NR} band n78, the band used by this testbed.}
     \label{tab:ue-comparison}
 \end{table}
 
@@ -157,9 +159,11 @@ Finally, the Open5GS~\cite{open5gs_repo} core ran at version 2.4.6. Harking back
 \label{sec:test-methodology}
 The network's performance was evaluated at three fixed \gls{UE} positions in the same room as the \gls{RAN}, chosen to combine increasing distance from the radio with different obstruction condition at each point. Figure~\ref{fig:lab-floor-plan} shows the top plan view of the room, and Figure~\ref{fig:test-location-heights} shows the elevation, giving the height of the radio and of the \gls{UE} at each location above the floor.
 
-\begin{figure}[H]
+Material and thickness are recorded for each obstruction as they, not distance alone, account for the difference between the three locations: signal attenuation through a wall depends strongly on its material and thickness, particularly at the 3.4\,GHz centre frequency used by the 5G \gls{RAN}, so the three locations should be read as distance-plus-obstruction conditions rather than a simple distance variation. 
+
+\begin{figure}
     \centering
-    \includegraphics[width=0.9\textwidth]{Lab_Floor_Plan.pdf}
+    \includegraphics[width=1\textwidth]{Lab_Floor_Plan.pdf}
     \caption{Plan view of the room, showing the radio position and the three \gls{UE} test locations, drawn to scale.}
     \label{fig:lab-floor-plan}
 \end{figure}
@@ -178,11 +182,9 @@ The network's performance was evaluated at three fixed \gls{UE} positions in the
     \label{fig:thickness-collage}
 \end{figure}
 
-Material and thickness are recorded for each obstruction as they, not distance alone, account for the difference between the three locations: signal attenuation through a wall depends strongly on its material and thickness, particularly at the 3.4\,GHz centre frequency used by the 5G \gls{RAN}, so the three locations should be read as distance-plus-obstruction conditions rather than a simple distance sweep. 
-
 Besides obsctructions, the objects present in the room may account for signal attenuation as well. In Figure~\ref{fig:lab-floor-plan}, the objects shown in dark grey are metal furniture and equipment present in the room. None of these lie directly on the signal path between the \gls{RAN} and any of the three test locations, but their metal construction means they may still have contributed to reflections and multipath propagation, and should be kept in mind when interpreting the results. Other objects present in the room, such as the tables and doors presented on the diagram, present minimal attenuation and are not expected to have a significant effect on the results.
 
-These measurements are also intended to support a later comparison between the obstructions' theoretical attenuation and the attenuation actually observed in the collected data.
+These measurements are also intended to support a comparison between the obstructions' theoretical attenuation and the attenuation actually observed in the collected data.
 
 \begin{table}
     \centering
@@ -201,7 +203,7 @@ These measurements are also intended to support a later comparison between the o
     \label{tab:test-locations}
 \end{table}
 
-At each location, a test was run for each generation of network, for both TCP and UDP, and for both uplink and downlink, giving four traffic conditions per location. For the 4G network, each of these conditions was tested once (n=1); for the 5G network, each was repeated three times (n=3). This difference was not a deliberate methodological choice about sample size per generation: the 4G network was only tested during the first round of testing, in which every combination, 4G and 5G, was only tested once. Subsequent rounds of testing focused exclusively on the 5G network, following configuration corrections described later in this chapter, and used three repetitions per condition from that point onward; the 4G network was deliberately left untouched throughout, so its results were never repeated. 
+At each location, a test was run for each generation of network, for both TCP and UDP, and for both uplink and downlink, giving four traffic conditions per location, per generation. For the 4G network, each of these conditions was tested once (n=1); for the 5G network, each was repeated three times (n=3). This difference was not a deliberate methodological choice about sample size per generation: the 4G network was only tested during the first round of testing, in which every combination, both in 4G and 5G, was only tested once. Subsequent rounds of testing focused exclusively on the 5G network, following configuration corrections described later in this chapter, and used three repetitions per condition from that point onward; the 4G network was deliberately left untouched throughout, so its results were never repeated. 
 
 Every test consisted of an \texttt{iperf3} run lasting 20 seconds with 8 parallel streams, with the same parameters used across all tests regardless of generation, location, protocol, or direction. On the \gls{UE} side, these tests were run using the CellularLab app~\cite{cellularlab}; the \texttt{iperf3} server was hosted on the core machine.
 
@@ -258,3 +260,5 @@ Table~\ref{tab:test-rounds-summary} summarises the 5G configuration and data val
     \caption{Summary of the 5G network configuration and data validity across the three test rounds. Round 1 covers both generations; Rounds 2 and 3 cover the 5G network only, as the 4G network was not re-tested. Round 1's 5G and 4G tests were captured on different dates, 25 and 28 July respectively.}
     \label{tab:test-rounds-summary}
 \end{table}
+
+Together, these three rounds make up the full test campaign analysed in Chapter~\ref{cha:results}. 
