@@ -1,0 +1,4 @@
+file,n,min,max,mean,median,p95,sd,jitter_mean_abs_delta,sent,recv,loss_pct,reported_min,reported_avg,reported_max,reported_mdev,location,distance_m
+ping_Loc1,30,16.0,34.9,25.027,24.6,34.9,5.884,2.479,30,30,0.0,16.021,25.021,34.922,5.882,A,2
+ping_Loc2,30,15.9,48.5,28.117,26.65,48.0,8.81,8.662,30,30,0.0,15.912,28.119,48.494,8.81,B,6
+ping_Loc3,30,15.7,48.4,26.17,25.05,40.7,7.448,5.348,30,30,0.0,15.67,26.172,48.427,7.465,C,10

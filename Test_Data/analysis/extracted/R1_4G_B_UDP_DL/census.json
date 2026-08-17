@@ -1,0 +1,72 @@
+{
+  "unit_id": "R1_4G_B_UDP_DL",
+  "round": 1,
+  "tech": "4G",
+  "location": "B",
+  "distance_m": 6,
+  "variant": "",
+  "log": "D:\\Documents\\Thesis\\thesis\\Test_Data\\testing_data\\1 - 28-Jul\\4G\\Loc_2_5m\\UDP\\DL\\enb.log",
+  "log_bytes": 163689135,
+  "config": {
+    "rx_gain": null,
+    "tx_gain": null,
+    "tdd": "n/a",
+    "bandwidth_mhz": 10,
+    "nof_prbs": 50
+  },
+  "ts_first": "2026-07-28T13:35:03.486631",
+  "ts_last": "2026-07-28T13:35:47.890550",
+  "duration_s": 44.403919,
+  "lines_total": 2247364,
+  "bytes_total": 163689135,
+  "lines_continuation": 1624297,
+  "bytes_continuation": 94202860,
+  "continuation_byte_share": 0.5754985509575818,
+  "bytes_per_s": 3686366.849736844,
+  "gb_per_hour": 13.270920659052639,
+  "metrics_lines": 0,
+  "metrics_line_share": 0.0,
+  "rsrp_ovl_reports": 0,
+  "lines_by_layer": {
+    "PDCP": 234355,
+    "GTPU": 171988,
+    "RLC": 93943,
+    "MAC": 60752,
+    "PHY0": 31570,
+    "PHY1": 30377,
+    "RRC": 38,
+    "S1AP": 17,
+    "COMN": 12,
+    "RF": 8,
+    "ENB": 2,
+    "PHY2": 2,
+    "PHY": 2,
+    "STCK": 1
+  },
+  "bytes_by_layer": {
+    "GTPU": 24593920,
+    "PDCP": 19661564,
+    "RLC": 8256198,
+    "MAC": 7642185,
+    "PHY0": 4756726,
+    "PHY1": 4568348,
+    "RRC": 3296,
+    "S1AP": 1543,
+    "COMN": 1131,
+    "RF": 664,
+    "PHY": 226,
+    "ENB": 182,
+    "PHY2": 180,
+    "STCK": 112
+  },
+  "lines_by_level": {
+    "I": 623053,
+    "D": 12,
+    "W": 2
+  },
+  "event_counts": {},
+  "top_warning_templates": {
+    "Not handling feature - UERadioCapability": 1,
+    "Not adding NAS message to connection reconfiguration. E-RAB id #": 1
+  }
+}

@@ -4,6 +4,13 @@
 *.zip
 **/split/
 
+# Throwaway plain-CSV copy of Test_Data/analysis/extracted/, regenerated on
+# demand by `python -m pipeline.unpack`. The compressed tree is the artefact.
+Test_Data/analysis/extracted_csv/
+
+# Formatted reading copy of data_v2/*.csv, rebuilt by `python -m pipeline.to_excel`
+Test_Data/analysis/data_v2/tables.xlsx
+
 # Keep Parquet, CSV, JSON, and Python files
 !.gitignore
 !*.parquet
