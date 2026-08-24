@@ -82,70 +82,36 @@ In Figures \ref{fig:tp-tcp-dl} through \ref{fig:tp-udp-ul}, the mean throughput 
 
 
 % --- 2. Uplink airtime and TDD decomposition ---------------------------------------
-% THE ARGUMENT: the 3:1 pattern was a hard structural cap on uplink, independent of
-% signal quality. Rebalancing to 2:2 lifted the cap and paid for it in downlink airtime.
-% This is the cleanest quantitative result in the dataset, and -- unlike the raw
-% throughput numbers -- it is measured on both sides and survives the SNR confound below.
+% THE ARGUMENT: the 3:1 pattern was a hard structural cap on uplink, independent of signal quality. Rebalancing to 2:2 lifted the cap and paid for it in downlink airtime. This is the cleanest quantitative result in the dataset, and -- unlike the raw throughput numbers -- it is measured on both sides and survives the SNR confound below.
 %
-% LEAD WITH THE DECOMPOSITION, NOT THE FIGURE (FINDINGS.md S2). Separate the two factors
-% by counting grants rather than Mb/s:
-%   - Factor A, airtime. 3:1 gives one uplink slot per 2.5 ms = a 400/s ceiling; the
-%     measured rate is 372-394 grants/s. 4G FDD gets one uplink subframe per ms, ~975/s.
-%     That is a 2.5x structural penalty no amount of signal quality can recover.
-%   - Factor B, link budget. Bits per grant. At 2 m the 5G and 4G payloads are effectively
-%     identical (13 634 vs 13 429 bits); at 10 m the 5G payload collapses 8.7x.
-%   Multiply them: 2.5 x 1.0 = 2.6x deficit at 2 m (measured 2.59x), 2.5 x 8.7 = 21.5x at
-%   10 m (measured 21.5x). The decomposition is exact at both distances. This is what
-%   earns the section its own heading.
+% LEAD WITH THE DECOMPOSITION, NOT THE FIGURE (FINDINGS.md S2). Separate the two factors by counting grants rather than Mb/s:
+%   - Factor A, airtime. 3:1 gives one uplink slot per 2.5 ms = a 400/s ceiling; the measured rate is 372-394 grants/s. 4G FDD gets one uplink subframe per ms, ~975/s. That is a 2.5x structural penalty no amount of signal quality can recover.
+%   - Factor B, link budget. Bits per grant. At 2 m the 5G and 4G payloads are effectively identical (13 634 vs 13 429 bits); at 10 m the 5G payload collapses 8.7x.
+%   Multiply them: 2.5 x 1.0 = 2.6x deficit at 2 m (measured 2.59x), 2.5 x 8.7 = 21.5x at 10 m (measured 21.5x). The decomposition is exact at both distances. This is what earns the section its own heading.
 %
-% THE REBALANCE DELIVERED EXACTLY WHAT WAS PREDICTED (FINDINGS_RERUN_2026-08-02.md).
-%   2:2 gives two uplink slots per 2.5 ms = 800/s, and the scheduler grants the full
-%   800/s at both 2 m and 10 m. The x2 airtime factor is therefore measured, not inferred.
-%   Airtime also predicts downlink x0.75 (4 -> 3 DL slots); observed TCP DL is x0.56 at A
-%   and x0.44 at C, i.e. downlink lost somewhat more than airtime alone accounts for.
+% THE REBALANCE DELIVERED EXACTLY WHAT WAS PREDICTED (FINDINGS_RERUN_2026-08-02.md). 2:2 gives two uplink slots per 2.5 ms = 800/s, and the scheduler grants the full 800/s at both 2 m and 10 m. The x2 airtime factor is therefore measured, not inferred. Airtime also predicts downlink x0.75 (4 -> 3 DL slots); observed TCP DL is x0.56 at A and x0.44 at C, i.e. downlink lost somewhat more than airtime alone accounts for.
 %
-% WHAT FIGURE~\ref{fig:tdd-structure} SHOWS. Only one variable moves per step: TDD between
-% the first two points, rx_gain between the last two. Say that explicitly, or a reader in
-% a section titled "TDD decomposition" will attribute the second step to airtime as well.
+% WHAT FIGURE~\ref{fig:tdd-structure} SHOWS. Only one variable moves per step: TDD between the first two points, rx_gain between the last two. Say that explicitly, or a reader in a section titled "TDD decomposition" will attribute the second step to airtime as well.
 %   DL/UL ratio, TCP:   A: 5.84 -> 1.32 -> 0.89     C: 17.55 -> 0.39 -> 2.48
-%   At A the two directions converge monotonically and finish nearly balanced (22.4 DL vs
-%   25.2 UL) -- the best balance anywhere in the dataset. At C they do not: rx_gain 60
-%   gives back most of the uplink Round 2 recovered (11.60 -> 2.77 Mb/s, a 4.2x
-%   regression) and the ratio swings past 1 to 2.48. So write "close at short range", not
-%   "close". The Location C behaviour is not a blemish on the result -- it is the rx_gain
-%   trade-off that Section~\ref{sec:uplink-quality-rxgain} builds to, and this figure is
-%   its clearest evidence. Forward-reference it rather than explaining it here.
+%   At A the two directions converge monotonically and finish nearly balanced (22.4 DL vs 25.2 UL) -- the best balance anywhere in the dataset. At C they do not: rx_gain 60 gives back most of the uplink Round 2 recovered (11.60 -> 2.77 Mb/s, a 4.2x regression) and the ratio swings past 1 to 2.48. So write "close at short range", not "close". The Location C behaviour is not a blemish on the result -- it is the rx_gain trade-off that Section~\ref{sec:uplink-quality-rxgain} builds to, and this figure is its clearest evidence. Forward-reference it rather than explaining it here.
 %
-% CONFOUND THAT HAS TO BE STATED (FINDINGS_RERUN_2026-08-02.md). Between Rounds 1 and 2,
-% at identical gain settings, uplink SNR rose +5.4 dB at A and +22.4 dB at C -- documented
-% and still unexplained. So the x19.9 uplink gain at C is mostly NOT airtime, which alone
-% predicts x2.0. Do not present the Round 1 -> 2 throughput change as a clean measurement
-% of the TDD effect. The grants/s counting above is the part that survives, because
-% grants/s is independent of SNR: the confound lives entirely in bits-per-grant.
+% CONFOUND THAT HAS TO BE STATED (FINDINGS_RERUN_2026-08-02.md). Between Rounds 1 and 2, at identical gain settings, uplink SNR rose +5.4 dB at A and +22.4 dB at C -- documented and still unexplained. So the x19.9 uplink gain at C is mostly NOT airtime, which alone predicts x2.0. Do not present the Round 1 -> 2 throughput change as a clean measurement of the TDD effect. The grants/s counting above is the part that survives, because grants/s is independent of SNR: the confound lives entirely in bits-per-grant.
 %
-% OPTIONAL SECOND FIGURE -- the measured slot map (data_v2/tdd_airtime.csv; plot-ready in
-% data_v2/fig_tdd_tradeoff.xlsx, sheet SlotMap). PUSCH appears only in slot 4 under 3:1
-% and in slots 3-4 under 2:2: the structural ceiling straight from the scheduler's own
-% counters, and the one piece of evidence the confound cannot touch. Three traps:
-%   (a) use the slot POSITIONS, not the PRB magnitudes -- the 3:1 unit was an uplink-only
-%       run while the 2:2 unit aggregates every test at that location, so the PRB totals
-%       (58.5 vs 42.1) are not a capacity ratio and must not be quoted as one;
-%   (b) for the same reason the 3:1 PDSCH column is near-zero from absent traffic, not
-%       from unavailable slots;
-%   (c) Round 1 has no airtime data at all -- its logs carry no Scheduler-cell METRICS
-%       lines -- which is why the slot map uses the Round 3 pair (same location, same
-%       gain, same session) rather than the Round 1 vs Round 2 pair used in the figure.
+% OPTIONAL SECOND FIGURE -- the measured slot map (data_v2/tdd_airtime.csv; plot-ready in data_v2/fig_tdd_tradeoff.xlsx, sheet SlotMap). PUSCH appears only in slot 4 under 3:1 and in slots 3-4 under 2:2: the structural ceiling straight from the scheduler's own counters, and the one piece of evidence the confound cannot touch. Three traps:
+%   (a) use the slot POSITIONS, not the PRB magnitudes -- the 3:1 unit was an uplink-only run while the 2:2 unit aggregates every test at that location, so the PRB totals (58.5 vs 42.1) are not a capacity ratio and must not be quoted as one;
+%   (b) for the same reason the 3:1 PDSCH column is near-zero from absent traffic, not from unavailable slots;
+%   (c) Round 1 has no airtime data at all -- its logs carry no Scheduler-cell METRICS lines -- which is why the slot map uses the Round 3 pair (same location, same gain, same session) rather than the Round 1 vs Round 2 pair used in the figure.
 %
 % ALSO STATE:
 %   - Location B is absent from the figure: Round 2 at B is the unusable metal-stand data.
-%   - The Round 3 TDD isolation run (R3_5G_C_TDD31) cannot settle this. It is TCP uplink
-%     only, so it has no downlink leg and cannot show a trade-off at all, and it ran at
-%     rx_gain 60, which desensitises Location C. Report it as inconclusive rather than as
-%     a contradiction, and flag "redo at rx_gain 70" as future work.
+%   - The Round 3 TDD isolation run (R3_5G_C_TDD31) cannot settle this. It is TCP uplink only, so it has no downlink leg and cannot show a trade-off at all, and it ran at rx_gain 60, which desensitises Location C. Report it as inconclusive rather than as a contradiction, and flag "redo at rx_gain 70" as future work.
 %   - The first configuration is n=1 per condition (Round 1); the other two are n=3.
 \section{Uplink airtime and TDD decomposition}
 \label{sec:uplink-airtime-tdd}
-One of the troubles identified in the first round of testing was that the 5G uplink throughput was capped by the TDD structure configuration, which allocated only one uplink slot for every three downlink slots (3:1). This meant that for each 
+
+One of the troubles identified in the first round of testing was that the 5G uplink throughput was capped by the TDD structure configuration, which allocated disproportionally more slots to the downlink than the uplink. The 3:1 TDD pattern used in Round 1 allowed only one full uplink slot per every three full downlink slots, along with the flexible slot disproportionallity. On subsequent rounds, the TDD pattern was rebalanced to a symmetrical 2:2 pattern, which allowed two full downlink and uplink slots, along with a symmetrical flexible slot, per period. This change was expected to improve uplink throughput, at the cost of downlink throughput, making their performance almost equal, which is what the results show.
+
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{TDD_structure_comparison.pdf}

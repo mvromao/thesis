@@ -79,6 +79,20 @@
   escapeinside={(*}{*)} % This defines the escape delimiters
 }
 
+% Matches pygments' default style for YAML (as used by minted elsewhere in this thesis):
+% mapping keys in bold green, everything else left as plain text.
+\definecolor{yamlkeycolor}{rgb}{0.00,0.50,0.00}
+\lstdefinelanguage{yaml}{
+  keywords={tdd_ul_dl_cfg,dl_ul_tx_period,nof_dl_slots,nof_dl_symbols,nof_ul_slots,nof_ul_symbols},
+  keywordstyle=\color{yamlkeycolor}\bfseries,
+  sensitive=true,
+  comment=[l]{\#},
+  commentstyle=\itshape\color{gray},
+  morestring=[b]",
+  morestring=[b]',
+  stringstyle=\color{red!70!black},
+}
+
 
 % \usepackage{indentfirst}       % Indent first list after a (sub)section title
 

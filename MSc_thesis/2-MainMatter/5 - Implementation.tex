@@ -215,14 +215,77 @@ Every test consisted of an \texttt{iperf3} run lasting 20 seconds with 8 paralle
 \end{figure}
 
 %now new subsection about the test rounds
+Initially, the 5G network was configured with a 3:1 TDD structure. This structure is set through the \texttt{tdd\_ul\_dl\_cfg} block of the \gls{RAN} configuration, shown in Listing~\ref{lst:tdd-31-cfg}.
+% TODO: once the 3GPP TS 38.211/TS 38.213 background is written in Chapter 2, add a forward pointer here (e.g. "as established in Section~\ref{sec:...}") when the flexible slot is first mentioned below.
+
+\begin{lstlisting}[language=yaml,backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,caption={\texttt{gnb.yaml} TDD configuration for the 3:1 pattern used in Round 1.},label={lst:tdd-31-cfg}]
+tdd_ul_dl_cfg:
+  dl_ul_tx_period: 5
+  nof_dl_slots: 3
+  nof_dl_symbols: 6
+  nof_ul_slots: 1
+  nof_ul_symbols: 2
+\end{lstlisting}
+
+This configuration dictates that for every 5-slot period, 3 slots are allocated for downlink and 1 slot is allocated for uplink, with the remaining flexible slot composition being: 6 symbols for downlink, 2 symbols for uplink and the remainder (6 symbols) are flexible. In total, given that a slot has 14 symbols, the total number of symbols per period is 70, with 48 symbols (3 * 14 symbols + 6 symbols) allocated for downlink and 16 symbols (1 * 14 symbols + 2 symbols) allocated for uplink. That gives 68.6\% of airtime for downlink and 22.9\% for uplink per period of transmission, with the remaining airtime being guard period. 
+
+Figure \ref{fig:tdd-31-structure} shows the slot and symbol structure of the 3:1 TDD pattern, which was used in Round 1.
+
+\newpage
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{TDD_3-1_Structure.pdf}
+    \caption{Slot and symbol structure of the 3:1 TDD pattern used in Round 1.}
+    \label{fig:tdd-31-structure}
+\end{figure}
+
+This structure was later found to impose a hard structural cap on uplink airtime, independent of signal quality, and was rebalanced to a symmetrical 2:2 structure from Round 2 onward, which meant that each transmission period was composed of two full downlink slots and two full uplink slots, along with a symmetrical flexible slot. Listing~\ref{lst:tdd-22-cfg} shows the corresponding \texttt{tdd\_ul\_dl\_cfg} block.
+
+\begin{lstlisting}[language=yaml,backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,caption={\texttt{gnb.yaml} TDD configuration for the rebalanced 2:2 pattern used from Round 2 onward.},label={lst:tdd-22-cfg}]
+tdd_ul_dl_cfg:
+  dl_ul_tx_period: 5
+  nof_dl_slots: 2
+  nof_dl_symbols: 5
+  nof_ul_slots: 2
+  nof_ul_symbols: 5
+\end{lstlisting}
+
+With this configuration, out of the 70 total symbols per period, 33 symbols (2 * 14 symbols + 5 symbols) are equally assigned to both downlink and uplink, giving 47.1\% of airtime for each direction, with the remaining airtime being guard period.
+
+Figure \ref{fig:tdd-22-structure} shows the resulting slot and symbol structure.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{TDD_2-2_Structure.pdf}
+    \caption{Slot and symbol structure of the rebalanced 2:2 TDD pattern used from Round 2 onward.}
+    \label{fig:tdd-22-structure}
+\end{figure}
+
+All together, the rebalance is expected to roughly double the uplink airtime available to the scheduler ($22.9\% \rightarrow 47.1\% = x2.06$) while reducing the downlink share to little more than two-thirds of what it was under the 3:1 pattern ($68.6\% \rightarrow 47.1\% = x0.69$), trading some downlink capacity for a substantial gain in uplink capacity. Whether this expected trade-off actually materialised in the measured throughput, and how closely the scheduler's grant rates tracked it, is examined in Section~\ref{sec:uplink-airtime-tdd} of Chapter~\ref{cha:results}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{Pattern} & \textbf{DL slots} & \textbf{UL slots} & \textbf{DL symbols} & \textbf{UL symbols} & \textbf{DL airtime} & \textbf{UL airtime} & \textbf{Guard} \\
+        \hline
+        3:1 (Round 1) & 3 & 1 & 48 & 16 & 68.6\% & 22.9\% & 8.5\% \\
+        \hline
+        2:2 (Round 2 onward) & 2 & 2 & 33 & 33 & 47.1\% & 47.1\% & 5.8\% \\
+        \hline
+    \end{tabular}
+    \caption{Slot and symbol allocation per 5-slot, 70-symbol transmission period, for the two TDD patterns used across testing.}
+    \label{tab:tdd-comparison}
+\end{table}
+
 \subsection{Test Round 1}
 \label{sec:test-round-1}
 
-This test round was the first to be run, on the 28th of July 2026. It comprised of 24 tests, 12 for 4G and 5G generations, differing in location, protocol and direction, each with a single repetition. The 5G network was run with a 3:1 TDD structure, remnant of the original OCUDU configuration used as a basis for the network configuration, which was later found to structurally cap the maximum uplink airtime and was later rebalanced to a symmetrical 2:2 structure for Round 2. Running a single test for each configuration was also found to produce insufficient analytical data, thus not capturing the real behavior of the 5G network, so the following rounds were run with three repetitions per configuration. Results from this round are presented in Chapter~\ref{cha:results}.
+This test round was the first to be run, on the 28th of July 2026. It comprised of 24 tests, 12 for 4G and 5G generations, differing in location, protocol and direction, each with a single repetition. The 5G network was run with the 3:1 TDD structure, remnant of the original OCUDU configuration used as a basis for the network configuration, which was later found to structurally cap the maximum uplink airtime and was later rebalanced to a symmetrical 2:2 structure for Round 2. Running a single test for each configuration was also found to produce insufficient analytical data, thus not capturing the real behavior of the 5G network, so the following rounds were run with three repetitions per configuration. Results from this round are presented in Chapter~\ref{cha:results}.
 
 \subsection{Test Round 2}
 \label{sec:test-round-2}
-
 
 This test round was run on the 2nd of August. The 5G network was reconfigured with the balanced 2:2 TDD structure devised after Round 1, and testing proceeded with three repetitions per configuration at each location; the 4G network was not re-tested. The TDD rebalance alone resolved the uplink problem from Round 1, with 5G uplink throughput matching the 4G baseline at 2\,m and 10\,m, though the downlink regressed as a trade-off for the additional uplink airtime. Location B, at 6\,m, produced unusable data this round, with the \gls{UE} re-attaching to the network 18 times during the session, and was excluded from analysis.
 
