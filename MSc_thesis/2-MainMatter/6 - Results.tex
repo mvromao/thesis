@@ -1,3 +1,4 @@
+
 %!TEX root = ../template.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 6 - Results.tex
@@ -49,7 +50,7 @@ This chapter presents the results of the performance evaluation of the 4G and 5G
 
 This section presents a comparison of the 4G baseline against the 5G network across the three test rounds described in Section~\ref{sec:test-methodology}, focusing on the evolution of performance metrics. Because the 5G configuration changed between rounds, namely the TDD structure and the \texttt{rx\_gain} setting, these results are presented as a progression rather than a single snapshot, tracking how each change affected throughput at each location and in each direction. As will become clear over the following sections, no single round can be presented as the definitive 5G result: the configuration that performs best at short range is not the same as the one that performs best at long range, a trade-off examined in more detail later in this chapter.
 
-In Figures \ref{fig:tp-tcp-dl} through \ref{fig:tp-udp-ul}, the mean throughput results for TCP and UDP in both downlink and uplink directions are presented for each test location, with black lines representing the range between Min/Max throughput values between each repetition for that combination. The figures mainly illustrate the performance differences between 4G and 5G across the three rounds of testing, with the results showing that the 5G network can outperform the 4G baseline in certain configurations and locations, but also underperform in others.
+In Figures \ref{fig:tp-tcp-dl} through \ref{fig:tp-udp-ul}, the mean throughput results for TCP and UDP in both downlink and uplink directions are presented for each test location, with black lines representing the range between Min/Max throughput values between each repetition for that combination. These figures mainly illustrate the performance differences between 4G and 5G across the three rounds of testing, with the results showing that the 5G network can outperform the 4G baseline in certain configurations and locations, but also underperform in others.
 
 \begin{figure}
     \centering
@@ -144,7 +145,7 @@ In Figures \ref{fig:tp-tcp-dl} through \ref{fig:tp-udp-ul}, the mean throughput 
 %   - The first configuration is n=1 per condition (Round 1); the other two are n=3.
 \section{Uplink airtime and TDD decomposition}
 \label{sec:uplink-airtime-tdd}
-
+One of the troubles identified in the first round of testing was that the 5G uplink throughput was capped by the TDD structure configuration, which allocated only one uplink slot for every three downlink slots (3:1). This meant that for each 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{TDD_structure_comparison.pdf}
