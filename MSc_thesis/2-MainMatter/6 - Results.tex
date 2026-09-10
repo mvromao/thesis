@@ -106,14 +106,24 @@ In Figures \ref{fig:tp-tcp-dl} through \ref{fig:tp-udp-ul}, the mean throughput 
 %   - Location B is absent from the figure: Round 2 at B is the unusable metal-stand data.
 %   - The Round 3 TDD isolation run (R3_5G_C_TDD31) cannot settle this. It is TCP uplink only, so it has no downlink leg and cannot show a trade-off at all, and it ran at rx_gain 60, which desensitises Location C. Report it as inconclusive rather than as a contradiction, and flag "redo at rx_gain 70" as future work.
 %   - The first configuration is n=1 per condition (Round 1); the other two are n=3.
-\section{Uplink airtime and TDD decomposition}
-\label{sec:uplink-airtime-tdd}
+\section{TDD rebalance effects on uplink airtime and throughput}
+\label{sec:tdd-rebalance}
 
-One of the troubles identified in the first round of testing was that the 5G uplink throughput was capped by the TDD structure configuration implemented in the testbed, which, as mentioned in Section~\ref{sec:test-methodology}, allocated TDD timeslots disproportionately in favor of the downlink. The figures in the section show that with this configuration, the 5G downlink reigned with 68.8\% of the total airtime, compared with 22.9\% for the uplink.
+% REMINDER (framing): the throughline for this section, and for the chapter, should not be
+% "5G beats/loses to 4G" -- it's "the uplink deficit is diagnosable and largely a
+% configuration choice, not a fundamental 5G limitation." The 3:1 TDD pattern was inherited
+% from an old worked example and never revisited (see Implementation ch.); that's a real,
+% fixable misconfiguration, and the Round 2 rebalance recovering most of the uplink is the
+% legitimate positive result to lean on here -- not a claim that 5G outperforms 4G.
+% Don't spend effort trying to spin the numbers themselves positively; the diagnostic value
+% of "we found the cause and fixing it worked" is the stronger, more defensible thesis
+% contribution than a scoreboard result.
 
-We can verify this asymmetry by examining the raw metrics from the gNB traces, checking the scheduler's actual uplink grant rate against the theoretical maximum allowed by the TDD configuration.
+One of the troubles identified on the first round of testing was that the 5G uplink throughput was capped by the TDD structure configuration implemented in the testbed, which, as mentioned in Section~\ref{sec:test-methodology}, allocated TDD timeslots disproportionately in favor of the downlink. The figures in the section show that with this configuration, the 5G downlink reigned with 68.8\% of the total airtime, compared with 22.9\% for the uplink.
 
-On the radio configuration file, shown in Listing~\ref{lst:cell_cfg}, the \texttt{cell\_cfg} block sets the \gls{SCS} to 30\,kHz. As explained in Chapter~\ref{cha:5g-fundamentals}, at this \gls{SCS}, a slot is 0.5\,ms long, and the 3:1 TDD pattern sets a 5-slot transmission period with one uplink slot, giving a total period of 2.5\,ms. This means that the maximum number of uplink slots that can be scheduled per second is $1000\,\text{ms} / 2.5\,\text{ms} = 400$ uplink slots, which is the hard ceiling for uplink transmissions per second, regardless of the radio link quality.
+We can verify this asymmetry by examining the raw metrics from the gNB trace files, checking the scheduler's actual uplink grant rate against the theoretical maximum allowed by the TDD configuration.
+
+On the radio configuration file, shown in Listing~\ref{lst:cell_cfg}, the \texttt{cell\_cfg} block sets the \gls{SCS} to 30\,kHz. As explained in Chapter~\ref{cha:5g-fundamentals}, at this \gls{SCS}, a slot is 0.5\,ms long, and the 3:1 TDD pattern sets a 5-slot transmission period with one uplink slot, giving a total period of 2.5\,ms. This means that the maximum number of uplink slots that can be scheduled per second is $1000\,\text{ms} / 2.5\,\text{ms} = 400$ uplink slots, regardless of the radio link quality.
 
 \begin{lstlisting}[language=yaml,backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,caption={\texttt{gnb.yaml} TDD configuration for the 3:1 pattern used in Round 1.},label={lst:cell_cfg}]
 cell_cfg:
@@ -126,10 +136,9 @@ cell_cfg:
   pci: 1
 \end{lstlisting}
 
-Checking the raw metrics from one of the gNB traces (excerpt shown in Listing~\ref{lst:ul-grant-ceiling}), we see that the \texttt{ok} and \texttt{nok} columns sum to 400 transmissions for each second, confirming that the scheduler was granting the full 400 uplink slots/s allowed by the 3:1 TDD pattern, with a small percentage of them failing to decode. This confirms that the uplink throughput was indeed capped by the TDD configuration, rather than by the radio link quality.
-%This asymmetry decomposes cleanly into two independent, measurable factors once the scheduler's actual uplink grant rate is counted directly from the metric traces, rather than relying on throughput alone. As established in Listing~\ref{lst:tdd-31-cfg}, the 3:1 pattern's \texttt{tdd\_ul\_dl\_cfg} block sets a 5-slot transmission period with \texttt{nof\_ul\_slots: 1}; at the 20\,MHz / 30\,kHz-SCS numerology used throughout this testbed each slot is 0.5\,ms, so the period is 2.5\,ms and carries exactly one uplink slot. That gives $1000\,\text{ms} / 2.5\,\text{ms} = 400$ uplink slot opportunities per second, a hard ceiling of 400 uplink transmissions per second no matter how good the radio link is. Listing~\ref{lst:ul-grant-ceiling} shows this ceiling directly in the raw data: the UL half of a representative line from the Round~1 console-metric trace at Location A, taken during a saturated TCP uplink transfer.
+Checking the raw metrics from an uplink test extracted from one of the gNB trace files in Round 1 (excerpt shown in Listing~\ref{lst:ul-grant-ceiling}), we see that the \texttt{ok} and \texttt{nok} columns sum to 400 transmissions for each second, confirming that the scheduler was granting the full 400 uplink slots/s allowed by the 3:1 TDD pattern. This confirms that the uplink throughput was indeed capped by the TDD configuration, rather than by the radio link quality.
 
-\begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,caption={UL block of one line of the Round~1 \texttt{gnb.log} console-metric trace at Location A (2\,m), saturated TCP uplink. The \texttt{ok} and \texttt{nok} columns are the counts of successful and failed uplink transmissions in that one-second reporting period; \texttt{pusch}/\texttt{rsrp} are the reported SINR and RSRP, \texttt{brate} the resulting bit rate.},label={lst:ul-grant-ceiling}]
+\begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Console trace extracted from the \texttt{gnb.log} file from the Location A (2\,m) TCP uplink test in Round~1. The \texttt{ok} and \texttt{nok} columns are the counts of successful and failed uplink transmissions in that one-second reporting period; \texttt{pusch}/\texttt{rsrp} are the reported SINR and RSRP, \texttt{brate} the resulting bit rate.},label={lst:ul-grant-ceiling}]
 |-------------------------------UL-----------------------------
 | pusch  rsrp  ri  mcs  brate   ok  nok  (%)    bsr     ta  phr
 |  18.3 -17.0   1   14  7.77M  382   18   4%   700k   240n    3
@@ -139,9 +148,29 @@ Checking the raw metrics from one of the gNB traces (excerpt shown in Listing~\r
 
 \end{lstlisting}
 
-The \texttt{ok} and \texttt{nok} columns sum to $376+24=400$ transmissions for that second: exactly the ceiling derived above, confirming that the scheduler was granting the full 400 uplink slots/s the 3:1 pattern allows, with 6\% of them failing decode. Averaged over the full Round~1 uplink runs at Locations A and C, this settles to 372--394 grants/s, matching the same ceiling within measurement noise. The 4G baseline, in contrast, grants one uplink subframe every millisecond, roughly 975/s --- a 2.5$\times$ structural penalty that no amount of signal quality could recover, since it is imposed before a single symbol is transmitted. The second factor is the payload carried per grant: at Location A (2\,m) the 5G and 4G payloads are essentially identical (13\,634 vs.\ 13\,429 bits per grant), so the two systems are on equal footing on link budget alone, but at Location C (10\,m) the 5G payload per grant collapses by 8.7$\times$ while the 4G payload is unchanged. Multiplying the two factors reproduces the measured throughput deficit almost exactly: $2.5\times1.0=2.6\times$ at Location A against a measured $2.59\times$, and $2.5\times8.7=21.5\times$ at Location C against a measured $21.5\times$. It is this exact decomposition, not the raw throughput gap, that justifies treating the TDD pattern as a distinct and independently correctable factor from the link-budget problems examined in Section~\ref{sec:uplink-quality-rxgain}.
+The \texttt{ok} and \texttt{nok} columns sum to $382+18=400$ transmissions for the first second, as does the seconds after. Averaged over every one-second reporting row of the full Round~1 uplink runs whose grant count reaches at least 90\% of the technology's structural ceiling --- a rule applied uniformly below to exclude call-setup and TCP-slow-start rows without hand-picking any individual second --- this settles to 400.0 grants/s at Location A and 399.7 grants/s at Location C, matching the same maximum established before. The 4G baseline, measured the same way from the \texttt{enb.log} traces, grants 1000.0 and 992.5 subframes/s at the same two locations. This equates to a 2.5$\times$ reduction ($1000.0/400.0$ at Location A, $992.5/399.7$ at Location C) no amount of signal quality could recover, since it is imposed before a single symbol is transmitted.
 
-On the subsequent rounds of testing, the TDD pattern was rebalanced to a symmetrical 2:2 pattern, which allowed two full downlink and uplink slots, with the flexible slot also adjusted to be symmetrical, per period. This change was expected to improve uplink throughput, at the cost of downlink throughput, making their performance almost equal, which Figure \ref{fig:tdd-structure} presents. Only one configuration variable changes between each pair of rounds in the figure --- the TDD pattern between rounds 1 and 2, and \texttt{rx\_gain} between rounds 2 and 3 --- so the two steps should be read as evidence for two separate effects rather than a single continuous trend.
+A second factor --- the payload carried per grant --- also contributes to the deficit, but it tracks distance-dependent link quality (MCS and link adaptation) rather than the TDD pattern itself, so it is examined together with that cause in Section~\ref{sec:uplink-quality-rxgain} instead of here. A working comparison of 4G and 5G payload per grant, developed while investigating this, is kept at the end of this file pending that rewrite.
+
+% REMINDER: this is the section's actual good-news result -- lean on it. The 3:1 -> 2:2
+% rebalance recovering most of the uplink demonstrates the Factor A deficit above was a
+% fixable config choice, not a hardware or protocol limit. Don't undercut it by also trying
+% to spin the payload-per-grant point positively (see the staged comparison at the end of
+% this file) or by folding the rx_gain/OVL problems from Section~\ref{sec:uplink-quality-rxgain}
+% into "misconfiguration" too -- those look more like open-source RAN stack immaturity
+% (harder to tune than a mature 4G stack) than a single fixable knob, and deserve that more
+% honest framing rather than "my config was wrong."
+On the subsequent rounds of testing, the TDD pattern was rebalanced to a symmetrical 2:2 pattern, which allowed two full downlink and uplink slots, with the flexible slot also adjusted to be symmetrical, per period. This change was expected to improve uplink throughput, at the cost of downlink throughput, making their performance almost equal, which Figure~\ref{fig:tdd-structure} presents. Only one configuration variable changes between each pair of rounds in the figure (the TDD pattern between rounds 1 and 2, and \texttt{rx\_gain} between rounds 2 and 3) so the two steps should be read as evidence for two separate effects rather than a single continuous trend.
+
+The pattern used from Round~2 onward, shown in Listing~\ref{lst:tdd-22-cfg} of Chapter~\ref{cha:implementation}, doubles \texttt{nof\_ul\_slots} to 2 within the same 5-slot, 2.5\,ms period, raising the structural ceiling to $2\times400=800$ uplink transmissions per second. Round~2 onward records srsRAN's native timestamped scheduler metrics rather than the periodic console dump used in Round~1, so the raw evidence takes a different shape: Listing~\ref{lst:ul-800-grant-ceiling} shows the relevant uplink fields from three consecutive one-second \texttt{gnb.log} entries for the Location A TCP uplink test (the full lines also report downlink and per-HARQ statistics, omitted here for space).
+
+\begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Uplink fields extracted from three consecutive \texttt{gnb.log} scheduler-metrics entries for the Location A (2\,m) TCP uplink test in Round~2 (2:2 pattern).},label={lst:ul-800-grant-ceiling}]
+15:14:46  ul_mcs=14  ul_brate=14.1Mbps  ul_nof_ok=692  ul_nof_nok=108
+15:14:47  ul_mcs=17  ul_brate=16.3Mbps  ul_nof_ok=647  ul_nof_nok=153
+15:14:48  ul_mcs=19  ul_brate=18.1Mbps  ul_nof_ok=638  ul_nof_nok=162
+\end{lstlisting}
+
+\texttt{ul\_nof\_ok} and \texttt{ul\_nof\_nok} sum to exactly 800 in every row shown, and the same holds throughout the saturated portion of the run at both Location A and Location C, confirming the scheduler reaches the full doubled ceiling regardless of distance --- this is what the grant rate alone predicts, measured directly rather than inferred from throughput.
 
 \begin{figure}[htbp]
     \centering
@@ -153,7 +182,7 @@ On the subsequent rounds of testing, the TDD pattern was rebalanced to a symmetr
 
 We see on the figure that initially, as expected, when using the 3:1 TDD pattern, the uplink throughput on both location A and C was significantly lower than the downlink throughput. On round 2, after rebalancing the TDD pattern to 2:2, the uplink performance rose to nearly match the downlink in location A, surpassing the downlink throughput at location C. We also note that the downlink throughput decreased in both locations, as expected.
 
-The grant counts confirm that this rebalance delivered exactly what the airtime accounting predicted, rather than the improvement being inferred from throughput alone: the 2:2 pattern doubles the uplink ceiling to 800 slots per 2.5\,ms period, and the scheduler achieves the full 800/s at both Location A and Location C. The same accounting predicts the downlink share should fall to three-quarters of its Round 1 value ($\times0.75$); the observed downlink throughput fell further still, to $\times0.56$ at Location A and $\times0.44$ at Location C, so some factor beyond airtime alone also affected the downlink. One caveat applies to comparing Round 1 and Round 2 by throughput directly: at identical gain settings, uplink SINR rose by 5.4\,dB at Location A and by 22.4\,dB at Location C between the two rounds, for reasons that remain unexplained. The raw uplink throughput gain between rounds therefore cannot be attributed to the TDD change alone --- the $19.9\times$ increase measured at Location C, for instance, far exceeds the $\times2$ that airtime alone predicts. The grants-per-second accounting above is unaffected by this confound, since the achieved grant rate does not depend on the SINR reported for each grant; the confound lives entirely in the bits-per-grant term.
+The same airtime accounting also predicts the downlink share should fall to three-quarters of its Round 1 value ($\times0.75$); the observed downlink throughput fell further still, to $\times0.56$ at Location A and $\times0.44$ at Location C, so some factor beyond airtime alone also affected the downlink.
 
 Finally, on round 3, after adjusting the \texttt{rx\_gain} to 60: at location A (2 m), the overall network throughput increased significantly, as this change decreased the number of \texttt{ovl} events on the uplink, thus stabilizing the network's performance. However, at location C, further away from the radio, the uplink throughput decreased significantly as well, due to the lower \texttt{rx\_gain} desensitizing the receiver and reducing the link budget. This change was expected as a trade-off between the two locations, and it highlights the challenge of finding a single configuration that optimizes performance across all distances.
 
@@ -244,4 +273,58 @@ We also see that in this final configuration, the throughput between both direct
 %   Worth a sentence in Section 1 or 2 as a limitation.
 %   TODO once the 03-Aug data is copied from the flash drive per SESSION_LOG_2026-08-03.md
 %   sec:test-round-3 header: check whether it settles this.
+
+% =====================================================================================
+% STAGED FOR REFACTOR -- move into Section~\ref{sec:uplink-quality-rxgain} (pulled out of
+% sec:tdd-rebalance, which now only covers the grants/s (Factor A) story). This is a
+% working comparison of 4G vs.\ 5G payload per grant at Locations A and C, all numbers
+% verified against Test_Data/analysis/scripts/ul_grant_decomposition.py (90%-of-ceiling
+% saturation rule, stated inline below -- keep that rule if this moves, it's what makes
+% the numbers reproducible). Key results if rewriting from scratch instead of moving this
+% verbatim: 5G payload/grant at Location A averages 11,282 bits vs. 13,429--13,482 for 4G
+% (a 1.2x gap, NOT near-parity -- 5G's channel here is 20MHz vs. 4G's 10MHz, so even a
+% 1.2x gap is a real per-Hz shortfall, don't spin it positively); at Location C it's
+% 1,485 vs. 12,931 (8.7x). The Location-A listing also shows the same run dropping to the
+% same MCS-0 floor Location C sits at permanently -- useful evidence that Location A isn't
+% immune to the link-adaptation problem, just less exposed to it. Also carries the SNR
+% confound note (Round 1 -> Round 2 raw throughput comparison is contaminated by an
+% unexplained SINR rise, 5.4dB at A / 22.4dB at C, so don't present it as a clean TDD
+% measurement) which arguably belongs in sec:uplink-quality-rxgain too since it's about
+% interpreting throughput through a link-quality lens, not the TDD pattern.
+% =====================================================================================
+
+% Another factor to note is the payload carried per grant. Dividing the successfully delivered bit rate from the \texttt{brate} column by the number of successful grants in a given second gives the mean payload size per grant for that second. Listing~\ref{lst:ul-4g-payload} shows an excerpt from the 4G \texttt{enb.log} trace at Location A, where each row grants the full 1000 uplink subframes per second, as the FDD frame structure allows, and payload size works out to roughly 15\,000, 14\,000 and 13\,000 bits per grant.
+
+% \begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Console trace excerpt from the 4G \texttt{enb.log} file for the Location A (2\,m) TCP uplink test in Round~1.},label={lst:ul-4g-payload}]
+% | pusch  pucch  phr  mcs  brate   ok  nok  (%)    bsr
+% |  16.4    n/a   18   17    15M 1000    0   0%   135k
+% |  14.7    n/a   19   16    14M 1000    0   0%   141k
+% |  13.2    n/a   19   15    13M 1000    0   0%   138k
+% \end{lstlisting}
+
+% From the equivalent 5G \texttt{gnb.log} trace at Location A, shown in Listing~\ref{lst:ul-5g-2m-payload}, the same columns give payloads of roughly 11\,200, 11\,600, 8\,000, 2\,500 and 1\,300 bits per grant across five consecutive seconds.
+
+% \begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Console trace excerpt from the 5G \texttt{gnb.log} file for the Location A (2\,m) TCP uplink test in Round~1, five consecutive seconds.},label={lst:ul-5g-2m-payload}]
+% | pusch  rsrp  ri  mcs  brate   ok  nok  (%)    bsr     ta  phr
+% |  13.8 -21.1   1    7  4.48M  400    0   0%   700k   262n   -7
+% |  13.8 -21.8   1    8  4.59M  397    3   0%   700k   260n   -3
+% |  10.8 -24.3   1    5  3.17M  396    4   1%   700k   234n   -2
+% |   1.8 -29.6   1    1   993k  391    9   2%   700k   211n    0
+% |  -8.1 -33.5   1    0   535k  400    0   0%   700k   251n   -3
+% \end{lstlisting}
+
+% Those five rows already swing by 8.4$\times$ from first to last, which makes clear that a handful of rows cannot stand in for a run average, as MCS is not constant even while every second stays saturated, so the payload per grant moves with it. Within those five seconds, MCS collapses from 7 down to 0 and \texttt{brate}/\texttt{ok} falls from 4.48\,M/400 to 535\,k/400 --- the same MCS-0, roughly-535k-bit-rate floor Listing~\ref{lst:ul-5g-10m-payload} shows as the steady state at Location C. Location A is not immune to the link-adaptation problem examined in Section~\ref{sec:uplink-quality-rxgain}; it just spends most of its time above that floor instead of pinned to it. Applying a 90\%-of-ceiling saturation rule -- keeping only one-second reporting rows whose grant count reaches at least 90\% of the technology's structural ceiling, to exclude call-setup and TCP-slow-start rows without hand-picking any individual second -- and dividing the total delivered bits by the total successful grants across every kept second of the run, the 5G payload per grant at Location A averages 11\,282 bits, against 13\,482 bits for 4G at the same location --- a 1.2$\times$ difference, not the near-parity a couple of high-throughput rows might suggest, though still close enough that Location A is link-budget-limited far less than Location C. This should not be read as ``5G nearly matches 4G per grant'': the 5G channel in this testbed is 20\,MHz vs.\ 4G's 10\,MHz, so double the spectrum for only a 1.2$\times$-closer payload is a per-Hz shortfall, not parity, once a reader does that math themselves. This trace format does not report the PRB allocation per grant, so that cannot be confirmed as the cause either way.
+
+% At Location C (10\,m), the picture is far starker: Listing~\ref{lst:ul-5g-10m-payload} shows the 5G trace at that distance still granting the full ceiling every second (\texttt{ok}\,=\,400), but at MCS~0 --- the lowest possible modulation and coding scheme --- with \texttt{brate}/\texttt{ok} down to roughly 1\,300--1\,340 bits per grant, compared to the steady-state 4G payload at the same distance (12\,931 bits per grant, essentially unchanged from Location A). This tracks the MCS directly: the grant count is unchanged from Location A (still 400/s, the same Factor A ceiling), but MCS falls from single digits to 0, the lowest possible modulation order and code rate, so far fewer bits fit in each grant regardless of how many resource blocks it spans. This trace format does not report the number of resource blocks per grant, so the PRB allocation itself cannot be ruled out as a contributing factor, but the MCS collapse alone is enough to explain a payload reduction of this size. Averaged over the full run with the same saturation rule, the 5G payload per grant collapses to 1\,485 bits, an 8.7$\times$ reduction, while the 4G payload is unchanged.
+
+% \begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Console trace excerpt from the \texttt{gnb.log} file for the Location C (10\,m) TCP uplink test in Round~1 (5G). The scheduler still grants the full 400 uplink slots/s, but at the lowest MCS, with a far smaller payload per grant than at Location A.},label={lst:ul-5g-10m-payload}]
+% | pusch  rsrp  ri  mcs  brate   ok  nok  (%)    bsr     ta  phr
+% |  -2.7 -36.0   1    0   535k  400    0   0%   700k   334n  -13
+% |  -6.3 -35.9   1    0   536k  400    0   0%   700k   332n  -11
+% |  -7.4 -36.3   1    0   535k  400    0   0%   700k   285n  -12
+% \end{lstlisting}
+
+% Multiplying the two factors gives a predicted throughput deficit of $2.5\times1.2=3.0\times$ at Location A and $2.5\times8.7=21.6\times$ at Location C. Measured directly from the same runs, the actual throughput deficit is $3.1\times$ at Location A and $21.6\times$ at Location C: an exact match at Location C, and a close one at Location A, where the small residual gap comes from grant rate and payload per grant being two independently averaged quantities (a mean over seconds and a mean over grants) that do not multiply back to the mean throughput ratio with perfect precision when both vary together within a run. It is this decomposition, not the raw throughput gap, that justifies treating the TDD pattern as a distinct and independently correctable factor from the link-budget problems examined in Section~\ref{sec:uplink-quality-rxgain}.
+
+% One caveat applies to comparing Round 1 and Round 2 by throughput directly: at identical gain settings, uplink SINR rose by 5.4\,dB at Location A and by 22.4\,dB at Location C between the two rounds, for reasons that remain unexplained. The raw uplink throughput gain between rounds therefore cannot be attributed to the TDD change alone --- the $19.9\times$ increase measured at Location C, for instance, far exceeds the $\times2$ that airtime alone predicts. The grants-per-second accounting above is unaffected by this confound, since the achieved grant rate does not depend on the SINR reported for each grant; the confound lives entirely in the bits-per-grant term.
 
