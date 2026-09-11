@@ -45,7 +45,7 @@ This chapter presents the results of the performance evaluation of the 4G and 5G
 %   - Location B (6m) throughput: excluded from Round 2 (unusable, see Section 4);
 %     recovered in Round 3 -- only report Round 1 and Round 3 numbers for this location.
 
-\section{General comparison between 4G and 5G}
+\section{General comparison between 4G and 5G performance}
 \label{sec:4g-vs-5g}
 
 This section presents a comparison of the 4G baseline against the 5G network across the three test rounds described in Section~\ref{sec:test-methodology}, focusing on the evolution of performance metrics. Because the 5G configuration changed between rounds, namely the TDD structure and the \texttt{rx\_gain} setting, these results are presented as a progression rather than a single snapshot, tracking how each change affected throughput at each location and in each direction. As will become clear over the following sections, no single round can be presented as the definitive 5G result: the configuration that performs best at short range is not the same as the one that performs best at long range, a trade-off examined in more detail later in this chapter.
@@ -136,9 +136,9 @@ cell_cfg:
   pci: 1
 \end{lstlisting}
 
-Checking the raw metrics from an uplink test extracted from one of the gNB trace files in Round 1 (excerpt shown in Listing~\ref{lst:ul-grant-ceiling}), we see that the \texttt{ok} and \texttt{nok} columns sum to 400 transmissions for each second, confirming that the scheduler was granting the full 400 uplink slots/s allowed by the 3:1 TDD pattern. This confirms that the uplink throughput was indeed capped by the TDD configuration, rather than by the radio link quality.
+Listing~\ref{lst:ul-grant-ceiling} shows an excerpt of the raw uplink metrics from one of the Round~1 gNB trace files at Location A, taken while a TCP uplink transfer was saturating the link. The columns of interest here are \texttt{ok} and \texttt{nok}: the number of successful and failed uplink transmissions the scheduler reports for that one-second period. The remaining columns: SINR, RSRP, and MCS, speak to link quality rather than to the TDD structure itself.
 
-\begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Console trace extracted from the \texttt{gnb.log} file from the Location A (2\,m) TCP uplink test in Round~1. The \texttt{ok} and \texttt{nok} columns are the counts of successful and failed uplink transmissions in that one-second reporting period; \texttt{pusch}/\texttt{rsrp} are the reported SINR and RSRP, \texttt{brate} the resulting bit rate.},label={lst:ul-grant-ceiling}]
+\begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Console trace extracted from the \texttt{gnb.log} file from the Location A (2\,m) TCP uplink test in Round~1.},label={lst:ul-grant-ceiling}]
 |-------------------------------UL-----------------------------
 | pusch  rsrp  ri  mcs  brate   ok  nok  (%)    bsr     ta  phr
 |  18.3 -17.0   1   14  7.77M  382   18   4%   700k   240n    3
@@ -148,21 +148,11 @@ Checking the raw metrics from an uplink test extracted from one of the gNB trace
 
 \end{lstlisting}
 
-The \texttt{ok} and \texttt{nok} columns sum to $382+18=400$ transmissions for the first second, as does the seconds after. Averaged over every one-second reporting row of the full Round~1 uplink runs whose grant count reaches at least 90\% of the technology's structural ceiling --- a rule applied uniformly below to exclude call-setup and TCP-slow-start rows without hand-picking any individual second --- this settles to 400.0 grants/s at Location A and 399.7 grants/s at Location C, matching the same maximum established before. The 4G baseline, measured the same way from the \texttt{enb.log} traces, grants 1000.0 and 992.5 subframes/s at the same two locations. This equates to a 2.5$\times$ reduction ($1000.0/400.0$ at Location A, $992.5/399.7$ at Location C) no amount of signal quality could recover, since it is imposed before a single symbol is transmitted.
+The \texttt{ok} and \texttt{nok} columns sum to $382+18=400$ transmissions for the first second, as does the following seconds. Iterating over the full Round 1 run and discarding the initial TCP slow-start period (considering only seconds where the grant count reaches at least 90\% of the structural ceiling), this averages to 400.0 grants/s at Location A and 399.7 grants/s at Location C, matching the same maximum established before. The 4G baseline, for comparison, measured the same way from the \texttt{enb.log} traces, grants 1000.0 and 992.5 subframes/s at the same two locations, respectively. This equates to a 2.5$\times$ reduction ($1000.0/400.0 = 2.5$ at Location A, $992.5/399.7 = 2.48$ at Location C) between 4G and 5G performance, which no amount of signal quality could recover, since it is imposed before a single symbol is transmitted.
 
-A second factor --- the payload carried per grant --- also contributes to the deficit, but it tracks distance-dependent link quality (MCS and link adaptation) rather than the TDD pattern itself, so it is examined together with that cause in Section~\ref{sec:uplink-quality-rxgain} instead of here. A working comparison of 4G and 5G payload per grant, developed while investigating this, is kept at the end of this file pending that rewrite.
+On the subsequent rounds of testing, on which the TDD pattern was rebalanced to a symmetrical 2:2 pattern, it was expected to improve uplink throughput, at the cost of downlink throughput, making their performance almost equal, which Figure~\ref{fig:tdd-structure} presents. Only one configuration variable changes between each pair of rounds in the figure (the TDD pattern between rounds 1 and 2, and \texttt{rx\_gain} between rounds 2 and 3) so the two steps should be read as evidence for two separate effects rather than a single continuous trend.
 
-% REMINDER: this is the section's actual good-news result -- lean on it. The 3:1 -> 2:2
-% rebalance recovering most of the uplink demonstrates the Factor A deficit above was a
-% fixable config choice, not a hardware or protocol limit. Don't undercut it by also trying
-% to spin the payload-per-grant point positively (see the staged comparison at the end of
-% this file) or by folding the rx_gain/OVL problems from Section~\ref{sec:uplink-quality-rxgain}
-% into "misconfiguration" too -- those look more like open-source RAN stack immaturity
-% (harder to tune than a mature 4G stack) than a single fixable knob, and deserve that more
-% honest framing rather than "my config was wrong."
-On the subsequent rounds of testing, the TDD pattern was rebalanced to a symmetrical 2:2 pattern, which allowed two full downlink and uplink slots, with the flexible slot also adjusted to be symmetrical, per period. This change was expected to improve uplink throughput, at the cost of downlink throughput, making their performance almost equal, which Figure~\ref{fig:tdd-structure} presents. Only one configuration variable changes between each pair of rounds in the figure (the TDD pattern between rounds 1 and 2, and \texttt{rx\_gain} between rounds 2 and 3) so the two steps should be read as evidence for two separate effects rather than a single continuous trend.
-
-The pattern used from Round~2 onward, shown in Listing~\ref{lst:tdd-22-cfg} of Chapter~\ref{cha:implementation}, doubles \texttt{nof\_ul\_slots} to 2 within the same 5-slot, 2.5\,ms period, raising the structural ceiling to $2\times400=800$ uplink transmissions per second. Round~2 onward records srsRAN's native timestamped scheduler metrics rather than the periodic console dump used in Round~1, so the raw evidence takes a different shape: Listing~\ref{lst:ul-800-grant-ceiling} shows the relevant uplink fields from three consecutive one-second \texttt{gnb.log} entries for the Location A TCP uplink test (the full lines also report downlink and per-HARQ statistics, omitted here for space).
+The pattern used from Round~2 onward, shown in Listing~\ref{lst:tdd-22-cfg} of Chapter~\ref{cha:implementation}, doubles \texttt{nof\_ul\_slots} to 2 within the same 5-slot, 2.5\,ms period, raising the structural ceiling to $2\times400=800$ uplink transmissions per second. Round~2 metrics data was extracted directly from OCUDU's native timestamped scheduler log rather than the periodic console dump used in Round~1, so the raw evidence takes a different shape: Listing~\ref{lst:ul-800-grant-ceiling} shows an excerpt of the relevant uplink fields from three consecutive one-second \texttt{gnb.log} entries for the Location A TCP uplink test (the full lines also report downlink and per-HARQ statistics, omitted here for space).
 
 \begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Uplink fields extracted from three consecutive \texttt{gnb.log} scheduler-metrics entries for the Location A (2\,m) TCP uplink test in Round~2 (2:2 pattern).},label={lst:ul-800-grant-ceiling}]
 15:14:46  ul_mcs=14  ul_brate=14.1Mbps  ul_nof_ok=692  ul_nof_nok=108
@@ -170,7 +160,7 @@ The pattern used from Round~2 onward, shown in Listing~\ref{lst:tdd-22-cfg} of C
 15:14:48  ul_mcs=19  ul_brate=18.1Mbps  ul_nof_ok=638  ul_nof_nok=162
 \end{lstlisting}
 
-\texttt{ul\_nof\_ok} and \texttt{ul\_nof\_nok} sum to exactly 800 in every row shown, and the same holds throughout the saturated portion of the run at both Location A and Location C, confirming the scheduler reaches the full doubled ceiling regardless of distance --- this is what the grant rate alone predicts, measured directly rather than inferred from throughput.
+The \texttt{ul\_nof\_ok} and \texttt{ul\_nof\_nok} fields sum to exactly 800 in every row shown, and the same holds throughout the saturated portion of the run at both Location A and Location C, confirming the scheduler reaches the full doubled ceiling regardless of distance. This is a direct consequence of the adjustment in the TDD pattern, which is what the grant rate alone predicts.
 
 \begin{figure}[htbp]
     \centering
@@ -186,7 +176,7 @@ The same airtime accounting also predicts the downlink share should fall to thre
 
 Finally, on round 3, after adjusting the \texttt{rx\_gain} to 60: at location A (2 m), the overall network throughput increased significantly, as this change decreased the number of \texttt{ovl} events on the uplink, thus stabilizing the network's performance. However, at location C, further away from the radio, the uplink throughput decreased significantly as well, due to the lower \texttt{rx\_gain} desensitizing the receiver and reducing the link budget. This change was expected as a trade-off between the two locations, and it highlights the challenge of finding a single configuration that optimizes performance across all distances.
 
-We also see that in this final configuration, the throughput between both directions is closest to being equal at short range: at Location A the two directions converge to within a narrow margin (22.4 vs.\ 25.2\,Mb/s), the best balance observed anywhere in the dataset, while at Location C the \texttt{rx\_gain} reduction gives back most of the uplink gain Round 2 had recovered, swinging the downlink-to-uplink ratio past parity to 2.48. This Location C behaviour is not a contradiction of the TDD result but the \texttt{rx\_gain} trade-off that Section~\ref{sec:uplink-quality-rxgain} examines in detail.
+We also see that in this final configuration, the throughput between both directions is closest to being equal at short range: at Location A the two directions converge to within a narrow margin (22.4 vs.\ 25.2\,Mb/s), the best balance observed anywhere in the dataset, while at Location C the \texttt{rx\_gain} reduction gives back most of the uplink gain Round 2 had recovered. This Location C behaviour is not a contradiction of the TDD result but the \texttt{rx\_gain} trade-off that Section~\ref{sec:uplink-quality-rxgain} examines in detail.
 % --- 3. Uplink quality vs distance: SINR, PHR, and the rx_gain trade-off -----------
 % Source: FINDINGS.md S3 (Round 1 PHR/SINR, and the corrected-vs-superseded discussion of
 % the ~33dB deficit -- keep the correction framing, don't restate the disproven power-cap
@@ -198,6 +188,127 @@ We also see that in this final configuration, the throughput between both direct
 % "rx_gain 70 is correct at 10m and overloads at 2m; rx_gain 60 is correct at 2m and
 % desensitises at 10m -- no single value works." This is probably the single most
 % citable sentence in the whole results chapter.
+\section{Uplink quality vs distance: SINR, PHR, and the \texttt{rx\_gain} trade-off}
+\label{sec:uplink-quality-rxgain}
+
+Section~\ref{sec:tdd-rebalance} showed that Location C's uplink gave back most of the gain the 2:2 TDD rebalance had recovered once \texttt{rx\_gain} was lowered to 60 in Round 3, while Location A improved further still. This section looks at the link-quality data behind that split outcome: how uplink SINR and transmit power headroom evolve with distance, why the receiver gain setting used throughout Rounds 1 and 2 hurts the network precisely where the signal is strongest, and why no single fixed gain value serves the whole cell.
+
+\subsection{Round 1: the uplink degrades with distance in 5G but not in 4G}
+
+Averaged over the active window of each test, 5G's uplink SINR falls sharply as distance increases, while 4G's stays essentially flat, as shown in Table~\ref{tab:sinr-vs-distance}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Location} & \textbf{4G mean SINR} & \textbf{5G mean SINR} \\
+        \hline
+        A (2\,m, LOS) & +13.7\,dB & +10.7\,dB \\
+        \hline
+        B (5\,m, partition) & +14.2\,dB & +7.1\,dB \\
+        \hline
+        C (10\,m, concrete wall) & +11.5\,dB & $-$7.6\,dB \\
+        \hline
+    \end{tabular}
+    \caption{Round 1 mean uplink SINR by location, 4G vs 5G.}
+    \label{tab:sinr-vs-distance}
+\end{table}
+
+Between Locations A and C, free-space path loss alone accounts for 14\,dB, yet 4G's uplink SINR barely moves (11.5--14.2\,dB, a spread of under 3\,dB), while 5G loses 18\,dB over the same distance and becomes markedly noisier location to location. The explanation is in the power headroom report (PHR), which states how much transmit power the handset has left above what it is currently using, shown in Table~\ref{tab:phr-vs-distance}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Location} & \textbf{4G PHR} & \textbf{5G PHR} \\
+        \hline
+        A (2\,m, LOS) & +20.0\,dB & $-$2.0\,dB \\
+        \hline
+        B (5\,m, partition) & +16.6\,dB & $-$10.3\,dB \\
+        \hline
+        C (10\,m, concrete wall) & +12.3\,dB & $-$13.6\,dB \\
+        \hline
+    \end{tabular}
+    \caption{Round 1 mean uplink power headroom by location, 4G vs 5G.}
+    \label{tab:phr-vs-distance}
+\end{table}
+
+The 4G handset keeps 12--20\,dB of transmit power in reserve at every location, so closed-loop power control can simply push harder as path loss grows and hold SINR roughly constant, which is exactly the flat curve in Table~\ref{tab:sinr-vs-distance}. The 5G handset, by contrast, has \emph{negative} headroom already at Location A, in clear line of sight and at the shortest distance tested: it is power-limited at the easiest point in the test matrix and has nothing left to spend as distance increases, so every additional decibel of path loss lands directly on the received SINR instead of being absorbed by the power control loop.
+
+Inverting the 3GPP TS 38.213 \S7.7.1 Type-1 PHR equation with the values read out of the logs (a $p_{0\text{-NominalWithGrant}}$ of $-76$\,dBm from SIB1, a mean PUSCH allocation of 42 PRB, 30\,kHz SCS and $\alpha=1$) gives the implied uplink path loss at each location, shown in Table~\ref{tab:phr-implied-loss}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{Location} & \textbf{Measured PHR} & \textbf{Implied path loss} & \textbf{Free-space loss} \\
+        \hline
+        A (2\,m) & $-2.03$\,dB & 81.8\,dB (+32.7\,dB excess) & 49.1\,dB \\
+        \hline
+        B (5\,m) & $-10.34$\,dB & 90.1\,dB (+33.0\,dB excess) & 57.1\,dB \\
+        \hline
+        C (10\,m) & $-13.55$\,dB & 93.3\,dB (+30.2\,dB excess) & 63.1\,dB \\
+        \hline
+    \end{tabular}
+    \caption{Implied uplink path loss from Round 1 PHR, assuming a UE maximum transmit power ($P_{\text{CMAX}}$) of $+23$\,dBm.}
+    \label{tab:phr-implied-loss}
+\end{table}
+
+The implied loss exceeds free-space loss by a near-constant $\sim$33\,dB at all three locations. Because this excess does not scale with distance, it cannot be a propagation effect; something in the link budget or calibration is consuming roughly the same amount of margin everywhere.
+
+An earlier version of this analysis attributed that excess to a transmit-power cap (\texttt{pcg\_p\_nr\_fr1: -15}) present in the checked-in \texttt{gnb.yaml}. This explanation does not hold: the gNB's own startup log for this campaign prints its full non-default configuration on boot, and that dump has no \texttt{pcg\_p\_nr\_fr1} line, which means the parameter was unset for the entire test campaign, not just left at a value that happened not to bind. The measured PHR and the $\sim$33\,dB excess in Table~\ref{tab:phr-implied-loss} are real; the cause is not this cap, and remains open. The leading, unconfirmed candidate is a miscalibration between the declared \texttt{ss-PBCH-BlockPower} and \texttt{p0-NominalWithGrant} values in the cell configuration and the actual RF chain in use (antenna, cabling, and a \texttt{tx\_gain} of 89.75, the SDR's maximum): both parameters feed directly into the UE's open- and closed-loop path-loss estimate, and if either was left at a value taken from a reference configuration rather than calibrated against this testbed's hardware, the UE would systematically mis-estimate path loss by a roughly constant offset at every location, which is the same signature attributed to the (nonexistent) power cap. This has not been verified against a calibrated reference and is reported here as an open question, not a conclusion. What is established independently is that the receive gain chain was already pushed to its limit throughout Round 1 and Round 2 (\texttt{tx\_gain} 89.75, \texttt{rx\_gain} 70, against 50/45 in the reference configuration), a choice that reproduces receiver overload at short range, examined next.
+
+\subsection{Round 2: link adaptation over-reaches near the radio at \texttt{rx\_gain 70}}
+
+The 2:2 TDD rebalance in Round 2 (Section~\ref{sec:tdd-rebalance}) left \texttt{rx\_gain} unchanged at 70. Table~\ref{tab:overload-evidence} shows the steady-state uplink at each location under that setting: the grant rate the scheduler achieves, the SINR and MCS it reports, and the block error rate (BLER) actually observed.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \textbf{Location} & \textbf{Grants/s (ok/failed)} & \textbf{SINR} & \textbf{MCS} & \textbf{BLER} & \textbf{PHR} \\
+        \hline
+        A (2\,m, LOS) & 800 (619/181) & 20.5\,dB & 18.5 & \textbf{22\%} & $-2.0$\,dB \\
+        \hline
+        B (5\,m, partition) & 761 (369/391) & 14.2\,dB & 17.0 & \textbf{53\%} & $-13.2$\,dB \\
+        \hline
+        C (10\,m, concrete) & 800 (787/13) & 18.0\,dB & 12.1 & \textbf{1.3\%} & $-16.2$\,dB \\
+        \hline
+    \end{tabular}
+    \caption{Round 2 (\texttt{rx\_gain 70}) uplink grant rate, reported SINR, chosen MCS, and measured BLER, steady state.}
+    \label{tab:overload-evidence}
+\end{table}
+
+Three details in this table only fit together one way. First, the scheduler grants close to the full 800 uplink slots/s the 2:2 pattern allows at every location, so the earlier airtime ceiling (Section~\ref{sec:tdd-rebalance}) is not what limits Location A or C here; what differs between them is how many of those grants decode successfully. Second, the gNB reports a similar, comfortable SINR at both ends of the range, 20.5\,dB at 2\,m and 18.0\,dB at 10\,m, yet the measured BLER is 22\% at the near location and only 1.3\% at the far one: within each location BLER falls as SINR rises, as it should, but across locations the relationship inverts. Third, the difference tracks the MCS that link adaptation selects: an aggressive MCS 18.5 at Location A against MCS 12.1 at Location C. At 10\,m the scheduler is conservative relative to an apparently honest SINR reading and gets a low error rate; at 2\,m it picks a much higher MCS against a SINR reading that is evidently optimistic by something in the region of 6--10\,dB, and roughly one uplink block in five fails.
+
+A SINR estimate that is inflated specifically at high received power is the signature of front-end compression: distortion products introduced by an overloaded receiver front end are not distinguished from genuine signal by the estimator, so the reported SINR stays high while the underlying constellation is already distorted. Two pieces of supporting evidence back this reading. The \texttt{ovl} flag, srsRAN's explicit receiver-overload marker, fires in 7.2\% of reports at Location A, 1.9\% at Location B, and never at Location C, an ordering that tracks received power exactly. Separately, a manual gain sweep in the lab found heavy overload at \texttt{rx\_gain 70} and a clean receiver at \texttt{rx\_gain 60} at the closest location. The \texttt{ovl} flag does not, however, fire inside the uplink test windows themselves (only during downlink tests), so hard ADC saturation during the uplink runs is not directly observed; the case for front-end compression here rests on the SINR/BLER inversion and the ordering of the overload flag, and should be read as a well-supported inference rather than a proven mechanism.
+
+\subsection{Round 3: the \texttt{rx\_gain} sweep, and the limit of a fixed gain setting}
+
+Round 3 re-ran the same locations and TDD pattern with \texttt{rx\_gain} lowered to 60. Table~\ref{tab:rxgain-sweep} compares uplink throughput, SINR, and BLER between the two gain settings, holding placement and TDD configuration fixed.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Location} & \textbf{\texttt{rx\_gain 70} (Round 2)} & \textbf{\texttt{rx\_gain 60} (Round 3)} \\
+        \hline
+        A (2\,m, LOS) & 15.9\,Mb/s, 20.5\,dB, 22\% BLER & \textbf{29.3\,Mb/s} ($\times$1.8), \textbf{25.3\,dB}, \textbf{6\% BLER} \\
+        \hline
+        B (5\,m, partition) & 5.9\,Mb/s, 14.2\,dB, 52\% BLER & 7.8\,Mb/s ($\times$1.3), 9.9\,dB, \textbf{2\% BLER} \\
+        \hline
+        C (10\,m, concrete) & 15.6\,Mb/s, 18.0\,dB, 1\% BLER & \textbf{2.6\,Mb/s} ($\times$0.17), \textbf{1.0\,dB}, 5\% BLER \\
+        \hline
+    \end{tabular}
+    \caption{Uplink throughput, SINR, and BLER at \texttt{rx\_gain 70} vs \texttt{rx\_gain 60}, mean of TCP and UDP, same placement and TDD pattern.}
+    \label{tab:rxgain-sweep}
+\end{table}
+
+At Location A, cutting the receive gain by 10\,dB removed the front-end compression identified in the previous subsection: SINR rose by 4.8\,dB in real terms, block errors fell fourfold, and throughput nearly doubled to 29.3\,Mb/s, at this point roughly twice the 4G baseline at the same location. At Location C, the same 10\,dB gain cut cost 17\,dB of SINR, more than one-for-one, because the link went from sitting comfortably above the noise floor to sitting on it; throughput collapsed to 0.17$\times$ its Round 2 value. Location B sits between the two, gaining throughput and losing badly on SINR while BLER still falls, which is consistent with a link that starts out marginal rather than saturated by front-end compression.
+
+One loose end from this sweep is worth closing before moving on: PHR at \texttt{rx\_gain 60} read close to 0\,dB during the lab gain sweep at Location A but $-$10 to $-$12\,dB during the full Round 3 campaign at the same gain and placement. This is not a hidden accumulator effect or a sign that the gain setting itself drifted; the PHR formula in TS 38.213 \S7.7.1 includes a $-10\log_{10}(M_{RB})$ term, so headroom falls as the scheduler grants wider allocations, and the lab sweep was carried out on an essentially idle link while the Round 3 campaign ran saturated transfers with allocations around 46 PRB. Binned by PRB count, measured PHR across the Round 3 dataset tracks the predicted $-10\log_{10}(M_{RB})$ term to within about 1.5\,dB (correlation $-0.64$ over 1331 reports), which fully accounts for the difference: the practical consequence is that a PHR figure is only comparable to another one taken at a similar allocation size.
+
+Taken together, these three rounds point to a single, well-evidenced limitation rather than a fixable bug: with a fixed, manually-set receiver gain and no automatic gain control, this gNB cannot serve the whole cell. \texttt{rx\_gain 70} is correct at 10\,m and overloads at 2\,m; \texttt{rx\_gain 60} is correct at 2\,m and desensitises at 10\,m. There is no single value that works, and the two campaigns bracket the same problem from opposite sides. This also retroactively explains the non-monotonic distance behaviour seen in both campaigns, and generalises beyond this testbed: it is a consequence of running a software RAN on a commercial-off-the-shelf SDR without per-UE receive-gain control, not an artefact of this specific configuration.
 
 % --- 4. Reliability: RLFs, re-attaches, and the Location B obstruction -------------
 % Source: FINDINGS.md S5 (Round 1: 9 RLFs at 2m from missed HARQ-ACKs, 0 in 4G) +
