@@ -12,3 +12,63 @@
 \label{cha:state-of-the-art}
 
 \textcolor{red}{Not finished, remember to use Dissertation Plan presentation as a basis for this chapter.}
+
+\section{Related Works}
+\label{sec:related_works}
+The deployment of 5G networks using \gls{OSS} has already become an area of research, with many researchers having explored the feasibility of deploying 5G networks using open-source components. Very different approaches have been taken, from small-scale testbeds to complex environments integrated with commercial equipment. In this section, a discuss of some relevant works in this area will be presented, followed by an overview of said word on table~\ref{tab:related_works_comparison}. Most of these works were sourced from srsRAN's Research tab, made available on their website.\bigskip
+
+\textcite{tio2025exploring5g} focused on implementing a complete 5G \gls{SA} network testbed and evaluated its performance using different \glspl{UE}. Their approach consisted of using Open5GS for the 5G Core network and srsRAN for the \gls{RAN}, deployed on USRP X310 and B200 \glspl{SDR}. To evaluate the performance of their testbed, they used srsUE, a 5G \gls{UE} implementation developed by the srsRAN project, \glsxtrlong{COTS} \glspl{UE} and a Sixfab 5G HAT mounted on a Raspberry Pi.
+
+Their results showed that the testbed was able to provide connectivity to the \glspl{UE} and achieve average data rates of up to 68.6 Mbps downlink. Their testbed was also able to connect to the internet and, using Speedtest by Ookla, achieve downlink speeds upwards of 20.1 Mbps. They also performed a series of qualitative tests: package downloads through \texttt{apt}, video streaming on Youtube and video calls between \glspl{UE}, with varying degrees of success.\bigskip
+
+On a similar vein to the previous work, \textcite{vazquez2024maq5g} too developed a complete 5G \gls{SA} testbed, named "MAQ5G". Their approach relies solely on the OpenAirInterface project, deploying both their 5G Core and \gls{RAN} software on USRP X310 and B210 \glspl{SDR}, with some modifications to the \gls{gNB} scheduler's code.
+
+Although similar, the evaluation done on this work shines a bigger light on the radio performance, measuring the throughput through different means of transmission and \gls{RAN} configurations, using two \glsxtrshort{COTS} devices outfitted with writable SIM cards. The authors also evaluated the \gls{RAN} host system's performance under different traffic loads, measuring CPU usage.
+
+Results showed that their testbed was able to provide connectivity to the \glspl{UE} and was able to achieve a maximum downlink throughput of 149 Mbps, although they also observed that, under high traffic loads, the host system's behaviour became unreliable, leading to loss of connection for the \glspl{UE}, being the solution a full \gls{UE} reboot.\bigskip
+
+\textcite{mamushiane2023deploying} also developed a 5G \gls{SA} testbed using Open5GS and srsRAN. Their report shines a bigger light on the network development, detailing extensively their configuration decisions and the necessary steps to deploy the network successfully. They also provide a guide for troubleshooting network issues.
+
+While not being the central topic of their work, they evaluated the performance of their testbed, presenting a \gls{gNB} trace showing perfect conditions for the connection, with 0 to 1 packets dropped on downlink and no packets dropped on uplink.\bigskip
+
+Shifting their focus towards containerization, orchestration and the complexity of managing different software stacks, \textcite{horstmann2025open5gcube} developed a complete general-purpose network framework named Open5GCube, able to deploy both 5G \gls{SA} and \gls{NSA} deployments modularly, as well as 4G \glsxtrshort{LTE} and 2G \glsxtrshort{GSM} networks.
+
+Their approach focuses on containerization using Docker Containers, allowing the developers to interchange between different implementations of both the 5G Core and \gls{RAN} components seamlessly. To orchestrate the deployment of the network, they developed their own orchestration script.
+
+Their testbed implements Open5GS, Free5GC and OAI Core as 5G Cores, and srsRAN and OpenAirInterface RAN as \gls{RAN} implementations, built upon two USRP X310 \glspl{SDR} using a 10 MHz \glsxtrshort{GPSDO} for synchronization.
+
+To evaluate their framework, they used several \glsxtrlong{COTS} \glspl{UE}, with different Operating Systems and network chips, and a Quectel RM500Q-GL modem. Results showed that their framework was able to provide 2G and 4G connectivity to all \glspl{UE}, while 5G performance varied between the different \glspl{UE} , with some being able to establish connection seamlessly to the network, while others could only connect to the RAN but not initiate a \glsxtrshort{PDU} session. \bigskip
+
+
+% 5G-CT
+Integrating \glsxtrshort{CD/CI} and automation tools, \textcite{bonati2025_5gct} presented "5G-CT",a framework focused on automated deployment and \gls{OTA} testing. Their network consisted of a Open5GS core, a A5G Networks core and OpenAirInterface \gls{RAN}, deployed at a Northeastern University lab.
+
+Their work stands out due to the tools they employed: OpenShift, a Kubernetes cluster where the Core and \gls{RAN} components would be deployed, and GitOps workflows, the automation tool used to orchestrate the deployment of the network, By using these tools, they automated the provisioning of their 5G networks, effectively streamlining the setup and guaranteeing a consistent and reproducible deployment process.
+
+To demonstrate the capabilities of their framework, they conducted a series of tests over the course of nine months. During this period, the framework executed a daily operation cycle, automatically deploying the network, connecting the \gls{UE} to the network and exchanging UDP traffic between them for 6 hours at varying data rates. In the end, the framework would report the results to another OpenShift pod, where they would be analyzed, and tear down the network.
+
+Results showed that their framework was able to setup the network successfully and tests were ran as planned, presenting little to no packet-loss.
+
+\bigskip
+%Ericsson RAN
+While these works focus on \gls{OSS} implementations using \glspl{SDR}, \textcite{zu2025realworld} bridged the gap between \gls{OSS} and commercial applications, focusing on the realism and the scale of real-world deployments. Their approach consisted on implementing a 5G core using Open5GS along with a proprietary Ericsson \gls{RAN}, deployed on a 30km wireless lab in City of Ames, Iowa.
+
+Their lab was composed of 4 \glspl{gNB} and 30+ \gls{UE} sites equipped with Quectel radios, scattered across residential areas, commercial buildings and farm lands, providing a diverse range of environments to test the network's performance. Results show that their network was able to provide connectivity to all \glspl{UE} and achieve throughput speeds around 320 Mbps, thus proving that an open-source 5G Core can reliably sustain carrier-grade performance and real-world deployments.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\begin{tabularx}{\textwidth}{|p{0.9cm}|p{1.3cm}|p{1.3cm}|p{1.6cm}|X|p{1.5cm}|p{2.3cm}|}
+\hline
+\rowcolor{gray!30}
+\textbf{Paper} & \textbf{Core} & \textbf{RAN} & \textbf{UE} & \textbf{Containerization} & \textbf{Antenna Config} & \textbf{SDR} \\ \hline
+\cite{bonati2025_5gct} & \gls{OAI}, Open5GS, A5G & \gls{OAI} & Sierra Wireless Radio & OpenShift and GitOps workflow & & 8x USRP X310/X410 \\ \hline
+\cite{horstmann2025open5gcube} & Open5GS, Free5GC, srsRAN, \gls{OAI} & \gls{OAI}, srsRAN & COTS, Modem & Docker Containers &  & USRP X310 \\ \hline
+\cite{mamushiane2023deploying} & Open5GS & srsRAN & COTS, Emulator & OpenStack on Docker Containers & MIMO & NI-2944R \\ \hline
+\cite{tio2025exploring5g} & Open5GS & srsRAN & COTS, 5G HAT, Emulator & Docker Containers & MIMO & USRP X310/B200 \\ \hline
+\cite{vazquez2024maq5g} & \gls{OAI} & \gls{OAI} & \gls{COTS} & Docker Containers & SISO (custom scheduler) & USRP X310/B210 \\ \hline
+\cite{zu2025realworld} & Open5GS & Ericsson & Quectel modem & N/A & Massive MIMO & Ericsson proprietary\\ \hline
+\end{tabularx}
+\caption{Overview of the network implementations of related works.}
+\label{tab:related_works_comparison}
+\end{table}
