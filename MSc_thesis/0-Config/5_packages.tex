@@ -35,6 +35,10 @@
 %%  ADD YOUR PACKAGES AND OTHER CUSTOMIZATIONS HERE
 %%============================================================
 
+\raggedbottom  % let pages end at their natural height instead of stretching
+               % interparagraph space to fill the page (memoir defaults to
+               % \flushbottom, which was causing visible gaps before floats)
+
 % \usepackage[orphans/prevent, widows/prevent]{widows-and-orphans} % add warnings about widows and orphans to “template.log”
 % \usepackage{refcheck}     % list used and unused labels
 
