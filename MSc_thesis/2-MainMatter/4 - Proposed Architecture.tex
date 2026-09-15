@@ -49,17 +49,7 @@ Along with the \glspl{SDR}, a Leo Bodnar \gls{GPSDO} was chosen to provide a sta
 \section{Core}
 \label{sec:core}
 
-% TODO (Core): this section only frames Open5GS as the 5G core (5GC), but the same
-% deployment also provides the 4G EPC used for the baseline comparison -- state this
-% explicitly, since "compare 4G and 5G on shared core hardware" is a central point of the
-% thesis and a reader wouldn't learn that from this chapter otherwise. Also consider:
-%   - Naming the actual network functions in play instead of the vague "each network
-%     function individualized": AMF/SMF/UPF/NRF for the 5GC, MME/HSS/SGW/PGW for the EPC.
-%   - A one-line mention of the subscriber database (MongoDB, if that's what backs
-%     user_db.csv / the eSIM provisioning in the appendix).
-% Keep this at the conceptual/architecture level -- versions, config file paths, and
-% deploy_open5gs_configs.sh already live in Chapter 5, so avoid duplicating them here.
-The core network is implemented using Open5GS~\cite{open5gs_repo}, an open-source project that provides a complete 5G core network implementation, following the \gls{3GPP} Release 17 specifications. Open5GS is designed to be modular, with each network function individualized and implemented as a separate process, each one with a different configuration file on the machine. The core network is deployed on Machine 1.
+The core network is implemented using Open5GS~\cite{open5gs_repo}, an open-source project that provides both a complete 5G core network (5GC) and a 4G \gls{EPC} implementation, following the \gls{3GPP} Release 17 specifications. This dual support facilitates the 4G/5G comparison at the centre of this dissertation possible on shared hardware, as the same Open5GS deployment serves as the core for both generations, so the 4G baseline and the 5G network under test differ only in their \gls{RAN}. Open5GS is designed to be modular, with each network function individualized and implemented as a separate process, each with its own configuration file on the machine. Subscriber data for both generations is held in a single MongoDB database, which Open5GS uses as its backend. The core network is deployed on Machine 1.
 
 \section{\gls{RAN}}
 \label{sec:ran}
@@ -68,4 +58,4 @@ The \gls{RAN} is implemented using srsRAN~\cite{ocudu_project} (renamed OCUDU pa
 
 \section{\glspl{UE}}
 \label{sec:ue}
-To connect to the network, two smartphones were used. The first one is a Motorola Moto G56 5G, which is a mid-range smartphone that supports 5G connectivity. The second one is a Xiaomi Redmi Note 14 5G, which is also a mid-range smartphone with 5G capabilities. Both smartphones were chosen due to their similar hardware specifications, eSIM and 5G support, but also because they have differing chipsets, the Moto G56 uses a MediaTek Dimensity 7060, while the Redmi Note 14 uses a Qualcomm Snapdragon. This allows for testing the compatibility of the network with different hardware, which is crucial for ensuring that the network can support a wide range of devices. Both smartphones are connected to the network using eSIM profiles, which are provisioned through a remote SIM provisioning service. 
+To connect to the network, a Motorola Moto G56 5G was used, a mid-range smartphone chosen for its 5G and eSIM support. The smartphone connects to the network using an eSIM profile, provisioned through a remote SIM provisioning service. 

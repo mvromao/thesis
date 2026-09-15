@@ -73,27 +73,25 @@ The computers running the 4G network are DELL Optiplex Micro 7020, with the foll
     \end{tabular}
     \caption{Specifications of the machines used for the 4G network setup.}
 \end{table}
-% TODO check text below
-Data flows between the machines via a dedicated Ethernet backhaul network, composed of the two computers. The RAN on Machine 2 establishes a connection to the EPC on Machine 1 using \gls{SCTP}. 
+Data flows between the machines via a dedicated Ethernet backhaul network, composed of the two computers. The RAN on Machine 2 establishes a connection to the EPC on Machine 1 using \gls{SCTP}.
 
-The radio interface of the 4G network is implemented using a Nuand BladeRF xA4 \gls{SDR}. This device connects the Machine 2 to provide the necessary radio capabilities for the \gls{RAN}.  In practical terms, the host machine executes the signal processing and network stack components, whereas the BladeRF xA4 manages the actual radio I/O. This separation of responsibilities improves flexibility, simplifies experimentation, and makes the overall testbed easier to implement andadapt to different deployment scenarios.
+The radio interface of the 4G network is implemented using a Nuand BladeRF xA4 \gls{SDR}. This device connects to Machine 2, providing the necessary radio capabilities for the \gls{RAN}. In practical terms, the host machine executes the signal processing and network stack components, whereas the BladeRF xA4 manages the actual radio I/O. This separation of responsibilities improves flexibility, simplifies experimentation, and makes the overall testbed easier to implement and adapt to different deployment scenarios.
 
-Attached to the xA4's SMA connectors are two \glspl{LNA}, along with two omnidirectional antennas.
-These \glspl{LNA} are used to amplify the TX/RX signals, improving the sensitivity of the \gls{RAN}, expanding its coverage area and allowing for better performance in terms of signal quality. 
+Attached to the xA4's SMA connectors are a \gls{LNA} and a power amplifier, along with two omnidirectional antennas. These amplify the RX and TX signals respectively, improving the sensitivity and output power of the \gls{RAN}, expanding its coverage area and allowing for better performance in terms of signal quality.
 \begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|c|}
         \hline
         \textbf{Brand} & \textbf{Type} & \textbf{Model} & \textbf{Transmission} \\
         \hline
-        Nuand & \gls{LNA} & BT-100 & RX \\
+        Nuand & \gls{LNA} & BT-200 & RX \\
         \hline
-        Nuand & \gls{LNA} & BT-200 & TX \\
+        Nuand & Power Amplifier & BT-100 & TX \\
         \hline
     \end{tabular}
     \caption{Hardware components used for the radio interface in the 4G network setup.}
-\end{table}  
-Below, in Figure~\ref{fig:network_photo}, shows the physical setup of the 4G network, including the two machines, the SDR, and the antennas. The photograph illustrates how the components are arranged in the lab environment, providing a visual reference for replicating the setup. 
+\end{table}
+Figure~\ref{fig:network_photo} shows the physical setup of the 4G network, including the two machines, the SDR, and the antennas. The photograph illustrates how the components are arranged in the lab environment, providing a visual reference for replicating the setup.
 
 \begin{figure}[H]
 \centering

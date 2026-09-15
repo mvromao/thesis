@@ -62,7 +62,6 @@ Finally, building upon virtualization, 5G network functions are designed to be c
 Being cloud-native, network operators can also take advantage of orchestration and automation tools, such as Kubernetes and OpenStack \cite{mamushiane2023deploying}, to manage the lifecycle of network functions, deployment, scaling and healing, further enhancing the efficiency of their 5G networks.
 
 \label{sec:5g_security}
-% TODO rewrite in own words: high-level statement of the security pillar; mechanism detail (AUSF, SUCI/SUPI vs IMSI) is kept in Section~\ref{sec:5g_core_network_functions} to avoid repeating it here
 Security is another dimension along which the 5G architecture departs from its predecessors. Rather than treating authentication as a function tied to a single access technology, 5G defines a single, unified authentication framework capable of serving both \gls{3GPP} and non-\gls{3GPP} access networks through a set of network functions, alongside mechanisms to conceal the subscriber's permanent identity over the air. Section~\ref{sec:5g_core_network_functions} revisits this framework when detailing the specific Core network functions responsible for enforcing it.
 
 \section{\glsxtrlong{SA} vs \glsxtrlong{NSA} 5G Deployments}
@@ -126,10 +125,12 @@ The \gls{gNB} is further divided into three main units, as illustrated in Figure
   The \glspl{RU} are responsible for the physical radio frequency functions, including signal transmission, reception, amplification, and antenna management. These are composed of the actual antennas which interact with the \glspl{UE}, along with the necessary back-end, and they are typically located at the cell site. They are connected to the \gls{DU} through front-haul links.
 \end{description}
 
+Figure~\ref{fig:5g_ran_deployment_options} shows how the \gls{PHY}, \gls{MAC}, \gls{RLC}, \gls{PDCP} and \gls{RRC} layers described above map onto the overall 5G \gls{RAN} protocol stack.
+
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.9\textwidth]{5G Protocol Stack.pdf}
-  \caption{5G RAN Protocol Stack~\cite{sirotkin2021:5g}}
+  \includegraphics[width=0.7\textwidth]{5G Protocol Stack.pdf}
+  \caption{5G RAN Protocol Stack across the three types of units\cite{sirotkin2021:5g}}
   \label{fig:5g_ran_deployment_options}
 \end{figure}
 
@@ -185,7 +186,35 @@ Driven by the increasing demand for higher bandwidths, \glsxtrshort{3GPP} Releas
   \item \textbf{Frequency Range 2 (FR2)}: Known as \glsxtrshort{mmWave}, it covers frequencies from 24.25 GHz to 71 GHz. This range  increases available bandwidth greatly and, therefore, throughput, but suffers from significant path loss. It is important to note that many \glsxtrshort{COTS} devices are not compatible with the frequency range.
 \end{itemize}
 
-% TODO Mencionar aqui como funciona os modos TDD/FDD e como funciona a estrutura TDD
+Beyond the frequency range and numerology already discussed, a \gls{RAN} must also decide how uplink and downlink traffic share the available spectrum, a choice known as the duplex mode. \gls{3GPP} defines two duplex modes for \gls{NR}~\cite{3GPP38211}: \gls{FDD}, in which uplink and downlink are transmitted simultaneously over two separate, paired frequency channels, and \gls{TDD}, in which uplink and downlink share a single frequency channel, taking turns in time instead. \gls{FDD} guarantees each direction a fixed, dedicated share of spectrum at all times, but requires a pair of channels separated by a duplex gap, which is not always available. \gls{TDD}, by only requiring a single channel, is more spectrally flexible, and, as it does not need a duplex gap, allows the split between uplink and downlink capacity to be adjusted to match traffic demand, at the cost of requiring tight time synchronisation between the \gls{gNB} and every \glspl{UE} it serves, so that no \gls{UE} transmits while another is meant to be receiving.
+
+\gls{TDD}'s time-domain split, defined by \gls{3GPP} in TS 38.211~\cite{3GPP38211}, divides each 10\,ms radio frame into 10 subframes of 1\,ms, a structure inherited unchanged from 4G. The two generations diverge, however, in how each subframe is further split: in 4G, a subframe is always composed of 2 slots of 0.5\,ms, each carrying 7 \glsxtrshort{OFDM} symbols, for a fixed 14 symbols per subframe, since 4G only ever operates at a single, fixed subcarrier spacing. 5G \gls{NR} instead fixes the slot itself at 14 \glsxtrshort{OFDM} symbols regardless of numerology, and lets the \gls{SCS} in use dictate the number of slots per subframe. Both quantities are set by a single numerology index $\mu$, defined by \gls{3GPP} in TS 38.211~\cite[§4.2]{3GPP38211}, through the subcarrier spacing
+\begin{equation}
+  \Delta f = 2^{\mu} \times 15\ \text{kHz},
+  \label{eq:scs}
+\end{equation}
+so that the useful symbol duration $T_u = 1/\Delta f$ halves with every increment of $\mu$, while the number of slots per subframe grows to compensate:
+\begin{equation}
+  N^{\text{slot}}_{\text{subframe},\mu} = 2^{\mu}.
+  \label{eq:slots_per_subframe}
+\end{equation}
+Concretely: at $\mu=0$ (15\,kHz \gls{SCS}), 1 slot per subframe (14 symbols, 1\,ms long), the same 14 symbols per subframe as 4G, but repackaged as a single slot rather than two; at $\mu=1$ (30\,kHz), 2 slots (28 symbols); and at $\mu=2$ (60\,kHz), 4 slots (56 symbols). Figure~\ref{fig:tdd_scs_comparison} compares this structure across both generations and these three lowest 5G numerologies.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{TDD structure.pdf}
+  \caption{Frame, subframe, slot and symbol structure of a 1\,ms subframe in 4G and in 5G \gls{NR} at 15, 30 and 60\,kHz \gls{SCS}, per \gls{3GPP} TS 38.211~\cite{3GPP38211}.}
+  \label{fig:tdd_scs_comparison}
+\end{figure}
+
+\gls{3GPP} TS 38.213~\cite{3GPP38213} defines how a \gls{TDD} carrier assigns these slots and symbols to each direction, through the \texttt{TDD-UL-DL-ConfigurationCommon} \gls{RRC} parameter. This configuration specifies a periodicity (a whole number of slots, repeated for the duration of the connection), a number of slots at the start of that period reserved entirely for downlink, and a number of slots at the end of the period reserved entirely for uplink. Between these two, \gls{3GPP} additionally allows for one further, partially-allocated slot, commonly referred to as the flexible slot, in which a configurable number of symbols at the start are assigned to downlink and a configurable number of symbols at the end are assigned to uplink; any remaining symbols in that slot, along with any slots not explicitly assigned to either direction, serve as a guard period, giving the radio time to switch between transmitting and receiving without interference between the two directions. Figure~\ref{fig:tdd_frame_structure} illustrates this structure for a generic \gls{TDD} period.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{TDD Period.pdf}
+  \caption{Separation of downlink, uplink and flexible slots in a generic \gls{TDD} period, per \gls{3GPP} TS 38.213~\cite{3GPP38213}.}
+  \label{fig:tdd_frame_structure}
+\end{figure}
 
 \section{5G Core}
 \label{sec:5g_core}

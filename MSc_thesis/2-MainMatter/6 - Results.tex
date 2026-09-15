@@ -176,7 +176,8 @@ The same airtime accounting also predicts the downlink share should fall to thre
 
 Finally, on round 3, after adjusting the \texttt{rx\_gain} to 60: at location A (2 m), the overall network throughput increased significantly, as this change decreased the number of \texttt{ovl} events on the uplink, thus stabilizing the network's performance. However, at location C, further away from the radio, the uplink throughput decreased significantly as well, due to the lower \texttt{rx\_gain} desensitizing the receiver and reducing the link budget. This change was expected as a trade-off between the two locations, and it highlights the challenge of finding a single configuration that optimizes performance across all distances.
 
-We also see that in this final configuration, the throughput between both directions is closest to being equal at short range: at Location A the two directions converge to within a narrow margin (22.4 vs.\ 25.2\,Mb/s), the best balance observed anywhere in the dataset, while at Location C the \texttt{rx\_gain} reduction gives back most of the uplink gain Round 2 had recovered. This Location C behaviour is not a contradiction of the TDD result but the \texttt{rx\_gain} trade-off that Section~\ref{sec:uplink-quality-rxgain} examines in detail.
+We also see that in this final configuration, the throughput between both directions is closest to being equal at short range: at Location A the two directions converge to within a narrow margin (22.4 vs.\ 25.2\,Mb/s), the best balance observed anywhere in the dataset, while at Location C the \texttt{rx\_gain} reduction gives back most of the uplink gain Round 2 had recovered. This Location C behaviour is the trade-off associated with the \texttt{rx\_gain} change.
+
 % --- 3. Uplink quality vs distance: SINR, PHR, and the rx_gain trade-off -----------
 % Source: FINDINGS.md S3 (Round 1 PHR/SINR, and the corrected-vs-superseded discussion of
 % the ~33dB deficit -- keep the correction framing, don't restate the disproven power-cap
@@ -188,6 +189,7 @@ We also see that in this final configuration, the throughput between both direct
 % "rx_gain 70 is correct at 10m and overloads at 2m; rx_gain 60 is correct at 2m and
 % desensitises at 10m -- no single value works." This is probably the single most
 % citable sentence in the whole results chapter.
+\iffalse % Section not yet rewritten -- hidden from the draft sent for review
 \section{Uplink quality vs distance: SINR, PHR, and the \texttt{rx\_gain} trade-off}
 \label{sec:uplink-quality-rxgain}
 
@@ -438,4 +440,5 @@ Taken together, these three rounds point to a single, well-evidenced limitation 
 % Multiplying the two factors gives a predicted throughput deficit of $2.5\times1.2=3.0\times$ at Location A and $2.5\times8.7=21.6\times$ at Location C. Measured directly from the same runs, the actual throughput deficit is $3.1\times$ at Location A and $21.6\times$ at Location C: an exact match at Location C, and a close one at Location A, where the small residual gap comes from grant rate and payload per grant being two independently averaged quantities (a mean over seconds and a mean over grants) that do not multiply back to the mean throughput ratio with perfect precision when both vary together within a run. It is this decomposition, not the raw throughput gap, that justifies treating the TDD pattern as a distinct and independently correctable factor from the link-budget problems examined in Section~\ref{sec:uplink-quality-rxgain}.
 
 % One caveat applies to comparing Round 1 and Round 2 by throughput directly: at identical gain settings, uplink SINR rose by 5.4\,dB at Location A and by 22.4\,dB at Location C between the two rounds, for reasons that remain unexplained. The raw uplink throughput gain between rounds therefore cannot be attributed to the TDD change alone --- the $19.9\times$ increase measured at Location C, for instance, far exceeds the $\times2$ that airtime alone predicts. The grants-per-second accounting above is unaffected by this confound, since the achieved grant rate does not depend on the SINR reported for each grant; the confound lives entirely in the bits-per-grant term.
+\fi % end of section not yet rewritten
 

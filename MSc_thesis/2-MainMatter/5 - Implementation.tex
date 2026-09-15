@@ -29,7 +29,7 @@ All 4 machines are Dell Optiplex Micro 7080 machines, with the same specificatio
 
 A view of the laboratory bench, showing all four machines, is shown in Figure~\ref{fig:bench-machines}.
 
-\begin{figure} [H]
+\begin{figure} [htbp]
     \centering
     \includegraphics[width=\textwidth]{machines.jpg}
     \caption{The bench, showing all 4 machines. From left to right: 4G RAN, 5G NSA (unused), Core and 5G RAN. Connected to the 4G RAN machine is the bladeRF xA4, and on the rightmost side, connected to the 5G RAN machine, is the NI B2901.}
@@ -40,14 +40,14 @@ Connected to the 4G \gls{RAN} machine is the Nuand bladeRF xA4 (Figure~\ref{fig:
 
 Connected to the 5G \gls{RAN} machine is a NI B2901 (Figure~\ref{fig:b2901-gpsdo}), the National Instruments designation for the USRP B210 used in the proposed architecture. In addition to its USB connection to the RAN machine, the B2901 was connected to a wall socket through its own power supply, which was required to sustain the board at the gain settings used during testing. Along with the board, the Leo Bodnar GPSDO was connected to provide both a stable clock source and a 1PPS signal for synchronization. The GPSDO's GPS lock was verified using \texttt{lbgpsdo}~\cite{lbgpsdo}, an open-source command-line utility for configuring and querying Leo Bodnar GPSDO devices.
 
-\begin{figure} 
+\begin{figure} [htbp]
     \centering
     \includegraphics[width=\textwidth]{bladeRF.jpg}
     \caption{The Nuand bladeRF xA4, connected and cabled on the bench.}
     \label{fig:bladerf}
 \end{figure}
 
-\begin{figure}
+\begin{figure} [htbp]
     \centering
     \includegraphics[width=\textwidth]{b2901_gpsdo_collage.jpg}
     \caption{The B2901 and the Leo Bodnar GPSDO, as connected on the bench.}
@@ -56,21 +56,16 @@ Connected to the 5G \gls{RAN} machine is a NI B2901 (Figure~\ref{fig:b2901-gpsdo
 
 For both radios, the antennas used were the same. The 4G rig used a BT-200 \gls{LNA} on the RX port and a BT-100 power amplifier on the TX port, both Nuand components, seen in Figure~\ref{fig:biastee-components}. The 5G rig had no additional RF front-end components.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{biastee components.jpg}
     \caption{The BT-200 \gls{LNA} and BT-100 power amplifier bias tees, mounted on the bladeRF xA4's RX1 and TX1 ports respectively.}
     \label{fig:biastee-components}
 \end{figure}
 
-% TODO (UE): the proposed architecture (Chapter 4) lists a Motorola Moto G56 5G and a Xiaomi Redmi Note 14 5G. Neither matches what was actually used -- state the deviation plainly, following the same "proposed vs. actual" pattern already used elsewhere in this section:
-%   - The Redmi Note 14 was never purchased; it was never part of the actual testbed.
-%   - The Moto G56 was used but struggled to connect to the network. The cause was never identified -- say so honestly rather than speculating on a reason.
-%   - A Samsung Galaxy Z Flip 5 (personal device) was brought in and used as the primary UE for the actual test campaigns, running the CellularLab app to generate iperf3 traffic.
-% eSIM provisioning doesn't need repeating here -- just point to Appendix/Annex (provisioning_esim.tex, \ref{ch:provisioning_esim}) where the full process is documented.
-For the \glspl{UE}, the initial proposed architecture (Chapter~\ref{cha:proposed-architecture}) listed a Motorola Moto G56 5G. Additionally, a Samsung Galaxy Z Flip 5 (personal device) was brought in, and became the primary \gls{UE} for the actual test campaigns, as during the tests, the Moto G56 struggled to connect to the network. The cause of this issue was never identified, and no speculation is made here.  
+For the \glspl{UE}, the initial proposed architecture (Chapter~\ref{cha:proposed-architecture}) listed a Motorola Moto G56 5G. This did not end up matching what was actually used: the Moto G56 struggled to connect to the network during testing, for a cause that was never identified and no speculation is made here. A Samsung Galaxy Z Flip 5 (personal device) was brought in instead, and became the primary \gls{UE} for the actual test campaigns, running the CellularLab app to generate \texttt{iperf3} traffic. Table~\ref{tab:ue-comparison} compares the two candidate devices; the eSIM provisioning process used to connect them to the network is documented in full in Appendix~\ref{ch:provisioning_esim}.
 
-\begin{table}[H]
+\begin{table}[htbp]
     \centering
     \begin{tabular}{|c|c|c|}
         \hline
@@ -78,7 +73,7 @@ For the \glspl{UE}, the initial proposed architecture (Chapter~\ref{cha:proposed
         \hline
         Motorola Moto G56 5G~\cite{gsmarena_moto_g56} & MediaTek Dimensity 7060 & 8\,GB / 512\,GB\\
         \hline
-        Samsung Galaxy Z Flip5~\cite{gsmarena_z_flip5} & Qualcomm Snapdragon 8 Gen 2 & 8\,GB / 512\,GB \\
+        Samsung Galaxy Z Flip5~\cite{gsmarena_z_flip5} & Qualcomm Snapdragon 8 Gen 2 & 12\,GB / 512\,GB \\
         \hline
     \end{tabular}
     \caption{Comparison of the two candidate \glspl{UE}. Both support \gls{NR} band n78, the band used by this testbed.}
@@ -87,7 +82,7 @@ For the \glspl{UE}, the initial proposed architecture (Chapter~\ref{cha:proposed
 
 On the software side, the 5G srsRAN \gls{RAN}~\cite{ocudu_project} ran at commit 29dc1aede7, with the configuration present in Table~\ref{tab:ocudu-config}. 
 
-\begin{table}[H]
+\begin{table}[htbp]
     \centering
     \begin{tabular}{|c|c|}
         \hline
@@ -120,7 +115,7 @@ The parameter \texttt{rx\_gain} and the TDD structure were changed between testi
 
 The 4G srsRAN \gls{RAN}~\cite{srsran_4g_repo} ran at commit 6bcbd9e5b, with no configuration changes across testing rounds. The configuration parameters are presented in Table~\ref{tab:srsran4g-config}.
 
-\begin{table}[H]
+\begin{table}[htbp]
     \centering
     \begin{tabular}{|c|c|}
         \hline
@@ -157,7 +152,7 @@ Finally, the Open5GS~\cite{open5gs_repo} core ran at version 2.4.6. Harking back
 \label{sec:test-methodology}
 The network's performance was evaluated at three fixed \gls{UE} positions in the same room as the \gls{RAN}, chosen to combine increasing distance from the radio with different obstruction condition at each point. Figure~\ref{fig:lab-floor-plan} shows the top plan view of the room, and Figure~\ref{fig:test-location-heights} shows the elevation, giving the height of the radio and of the \gls{UE} at each location above the floor.
 
-Material and thickness are recorded for each obstruction as they, not distance alone, account for the difference between the three locations: signal attenuation through a wall depends strongly on its material and thickness, particularly at the 3.4\,GHz centre frequency used by the 5G \gls{RAN}, so the three locations should be read as distance-plus-obstruction conditions rather than a simple distance variation. 
+Material and thickness are recorded for each obstruction as they, not distance alone, account for the difference between the three locations: signal attenuation through a wall depends strongly on its material and thickness, particularly at the 3.4\,GHz centre frequency used by the 5G \gls{RAN}, so the three locations should be read as distance-plus-obstruction conditions rather than a simple distance variation. Figure~\ref{fig:thickness-collage} shows the tape-measure readings taken for both obstructions.
 
 \begin{figure}
     \centering
@@ -176,7 +171,7 @@ Material and thickness are recorded for each obstruction as they, not distance a
 \begin{figure}
     \centering
     \includegraphics[width=0.95\textwidth]{thickness_collage.jpg}
-    \caption{Tape-measure thickness readings for the two obstructions on the direct path: the concrete wall at Location C (25.3\,cm) and the office partition at Location B (3\,cm).}
+    \caption{Tape measured thickness readings for the two obstructions on the direct path: the concrete wall at Location C (25.3\,cm) and the office partition at Location B (3\,cm).}
     \label{fig:thickness-collage}
 \end{figure}
 
@@ -184,7 +179,7 @@ Besides obsctructions, the objects present in the room may account for signal at
 A summary of all measurements and signal obstruction conditions for each of the three test locations is presented in Table~\ref{tab:test-locations}.
 % These measurements are also intended to support a comparison between the obstructions' theoretical attenuation and the attenuation actually observed in the collected data.
 
-\begin{table} [H]
+\begin{table} [htbp]
     \centering
     \begin{tabular}{|c|c|c|c|c|c|}
         \hline
@@ -207,16 +202,17 @@ At each location, tests were run for each generation of network, for both TCP an
 
 Every test consisted of an \texttt{iperf3} run lasting 20 seconds with 8 parallel streams, with the same parameters used across all tests regardless of generation, location, protocol, or direction. On the \gls{UE} side, these tests were run using the CellularLab app~\cite{cellularlab}; the \texttt{iperf3} server was hosted on the core machine.
 
-\begin{figure}[H]
+Figure~\ref{fig:photo-locations} shows the three test locations as they were used for testing, with the \gls{UE} in place.
+
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{locations_collage.jpg}
-    \caption{The three test locations, with the \gls{UE} in place: (a) Location A, 2\,m, clear line of sight; (b) Location B, 6\,m, behind the office partition; (c) Location C, 10\,m, behind the concrete wall.}
+    \caption{The three test locations, with the \gls{UE} in place: Location A, 2\,m, clear line of sight;  Location B, 6\,m, behind the office partition; Location C, 10\,m, behind the concrete wall.}
     \label{fig:photo-locations}
 \end{figure}
 
 %now new subsection about the test rounds
-Initially, the 5G network was configured with a 3:1 TDD structure. This structure is set through the \texttt{tdd\_ul\_dl\_cfg} block of the \gls{RAN} configuration, shown in Listing~\ref{lst:tdd-31-cfg}.
-% TODO: once the 3GPP TS 38.211/TS 38.213 background is written in Chapter 2, add a forward pointer here (e.g. "as established in Section~\ref{sec:...}") when the flexible slot is first mentioned below.
+Initially, the 5G network was configured with a 3:1 TDD structure. As specified by TS 38.213~\cite{3GPP38213} and described in Section~\ref{sec:ran_features}, the TDD structure is defined as a TDD-UL-DL-ConfigurationCommon parameter, which is the \texttt{tdd\_ul\_dl\_cfg} block of the srsRAN \gls{gNB} configuration file, shown in Listing~\ref{lst:tdd-31-cfg}.  
 
 \begin{lstlisting}[language=yaml,backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,caption={\texttt{gnb.yaml} TDD configuration for the 3:1 pattern used in Round 1.},label={lst:tdd-31-cfg}]
 tdd_ul_dl_cfg:
@@ -227,11 +223,9 @@ tdd_ul_dl_cfg:
   nof_ul_symbols: 2
 \end{lstlisting}
 
-This configuration dictates that for every 5-slot period, 3 slots are allocated for downlink and 1 slot is allocated for uplink, with the remaining flexible slot composition being: 6 symbols for downlink, 2 symbols for uplink and the remainder (6 symbols) are flexible. In total, given that a slot has 14 symbols, the total number of symbols per period is 70, with 48 symbols (3 * 14 symbols + 6 symbols) allocated for downlink and 16 symbols (1 * 14 symbols + 2 symbols) allocated for uplink. That gives 68.6\% of airtime for downlink and 22.9\% for uplink per period of transmission, with the remaining airtime being guard period. 
+This configuration dictates that for every 5 slot period, 3 slots are allocated for downlink and 1 slot is allocated for uplink, with the remaining flexible slot composed as follows: 6 symbols for downlink, 2 symbols for uplink and the remainder (6 symbols) are flexible. In total, given that a slot has 14 symbols, the total number of symbols per period is 70, with 48 symbols (3 * 14 symbols + 6 symbols) allocated for downlink and 16 symbols (1 * 14 symbols + 2 symbols) allocated for uplink. That gives 68.6\% of airtime for downlink and 22.9\% for uplink per period of transmission, with the remaining airtime being guard period.
 
-Figure \ref{fig:tdd-31-structure} shows the slot and symbol structure of the 3:1 TDD pattern, which was used in Round 1.
-
-\newpage
+Figure \ref{fig:tdd-31-structure} shows the slot and symbol structure of the 5-slot period of the 3:1 TDD pattern, which was used in Round 1.
 
 \begin{figure}[htbp]
     \centering
@@ -258,21 +252,31 @@ Figure \ref{fig:tdd-22-structure} shows the resulting slot and symbol structure.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{TDD_2-2_Structure.pdf}
-    \caption{Slot and symbol structure of the rebalanced 2:2 TDD pattern used from Round 2 onward.}
+    \caption{Slot and symbol structure of the rebalanced 5 symbol period of the 2:2 TDD pattern used from Round 2 onward.}
     \label{fig:tdd-22-structure}
 \end{figure}
 
-All together, the rebalance is expected to roughly double the uplink airtime available to the scheduler ($22.9\% \rightarrow 47.1\% = \times2.06$) while reducing the downlink share to little more than two-thirds of what it was under the 3:1 pattern ($68.6\% \rightarrow 47.1\% = \times0.69$), trading some downlink capacity for a substantial gain in uplink capacity. Whether this expected trade-off actually materialised in the measured throughput, and how closely the scheduler's grant rates tracked it, is examined in Section~\ref{sec:uplink-airtime-tdd} of Chapter~\ref{cha:results}.
+All together, the rebalance is expected to roughly double the uplink airtime available to the scheduler ($22.9\% \rightarrow 47.1\% = \times2.06$) while reducing the downlink share to little more than two-thirds of what it was under the 3:1 pattern ($68.6\% \rightarrow 47.1\% = \times0.69$), trading some downlink capacity for a substantial gain in uplink capacity. Whether this expected trade-off actually materialised in the measured throughput, and how closely the scheduler's grant rates tracked it, is examined in Section~\ref{sec:tdd-rebalance} of Chapter~\ref{cha:results}. Table~\ref{tab:tdd-comparison} summarises the slot, symbol and airtime allocation for both patterns side by side.
 
-\begin{table}[H]
+\begin{table}[htbp]
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|l|c|c|}
         \hline
-        \textbf{Pattern} & \textbf{DL slots} & \textbf{UL slots} & \textbf{DL symbols} & \textbf{UL symbols} & \textbf{DL airtime} & \textbf{UL airtime} & \textbf{Guard} \\
+        \textbf{Parameter} & \textbf{3:1 (Round 1)} & \textbf{2:2 (Round 2 onward)} \\
         \hline
-        3:1 (Round 1) & 3 & 1 & 48 & 16 & 68.6\% & 22.9\% & 8.5\% \\
+        DL slots & 3 & 2 \\
         \hline
-        2:2 (Round 2 onward) & 2 & 2 & 33 & 33 & 47.1\% & 47.1\% & 5.8\% \\
+        UL slots & 1 & 2 \\
+        \hline
+        DL symbols & 48 & 33 \\
+        \hline
+        UL symbols & 16 & 33 \\
+        \hline
+        DL airtime & 68.6\% & 47.1\% \\
+        \hline
+        UL airtime & 22.9\% & 47.1\% \\
+        \hline
+        Guard & 8.5\% & 5.8\% \\
         \hline
     \end{tabular}
     \caption{Slot and symbol allocation per 5-slot, 70-symbol transmission period, for the two TDD patterns used across testing.}
@@ -305,9 +309,8 @@ Before this round, the metal stand identified as a likely obstruction at Locatio
 
 Table~\ref{tab:test-rounds-summary} summarises the 5G configuration and data validity across the three rounds for reference; the reasoning behind each change is described above.
 
-\begin{table}[H]
+\begin{table}[htbp]
     \centering
-    \footnotesize
     \begin{tabular}{|c|c|c|c|c|c|c|c|}
         \hline
         \textbf{Round} & \textbf{Date} & \textbf{TDD} & \textbf{\texttt{rx\_gain}} & \textbf{Reps} & \textbf{4G tested} & \textbf{Total reps} & \textbf{Locations valid} \\
