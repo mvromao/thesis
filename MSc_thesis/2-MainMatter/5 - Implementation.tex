@@ -85,7 +85,7 @@ For the \glspl{UE}, the initial proposed architecture (Chapter~\ref{cha:proposed
     \label{tab:ue-comparison}
 \end{table}
 
-On the software side, the 5G OCUDU \gls{RAN}~\cite{ocudu_project} ran at commit 29dc1aede7, with the configuration present in Table~\ref{tab:ocudu-config}. 
+On the software side, the 5G srsRAN \gls{RAN}~\cite{ocudu_project} ran at commit 29dc1aede7, with the configuration present in Table~\ref{tab:ocudu-config}. 
 
 \begin{table}[H]
     \centering
@@ -112,7 +112,7 @@ On the software side, the 5G OCUDU \gls{RAN}~\cite{ocudu_project} ran at commit 
         \texttt{tx\_gain} & 89.75 \\
         \hline
     \end{tabular}
-    \caption{Static configuration for the 5G OCUDU \gls{RAN}.}
+    \caption{Static configuration for the 5G srsRAN \gls{RAN}.}
     \label{tab:ocudu-config}
 \end{table}
 
@@ -282,7 +282,7 @@ All together, the rebalance is expected to roughly double the uplink airtime ava
 \subsection{Test Round 1}
 \label{sec:test-round-1}
 
-This test round was the first to be run, on the 28th of July 2026. It comprised of 24 tests, 12 for 4G and 5G generations, differing in location, protocol and direction, each with a single repetition. The 5G network was run with the 3:1 TDD structure, remnant of the original OCUDU configuration used as a basis for the network configuration, which was later found to structurally cap the maximum uplink airtime and was later rebalanced to a symmetrical 2:2 structure for Round 2. Running a single test for each configuration was also found to produce insufficient analytical data, thus not capturing the real behavior of the 5G network, so the following rounds were run with three repetitions per configuration. Results from this round are presented in Chapter~\ref{cha:results}.
+This test round was the first to be run, on the 28th of July 2026. It comprised of 24 tests, 12 for 4G and 5G generations, differing in location, protocol and direction, each with a single repetition. The 5G network was run with the 3:1 TDD structure, remnant of the original srsRAN configuration used as a basis for the network configuration, which was later found to structurally cap the maximum uplink airtime and was later rebalanced to a symmetrical 2:2 structure for Round 2. Running a single test for each configuration was also found to produce insufficient analytical data, thus not capturing the real behavior of the 5G network, so the following rounds were run with three repetitions per configuration. Results from this round are presented in Chapter~\ref{cha:results}.
 
 \subsection{Test Round 2}
 \label{sec:test-round-2}
