@@ -3,129 +3,63 @@
 %% appendix1.tex
 %% NOVA thesis document file
 %%
-%% Chapter with example of appendix with a short dummy text
+%% Appendix: step-by-step setup of the testbed, organised by machine
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \typeout{NT FILE appendix1.tex}%
 
-\chapter{4G Network Setup}
-\label{app:4G Network Setup}
-% In this section I will explain the necessary steps to set up a 4G network for testing purposes. This includes the hardware requirements, software configurations, and the testing procedures to ensure the network is functioning correctly.
-%
-% ||| MENTION SOMETHING LIKE THIS |||
-% Before developing the 5G network, a 4G network was set up to serve as a baseline for performance comparison. The 4G network setup involved the use of specific hardware components, including two machines, a Software Defined Radio (SDR), and antennas. The software stack for the 4G network was carefully selected to ensure optimal performance and compatibility with the hardware.
-% I want to mention how the 5G network was first developed as a starting point and preamble for the 5G network, to serve as a baseline that everything works as it should before moving on to the 5G network. The 4G network was known to work with all the chosen hardware and was well documented. 
+%CHANGED BY CLAUDE: whole appendix restructured by machine (was "4G Network Setup").
+% - The 4G introduction and the Hardware/Software Components sections were removed; the
+%   hardware is described in Chapter 4, and the old text is in git history.
+% - The 4G figures (4G architecture, 4G connection, IMG_9772 photo) were dropped in favour
+%   of the testbed diagram and IP figure from Chapter 4.
+% - Existing 4G steps are reused as-is unless marked "%CHANGED BY CLAUDE" below.
+% - Sections marked TODO are placeholders for the 5G setup.
 
-Before developing the 5G network testbed, a 4G network was first established to serve as a performance baseline and a proof-of-concept for all hardware and software components. The 4G network setup was essential for several reasons: 
-\begin{itemize}
-    \item Validating that the chosen hardware and software stack worked correclty
-    \item Establishing a known and well-documented reference point for network behavior
-    \item Identifying potential deployment hurdles before scaling to 5G complexity
-\end{itemize} 
+\chapter{Testbed Setup}
+\label{app:testbed-setup}
 
-This appendix documents the complete 4G testbed architecture, deployment procedures, and validation results. 
-
-The network stack consists of two dedicated machines running the backbone infrastructure: one running Open5GS for the \gls{EPC}, while the other runs srsRAN 4G for the \gls{RAN}. Readers can use this section as a guide for replicating the network, and as a foundation for understanding the experimental setup that enabled the 5G network development described in the main thesis.
-
-This section will provide a comprehensive guide on how the 4G network was established, including a description of the equipment used for the setup and the software chosen for the network stack, the necessary setup steps and specific configurations applied to optimize performance, and the testing methodologies employed to validate the network's functionality and performance.
-
-As an effort to make the network as reproducible as possible, the setup process will be detailed step-by-step, starting from the initial hardware assembly to the final testing phase. This will include instructions on how to connect the various components, configure the network settings, and troubleshoot common issues that may arise during the setup process.
-
-\section{System Architecture Overview}
-\label{sec:System_Architecture_Overview}
-
-The 4G testbed is a self-contained LTE system comprising three main functional domains:
+This appendix is a step-by-step guide to rebuilding the testbed described in Chapter~\ref{cha:proposed-architecture}. It is organised by machine, following the layout in Figure~\ref{fig:testbed-architecture}: the steps in each section are run on the machine that section names, and a reader interested in only one generation can skip the section for the other.
 
 \begin{itemize}
-    \item \textbf{\gls{RAN}}: Handles air-interface communication using srsRAN \gls{eNB} software running on a dedicated machine, along with a Nuand BladeRF \gls{SDR} and appropriate antennas for signal transmission and reception
-    %for the core, also mention the routing of UE data to the internet
-    \item \textbf{\gls{EPC}}: Implements the core network functions using Open5GS software running on a separate machine, providing essential services such as authentication, user management, and data routing to the internet
-    \item \textbf{\gls{UE}}: Physical \gls{COTS} device configured to connect to the \gls{RAN} and access the services provided by the \gls{EPC}
+    \item \textbf{4G network:} Sections~\ref{sec:app-network}, \ref{sec:app-core}, \ref{sec:app-4g-ran} and~\ref{sec:app-running}.
+    \item \textbf{5G network:} Sections~\ref{sec:app-network}, \ref{sec:app-core}, \ref{sec:app-5g-ran} and~\ref{sec:app-running}.
 \end{itemize}
 
-Figure~\ref{fig:4g_architecture} presents the logical architecture.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{4G architecture.pdf}
-    \caption{Logical architecture of the 4G network, illustrating the interactions between the RAN, EPC, and UE components.}
-    \label{fig:4g_architecture}
-\end{figure}
-% hardware: describe the two machines, the SDR and antennas used for the 4G network setup, including their specifications and roles in the network.
-\section{Hardware Components}
-\label{sec:Hardware_Components}
-The hardware used for the 4G network setup is composed of two identical machines, a \glsxtrlong{SDR} and antennas.
+All machines run Ubuntu 22.04 LTS, and the software versions used in this dissertation are listed in Table~\ref{tab:software-versions}. The \gls{UE} additionally needs an eSIM profile, whose provisioning is described in Appendix~\ref{ch:provisioning_esim}.
 
-The computers running the 4G network are Dell OptiPlex Micro 7020, with the following specifications:
+%%--------------------------------------------------------------------------------------
+%CHANGED BY CLAUDE (was "Connection between the machines"; now covers all machines through the switch)
+\section{Network Connection (All Machines)}
+\label{sec:app-network}
+
+The machines are connected to each other through an Ethernet switch, each with a static IP address, as shown in Figure~\ref{fig:ip-addresses} and listed below. These connections carry the control and user plane traffic between the core and both \glspl{RAN}.
+
 \begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|}
         \hline
-        \textbf{Component} & \textbf{Machine 1} & \textbf{Machine 2} \\
+        \textbf{Machine} & \textbf{Role} & \textbf{IP address} \\
         \hline
-        CPU & Intel Core i7-14700T & Intel Core i7-14700T \\
+        1 & Core & 10.0.0.10/24 \\
         \hline
-        RAM & 16 GB DDR5 & 16 GB DDR5 \\
+        2 & 5G \gls{RAN} & 10.0.0.20/24 \\
         \hline
-        Operating System & Ubuntu 22.04 LTS & Ubuntu 22.04 LTS \\
+        3 & 5G \gls{NSA} \gls{RAN} (unused) & 10.0.0.30/24 \\
         \hline
-        Storage & 512 GB SSD & 512 GB SSD \\
-        \hline
-    \end{tabular}
-    \caption{Specifications of the machines used for the 4G network setup.}
-\end{table}
-Data flows between the machines via a dedicated Ethernet backhaul network, composed of the two computers. The RAN on Machine 2 establishes a connection to the EPC on Machine 1 using \gls{SCTP}.
-
-The radio interface of the 4G network is implemented using a Nuand BladeRF xA4 \gls{SDR}. This device connects to Machine 2, providing the necessary radio capabilities for the \gls{RAN}. In practical terms, the host machine executes the signal processing and network stack components, whereas the BladeRF xA4 manages the actual radio I/O. This separation of responsibilities improves flexibility, simplifies experimentation, and makes the overall testbed easier to implement and adapt to different deployment scenarios.
-
-Attached to the xA4's SMA connectors are a \gls{LNA} and a power amplifier, along with two omnidirectional antennas. These amplify the RX and TX signals respectively, improving the sensitivity and output power of the \gls{RAN}, expanding its coverage area and allowing for better performance in terms of signal quality.
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|c|c|c|c|}
-        \hline
-        \textbf{Brand} & \textbf{Type} & \textbf{Model} & \textbf{Transmission} \\
-        \hline
-        Nuand & \gls{LNA} & BT-200 & RX \\
-        \hline
-        Nuand & Power Amplifier & BT-100 & TX \\
+        4 & 4G \gls{RAN} & 10.0.0.40/24 \\
         \hline
     \end{tabular}
-    \caption{Hardware components used for the radio interface in the 4G network setup.}
+    \caption{Static IP addresses of the testbed machines.}
+    \label{tab:app-ip-addresses}
 \end{table}
-Figure~\ref{fig:network_photo} shows the physical setup of the 4G network, including the two machines, the SDR, and the antennas. The photograph illustrates how the components are arranged in the lab environment, providing a visual reference for replicating the setup.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{IMG_9772.png}
-\caption{\centering\small Photograph of the 4G network setup, showing the two machines, connected by an ethernet cable, the Nuand BladeRF xA4 SDR, and the antennas used for the radio interface.}
-\label{fig:network_photo}
-\end{figure}
-
-
-\section{Software Components}
-\label{sec:Software_Components}
-%table with software components, versions
-The software stack of the network is composed mainly of three components:
-\begin{itemize}
-    \item Open5GS, for the core network functions, running on Machine 1.
-    \item srsRAN 4G, for the \gls{RAN}, running on Machine 2.
-    \item SoapySDR, bridging the connection between the BladeRF board and the srsRAN software, running on Machine 2.
-\end{itemize}
-\section{Connection between the machines}
-\label{sec:Connection_between_the_machines}
-Before starting the setup, it is essential to first establish a connection between the two machines which will host the 4G network components. This connection is crucial as it enables the exchange of control and user data between the \gls{EPC} and the \gls{RAN}. The machines are connected via a ethernet cable, and the necessary network configurations are applied to ensure proper communication (\ref{fig:4g_connection}).
-\begin{figure} [H]
-\centering
-\includegraphics[width=0.8\textwidth]{4G connection.pdf}
-\caption{\centering\small Diagram illustrating the connection between the two machines in the 4G network setup.}
-\label{fig:4g_connection}
-\end{figure} 
-The steps to enable this connection are similar on both machines, differing only in the specific IP addresses assigned to each machine.
-
-Connect both machines with an Ethernet cable and check the available network interfaces using the following command:
+The steps are the same on every machine, differing only in the IP address assigned. Connect the machine to the switch and check the available network interfaces using the following command:
 \begin{code}
 ip a
 \end{code}
-The output shows the available network interfaces, including the Ethernet interface (in this case enp0s31f6) (\ref{fig:ip_a_output}).
+%TODO Get "ip a" output
+The output shows the available network interfaces, including the Ethernet interface (in this case enp0s31f6), as shown in Figure~\ref{fig:ip_a_output}.
 \begin{figure}[H]
     \centering
     \rule{00.8\textwidth}{4cm}
@@ -134,14 +68,14 @@ The output shows the available network interfaces, including the Ethernet interf
     \label{fig:ip_a_output}
 \end{figure}
 
-Enable the Ethernet interface (if disabled) and assign a static IP address to it.
+Enable the Ethernet interface (if disabled) and assign a static IP address to it. On the core machine:
+
 \begin{code}
 sudo ip link set enp0s31f6 up
 sudo ip addr add 10.0.0.10/24 dev enp0s31f6
 \end{code}
-{\centering \small Core: 10.0.0.10/24 \hspace{1cm} RAN: 10.0.0.20/24\\}
 
-To make the connection persistent across reboots, the network configuration needs to be added to the Netplan configuration file. This file may have a different name from the one in this example. Open the Netplan configuration file on \colorbox{gray!20}{\texttt{/etc/netplan/01-netcfg.yaml}} using a text editor and add the following configuration to assign a static IP address to the Ethernet interface:
+To make the connection persistent across reboots, the network configuration needs to be added to the Netplan configuration file. This file may have a different name from the one in this example. Open the Netplan configuration file on \texttt{/etc/netplan/01-netcfg.yaml} using a text editor and add the following configuration to assign a static IP address to the Ethernet interface, replacing the address with the one for the machine being configured:
 \begin{minted}[bgcolor=gray!20,frame=single,framerule=0.8pt,rulecolor=\color{black}]{yaml}
     # Let NetworkManager manage all devices on this system
     network:
@@ -157,32 +91,37 @@ After saving the changes, apply the new network configuration using the followin
 \begin{code}
 sudo netplan apply
 \end{code}
-Finally, verify that the machines can communicate with each other by pinging the assigned IP addresses. From Machine 1:
+
+Finally, verify that the machines can reach each other by pinging each \gls{RAN} machine from the core machine:
 \begin{code}
 ping 10.0.0.20
+ping 10.0.0.40
 \end{code}
-The output should show successful ping responses, indicating that the machines are connected and can communicate with each other (\ref{fig:ping_output}).
+The output should show successful ping responses, as shown in Figure~\ref{fig:ping_output}.
 \begin{figure}[H]
     \centering
     \rule{0.8\textwidth}{4cm}
     %\includegraphics[width=\textwidth]{4G_ping_output.png}
-    \caption{\small \centering Output of the ping command, showing successful responses between the two machines, indicating that they are connected and can communicate with each other.}
+    \caption{\small \centering Output of the ping command, showing successful responses between the machines.}
     \label{fig:ping_output}
 \end{figure}
-Having established a successful connection between the two machines, the next step is to proceed with the installation and configuration of the software components necessary for the 4G network setup.
-\section{Software Setup}
-\label{sec:Software_Setup}
-\subsection{Open5GS}
-\label{sec:Open5GS}
-This section provides a step-by-step guide for installing and configuring Open5GS. The installation process comprises of the following steps:
+
+%%--------------------------------------------------------------------------------------
+\section{Core Machine (Machine 1)}
+\label{sec:app-core}
+
+This section installs and configures Open5GS, which serves as the core for both generations. The installation process consists of the following steps:
 \begin{enumerate}
     \item Installing MongoDB.
     \item Installing Open5GS.
     \item Installing the WebUI for Open5GS.
-    \item Configuring Open5GS components (MME, HSS, SGW, PGW) according to the network requirements.
+    \item Configuring the core network functions for the 4G and 5G networks.
+    \item Routing the \gls{UE} traffic.
+    \item Adding the subscribers.
 \end{enumerate}
-The necessary steps and more information about the project and installation steps can be found in the official Open5GS documentation~\cite{open5gs_docs}. Unless otherwise specified, all steps should be executed on the machine designated to run the \gls{EPC} (Machine 1 in our setup).
-\subsubsection{Installing MongoDB}
+More information about the project and the installation steps can be found in the official Open5GS documentation~\cite{open5gs_docs}.
+
+\subsection{Installing MongoDB}
 \label{sec:Installing_MongoDB}
 Open5GS depends on MongoDB as its database backend, where it stores subscriber information, network configurations, and operational data. Therefore, the first step in setting up Open5GS is to install MongoDB:
 \begin{code}
@@ -200,7 +139,7 @@ After executing the above commands, MongoDB will be installed on the machine. We
 sudo systemctl start mongod
 sudo systemctl status mongod
 \end{code}
-In which the output should indicate that the MongoDB service is active and running:
+In which the output, shown in Figure~\ref{fig:mongodb_status}, should indicate that the MongoDB service is active and running:
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{4G_MongoDB_response.png}
@@ -213,7 +152,7 @@ sudo systemctl enable mongod
 \end{code}
 For more detailed instructions and troubleshooting guidance, refer to the official MongoDB installation documentation~\cite{mongodb_installation}.
 
-\subsubsection{Installing Open5GS}
+\subsection{Installing Open5GS}
 \label{sec:Installing_Open5GS}
 After installing MongoDB, the next step is to add the Open5GS repository to the system and install Open5GS. This can be done by executing the following commands:
 \begin{code}
@@ -221,14 +160,16 @@ sudo add-apt-repository ppa:open5gs/latest
 sudo apt update
 sudo apt install open5gs -y
 \end{code}
-This will install the Open5GS package. After the installation is complete, we can verify that the Open5GS services are running correctly by checking their status:
+
+This installs the latest Open5GS release available at the time; the testbed described in this dissertation ran version 2.8.0. After the installation is complete, we can verify that the Open5GS services are running correctly by checking their status:
+
 \begin{code}
 sudo systemctl status open5gs-*
 \end{code}
 
-\subsubsection{Installing WebUI for Open5GS}
+\subsection{Installing the WebUI for Open5GS}
 \label{sec:Installing_WebUI_for_Open5GS}
-Open5GS provides a WebUI for easier management of subscriber information, network configurations, and monitoring. The interface depends on Node.js, which needs to be installed first (on most Ubuntu builds, Node.js comes already pre-installed). 
+Open5GS provides a WebUI for easier management of subscriber information, network configurations, and monitoring. The interface depends on Node.js, which needs to be installed first (on most Ubuntu builds, Node.js comes already pre-installed).
 To install Node.js, we can use the following commands:
 \begin{code}
 sudo apt update
@@ -246,7 +187,7 @@ sudo apt install nodejs -y
 \end{code}
 After installing Node.js, we can proceed to install the Open5GS WebUI by running the following command:
 \begin{code}
-curl -fsSL https://open5gs.org/open5gs/assets/webui/install | 
+curl -fsSL https://open5gs.org/open5gs/assets/webui/install |
 sudo -E bash -
 \end{code}
 The WebUI can be accessed by navigating to `http://localhost:9999` in a web browser. The default login credentials are:
@@ -255,11 +196,17 @@ The WebUI can be accessed by navigating to `http://localhost:9999` in a web brow
     \item Password: 1423
 \end{itemize}
 
-\subsubsection{Configuring Open5GS Components}
+\subsection{Configuring the Core Network Functions}
 \label{sec:Configuring_Open5GS_Components}
-After installing Open5GS and the WebUI, the next step is to configure the core network components (MME, HSS, SGW, PGW) according to the network requirements and adhering to the legal regulations. In Open5GS, the configuration files for these components are located in the \colorbox{gray!20}{\texttt{/etc/open5gs/}} directory, with each component having its own file.
+In Open5GS, the configuration files for the network functions are located in the \texttt{/etc/open5gs/} directory, with each network function having its own file. The configuration files used in this dissertation are kept in the project's GitHub repository~\cite{thesis_repo}. The repository also holds a script, \texttt{deploy\_open5gs\_configs.sh}, which copies the files into that directory, keeping a backup of the existing ones, and restarts the Open5GS services:
+\begin{code}
+sudo ./deploy_open5gs_configs.sh
+\end{code}
+The following subsections describe the changes these files make to the Open5GS defaults, for each generation. Unless issued a PLMN ID by the national regulator, use the international test PLMN ID (001/01), which is the one used in this configuration.
 
-First modify the MME configuration file, on \colorbox{gray!20}{\texttt{/etc/open5gs/mme.yaml}}, to set the PLMN ID, TAC and IP address to attach the MME. Unless issued one by the national state regulator, use the international test PLMN ID (001/01), which is the one used in this configuration.
+\subsubsection{4G: MME and SGW-U}
+Modify the MME configuration file, on \texttt{/etc/open5gs/mme.yaml}, to set the PLMN ID, TAC and the IP address the \gls{MME} listens on for the \gls{eNB}.
+
 \begin{minted}{diff}
 --- a/configs/open5gs/mme.yaml.in
 +++ b/configs/open5gs/mme.yaml.in
@@ -288,12 +235,13 @@ First modify the MME configuration file, on \colorbox{gray!20}{\texttt{/etc/open
 -        mnc: 70
 +        mcc: 001
 +        mnc: 01
-       tac: 1
+-      tac: 1
++      tac: 7
      security:
          integrity_order : [ EIA2, EIA1, EIA0 ]
 \end{minted}
 
-Modify the SGWU configuration file, on \colorbox{gray!20}{\texttt{/etc/open5gs/sgwu.yaml}}, to set the GTP-U IP address.
+Modify the SGW-U configuration file, on \texttt{/etc/open5gs/sgwu.yaml}, to set the GTP-U IP address.
 \begin{minted}{diff}
 --- a/configs/open5gs/sgwu.yaml.in
 +++ b/configs/open5gs/sgwu.yaml.in
@@ -309,36 +257,143 @@ After modifying the configuration files, restart the Open5GS daemons to apply al
 sudo systemctl restart open5gs-mmed
 sudo systemctl restart open5gs-sgwud
 \end{code}
-Having completed the configuration of the Core components, the next step is to proceed with the installation and configuration of the RAN components, which will be covered in the next section.
 
-\subsection{SDR Configuration}
-\label{sec:SDR_Configuration}
-Before proceeding with the installation of srsRAN 4G, it is necessary to first configure the Nuand BladeRF xA4 \gls{SDR} and install the necessary drivers to bridge the connection between the software and the hardware. This procedure consists of the following steps:
-\begin{enumerate}
-    \item Setting up the Nuand drivers and firmware for the BladeRF xA4, with header files.
-    \item Installing SoapySDR.
-\end{enumerate}
-\subsubsection{Setting up the Nuand drivers and firmware for the BladeRF xA4}
+\subsubsection{5G: AMF, SMF, UPF and NRF}
+Four 5G network functions need changes. The other network functions of the 5G core (AUSF, UDM, UDR, PCF, NSSF, BSF and SCP) keep their default configuration, since they only talk to each other over the loopback interface of the core machine.
+
+Modify the AMF configuration file, on \texttt{/etc/open5gs/amf.yaml}, to set the IP address the \gls{AMF} listens on for the \gls{gNB}, and the PLMN ID and TAC, which must match the ones configured in the \gls{gNB}:
+\begin{minted}{diff}
+--- a/configs/open5gs/amf.yaml.in
++++ b/configs/open5gs/amf.yaml.in
+@@ amf: @@
+     ngap:
+       server:
+-        - address: 127.0.0.5
++        - address: 10.0.0.10
+@@ amf: @@
+     guami:
+       - plmn_id:
+-          mcc: 999
+-          mnc: 70
++          mcc: 001
++          mnc: 01
+         amf_id:
+           region: 2
+           set: 1
+     tai:
+       - plmn_id:
+-          mcc: 999
+-          mnc: 70
+-        tac: 1
++          mcc: 001
++          mnc: 01
++        tac: 7
+     plmn_support:
+       - plmn_id:
+-          mcc: 999
+-          mnc: 70
++          mcc: 001
++          mnc: 01
+         s_nssai:
+           - sst: 1
+\end{minted}
+
+Modify the UPF configuration file, on \texttt{/etc/open5gs/upf.yaml}, to set the GTP-U address the \gls{gNB} sends user plane traffic to (the N3 interface):
+\begin{minted}{diff}
+--- a/configs/open5gs/upf.yaml.in
++++ b/configs/open5gs/upf.yaml.in
+@@ upf: @@
+     gtpu:
+       server:
+-        - address: 127.0.0.7
++        - address: 10.0.0.10
+\end{minted}
+
+Modify the SMF configuration file, on \texttt{/etc/open5gs/smf.yaml}, to name the data network of the \gls{UE} address pool and to set the DNS servers handed to the \glspl{UE}. Because the \gls{SMF} and \gls{UPF} also act as the PGW-C and PGW-U of the 4G network, these settings apply to both generations:
+\begin{minted}{diff}
+--- a/configs/open5gs/smf.yaml.in
++++ b/configs/open5gs/smf.yaml.in
+@@ smf: @@
+     session:
+-      - subnet: 10.45.0.0/16
++      - dnn: internet
++        subnet: 10.45.0.0/16
+         gateway: 10.45.0.1
+       - subnet: 2001:db8:cafe::/48
+         gateway: 2001:db8:cafe::1
+     dns:
+-      - 8.8.8.8
+-      - 8.8.4.4
++      - 1.1.1.1
++      - 1.0.0.1
+       - 2001:4860:4860::8888
+       - 2001:4860:4860::8844
+\end{minted}
+
+Finally, modify the NRF configuration file, on \texttt{/etc/open5gs/nrf.yaml}, to set the PLMN it serves:
+\begin{minted}{diff}
+--- a/configs/open5gs/nrf.yaml.in
++++ b/configs/open5gs/nrf.yaml.in
+@@ nrf: @@
+     serving:
+       - plmn_id:
+-          mcc: 999
+-          mnc: 70
++          mcc: 001
++          mnc: 01
+\end{minted}
+After modifying the configuration files, restart the Open5GS daemons to apply all changes:
+\begin{code}
+sudo systemctl restart open5gs-*
+\end{code}
+
+\subsection{Routing the UE Traffic}
+\label{sec:app-routing}
+For the \glspl{UE} to reach networks beyond the core machine, the core must forward their traffic and translate their addresses. Both generations assign \gls{UE} addresses from the same pool, so this is done once:
+\begin{code}
+### Enable IPv4/IPv6 Forwarding
+$ sudo sysctl -w net.ipv4.ip_forward=1
+$ sudo sysctl -w net.ipv6.conf.all.forwarding=1
+
+### Add NAT Rule
+$ sudo iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
+$ sudo ip6tables -t nat -A POSTROUTING -s 2001:db8:cafe::/48 ! -o ogstun -j MASQUERADE
+\end{code}
+
+%CHANGED BY CLAUDE (placeholder)
+\subsection{Adding the Subscribers}
+\label{sec:app-subscribers}
+\textcolor{red}{TODO: adding the \gls{UE}'s subscriber entry (IMSI, K, OPc, APN/DNN \texttt{internet}) through the WebUI, using the values of the eSIM profile from Appendix~\ref{ch:provisioning_esim}. One entry serves both generations.}
+
+%%--------------------------------------------------------------------------------------
+\section{4G RAN Machine (Machine 4)}
+\label{sec:app-4g-ran}
+
+This section sets up the 4G \gls{RAN}: the drivers for the Nuand bladeRF xA4 and srsRAN 4G. The hardware itself, including the BT-200 and BT-100 amplifiers on the board's RX and TX ports, is described in Section~\ref{sec:hardware-components}.
+
+\subsection{Setting up the Nuand drivers and firmware for the bladeRF xA4}
 \label{sec:Nuand_BladeRF_xA4_FPGA_firmware}
 
-Nuand provides official Ubuntu package repositories (PPAs) that simplify the installation of the BladeRF software in Ubuntu systems. Through these repositories, users can quickly install both the required host tools and libraries and the necessary firmware for the FPGA using \colorbox{gray!20}{\texttt{apt}}, without needing to build everything manually from source. To enable the PPA:
+Nuand provides official Ubuntu package repositories (PPAs) that simplify the installation of the bladeRF software in Ubuntu systems. Through these repositories, users can quickly install both the required host tools and libraries and the necessary firmware for the FPGA using \texttt{apt}, without needing to build everything manually from source. To enable the PPA:
 \begin{code}
 sudo add-apt-repository ppa:nuandllc/bladerf
 sudo apt update
 \end{code}
-After enabling the PPA, we can install the BladeRF software and firmware using the following command:
+After enabling the PPA, we can install the bladeRF software and firmware using the following command:
 \begin{code}
 sudo apt install bladerf
 sudo apt install bladerf-fpga-hostedx40
 \end{code}
-To bridge the connection between the BladeRF xA4 and the \gls{RAN}, SoapySDR will be used, which will be covered in the next section (\ref{sec:SoapySDR}). For this to work, the header files for the BladeRF drivers need to be installed:
+To bridge the connection between the bladeRF xA4 and the \gls{RAN}, SoapySDR will be used, which will be covered in the next section (\ref{sec:SoapySDR}). For this to work, the header files for the bladeRF drivers need to be installed:
 \begin{code}
 sudo apt install libbladerf-dev
 \end{code}
-With the BladeRF drivers installed, we can proceed into the installation of SoapySDR, which will allow us to use the BladeRF xA4 as the radio interface for the \gls{RAN}.
-\subsubsection{Installing SoapySDR}
+With the bladeRF drivers installed, we can proceed into the installation of SoapySDR, which will allow us to use the bladeRF xA4 as the radio interface for the \gls{RAN}.
+
+\subsection{Installing SoapySDR}
 \label{sec:SoapySDR}
-The SoapySDR component is comprised of two parts: the SoapySDR library, which is the main interface for all types of SDR devices, and the SoapyBladeRF plug-in, which provides specific support for the BladeRF xA4.
+
+The SoapySDR component is comprised of two parts: the SoapySDR library, which is the main interface for all types of SDR devices, and the SoapyBladeRF plug-in, which provides specific support for the bladeRF xA4.
 
 First, we need to install the necessary dependencies:
 \begin{code}
@@ -354,7 +409,7 @@ cd build
 cmake ..
 make -j`nproc`
 sudo make install -j`nproc`
-sudo ldconfig 
+sudo ldconfig
 \end{code}
 To verify the installation of the SoapySDR library, we can run the following command:
 \begin{code}
@@ -370,12 +425,13 @@ cd build
 cmake ..
 make
 sudo make install
-\end{code}  
-With both the SoapySDR library and the SoapyBladeRF plug-in installed, the BladeRF xA4 should now be recognized as an available SDR device, when running the following command:
+\end{code}
+With both the SoapySDR library and the SoapyBladeRF plug-in installed, the bladeRF xA4 should now be recognized as an available SDR device, when running the following command:
 \begin{code}
 SoapySDRUtil --probe="driver=bladerf"
 \end{code}
-This command should output the details of the board, thus confirming that the BladeRF xA4 is properly configured and ready to be used as the radio interface for the \gls{RAN} in our 4G network setup. With the SDR configuration complete, we can now proceed to install and configure srsRAN 4G.
+This command should output the details of the board, thus confirming that the bladeRF xA4 is properly configured and ready to be used as the radio interface for the 4G \gls{RAN}. With the SDR configuration complete, we can now proceed to install and configure srsRAN 4G.
+
 \subsection{srsRAN 4G}
 \label{sec:srsRAN_4G}
 First, install the dependencies for srsRAN 4G:
@@ -397,37 +453,226 @@ Proceed to install srsRAN 4G:
 sudo make install
 srsran_install_configs.sh user
 \end{code}
-After installing srsRAN 4G, we need to modify the configuration files to set the correct IP address for the \gls{EPC} and the correct parameters for the radio interface. The configuration files are located in the \colorbox{gray!20}{\texttt{/usr/local/etc/srsran/}} directory, with separate files for the \gls{EPC} and the \gls{eNB}.
-% TODO: add diff of the configuration files, get from lab
-With everything ready, we can proceed to run the network, which will be covered in the next section (\ref{sec:Running_the_network}).
-\section{Running the network}
-\label{sec:Running_the_network}
-\subsection{Preparing the system}
-To ensure the best performance on the \gls{RAN} side, the srsRAN team provices a performance script to optimize the system for real-time processing. This script should be executed before running the \gls{RAN} components, on Machine 2:
+
+The second command installs the default configuration files in \texttt{\textasciitilde/.config/srsran/}. Only the \gls{eNB} files are used, since the core is provided by Open5GS rather than by srsRAN's own \gls{EPC}. The configuration used in this dissertation is kept in the project's repository~\cite{thesis_repo} (\texttt{enb.conf}, \texttt{rr.conf}, \texttt{sib.conf} and \texttt{rb.conf}). The lines that differ from the default files point the \gls{eNB} to the core, set its own address and set the radio parameters:
+\begin{minted}[bgcolor=gray!20,frame=single,framerule=0.8pt,rulecolor=\color{black}]{ini}
+# enb.conf
+[enb]
+enb_id = 0x19B
+mcc = 001
+mnc = 01
+mme_addr = 10.0.0.10
+gtp_bind_addr = 10.0.0.40
+s1c_bind_addr = 10.0.0.40
+n_prb = 50
+
+[rf]
+tx_gain = 66
+rx_gain = 60
+device_name = bladeRF
+
+# rr.conf (cell list)
+cell_id = 0x01;
+tac = 0x0007;
+pci = 1;
+dl_earfcn = 3350;
+\end{minted}
+
+This completes the one-time setup of the 4G \gls{RAN} machine. The next steps to run the network are given in Section~\ref{sec:app-running}.
+
+%%--------------------------------------------------------------------------------------
+
+\section{5G RAN Machine (Machine 2)}
+\label{sec:app-5g-ran}
+
+This section sets up the 5G \gls{RAN}: the drivers for the NI B2901, the \gls{GPSDO} and the srsRAN Project \gls{gNB}. The hardware itself is described in Section~\ref{sec:hardware-components}.
+
+\subsection{Installing UHD}
+\label{sec:app-uhd}
+\textcolor{red}{TODO: installing UHD and loading the B2901's FPGA images; checking the board with \texttt{uhd\_find\_devices} and \texttt{uhd\_usrp\_probe}.}
+
+\subsection{Setting up the GPSDO}
+\label{sec:app-gpsdo}
+%CHANGED BY CLAUDE (drafted; model and output assignment inferred from the bench photo, commands from the lbgpsdo README)
+The B2901 takes its frequency and time references from the Leo Bodnar \gls{GPSDO}, which disciplines its oscillator to the GPS satellites. The \gls{GPSDO} provides two signals, each connected to the matching input on the rear of the B2901, as shown in Figure~\ref{fig:b2901-gpsdo}:
+\begin{itemize}
+    \item a 10\,MHz reference clock, connected to \texttt{REF IN}, from which the board derives all of its sampling and carrier frequencies;
+    \item a 1PPS (one pulse per second) signal, connected to \texttt{PPS IN}, which aligns the board's time to the start of each second.
+\end{itemize}
+The \gls{gNB} is told to use both through the \texttt{clock: external} and \texttt{sync: external} settings of its configuration file (Section~\ref{sec:app-gnb-config}). The \gls{GPSDO} is powered over USB from Machine 2, and the same USB connection is used to configure it and to check its lock.
+
+\subsubsection{Placing the GPS antenna}
+The \gls{GPSDO} can only discipline its oscillator while it receives the GPS satellites, so its antenna needs a clear view of the sky. In this testbed, the antenna was placed on the windowsill of the lab, as shown in Figure~\ref{fig:app-gps-antenna}. After power-on, the receiver can take several minutes to acquire enough satellites to lock.
+
+\begin{figure}[H]
+    \centering
+    \rule{0.8\textwidth}{5cm}
+    %\includegraphics[width=0.8\textwidth]{gps_antenna_windowsill.jpg}
+    \caption{The \gls{GPSDO}'s GPS antenna, placed on the windowsill of the lab for a clear view of the sky.}
+    \label{fig:app-gps-antenna}
+\end{figure}
+
+\subsubsection{Installing lbgpsdo}
+The \gls{GPSDO} is configured and monitored with \texttt{lbgpsdo}~\cite{lbgpsdo}, an open-source command-line utility for Leo Bodnar devices. It is written in Python and depends on the \texttt{hid} package, so it is installed in its own virtual environment:
+\begin{code}
+git clone https://github.com/hamarituc/lbgpsdo.git
+cd lbgpsdo
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+\end{code}
+To use the device without root privileges, install the udev rules provided with the utility, then log out and back in:
+\begin{code}
+sudo cp 99-lbgpsdo.rules /etc/udev/rules.d/
+sudo groupadd -r usb
+sudo usermod -aG usb $USER
+\end{code}
+The utility provides two scripts: \texttt{lbe142x.py}, for the LBE-1421 used in this testbed, and \texttt{lbgpsdo.py}, for the older Leo Bodnar GPSDO models. With the \gls{GPSDO} connected, confirm that it is detected:
+\begin{code}
+./lbe142x.py list
+\end{code}
+
+\subsubsection{Configuring the outputs}
+Set the first output to 10\,MHz, enable the 1PPS signal, and save the settings to the device, so that they persist when it is powered off:
+\begin{code}
+./lbe142x.py modify --f1 10000000 --pps-enable --save
+\end{code}
+\textcolor{red}{TODO: confirm the model (LBE-1421) and which output carries the 1PPS signal on this unit.}
+
+\subsubsection{Checking the lock}
+Before starting the \gls{gNB}, check that the \gls{GPSDO} is locked:
+\begin{code}
+./lbe142x.py detail
+\end{code}
+The output shows the device's status and the settings of each output. The \gls{GPSDO} is ready once it reports both GPS lock, meaning it is receiving enough satellites, and PLL lock, meaning its output is disciplined to them. \textcolor{red}{TODO: add a screenshot of the \texttt{detail} output showing both locks.}
+
+\subsection{srsRAN Project}
+\label{sec:app-srsran-project}
+\textcolor{red}{TODO: dependencies, build (commit \texttt{29dc1aede7}) and install.}
+
+\subsection{Configuring the gNB}
+\label{sec:app-gnb-config}
+
+Unlike srsRAN 4G, the srsRAN Project \gls{gNB} reads a single YAML configuration file, passed to it through the startup command. The file used in this dissertation is kept in the project's repository~\cite{thesis_repo} as \texttt{gnb.yaml}, and is shown below, as used in Round 3. It has five parts:
+\begin{itemize}
+    \item \texttt{cu\_cp}: the connection to the \gls{AMF} on the core machine, and the tracking area, PLMN and slice the \gls{gNB} supports, which must match the core configuration.
+    \item \texttt{ru\_sdr}: the radio. The B2901 is driven through UHD, takes both its clock and its time reference from the \gls{GPSDO} (\texttt{external}), and runs at the transmit and receive gains discussed in Chapter~\ref{cha:methodology}.
+    \item \texttt{cell\_cfg}: the cell itself, in band n78 with a 20\,MHz channel and 30\,kHz subcarrier spacing, using the 2:2 TDD pattern.
+    \item \texttt{log} and \texttt{metrics}: logging of all layers at \texttt{info} level, with the per-second metrics written into the log, as described in Section~\ref{sec:data-collection}.
+    \item \texttt{pcap}: packet captures of the MAC layer and of the \gls{NGAP} signalling with the core.
+\end{itemize}
+\begin{minted}[bgcolor=gray!20,frame=single,framerule=0.8pt,rulecolor=\color{black}]{yaml}
+cu_cp:
+  inactivity_timer: 7200
+  amf:
+    addrs: 10.0.0.10
+    port: 38412
+    bind_addrs: 10.0.0.20
+    supported_tracking_areas:
+      - tac: 7
+        plmn_list:
+          - plmn: "00101"
+            tai_slice_support_list:
+              - sst: 1
+
+ru_sdr:
+  device_driver: uhd
+  device_args: type=b200
+  srate: 23.04
+  clock: external
+  sync: external
+  otw_format: sc12
+  tx_gain: 89.75
+  rx_gain: 60
+
+cell_cfg:
+  dl_arfcn: 627340
+  band: 78
+  channel_bandwidth_MHz: 20
+  common_scs: 30
+  plmn: "00101"
+  tac: 7
+  pci: 1
+  tdd_ul_dl_cfg:
+    dl_ul_tx_period: 5
+    nof_dl_slots: 2
+    nof_dl_symbols: 5
+    nof_ul_slots: 2
+    nof_ul_symbols: 5
+  q_rx_lev_min: -70
+
+log:
+  filename: /tmp/gnb.log
+  all_level: info
+  hex_max_size: 0
+
+metrics:
+  autostart_stdout_metrics: true
+  enable_log: true
+  enable_verbose: true
+
+pcap:
+  mac_enable: true
+  mac_filename: /tmp/gnb_mac.pcap
+  ngap_enable: true
+  ngap_filename: /tmp/gnb_ngap.pcap
+\end{minted}
+Note that the log and packet captures are written to \texttt{/tmp}, which is cleared when the machine restarts, so they must be copied elsewhere after each test session.
+
+This completes the one-time setup of the 5G \gls{RAN} machine. The steps repeated each time the network is started are given in Section~\ref{sec:app-running}.
+
+%%--------------------------------------------------------------------------------------
+\section{Running the Network}
+\label{sec:app-running}
+
+The previous sections cover setup, which is done once. This section covers the steps repeated every time the network is started. They assume the core has been configured and the subscriber added (Section~\ref{sec:app-core}); since the Open5GS network functions run as system services, the core is already running whenever the core machine is on.
+
+\subsection{Preparing the RAN Machines}
+To ensure the best performance on the \gls{RAN} side, the srsRAN team provides a performance script to optimise the system for real-time processing. This script should be executed on each \gls{RAN} machine before starting its \gls{RAN}:
 \begin{code}
 # Download and execute the srsRAN performance tuning script
-curl -fsSL https://raw.githubusercontent.com/srsran/srsRAN_Project/main/scripts/srsran_performance | bash
+BASE=https://raw.githubusercontent.com/srsran/srsRAN_Project/main/scripts
+curl -fsSL $BASE/srsran_performance | bash
 \end{code}
-On Machine 1, we need to add a route to the \gls{UE} subnet, so that the \gls{EPC} can route the traffic from the \gls{UE} to the internet:
-\begin{code}
-### Enable IPv4/IPv6 Forwarding
-$ sudo sysctl -w net.ipv4.ip_forward=1
-$ sudo sysctl -w net.ipv6.conf.all.forwarding=1
 
-### Add NAT Rule
-$ sudo iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
-$ sudo ip6tables -t nat -A POSTROUTING -s 2001:db8:cafe::/48 ! -o ogstun -j MASQUERADE
-\end{code}
-Now, to start the network, we need to first start the \gls{EPC} on Machine 2. On one command prompt window, run the following command:
-\begin{code}
-sudo srsepc
-\end{code}
-Machine 2 should now connect to Machine 1, and srsRAN should recognize the Open5GS network functions running on the other Machine. In another command prompt window, start the \gls{eNB} on Machine 2:
+
+\subsection{Starting the 4G Network}
+\label{sec:app-start-4g}
+To start the 4G network, start the \gls{eNB} on Machine 4: 
 \begin{code}
 sudo srsenb
 \end{code}
-Now the \gls{RAN} is up and running, and the \gls{UE} can connect to the network. 
+The \gls{eNB} connects to the \gls{MME} at 10.0.0.10. Once it reports the S1 connection as established, the 4G \gls{RAN} is up and running, and the \gls{UE} can connect to the network.
+
+\subsection{Starting the 5G Network}
+\label{sec:app-start-5g}
+%CHANGED BY CLAUDE (drafted; the expected output is taken from the Round 3 gnb1.log and amf.log)
+Before starting the 5G network, confirm that the \gls{GPSDO} has GPS lock (Section~\ref{sec:app-gpsdo}), as the B2901 takes both its clock and its time reference from it, and the \gls{gNB} will not transmit correctly without them. Then start the \gls{gNB} on Machine 2, passing it the configuration file from Section~\ref{sec:app-gnb-config}:
+\begin{code}
+sudo gnb -c gnb.yaml
+\end{code}
+On start-up, the \gls{gNB} opens an \gls{SCTP} connection to the \gls{AMF} at 10.0.0.10 and exchanges an NG Setup Request and Response with it. The following lines in \texttt{/tmp/gnb.log} show a successful start:
+\begin{code}
+[CU-CP] N2: Connection to AMF on 10.0.0.10:38412 was established
+[NGAP ] Tx PDU: NGSetupRequest
+[NGAP ] Rx PDU: NGSetupResponse
+[CU-CP] Connected to AMF. Supported PLMNs: 00101
+[GNB  ] ==== gNB started ===
+\end{code}
+The same exchange can be confirmed on the core machine, where the \gls{AMF} reports the \gls{gNB} as connected in its log file, \texttt{/var/log/open5gs/amf.log}:
+\begin{code}
+[amf] INFO: gNB-N2 accepted[10.0.0.20] in master_sm module
+[amf] INFO: [Added] Number of gNBs is now 1
+\end{code}
+Once the \gls{gNB} has started, the 5G \gls{RAN} is up and running, and the \gls{UE} can connect to the network. With the configuration used in this dissertation, the \gls{gNB} also prints its per-second metrics to the console as soon as a \gls{UE} is attached. To stop the \gls{gNB}, press \texttt{Ctrl+C}. 
+
+The log and packet captures in \texttt{/tmp} should then be copied elsewhere, as noted in Section~\ref{sec:app-gnb-config}.
+
+\subsection{Verifying the Connection}
+\textcolor{red}{TODO: what a successful attach looks like: the \gls{UE} registering, getting an address from 10.45.0.0/16, and reaching the core machine.}
+
 \section{Troubleshooting}
 \label{sec:Troubleshooting}
-
-
+\textcolor{red}{TODO.}
+% Candidates from the test campaigns: receiver overload at short range (rx_gain), the TDD
+% pattern capping uplink airtime, GPSDO not locked, RLC queue bufferbloat.
