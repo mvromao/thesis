@@ -12,7 +12,7 @@
 \chapter{Results}
 \label{cha:results}
 
-This chapter presents the results of the performance evaluation of the 4G and 5G networks implemented in the testbed described in Chapter~\ref{cha:implementation}. 
+This chapter presents the results of the performance evaluation of the 4G and 5G networks implemented in the testbed described in Chapter~\ref{cha:proposed-architecture}. 
 % ============================================================================
 % BASE STRUCTURE -- proposed storyline, drafted from Test_Data/analysis/FINDINGS.md,
 % FINDINGS_RERUN_2026-08-02.md and FINDINGS_RERUN_2026-08-03.md. Fill in numbers from
@@ -152,7 +152,7 @@ The \texttt{ok} and \texttt{nok} columns sum to $382+18=400$ transmissions for t
 
 On the subsequent rounds of testing, on which the TDD pattern was rebalanced to a symmetrical 2:2 pattern, it was expected to improve uplink throughput, at the cost of downlink throughput, making their performance almost equal, which Figure~\ref{fig:tdd-structure} presents. Only one configuration variable changes between each pair of rounds in the figure (the TDD pattern between rounds 1 and 2, and \texttt{rx\_gain} between rounds 2 and 3) so the two steps should be read as evidence for two separate effects rather than a single continuous trend.
 
-The pattern used from Round~2 onward, shown in Listing~\ref{lst:tdd-22-cfg} of Chapter~\ref{cha:implementation}, doubles \texttt{nof\_ul\_slots} to 2 within the same 5-slot, 2.5\,ms period, raising the structural ceiling to $2\times400=800$ uplink transmissions per second. Round~2 metrics data was extracted directly from srsRAN's native timestamped scheduler log rather than the periodic console dump used in Round~1, so the raw evidence takes a different shape: Listing~\ref{lst:ul-800-grant-ceiling} shows an excerpt of the relevant uplink fields from three consecutive one-second \texttt{gnb.log} entries for the Location A TCP uplink test (the full lines also report downlink and per-HARQ statistics, omitted here for space).
+The pattern used from Round~2 onward, shown in Listing~\ref{lst:tdd-22-cfg} of Chapter~\ref{cha:methodology}, doubles \texttt{nof\_ul\_slots} to 2 within the same 5-slot, 2.5\,ms period, raising the structural ceiling to $2\times400=800$ uplink transmissions per second. Round~2 metrics data was extracted directly from srsRAN's native timestamped scheduler log rather than the periodic console dump used in Round~1, so the raw evidence takes a different shape: Listing~\ref{lst:ul-800-grant-ceiling} shows an excerpt of the relevant uplink fields from three consecutive one-second \texttt{gnb.log} entries for the Location A TCP uplink test (the full lines also report downlink and per-HARQ statistics, omitted here for space).
 
 \begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Uplink fields extracted from three consecutive \texttt{gnb.log} scheduler-metrics entries for the Location A (2\,m) TCP uplink test in Round~2 (2:2 pattern).},label={lst:ul-800-grant-ceiling}]
 15:14:46  ul_mcs=14  ul_brate=14.1Mbps  ul_nof_ok=692  ul_nof_nok=108
