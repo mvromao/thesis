@@ -363,7 +363,7 @@ $ sudo ip6tables -t nat -A POSTROUTING -s 2001:db8:cafe::/48 ! -o ogstun -j MASQ
 %CHANGED BY CLAUDE (placeholder)
 \subsection{Adding the Subscribers}
 \label{sec:app-subscribers}
-\textcolor{red}{TODO: adding the \gls{UE}'s subscriber entry (IMSI, K, OPc, APN/DNN \texttt{internet}) through the WebUI, using the values of the eSIM profile from Appendix~\ref{ch:provisioning_esim}. One entry serves both generations.}
+\textcolor{red}{TODO: adding the \gls{UE}'s subscriber entry through the WebUI. One entry serves both generations.}
 
 %%--------------------------------------------------------------------------------------
 \section{4G RAN Machine (Machine 4)}
@@ -489,31 +489,63 @@ This section sets up the 5G \gls{RAN}: the drivers for the NI B2901, the \gls{GP
 
 \subsection{Installing UHD}
 \label{sec:app-uhd}
-\textcolor{red}{TODO: installing UHD and loading the B2901's FPGA images; checking the board with \texttt{uhd\_find\_devices} and \texttt{uhd\_usrp\_probe}.}
+%CHANGED BY CLAUDE (drafted from the UHD build guide, https://uhd.readthedocs.io/en/latest/page_build_guide.html, and the OCUDU installation guide)
+The B2901 is driven through UHD, the USRP Hardware Driver. The \gls{gNB} used in this dissertation requires UHD version 4.6.0.0, so UHD is built from source at that release rather than installed from the Ubuntu repositories, which may provide a different version. First, install the build dependencies:
+\begin{code}
+sudo apt-get install autoconf automake build-essential ccache cmake cpufrequtils doxygen ethtool g++ git inetutils-tools libboost-all-dev libncurses-dev libusb-1.0-0 libusb-1.0-0-dev libusb-dev python3-dev python3-mako python3-numpy python3-requests python3-scipy python3-setuptools python3-ruamel.yaml libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc
+\end{code}
+Then clone the UHD repository and check out the 4.6.0.0 release:
+\begin{code}
+git clone https://github.com/EttusResearch/uhd.git
+cd uhd
+git checkout v4.6.0.0
+\end{code}
+The UHD host software is built from the \texttt{host} directory of the repository:
+\begin{code}
+cd host
+mkdir build
+cd build
+cmake ../
+make
+make test
+sudo make install
+sudo ldconfig
+\end{code}
+The B2901 loads its FPGA image from the host each time it is powered on, so the images matching the installed UHD version must be downloaded:
+\begin{code}
+sudo uhd_images_downloader
+\end{code}
+Finally, with the B2901 connected over USB 3.0, check that UHD detects it, and that it reports the board's details without errors:
+\begin{code}
+uhd_find_devices
+uhd_usrp_probe
+\end{code}
+The second command loads the FPGA image onto the board, so it takes a few seconds to complete the first time it is run after the board is powered on.
 
 \subsection{Setting up the GPSDO}
 \label{sec:app-gpsdo}
-%CHANGED BY CLAUDE (drafted; model and output assignment inferred from the bench photo, commands from the lbgpsdo README)
-The B2901 takes its frequency and time references from the Leo Bodnar \gls{GPSDO}, which disciplines its oscillator to the GPS satellites. The \gls{GPSDO} provides two signals, each connected to the matching input on the rear of the B2901, as shown in Figure~\ref{fig:b2901-gpsdo}:
+
+The B2901 synchronizes its frequency and time references to the Leo Bodnar \gls{GPSDO}, which in turn disciplines its oscillator to the GPS satellites. The \gls{GPSDO} provides two signals, each connected to the matching input on the rear of the B2901, as shown in Figure~\ref{fig:b2901-gpsdo}:
 \begin{itemize}
-    \item a 10\,MHz reference clock, connected to \texttt{REF IN}, from which the board derives all of its sampling and carrier frequencies;
-    \item a 1PPS (one pulse per second) signal, connected to \texttt{PPS IN}, which aligns the board's time to the start of each second.
+  \item a 1PPS (one pulse per second) signal, on Output 1, connected to \texttt{PPS IN} port, which aligns the board's time to the start of each second.
+    \item a 10\,MHz reference clock, on Output 2, connected to \texttt{REF IN} port, from which the board derives all of its sampling and carrier frequencies;
 \end{itemize}
-The \gls{gNB} is told to use both through the \texttt{clock: external} and \texttt{sync: external} settings of its configuration file (Section~\ref{sec:app-gnb-config}). The \gls{GPSDO} is powered over USB from Machine 2, and the same USB connection is used to configure it and to check its lock.
+
+The \gls{gNB} YAML file is configured to use both through the \texttt{clock: external} and \texttt{sync: external} settings (Section~\ref{sec:app-gnb-config}). The \gls{GPSDO} is powered over USB from Machine 2, and the same USB connection is used to configure it and to check its lock.
 
 \subsubsection{Placing the GPS antenna}
-The \gls{GPSDO} can only discipline its oscillator while it receives the GPS satellites, so its antenna needs a clear view of the sky. In this testbed, the antenna was placed on the windowsill of the lab, as shown in Figure~\ref{fig:app-gps-antenna}. After power-on, the receiver can take several minutes to acquire enough satellites to lock.
+The \gls{GPSDO} can only discipline its oscillator while it receives signal from the GPS satellites, so its antenna needs a clear view of the sky. In this testbed, the antenna was placed on the windowsill of the lab, as shown in Figure~\ref{fig:app-gps-antenna}. After power-on, the receiver locks the signal to the satellites after a few minutes.
 
 \begin{figure}[H]
     \centering
-    \rule{0.8\textwidth}{5cm}
-    %\includegraphics[width=0.8\textwidth]{gps_antenna_windowsill.jpg}
-    \caption{The \gls{GPSDO}'s GPS antenna, placed on the windowsill of the lab for a clear view of the sky.}
+    \includegraphics[width=\textwidth]{GPSDO_Windowsill.jpeg} %CHANGED BY CLAUDE (placeholder replaced with the photo)
+    \caption{The \gls{GPSDO}'s GPS antenna, placed on the windowsill outside the lab window for a clear view of the sky.}
     \label{fig:app-gps-antenna}
 \end{figure}
 
 \subsubsection{Installing lbgpsdo}
 The \gls{GPSDO} is configured and monitored with \texttt{lbgpsdo}~\cite{lbgpsdo}, an open-source command-line utility for Leo Bodnar devices. It is written in Python and depends on the \texttt{hid} package, so it is installed in its own virtual environment:
+
 \begin{code}
 git clone https://github.com/hamarituc/lbgpsdo.git
 cd lbgpsdo
@@ -521,34 +553,59 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 \end{code}
-To use the device without root privileges, install the udev rules provided with the utility, then log out and back in:
-\begin{code}
-sudo cp 99-lbgpsdo.rules /etc/udev/rules.d/
-sudo groupadd -r usb
-sudo usermod -aG usb $USER
-\end{code}
+
 The utility provides two scripts: \texttt{lbe142x.py}, for the LBE-1421 used in this testbed, and \texttt{lbgpsdo.py}, for the older Leo Bodnar GPSDO models. With the \gls{GPSDO} connected, confirm that it is detected:
+
 \begin{code}
 ./lbe142x.py list
 \end{code}
 
 \subsubsection{Configuring the outputs}
-Set the first output to 10\,MHz, enable the 1PPS signal, and save the settings to the device, so that they persist when it is powered off:
+%CHANGED BY CLAUDE (command matched to the output assignment above: Output 1 = 1PPS, Output 2 = 10 MHz; TODO removed)
+Set Output 1 to the 1PPS signal and Output 2 to 10\,MHz, and save the settings to the device, so that they persist when it is powered off:
 \begin{code}
-./lbe142x.py modify --f1 10000000 --pps-enable --save
+./lbe142x.py modify --pps-enable --f2 10000000 --save
 \end{code}
-\textcolor{red}{TODO: confirm the model (LBE-1421) and which output carries the 1PPS signal on this unit.}
 
 \subsubsection{Checking the lock}
 Before starting the \gls{gNB}, check that the \gls{GPSDO} is locked:
 \begin{code}
 ./lbe142x.py detail
 \end{code}
-The output shows the device's status and the settings of each output. The \gls{GPSDO} is ready once it reports both GPS lock, meaning it is receiving enough satellites, and PLL lock, meaning its output is disciplined to them. \textcolor{red}{TODO: add a screenshot of the \texttt{detail} output showing both locks.}
+The output shows the device's status and the settings of each output. The \gls{GPSDO} is ready once it reports both GPS lock, meaning it is receiving enough satellites, and PLL lock, meaning its output is disciplined to them. 
 
-\subsection{srsRAN Project}
+\textcolor{red}{TODO: add a screenshot of the LBE142x.py output.}
+
+\subsection{srsRAN Project (OCUDU)}
 \label{sec:app-srsran-project}
-\textcolor{red}{TODO: dependencies, build (commit \texttt{29dc1aede7}) and install.}
+
+The srsRAN Project \gls{gNB} is now developed under the name OCUDU~\cite{ocudu_project}.
+UHD must be installed, as described in Section~\ref{sec:app-uhd}, before the \gls{gNB} is built. The build checks for UHD only when it is configured, and includes support for the B2901 only if UHD is found at that point. 
+
+A \gls{gNB} built without UHD pre-installed compiles and installs without errors, but will not  detect the radio when started, and installing UHD afterwards does not fix it. The \gls{gNB} has to be rebuilt from the \texttt{cmake} step onwards. With UHD in place, install the build dependencies:
+
+\begin{code}
+sudo apt-get install cmake make gcc g++ pkg-config libmbedtls-dev libsctp-dev libyaml-cpp-dev libgtest-dev
+\end{code}
+
+Then clone the repository:
+
+\begin{code}
+git clone https://gitlab.com/ocudu/ocudu.git
+\end{code}
+
+Build the software, run its tests, and install it:
+\begin{code}
+cd ocudu
+mkdir build
+cd build
+cmake ../
+make -j $(nproc)
+make test -j $(nproc)
+sudo make install
+\end{code}
+
+The build takes several minutes. Once installed, the \gls{gNB} is available system-wide as the \texttt{gnb} command, which is used to start the 5G \gls{RAN} in Section~\ref{sec:app-start-5g}.
 
 \subsection{Configuring the gNB}
 \label{sec:app-gnb-config}
@@ -669,10 +726,14 @@ Once the \gls{gNB} has started, the 5G \gls{RAN} is up and running, and the \gls
 The log and packet captures in \texttt{/tmp} should then be copied elsewhere, as noted in Section~\ref{sec:app-gnb-config}.
 
 \subsection{Verifying the Connection}
-\textcolor{red}{TODO: what a successful attach looks like: the \gls{UE} registering, getting an address from 10.45.0.0/16, and reaching the core machine.}
+\textcolor{red}{TODO:
+IMSI attach from core, network shows up on phone.
+Start iperf3 server on core.
+Cellular Lab running the iperf3 test.}
 
 \section{Troubleshooting}
 \label{sec:Troubleshooting}
 \textcolor{red}{TODO.}
 % Candidates from the test campaigns: receiver overload at short range (rx_gain), the TDD
 % pattern capping uplink airtime, GPSDO not locked, RLC queue bufferbloat.
+% OCUDU rebuild after UHD install, etc.
