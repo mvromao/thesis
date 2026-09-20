@@ -178,7 +178,6 @@ Finally, on round 3, after adjusting the \texttt{rx\_gain} to 60: at location A 
 
 We also see that in this final configuration, the throughput between both directions is closest to being equal at short range: at Location A the two directions converge to within a narrow margin (22.4 vs.\ 25.2\,Mb/s), the best balance observed anywhere in the dataset, while at Location C the \texttt{rx\_gain} reduction gives back most of the uplink gain Round 2 had recovered. This Location C behaviour is the trade-off associated with the \texttt{rx\_gain} change.
 
-\textcolor{red}{Not finished.}
 % --- 3. Uplink quality vs distance: SINR, PHR, and the rx_gain trade-off -----------
 % Source: FINDINGS.md S3 (Round 1 PHR/SINR, and the corrected-vs-superseded discussion of
 % the ~33dB deficit -- keep the correction framing, don't restate the disproven power-cap
@@ -443,3 +442,60 @@ Taken together, these three rounds point to a single, well-evidenced limitation 
 % One caveat applies to comparing Round 1 and Round 2 by throughput directly: at identical gain settings, uplink SINR rose by 5.4\,dB at Location A and by 22.4\,dB at Location C between the two rounds, for reasons that remain unexplained. The raw uplink throughput gain between rounds therefore cannot be attributed to the TDD change alone --- the $19.9\times$ increase measured at Location C, for instance, far exceeds the $\times2$ that airtime alone predicts. The grants-per-second accounting above is unaffected by this confound, since the achieved grant rate does not depend on the SINR reported for each grant; the confound lives entirely in the bits-per-grant term.
 \fi % end of section not yet rewritten
 
+%CHANGED BY CLAUDE (draft of the unloaded latency section; numbers from data/ping_summary.csv
+% and FINDINGS_RERUN_2026-08-03.md S6. Placed after the \fi because the outline comment for
+% this section sits inside the hidden block above. No figures added, as requested: the data
+% for a per-echo plot is in data/ping_series.csv, and fig11_unloaded_latency.pdf is a draft.)
+\section{Unloaded latency}
+\label{sec:unloaded-latency}
+
+The throughput results presented so far describe how much data the network can carry, but not how quickly it responds when it is idle. To measure this, a \texttt{ping} command was used to send 30 ICMP echo requests at one-second intervals from the core machine to the \gls{UE}, at each of the three test locations, with no other traffic on the network. These measurements were taken during Round 3 only, with the 2:2 TDD pattern and \texttt{rx\_gain} 60, and were not repeated for the 4G network, so the figures in this section are from the 5G testbed latency, rather than the two generations. Table~\ref{tab:unloaded-latency} presents the results.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{Location} & \textbf{Loss} & \textbf{Min} & \textbf{Mean} & \textbf{Median} & \textbf{p95} & \textbf{Max} \\
+        \hline
+        A (2\,m, line of sight) & 0\% & 16.0\,ms & 25.0\,ms & 24.6\,ms & 33.7\,ms & 34.9\,ms \\
+        \hline
+        B (6\,m, partition) & 0\% & 15.9\,ms & 28.1\,ms & 26.7\,ms & 41.6\,ms & 48.5\,ms \\
+        \hline
+        C (10\,m, concrete wall) & 0\% & 15.7\,ms & 26.2\,ms & 25.1\,ms & 35.3\,ms & 48.4\,ms \\
+        \hline
+    \end{tabular}
+    \caption{Round 3 round-trip time from the core machine to the \gls{UE}, 30 ICMP echoes per location, with no other traffic on the network.}
+    \label{tab:unloaded-latency}
+\end{table}
+
+Two results stand out. The first is that no packets were lost at any location, including through the concrete wall at Location C, which is consistent with the attach stability reported for this round. The second is that the minimum round-trip time is between 15.7 and 16.0\,ms at all three locations, varying by less than a third of a millisecond across the cell. This is expected, as ten metres of air adds 33\,ns in each direction, which is way below the measured floor, so propagation delay is irrelevant at these distances. The floor instead measures the fixed processing and scheduling overhead the packet passes through: the \gls{UE} modem, the \gls{gNB} PHY and MAC layers, the GTP-U tunnel through the \gls{UPF}, and the same path back. For a private 5G network built on general-purpose machines and a \gls{COTS} \gls{SDR}, a 16\,ms latency floor with no packet loss is a reasonable result, and it is the figure that best characterizes the latency of the testbed as deployed.
+
+The means, at 25 to 28\,ms, sit well above that floor, and the spread between the minimum and the maximum across the three locations is wide. This dispersion is not random noise. Plotting the round-trip time of each echo in sequence, shown in Figure~\ref{fig:ping-sawtooth}, reveals a regular sawtooth in all locations, with the round-trip time falling steadily in steps of roughly 1.2\,ms then jumping back up, repeatedly throughout the ping test. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{Ping_Sawtooth.pdf}
+    \caption{Round-trip time of each of the 30 ICMP echoes at the three test locations, with the 15.7\,ms floor marked.}
+    \label{fig:ping-sawtooth}
+\end{figure}
+
+This near-identical descending rate makes the effect a property of the scheduler rather than of any specific position in the room. What differs between locations is how often the ramp restarts: Location A completes two long ramps over the 30 echoes, while Locations B and C restart more frequently and peak higher, reaching 48\,ms against Location A's 35\,ms. Those higher peaks exceed the 19\,ms cycle measured at Location A, so at the weaker locations an echo occasionally waits more than one cycle, which is consistent with the higher uplink block error rates at those distances reported earlier in this chapter.
+
+The mechanism behind the sawtooth is a phase desynchronization between the ping interval and the uplink scheduling cycle. %CHANGED BY CLAUDE (removed the "effective interval 1001.2 ms" claim: it was derived from ping's summary "time 29036ms" field, which includes the final reply's RTT and so cannot resolve a difference of about 1 ms per second. The drift is now taken from the ramp itself, which measures it directly.)
+The one-second ping interval and the scheduling cycle are not exact multiples of one another, so each echo arrives slightly further into the cycle than the one before it. Measured from the ramp, that offset is 1.27\,ms per echo: the time each reply waits for the next uplink opportunity shrinks by this amount from one echo to the next, until the wait runs out and the following echo has to wait a full cycle, producing the jump. The span of the sweep, approximately 19\,ms, is therefore the period of the uplink scheduling opportunity that the echo reply waits for. %CHANGED BY CLAUDE (corroboration from the gNB's own configuration and metrics)
+
+The \gls{gNB}'s own configuration supports this reading. The scheduling request period is set by the \texttt{sr\_period\_ms} parameter of the \texttt{pucch} block, which this testbed never set, and which defaults to 20\,ms. Since the \gls{gNB} prints only its non-default settings at start-up, and no \texttt{pucch} block appears in that dump, the cell ran with a scheduling request opportunity every 20\,ms throughout the campaign. The 19\,ms sweep measured from the beat therefore matches the configured period to within the resolution of a one-second ping. The \gls{gNB}'s scheduler metrics report the other component of the wait directly. Listing~\ref{lst:sr-to-pusch} shows the relevant fields from three consecutive one-second metrics entries: the number of scheduling requests received in that second, and the mean and maximum delay between each request and the uplink transmission it was granted. %CHANGED BY CLAUDE (log excerpt added; the delay is the avg field, 7.5 ms, not the 7-8 ms max quoted before)
+
+\begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Scheduling request fields extracted from three consecutive \texttt{gnb.log} scheduler-metrics entries at Location A in Round~3. The full lines also report throughput, modulation and error rates, omitted here for space.},label={lst:sr-to-pusch}]
+17:39:53  sr_count=12  avg_sr_to_pusch_delay=7.79ms  max_sr_to_pusch_delay=8ms
+17:39:54  sr_count=3   avg_sr_to_pusch_delay=7.5ms   max_sr_to_pusch_delay=7.5ms
+17:39:55  sr_count=13  avg_sr_to_pusch_delay=7.5ms   max_sr_to_pusch_delay=7.5ms
+\end{lstlisting}
+
+This delay holds at 7.5\,ms in almost every entry, at all three locations, and never exceeds 8\,ms. It is the fixed part of the uplink access delay: the time from the \gls{gNB} receiving a scheduling request to the uplink transmission it grants. The variable part is the wait for the scheduling request opportunity itself, which is what the sawtooth sweeps through.
+
+The latency of the testbed is therefore better described as approximately 16\,ms of fixed processing delay, plus between 0 and 19\,ms spent waiting for an uplink scheduling opportunity, than as a single mean value. This decomposition also explains why the mean sits near the middle of that range, and why it varies by only a few milliseconds between locations: what separates one echo from another is where it falls in the scheduling cycle, not how far it travelled. The 19\,ms figure is measured from the beat, and agrees with the 20\,ms scheduling request period the cell was configured with. %CHANGED BY CLAUDE (caveat replaced: the period is now corroborated, not inferred)
+
+One qualification applies to all of the figures in this section: they describe an idle network. Once a transfer is running, the round-trip time rises by more than an order of magnitude, for reasons examined later in this chapter. % TODO point this at the bufferbloat section once it exists (label sec:bufferbloat)
+
+\textcolor{red}{Not finished.}
