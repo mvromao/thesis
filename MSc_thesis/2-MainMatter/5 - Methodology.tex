@@ -11,11 +11,11 @@
 \chapter{Methodology}
 \label{cha:methodology}
 
-%CHANGED BY CLAUDE
-This chapter describes the methodology used to evaluate the testbed described in Chapter~\ref{cha:proposed-architecture}. Section~\ref{sec:test-methodology} describes the methodology used to evaluate the performance of the network, including the test locations, traffic conditions, and test rounds. The results of these tests will follow in Chapter~\ref{cha:results}.
+%CHANGED BY CLAUDE (also: broken reference sec:test-methodology repointed)
+This chapter describes the methodology used to evaluate the testbed described in Chapter~\ref{cha:proposed-architecture}. Section~\ref{sec:experimental-methodology} describes the methodology used to evaluate the performance of the network, including the test locations, traffic conditions, and test rounds. The results of these tests will follow in Chapter~\ref{cha:results}.
 
-\section{Test Methodology}
-\label{sec:test-methodology}
+\section{Experimental Testbed}
+\label{sec:experimental-testbed}
 The network's performance was evaluated at three fixed \gls{UE} positions in the same room as the \gls{RAN}, chosen to combine increasing distance from the radio with different obstruction conditions at each point. Figure~\ref{fig:lab-floor-plan} shows the top plan view of the room, and Figure~\ref{fig:test-location-heights} shows the elevation, giving the height of the radio and of the \gls{UE} at each location above the floor.
 
 Material and thickness are recorded for each obstruction as they, and not distance alone, also account for the difference between the three locations: signal attenuation through a wall depends strongly on its material and thickness, particularly at the 3.4\,GHz centre frequency used by the 5G \gls{RAN}, so the three locations should be read as distance-plus-obstruction conditions rather than a simple distance variation. Figure~\ref{fig:thickness-collage} shows the tape-measure readings taken for both obstructions.
@@ -64,11 +64,16 @@ A summary of all measurements and signal obstruction conditions for each of the 
 
 \newpage
 
+\section{Experimental Methodology}
+\label{sec:experimental-methodology}
 At each location, tests were run for each generation of network, for both TCP and UDP, and for both uplink and downlink, giving four traffic conditions per location, per generation. For the 4G network, each of these conditions was tested once (n=1); for the 5G network, each was repeated three times (n=3). This difference was not a deliberate methodological choice about sample size per generation: the 4G network was only tested during the first round of testing, in which every combination, both in 4G and 5G, was only tested once. Subsequent rounds of testing focused exclusively on the 5G network, following configuration corrections described later in this chapter, and used three repetitions per condition from that point onward; the 4G network was deliberately left untouched throughout, so its results were never repeated. 
 
-Every test consisted of an \texttt{iperf3} run lasting 20 seconds with 8 parallel streams, with the same parameters used across all tests regardless of generation, location, protocol, or direction. On the \gls{UE} side, these tests were run using the CellularLab app~\cite{cellularlab}, which enables Android devices to run \texttt{iperf3} tests; the \texttt{iperf3} server was hosted on the core machine.
+Traffic was generated with \texttt{iperf3}, with the server running on the core machine and the client running on the \gls{UE} through the CellularLab app~\cite{cellularlab}, which provides an \texttt{iperf3} client for Android devices. Each test consisted of a single 20-second \texttt{iperf3} run, over either TCP or UDP, in either the uplink or the downlink direction. To saturate the link, the client opened 8 parallel streams. TCP tests used the default \texttt{iperf3} parameters, while UDP tests set a target rate of 100\,Mbps per stream (\texttt{-b 100M}), roughly 800\,Mbps in total. This is well above the capacity of either network, so the measured UDP throughput reflects what the link can carry at its maximum, rather than the rate that was offered. The results of each run were recorded both on the \gls{UE} and on the server. This traffic profile was used from Round 2 onward; the tests of Round 1, which include all of the 4G tests, used a single stream, a difference that must be kept in mind when comparing results across rounds.
 
 Figure~\ref{fig:photo-locations} shows the three test locations as they were used for testing, with the \gls{UE} in place.
+
+Initially, the 5G network was configured with a 3:1 TDD structure. As specified by TS 38.213~\cite{3GPP38213} and described in Section~\ref{sec:ran_features}, the TDD structure is defined by the TDD-UL-DL-ConfigurationCommon parameter, which is the \texttt{tdd\_ul\_dl\_cfg} block of the srsRAN \gls{gNB} configuration file, shown in Listing~\ref{lst:tdd-31-cfg}.  
+\newpage
 
 \begin{figure}[htbp]
     \centering
@@ -76,8 +81,6 @@ Figure~\ref{fig:photo-locations} shows the three test locations as they were use
     \caption{The three test locations, with the \gls{UE} in place: Location A, 2\,m, clear line of sight;  Location B, 6\,m, behind the office partition; Location C, 10\,m, behind the concrete wall.}
     \label{fig:photo-locations}
 \end{figure}
-
-Initially, the 5G network was configured with a 3:1 TDD structure. As specified by TS 38.213~\cite{3GPP38213} and described in Section~\ref{sec:ran_features}, the TDD structure is defined by the TDD-UL-DL-ConfigurationCommon parameter, which is the \texttt{tdd\_ul\_dl\_cfg} block of the srsRAN \gls{gNB} configuration file, shown in Listing~\ref{lst:tdd-31-cfg}.  
 
 \begin{lstlisting}[language=yaml,backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,caption={\texttt{gnb.yaml} TDD configuration for the 3:1 pattern used in Round 1.},label={lst:tdd-31-cfg}]
 tdd_ul_dl_cfg:
@@ -147,6 +150,9 @@ All together, the rebalance is expected to roughly double the uplink airtime ava
     \label{tab:tdd-comparison}
 \end{table}
 
+\section{Experiments}
+\label{sec:experiments}
+
 \subsection{Test Round 1}
 \label{sec:test-round-1}
 
@@ -155,14 +161,14 @@ This test round was the first to be run, on the 28th of July 2026. It comprised 
 \subsection{Test Round 2}
 \label{sec:test-round-2}
 
+This test round was run on the 2nd of August. The 5G network was reconfigured with the balanced 2:2 TDD structure devised after Round 1, and testing proceeded with three repetitions per configuration at each location; the 4G network was not re-tested. The TDD rebalance alone resolved the uplink problem from Round 1, with 5G uplink throughput matching the 4G baseline at 2\,m and 10\,m, though the downlink regressed as a trade-off for the additional uplink airtime. Location B, at 6\,m, produced unusable data this round, with the \gls{UE} re-attaching to the network 18 times during the session, and was excluded from analysis.
+
 \begin{wrapfigure}{r}{0.47\textwidth}
     \centering
     \includegraphics[width=0.47\textwidth]{stand.jpg}
     \caption{The metal stand at Location B.}
     \label{fig:stand}
 \end{wrapfigure}
-
-This test round was run on the 2nd of August. The 5G network was reconfigured with the balanced 2:2 TDD structure devised after Round 1, and testing proceeded with three repetitions per configuration at each location; the 4G network was not re-tested. The TDD rebalance alone resolved the uplink problem from Round 1, with 5G uplink throughput matching the 4G baseline at 2\,m and 10\,m, though the downlink regressed as a trade-off for the additional uplink airtime. Location B, at 6\,m, produced unusable data this round, with the \gls{UE} re-attaching to the network 18 times during the session, and was excluded from analysis.
 
 A likely, though unconfirmed, explanation was only identified afterward: a full metal stand (Figure~\ref{fig:stand}), belonging to an unrelated thesis project sharing the lab, was standing directly in the signal path between the \gls{UE} and \gls{RAN} at this location and was unnoticed at the time. A metal obstruction of this size may have been enough to block the link given the radio's otherwise limited transmit power. Keeping \texttt{rx\_gain} at 70 for this round was later found to be overloading the receiver at 2\,m, and measures were taken to address this issue on Round 3. Results from this round are also presented in Chapter~\ref{cha:results}.
 

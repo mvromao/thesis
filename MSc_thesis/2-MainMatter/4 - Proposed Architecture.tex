@@ -34,7 +34,7 @@ A view of the laboratory bench, showing all four machines, is shown in Figure~\r
 \begin{figure} [htbp]
     \centering
     \includegraphics[width=\textwidth]{machines.jpg}
-    \caption{The bench, showing all four machines. From left to right: 4G RAN, 5G NSA (unused), Core and 5G RAN. Connected to the 4G RAN machine is the bladeRF xA4, and on the rightmost side, connected to the 5G RAN machine, is the NI B2901.}
+    \caption{The bench, showing all four machines. From left to right: 4G RAN, 5G NSA (unused), Core and 5G RAN. Connected to the 4G RAN machine is the bladeRF xA4, and connected to the 5G RAN machine, is the NI B2901.}
     \label{fig:bench-machines}
 \end{figure}
 
@@ -71,7 +71,7 @@ All machines run Ubuntu 22.04 LTS. The software running on each of them, and the
         \hline
         Ubuntu & 22.04 LTS (Jammy Jellyfish) & All \\
         \hline
-        Linux kernel & \textcolor{red}{TODO: Get from lab} & All \\
+        Linux kernel & 6.8.0-136-generic & All \\ %CHANGED BY CLAUDE (from uname -r on the core machine; check the RAN machines match)
         \hline
         Open5GS & 2.8.0 & Core \\
         \hline
@@ -79,11 +79,11 @@ All machines run Ubuntu 22.04 LTS. The software running on each of them, and the
         \hline
         srsRAN Project (OCUDU) & commit \texttt{29dc1aede7} & 5G \gls{RAN} \\
         \hline
-        UHD & \textcolor{red}{TODO: Get from lab} & 5G \gls{RAN} \\
+        UHD & 4.10.0.0 & 5G \gls{RAN} \\ %CHANGED BY CLAUDE (from uhd_config_info --version)
         \hline
         srsRAN 4G & commit \texttt{6bcbd9e5b} & 4G \gls{RAN} \\
         \hline
-        libbladeRF & \textcolor{red}{TODO: Get from lab} & 4G \gls{RAN} \\
+        bladeRF host tools (\texttt{bladeRF-cli}) & 1.8.0 & 4G \gls{RAN} \\ %CHANGED BY CLAUDE (from bladeRF-cli --version, which reports the CLI's version, not libbladeRF's; row renamed to match)
         \hline
     \end{tabular}
     \caption{Software versions used on each machine throughout the test campaigns.}
@@ -93,7 +93,7 @@ All machines run Ubuntu 22.04 LTS. The software running on each of them, and the
 For the radio, two \glspl{SDR} were chosen:
 \begin{itemize}
     \item \underline {National Instruments B210}: This is a mid-level \gls{SDR} that uses UHD, the gold standard for \gls{SDR} development. These boards are widely used in research projects and testbeds, and they are natively compatible with most \gls{SDR} software.
-    \item \underline {Nuand bladeRF xA4}: This is a cheaper mid-level \gls{SDR} that uses a proprietary library, libbladeRF, for communication with the host machine. It is less used than the USRP B210 in research projects, as it is not directly compatible with most software. Through the use of a wrapper library, it is possible to use this \gls{SDR} with most software which doesn't natively support it.
+    \item \underline {Nuand bladeRF xA4}: This is a cheaper mid-level \gls{SDR} that uses a proprietary library, libbladeRF, for communication with the host machine. It is less used than the USRP B210 in research projects, as it is not directly compatible with most software. Through the use of a wrapper library, it is possible to use this \gls{SDR} with most software which does not natively support it.
 \end{itemize}
 
 Both of these boards use an Analog Devices AD9361 transceiver, which makes their \glsxtrshort{RF} capabilities theoretically similar. The main difference between them is their \glspl{FPGA}, in which the B210 uses a Xilinx Spartan-6, while the bladeRF xA4 uses an Intel Altera Cyclone V.
@@ -118,8 +118,7 @@ Connected to the 5G \gls{RAN} machine is an NI B2901 (Figure~\ref{fig:b2901-gpsd
     \label{fig:b2901-gpsdo}
 \end{figure}
 
-%CHANGED BY CLAUDE (antenna details to fill in)
-For both radios, the antennas used were the same: \textcolor{red}{[antenna model]}, rated for \textcolor{red}{[frequency range]} with a gain of \textcolor{red}{[gain]}\,dBi. The 4G rig used a BT-200 \gls{LNA} on the RX port and a BT-100 power amplifier on the TX port, both Nuand components, seen in Figure~\ref{fig:biastee-components}. The 5G rig had no additional RF front-end components.
+For both radios, the antennas used were the same. The 4G rig used a BT-200 \gls{LNA} on the RX port and a BT-100 power amplifier on the TX port, both Nuand components, seen in Figure~\ref{fig:biastee-components}. The 5G rig had no additional RF front-end components.
 
 \begin{figure}[htbp]
     \centering

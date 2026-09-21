@@ -58,13 +58,11 @@ The steps are the same on every machine, differing only in the IP address assign
 \begin{code}
 ip a
 \end{code}
-%TODO Get "ip a" output
 The output shows the available network interfaces, including the Ethernet interface (in this case enp0s31f6), as shown in Figure~\ref{fig:ip_a_output}.
 \begin{figure}[H]
     \centering
-    \rule{00.8\textwidth}{4cm}
-    %\includegraphics[width=\textwidth]{4G_ip_a_output.png}
-    \caption{\small \centering Output of the `ip a` command, showing the available network interfaces, including the Ethernet interface (enp0s31f6).}
+    \includegraphics[width=\textwidth]{ip a.png} %CHANGED BY CLAUDE (placeholder replaced)
+    \caption{Output of the \texttt{ip a} command on the core machine once set up, showing the Ethernet interface (enp0s31f6) at 10.0.0.10/24, and the \texttt{ogstun} interface created by Open5GS for the \gls{UE} address pool (10.45.0.1/16).}
     \label{fig:ip_a_output}
 \end{figure}
 
@@ -100,9 +98,8 @@ ping 10.0.0.40
 The output should show successful ping responses, as shown in Figure~\ref{fig:ping_output}.
 \begin{figure}[H]
     \centering
-    \rule{0.8\textwidth}{4cm}
-    %\includegraphics[width=\textwidth]{4G_ping_output.png}
-    \caption{\small \centering Output of the ping command, showing successful responses between the machines.}
+    \includegraphics[width=0.85\textwidth]{pings.png} %CHANGED BY CLAUDE (placeholder replaced)
+    \caption{Pings from the core machine to the 5G \gls{RAN} machine (10.0.0.20) and the 4G \gls{RAN} machine (10.0.0.40), with no packet loss and round-trip times of around 1\,ms.}
     \label{fig:ping_output}
 \end{figure}
 
@@ -143,7 +140,7 @@ In which the output, shown in Figure~\ref{fig:mongodb_status}, should indicate t
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{4G_MongoDB_response.png}
-    \caption{\small \centering Output of the command to check MongoDB service status, showing that the service is active and running.}
+    \caption{Output of the command to check MongoDB service status, showing that the service is active and running.}
     \label{fig:mongodb_status}
 \end{figure}
 To ensure MongoDB starts automatically on system boot, we can enable the service with the following command:
@@ -363,9 +360,32 @@ $ sudo ip6tables -t nat -A POSTROUTING -s 2001:db8:cafe::/48 ! -o ogstun -j MASQ
 %CHANGED BY CLAUDE (placeholder)
 \subsection{Adding the Subscribers}
 \label{sec:app-subscribers}
-\textcolor{red}{TODO: adding the \gls{UE}'s subscriber entry through the WebUI. One entry serves both generations.}
 
-%%--------------------------------------------------------------------------------------
+Before a \gls{UE} can attach, its SIM must be registered in the core as a subscriber. Subscribers are added through the WebUI installed in Section~\ref{sec:Installing_WebUI_for_Open5GS}: open \texttt{http://localhost:9999} on the core machine, log in, and select Subscriber, which lists the subscribers already registered, as shown in Figure~\ref{fig:app-webui-list}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{webUI.png}
+    \caption{The Open5GS WebUI's subscriber list, each subscriber identified by its IMSI.}
+    \label{fig:app-webui-list}
+\end{figure}
+
+The plus button at the bottom right opens the subscriber form, shown in Figure~\ref{fig:app-webui-add}. The fields must match the values programmed into the \gls{UE}'s SIM, which for the eSIM used in this project are given in Appendix~\ref{ch:provisioning_esim}:
+\begin{itemize}
+    \item \textbf{IMSI}: the subscriber's identity, whose first five digits (00101) are the PLMN of the testbed.
+    \item \textbf{Subscriber Key (K)} and \textbf{Operator Key (OPc)}: the secret keys used to authenticate the SIM, with the USIM type set to OPc.
+    \item \textbf{Authentication Management Field (AMF)}: left at its default, 8000.
+\end{itemize}
+
+The remaining fields, which set the slice and data network of the subscriber, are left at the WebUI's defaults (SST 1 and \texttt{internet}), which match the core configuration of Table~\ref{tab:core-config}. A single subscriber entry serves both generations: the same SIM authenticates against the 4G \gls{EPC} and the 5G core, since both read their subscriber data from the same database.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{webUI_add.png}
+    \caption{The Open5GS WebUI's subscriber form, filled in for the testbed's \gls{UE}.}
+    \label{fig:app-webui-add}
+\end{figure}
+
 \section{4G RAN Machine (Machine 4)}
 \label{sec:app-4g-ran}
 
@@ -384,7 +404,9 @@ After enabling the PPA, we can install the bladeRF software and firmware using t
 sudo apt install bladerf
 sudo apt install bladerf-fpga-hostedx40
 \end{code}
+
 To bridge the connection between the bladeRF xA4 and the \gls{RAN}, SoapySDR will be used, which will be covered in the next section (\ref{sec:SoapySDR}). For this to work, the header files for the bladeRF drivers need to be installed:
+
 \begin{code}
 sudo apt install libbladerf-dev
 \end{code}
@@ -489,16 +511,17 @@ This section sets up the 5G \gls{RAN}: the drivers for the NI B2901, the \gls{GP
 
 \subsection{Installing UHD}
 \label{sec:app-uhd}
-%CHANGED BY CLAUDE (drafted from the UHD build guide, https://uhd.readthedocs.io/en/latest/page_build_guide.html, and the OCUDU installation guide)
-The B2901 is driven through UHD, the USRP Hardware Driver. The \gls{gNB} used in this dissertation requires UHD version 4.6.0.0, so UHD is built from source at that release rather than installed from the Ubuntu repositories, which may provide a different version. First, install the build dependencies:
+
+The B2901 is driven through UHD, the USRP Hardware Driver. The testbed ran UHD version 4.10.0.0, built from source at that release rather than installed from the Ubuntu repositories, which may provide a different version. 
+The OCUDU installation guide names UHD 4.6.0.0 as its requirement; the later 4.10.0.0 release worked with the \gls{gNB} used in this dissertation. First, install the build dependencies:
 \begin{code}
 sudo apt-get install autoconf automake build-essential ccache cmake cpufrequtils doxygen ethtool g++ git inetutils-tools libboost-all-dev libncurses-dev libusb-1.0-0 libusb-1.0-0-dev libusb-dev python3-dev python3-mako python3-numpy python3-requests python3-scipy python3-setuptools python3-ruamel.yaml libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc
 \end{code}
-Then clone the UHD repository and check out the 4.6.0.0 release:
+Then clone the UHD repository and check out the 4.10.0.0 release:
 \begin{code}
 git clone https://github.com/EttusResearch/uhd.git
 cd uhd
-git checkout v4.6.0.0
+git checkout v4.10.0.0
 \end{code}
 The UHD host software is built from the \texttt{host} directory of the repository:
 \begin{code}
@@ -520,7 +543,7 @@ Finally, with the B2901 connected over USB 3.0, check that UHD detects it, and t
 uhd_find_devices
 uhd_usrp_probe
 \end{code}
-The second command loads the FPGA image onto the board, so it takes a few seconds to complete the first time it is run after the board is powered on.
+The second command loads the FPGA image onto the board, so it takes a few seconds to complete the first time it is run after the board is powered on. 
 
 \subsection{Setting up the GPSDO}
 \label{sec:app-gpsdo}
@@ -570,11 +593,17 @@ Set Output 1 to the 1PPS signal and Output 2 to 10\,MHz, and save the settings t
 \subsubsection{Checking the lock}
 Before starting the \gls{gNB}, check that the \gls{GPSDO} is locked:
 \begin{code}
-./lbe142x.py detail
+sudo ./lbe142x.py detail
 \end{code}
-The output shows the device's status and the settings of each output. The \gls{GPSDO} is ready once it reports both GPS lock, meaning it is receiving enough satellites, and PLL lock, meaning its output is disciplined to them. 
+%CHANGED BY CLAUDE (sudo added to match the screenshot; TODO replaced with the screenshot)
+The output shows the device's status and the settings of each output, as shown in Figure~\ref{fig:app-lbe-detail}. The \gls{GPSDO} is ready once it reports both satellite lock (\texttt{SAT lock}), meaning it is receiving enough satellites, and PLL lock, meaning its output is disciplined to them. The output settings confirm the configuration from the previous step: 1PPS on Output 1 and 10\,MHz on Output 2.
 
-\textcolor{red}{TODO: add a screenshot of the LBE142x.py output.}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{lbe142x.png}
+    \caption{Output of \texttt{lbe142x.py detail} for the LBE-1421, reporting both satellite and PLL lock, and the two outputs set to 1PPS and 10\,MHz.}
+    \label{fig:app-lbe-detail}
+\end{figure}
 
 \subsection{srsRAN Project (OCUDU)}
 \label{sec:app-srsran-project}
@@ -588,15 +617,15 @@ A \gls{gNB} built without UHD pre-installed compiles and installs without errors
 sudo apt-get install cmake make gcc g++ pkg-config libmbedtls-dev libsctp-dev libyaml-cpp-dev libgtest-dev
 \end{code}
 
-Then clone the repository:
+Then clone the repository and check out the commit used in this dissertation, on the project's \texttt{dev} branch: %CHANGED BY CLAUDE (checkout restored; commit confirmed by git log on Machine 2)
 
 \begin{code}
 git clone https://gitlab.com/ocudu/ocudu.git
+cd ocudu
 \end{code}
 
 Build the software, run its tests, and install it:
 \begin{code}
-cd ocudu
 mkdir build
 cd build
 cmake ../

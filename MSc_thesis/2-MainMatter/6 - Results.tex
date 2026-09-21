@@ -13,42 +13,11 @@
 \label{cha:results}
 
 This chapter presents the results of the performance evaluation of the 4G and 5G networks implemented in the testbed described in Chapter~\ref{cha:proposed-architecture}. 
-% ============================================================================
-% BASE STRUCTURE -- proposed storyline, drafted from Test_Data/analysis/FINDINGS.md,
-% FINDINGS_RERUN_2026-08-02.md and FINDINGS_RERUN_2026-08-03.md. Fill in numbers from
-% those files / the fig*.pdf figures they reference. Each section below notes which
-% round(s) the data comes from -- be explicit about this in the prose, since the 5G
-% config (TDD pattern, rx_gain) differs between rounds and the numbers aren't all
-% directly comparable to each other.
-%
-% Framing note for the whole chapter: there is no single "best" round to headline as
-% "the" 5G result. Round 2 (rx_gain 70) and Round 3 (rx_gain 60) each win at one distance
-% and lose badly at the other -- that's not a flaw in the presentation, it's the
-% headline finding of Section 5 below. Consider saying this explicitly near the start of
-% the chapter so the reader doesn't wonder why later sections mix numbers from different
-% rounds.
-
-% --- 1. Throughput overview (headline comparison) ---------------------------------
-% The chapter's opening result: 4G baseline vs 5G, TCP/UDP x UL/DL, at each location.
-% Source: FINDINGS.md S1 (Round 1, fig1_throughput.pdf) for the 4G baseline and the
-% "before" picture; FINDINGS_RERUN_2026-08-02.md S1 (fig7_tdd_rebalance.pdf) and
-% FINDINGS_RERUN_2026-08-03.md S1 (fig10_rxgain_tradeoff.pdf) for the two corrected
-% configurations. Recommend presenting Round1 -> Round2 -> Round3 as a progression per
-% location/direction rather than one static table, since the story IS the progression.
-% Headline numbers to hit:
-%   - Round 1: 5G uplink up to 21x worse than 4G at 10m (worst point).
-%   - Round 2: TDD rebalance alone recovers 5G uplink to ~match 4G at 2m and 10m, but
-%     downlink regresses as the airtime trade-off (quantify: DL 0.45-0.79x of Round-1 5G).
-%   - Round 3: rx_gain 60 pushes 2m uplink to 2x the 4G baseline, but 10m collapses to
-%     0.17x of Round 2's value. State plainly: neither Round 2 nor Round 3 is "the" 5G
-%     result, they bracket the same problem from both sides (see Section 5).
-%   - Location B (6m) throughput: excluded from Round 2 (unusable, see Section 4);
-%     recovered in Round 3 -- only report Round 1 and Round 3 numbers for this location.
 
 \section{General comparison between 4G and 5G performance}
 \label{sec:4g-vs-5g}
 
-This section presents a comparison of the 4G baseline against the 5G network across the three test rounds described in Section~\ref{sec:test-methodology}, focusing on the evolution of performance metrics. Because the 5G configuration changed between rounds, namely the TDD structure and the \texttt{rx\_gain} setting, these results are presented as a progression rather than a single snapshot, tracking how each change affected throughput at each location and in each direction. As will become clear over the following sections, no single round can be presented as the definitive 5G result: the configuration that performs best at short range is not the same as the one that performs best at long range, a trade-off examined in more detail later in this chapter.
+This section presents a comparison of the 4G baseline against the 5G network across the three test rounds described in Section~\ref{sec:experiments}, focusing on the evolution of performance metrics. Because the 5G configuration changed between rounds, namely the TDD structure and the \texttt{rx\_gain} setting, these results are presented as a progression rather than a single snapshot, tracking how each change affected throughput at each location and in each direction. As will become clear over the following sections, no single round can be presented as the definitive 5G result: the configuration that performs best at short range is not the same as the one that performs best at long range, a trade-off examined in more detail later in this chapter.
 
 In Figures \ref{fig:tp-tcp-dl} through \ref{fig:tp-udp-ul}, the mean throughput results for TCP and UDP in both downlink and uplink directions are presented for each test location, with black lines representing the range between Min/Max throughput values between each repetition for that combination. These figures mainly illustrate the performance differences between 4G and 5G across the three rounds of testing, with the results showing that the 5G network can outperform the 4G baseline in certain configurations and locations, but also underperform in others.
 
@@ -80,52 +49,145 @@ In Figures \ref{fig:tp-tcp-dl} through \ref{fig:tp-udp-ul}, the mean throughput 
     \label{fig:tp-udp-ul}
 \end{figure}
 
+% TODO (after the 4G re-run): add a short 4G vs 5G paragraph with the 4G idle pings.
+\section{Unloaded latency}
+\label{sec:unloaded-latency}
 
-% --- 2. Uplink airtime and TDD decomposition ---------------------------------------
-% THE ARGUMENT: the 3:1 pattern was a hard structural cap on uplink, independent of signal quality. Rebalancing to 2:2 lifted the cap and paid for it in downlink airtime. This is the cleanest quantitative result in the dataset, and -- unlike the raw throughput numbers -- it is measured on both sides and survives the SNR confound below.
-%
-% LEAD WITH THE DECOMPOSITION, NOT THE FIGURE (FINDINGS.md S2). Separate the two factors by counting grants rather than Mb/s:
-%   - Factor A, airtime. 3:1 gives one uplink slot per 2.5 ms = a 400/s ceiling; the measured rate is 372-394 grants/s. 4G FDD gets one uplink subframe per ms, ~975/s. That is a 2.5x structural penalty no amount of signal quality can recover.
-%   - Factor B, link budget. Bits per grant. At 2 m the 5G and 4G payloads are effectively identical (13 634 vs 13 429 bits); at 10 m the 5G payload collapses 8.7x.
-%   Multiply them: 2.5 x 1.0 = 2.6x deficit at 2 m (measured 2.59x), 2.5 x 8.7 = 21.5x at 10 m (measured 21.5x). The decomposition is exact at both distances. This is what earns the section its own heading.
-%
-% THE REBALANCE DELIVERED EXACTLY WHAT WAS PREDICTED (FINDINGS_RERUN_2026-08-02.md). 2:2 gives two uplink slots per 2.5 ms = 800/s, and the scheduler grants the full 800/s at both 2 m and 10 m. The x2 airtime factor is therefore measured, not inferred. Airtime also predicts downlink x0.75 (4 -> 3 DL slots); observed TCP DL is x0.56 at A and x0.44 at C, i.e. downlink lost somewhat more than airtime alone accounts for.
-%
-% WHAT FIGURE~\ref{fig:tdd-structure} SHOWS. Only one variable moves per step: TDD between the first two points, rx_gain between the last two. Say that explicitly, or a reader in a section titled "TDD decomposition" will attribute the second step to airtime as well.
-%   DL/UL ratio, TCP:   A: 5.84 -> 1.32 -> 0.89     C: 17.55 -> 0.39 -> 2.48
-%   At A the two directions converge monotonically and finish nearly balanced (22.4 DL vs 25.2 UL) -- the best balance anywhere in the dataset. At C they do not: rx_gain 60 gives back most of the uplink Round 2 recovered (11.60 -> 2.77 Mb/s, a 4.2x regression) and the ratio swings past 1 to 2.48. So write "close at short range", not "close". The Location C behaviour is not a blemish on the result -- it is the rx_gain trade-off that Section~\ref{sec:uplink-quality-rxgain} builds to, and this figure is its clearest evidence. Forward-reference it rather than explaining it here.
-%
-% CONFOUND THAT HAS TO BE STATED (FINDINGS_RERUN_2026-08-02.md). Between Rounds 1 and 2, at identical gain settings, uplink SNR rose +5.4 dB at A and +22.4 dB at C -- documented and still unexplained. So the x19.9 uplink gain at C is mostly NOT airtime, which alone predicts x2.0. Do not present the Round 1 -> 2 throughput change as a clean measurement of the TDD effect. The grants/s counting above is the part that survives, because grants/s is independent of SNR: the confound lives entirely in bits-per-grant.
-%
-% OPTIONAL SECOND FIGURE -- the measured slot map (data_v2/tdd_airtime.csv; plot-ready in data_v2/fig_tdd_tradeoff.xlsx, sheet SlotMap). PUSCH appears only in slot 4 under 3:1 and in slots 3-4 under 2:2: the structural ceiling straight from the scheduler's own counters, and the one piece of evidence the confound cannot touch. Three traps:
-%   (a) use the slot POSITIONS, not the PRB magnitudes -- the 3:1 unit was an uplink-only run while the 2:2 unit aggregates every test at that location, so the PRB totals (58.5 vs 42.1) are not a capacity ratio and must not be quoted as one;
-%   (b) for the same reason the 3:1 PDSCH column is near-zero from absent traffic, not from unavailable slots;
-%   (c) Round 1 has no airtime data at all -- its logs carry no Scheduler-cell METRICS lines -- which is why the slot map uses the Round 3 pair (same location, same gain, same session) rather than the Round 1 vs Round 2 pair used in the figure.
-%
-% ALSO STATE:
-%   - Location B is absent from the figure: Round 2 at B is the unusable metal-stand data.
-%   - The Round 3 TDD isolation run (R3_5G_C_TDD31) cannot settle this. It is TCP uplink only, so it has no downlink leg and cannot show a trade-off at all, and it ran at rx_gain 60, which desensitises Location C. Report it as inconclusive rather than as a contradiction, and flag "redo at rx_gain 70" as future work.
-%   - The first configuration is n=1 per condition (Round 1); the other two are n=3.
+The throughput results describe how much data the network can carry, but not how quickly it responds when it is idle. To measure this, a \texttt{ping} command was used to send 30 ICMP echo requests at one-second intervals from the core machine to the \gls{UE}, at each of the three test locations, with no other traffic on the network. These measurements were taken during Round 3 only, with the 2:2 TDD pattern and \texttt{rx\_gain} 60, and were not repeated for the 4G network, so the values in this section describe the 5G testbed latency only. Table~\ref{tab:unloaded-latency} presents the results.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{Location} & \textbf{Loss} & \textbf{Min} & \textbf{Mean} & \textbf{Median} & \textbf{p95} & \textbf{Max} \\
+        \hline
+        A (2\,m, line of sight) & 0\% & 15.7\,ms & 25.0\,ms & 24.6\,ms & 33.7\,ms & 34.9\,ms \\
+        \hline
+        B (6\,m, partition) & 0\% & 15.8\,ms & 28.1\,ms & 26.7\,ms & 41.6\,ms & 48.5\,ms \\
+        \hline
+        C (10\,m, concrete wall) & 0\% & 15.7\,ms & 26.2\,ms & 25.1\,ms & 35.3\,ms & 48.4\,ms \\
+        \hline
+    \end{tabular}
+    \caption{Round 3 round-trip time from the core machine to the \gls{UE}, 30 ICMP echoes per location, with no other traffic on the network.}
+    \label{tab:unloaded-latency}
+\end{table}
+
+Two results stand out. The first is that no packets were lost at any location, including through the concrete wall at Location C. The second is that the minimum round-trip time is around 15.7\,ms at all three locations. This is expected, as ten metres of air adds only 33\,ns in each direction, which is far below the measured floor, so propagation delay is irrelevant at these distances. The floor instead measures the fixed processing and scheduling overhead the packet passes through: the \gls{UE} modem, the \gls{gNB} PHY and MAC layers, the GTP-U tunnel through the \gls{UPF}, and the same path back. This is the figure that best characterizes the latency of the testbed as deployed.
+
+The means, at 25 to 28\,ms, sit well above that floor, and the spread between the minimum and the maximum across the three locations is wide. Plotting the round-trip time of each echo in sequence, shown in Figure~\ref{fig:ping-sawtooth}, reveals a regular sawtooth in all locations, with the round-trip time falling steadily by 1 to 2\,ms from one echo to the next, then jumping back up, repeatedly throughout the ping test. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{Ping_Sawtooth.pdf}
+    \caption{Round-trip time of each of the 30 ICMP echoes at the three test locations, with the 15.7\,ms floor marked.}
+    \label{fig:ping-sawtooth}
+\end{figure}
+
+The rate of descent is similar at Locations A and B, around 1.2\,ms per echo, and steeper at Location C, around 2.0\,ms per echo, a difference that lies in the ping tool rather than in the network. The locations also differ in how often the ramp restarts: Location A completes two long ramps over the 30 echoes, while Locations B and C restart more frequently and peak higher, reaching 48\,ms against Location A's 35\,ms. Those higher peaks exceed the 19\,ms jump measured at Location A, so at the weaker locations an echo occasionally waits more than one cycle, which is consistent with the weaker uplink signal at those locations under Round~3's \texttt{rx\_gain} of 60, examined later in this chapter.
+
+The sawtooth is caused by a drift between the ping interval and the uplink scheduling cycle. Although \texttt{ping} was set to send one echo every 1000\,ms, the total interval duration reported in \texttt{ping}'s own summary, divided by the 29 intervals between the 30 echoes, gives 1001.24\,ms at Location A, 1001.28\,ms at Location B and 1001.97\,ms at Location C, most likely because the software timer on the core machine overshoots each interval by a small amount.
+
+The uplink scheduling cycle comes from the way a \gls{UE} gains access to the uplink. In the downlink, the \gls{gNB} decides when to transmit, but a \gls{UE} with data to send and no uplink grant must first ask for one by sending a \gls{SR}, and it can only do so at periodic opportunities configured by the \gls{gNB}. Only once the request is received does the \gls{gNB} schedule the uplink transmission itself, on the \gls{PUSCH}. In srsRAN, the period of these opportunities is set by the \texttt{sr\_period\_ms} parameter of the \texttt{pucch} block, which defaults to 20\,ms and was not changed in this testbed's \texttt{gnb.yaml}, so the cell offered a scheduling request opportunity every 20\,ms throughout the campaign. As this cycle is driven by the \gls{gNB}'s radio, whose clock is locked to the \gls{GPSDO}, it repeats exactly every 20\,ms, and each echo reply generated by the \gls{UE} has to wait for the next opportunity before it can be sent. Because the ping interval is not an exact multiple of 20\,ms, each echo arrives later in the cycle than the one before it, by the amount the interval exceeds the one second mark. The time each reply waits for the next uplink opportunity therefore shrinks by that amount from one echo to the next, until an echo arrives just after an opportunity has passed and has to wait almost a full cycle, producing the jump. Table~\ref{tab:ping-drift} shows that the slope of the ramps in Figure~\ref{fig:ping-sawtooth} matches the excess of the ping interval over one second at every location, including the steeper ramp at Location C.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{Location} & \textbf{Ping interval} & \textbf{Excess over 1000\,ms} & \textbf{Fitted ramp} \\
+        \hline
+        A (2\,m) & 1001.24\,ms & 1.24\,ms & 1.23\,ms/echo \\
+        \hline
+        B (6\,m) & 1001.28\,ms & 1.28\,ms & 1.17\,ms/echo \\
+        \hline
+        C (10\,m) & 1001.97\,ms & 1.97\,ms & 2.03\,ms/echo \\
+        \hline
+    \end{tabular}
+    \caption{Actual ping interval at each location, from the total duration in \texttt{ping}'s summary divided by 29 intervals, against the slope of the round-trip time ramp fitted from the 30 echoes.}
+    \label{tab:ping-drift}
+\end{table}
+
+This proves that, despite \texttt{ping}'s time drift, the network maintains the 20\,ms scheduling cycle with precision. With a perfectly timed one-second interval, every echo would have arrived at the same point of the cycle, and the round-trip time would have been constant. By sweeping the echoes across the whole cycle, the drift shows that a packet the \gls{UE} has to send at an arbitrary moment waits anywhere between 0 and 20\,ms, about 10\,ms on average, for its next scheduling request opportunity. This is why the mean round-trip times, at 25 to 28\,ms, sit around 10\,ms above the 15.7\,ms floor.
+
+Figure~\ref{fig:phase-shift} illustrates this mechanism with four consecutive echoes from the Location A \texttt{ping} series, echoes 23 to 26. Each bar is the time the echo's reply waits for the next scheduling request opportunity, taken as its measured round-trip time minus the 15.7\,ms floor. From one echo to the next, the reply becomes ready roughly 1.2\,ms later in the 20\,ms cycle, the amount by which Location A's ping interval exceeds one second, so the wait shrinks from 3.2\,ms to 2.0\,ms and then to 0.3\,ms. Echo 26 becomes ready just after the opportunity at 20\,ms has passed, and has to wait 19.2\,ms for the following one, which produces the jump from 16.0\,ms to 34.9\,ms seen in Figure~\ref{fig:ping-sawtooth}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{phase shift.pdf}
+    \caption{Wait for the next scheduling request opportunity of four consecutive echo replies (echoes 23 to 26 of the Location A series), relative to the 20\,ms scheduling request cycle. Each wait is the echo's measured round-trip time minus the 15.7\,ms floor.}
+    \label{fig:phase-shift}
+\end{figure}
+
+The waiting time explains the spread above the 15.7\,ms floor, but the scheduler's metrics also show where part of the floor itself goes. The \gls{gNB} reports the delay between receiving a scheduling request and the \gls{PUSCH} transmission it grants in its per-second scheduler metrics, an excerpt of which is shown in Listing~\ref{lst:sr-to-pusch}. Across all 630 one-second reports containing at least one scheduling request in the three Round~3 logs, this delay has a median of 7.5\,ms at every location and never exceeds 8\,ms.
+
+\begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Scheduling request fields from three consecutive \texttt{gnb.log} scheduler-metrics entries at Location A in Round~3.},label={lst:sr-to-pusch}]
+17:39:53  sr_count=12  avg_sr_to_pusch_delay=7.79ms  max_sr_to_pusch_delay=8ms
+17:39:54  sr_count=3   avg_sr_to_pusch_delay=7.5ms   max_sr_to_pusch_delay=7.5ms
+17:39:55  sr_count=13  avg_sr_to_pusch_delay=7.5ms   max_sr_to_pusch_delay=7.5ms
+\end{lstlisting}
+
+Roughly half of the floor is therefore dedicated to the uplink access procedure itself, with 7.5\,ms between the scheduling request and the uplink transmission, and the remaining 8.2\,ms covering the downlink leg, the \gls{UE}'s processing of the echo request, and the return path through the \gls{gNB} and the \gls{UPF} to the core machine. Putting the section together, the idle round-trip time of the testbed is made up of this fixed 15.7\,ms, plus between 0 and 20\,ms spent waiting for the next scheduling request opportunity, determined by when the packet happens to arrive in the cycle rather than by how far it travels.
+
+One qualification applies to all of the figures in this section: they describe an idle network. 
+Once a transfer is running, the round-trip time rises by more than an order of magnitude, as the next section shows. 
+
+\section{Latency under load}
+\label{sec:bufferbloat}
+
+The round-trip times in Section~\ref{sec:unloaded-latency} describe the network with no other traffic on it. The throughput tests, however, give a different picture. In a downlink TCP test, the core machine is the sender, so the \texttt{iperf3} server records the round-trip time that the TCP stack measures for each stream, along with the number of retransmissions. Table~\ref{tab:loaded-latency} summarises these statistics for the Round~3 TCP downlink tests, which were run in the same session as the idle measurements.
+
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \textbf{Location} & \textbf{Throughput} & \textbf{\makecell{Mean RTT\\(range)}} & \textbf{Max RTT} & \textbf{\makecell{Retrans-\\missions}} & \textbf{\makecell{Idle mean\\RTT}} \\
+        \hline
+        A (2\,m) & 21.1--24.0\,Mb/s & \makecell{981\,ms\\(529--1213)} & 1.3--2.2\,s & 242--2240 & 25.0\,ms \\
+        \hline
+        B (6\,m) & 9.2--17.0\,Mb/s & \makecell{1272\,ms\\(230--2011)} & 0.7--4.2\,s & 108--767 & 28.1\,ms \\
+        \hline
+        C (10\,m) & 6.1--7.3\,Mb/s & \makecell{2133\,ms\\(1995--2255)} & 3.5--5.3\,s & 0--54 & 26.2\,ms \\
+        \hline
+    \end{tabular}
+    \caption{Round~3 TCP downlink tests at each location: the mean round-trip time reported by the \texttt{iperf3} server, averaged over the three repetitions, with the lowest and highest repetition in brackets; and the range across the three repetitions of the throughput, the maximum round-trip time, and the number of retransmissions, with the idle mean round-trip time from Table~\ref{tab:unloaded-latency} for comparison.}
+    \label{tab:loaded-latency}
+\end{table}
+
+As soon as a download starts, the mean round-trip time rises from 25--28\,ms to between 0.2 and 2.3\,s, with individual samples exceeding 5\,s at Location C. The radio link is the same one measured in the previous section, so this added delay is not caused by propagation or processing, it is time the packets spend waiting in a queue.
+
+That queue is inside the \gls{gNB}. Each data radio bearer has a downlink \gls{RLC} transmit queue, sized when the bearer is set up. Listing~\ref{lst:rlc-queue} shows the configuration the \gls{gNB} printed when the \gls{UE} attached.
+
+\begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Downlink data radio bearer configuration from \texttt{gnb.log} at Location A in Round~3.},label={lst:rlc-queue}]
+[PDCP] DRB1 DL: PDCP configured. rlc_mode=AM discard_timer=infinity
+[RLC ] DRB1 DL: RLC AM configured. queue_size=16384 queue_size_bytes=6172672
+\end{lstlisting}
+
+In the radio configuration, the queue holds up to 6.17\,MB of downlink data, and with the \gls{PDCP} discard timer set to infinity, nothing is removed from it for being too old. At the 22\,Mb/s reached at Location A, 6.17\,MB takes about 2.2\,s to transmit, and at Location C's 7\,Mb/s, about 7\,s. TCP increases its sending rate until it detects packet loss, and as long as the queue has room, packets keep accumulating and none is lost, so TCP keeps sending more data into it. The \gls{gNB}'s own metrics confirm this: the downlink buffer it reports during these tests averages between 1.7 and 4.5\,MB at Location A and between 2.3 and 3.3\,MB at Location C.
+
+At Location A, in two of the three repetitions, the round-trip time climbs steadily for around 14 seconds, then levels off at approximately 2\,s, the time needed to empty a full queue at that throughput. At the same moment, retransmissions appear for the first time, in bursts of several hundred per second as the queue gets full, new packets are dropped and only then TCP does slow down. The \gls{gNB}'s log confirms this directly: it records packets being dropped with the cause ``RLC SDU queue is full'' starting 12 to 13 seconds into both of these tests, within a second of the retransmissions beginning. Listing~\ref{lst:rlc-drop} shows the moment the first drop occurs in the second repetition: the last packet accepted brings the queue to 6.08\,MB, 98.6\% of its limit, and the next packets are discarded. 
+
+\begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={First queue-full drop in \texttt{gnb.log} during the second Location A TCP downlink test in Round~3, 13.6 seconds into the test, shortened to the relevant fields.},label={lst:rlc-drop}]
+17:40:35.600971 [RLC ] DRB1 DL: TX SDU. queued_sdus=4337 queued_bytes=6084811
+17:40:35.601196 [PDCP] DRB1 DL: Dropping SDU. Cause: RLC SDU queue is full
+17:40:35.603092 [PDCP] DRB1 DL: Drop burst finished. nof_sdus=15
+\end{lstlisting}
+
+At Location C, the link is slow enough that the queue only fills in the last seconds of the test, with the first drops logged 18 to 21 seconds in, too late for TCP to detect the losses before the test ends. The round-trip time climbs for the whole test, from 391\,ms to 4.9\,s in the second repetition, without a single retransmission, so TCP never receives the signal that would make it slow down.
+
+This result affects how the downlink throughput figures in Section~\ref{sec:4g-vs-5g} should be read. The \gls{gNB} used the same 6.17\,MB queue in Round~2, so the 5G TCP downlink figures from both Rounds~2 and~3 were obtained with seconds of queueing delay. The throughput is real, but any interactive application, such as a video call or streaming, sharing the radio link with a download would experience such delay, in the form of buffering or stuttering. 
+
+This is not a limitation of the 5G radio, but of the \gls{gNB}'s queue size, which when not set in its configuration file, defaults to the value reported above. A smaller queue could keep latency low under load at little cost to throughput. Admittedly, this change was identified after the final test round and was not tested, so it is left as future work.
+
 \section{TDD rebalance effects on uplink airtime and throughput}
 \label{sec:tdd-rebalance}
 
-% REMINDER (framing): the throughline for this section, and for the chapter, should not be
-% "5G beats/loses to 4G" -- it's "the uplink deficit is diagnosable and largely a
-% configuration choice, not a fundamental 5G limitation." The 3:1 TDD pattern was inherited
-% from an old worked example and never revisited (see Implementation ch.); that's a real,
-% fixable misconfiguration, and the Round 2 rebalance recovering most of the uplink is the
-% legitimate positive result to lean on here -- not a claim that 5G outperforms 4G.
-% Don't spend effort trying to spin the numbers themselves positively; the diagnostic value
-% of "we found the cause and fixing it worked" is the stronger, more defensible thesis
-% contribution than a scoreboard result.
-
-One of the troubles identified on the first round of testing was that the 5G uplink throughput was capped by the TDD structure configuration implemented in the testbed, which, as mentioned in Section~\ref{sec:test-methodology}, allocated TDD timeslots disproportionately in favor of the downlink. The figures in the section show that with this configuration, the 5G downlink reigned with 68.8\% of the total airtime, compared with 22.9\% for the uplink.
+Returning to the throughput results of Section~\ref{sec:4g-vs-5g}, the remaining sections examine the configuration factors behind them. One of the troubles identified in the first round of testing was that the 5G uplink throughput was capped by the TDD structure configuration implemented in the testbed, which, as mentioned in Section~\ref{sec:experimental-methodology}, allocated TDD timeslots disproportionately in favor of the downlink. The figures in the section show that with this configuration, the 5G downlink received 68.8\% of the total airtime, compared with 22.9\% for the uplink.
 
 We can verify this asymmetry by examining the raw metrics from the gNB trace files, checking the scheduler's actual uplink grant rate against the theoretical maximum allowed by the TDD configuration.
 
-On the radio configuration file, shown in Listing~\ref{lst:cell_cfg}, the \texttt{cell\_cfg} block sets the \gls{SCS} to 30\,kHz. As explained in Chapter~\ref{cha:5g-fundamentals}, at this \gls{SCS}, a slot is 0.5\,ms long, and the 3:1 TDD pattern sets a 5-slot transmission period with one uplink slot, giving a total period of 2.5\,ms. This means that the maximum number of uplink slots that can be scheduled per second is $1000\,\text{ms} / 2.5\,\text{ms} = 400$ uplink slots, regardless of the radio link quality.
+In the radio configuration file, shown in Listing~\ref{lst:cell_cfg}, the \texttt{cell\_cfg} block sets the \gls{SCS} to 30\,kHz. As explained in Chapter~\ref{cha:5g-fundamentals}, at this \gls{SCS}, a slot is 0.5\,ms long, and the 3:1 TDD pattern sets a 5-slot transmission period with one uplink slot, giving a total period of 2.5\,ms. This means that the maximum number of uplink slots that can be scheduled per second is $1000\,\text{ms} / 2.5\,\text{ms} = 400$ uplink slots, regardless of the radio link quality.
 
-\begin{lstlisting}[language=yaml,backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,caption={\texttt{gnb.yaml} TDD configuration for the 3:1 pattern used in Round 1.},label={lst:cell_cfg}]
+\begin{lstlisting}[language=yaml,backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,caption={\texttt{gnb.yaml} \texttt{cell\_cfg} block used in Round 1.},label={lst:cell_cfg}]
 cell_cfg:
   dl_arfcn: 627340
   band: 78
@@ -136,21 +198,19 @@ cell_cfg:
   pci: 1
 \end{lstlisting}
 
-Listing~\ref{lst:ul-grant-ceiling} shows an excerpt of the raw uplink metrics from one of the Round~1 gNB trace files at Location A, taken while a TCP uplink transfer was saturating the link. The columns of interest here are \texttt{ok} and \texttt{nok}: the number of successful and failed uplink transmissions the scheduler reports for that one-second period. The remaining columns: SINR, RSRP, and MCS, speak to link quality rather than to the TDD structure itself.
+Listing~\ref{lst:ul-grant-ceiling} shows an excerpt of the raw uplink metrics from one of the Round~1 gNB trace files at Location A, taken while a TCP uplink transfer was saturating the link. The columns of interest here are \texttt{ok} and \texttt{nok}: the number of successful and failed uplink transmissions the scheduler reports for that one-second period. The remaining columns (SINR, RSRP, and MCS) speak to link quality rather than to the TDD structure itself.
 
-\begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Console trace extracted from the \texttt{gnb.log} file from the Location A (2\,m) TCP uplink test in Round~1.},label={lst:ul-grant-ceiling}]
+\begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Console trace from the Location A (2\,m) TCP uplink test in Round~1.},label={lst:ul-grant-ceiling}]
 |-------------------------------UL-----------------------------
 | pusch  rsrp  ri  mcs  brate   ok  nok  (%)    bsr     ta  phr
 |  18.3 -17.0   1   14  7.77M  382   18   4%   700k   240n    3
 |  19.1 -16.2   1   15  7.68M  376   24   6%   700k   227n    0
 |  19.7 -15.6   1   16  6.25M  308   92  23%   700k   234n   -3
-
-
 \end{lstlisting}
 
-The \texttt{ok} and \texttt{nok} columns sum to $382+18=400$ transmissions for the first second, as does the following seconds. Iterating over the full Round 1 run and discarding the initial TCP slow-start period (considering only seconds where the grant count reaches at least 90\% of the structural ceiling), this averages to 400.0 grants/s at Location A and 399.7 grants/s at Location C, matching the same maximum established before. The 4G baseline, for comparison, measured the same way from the \texttt{enb.log} traces, grants 1000.0 and 992.5 subframes/s at the same two locations, respectively. This equates to a 2.5$\times$ reduction ($1000.0/400.0 = 2.5$ at Location A, $992.5/399.7 = 2.48$ at Location C) between 4G and 5G performance, which no amount of signal quality could recover, since it is imposed before a single symbol is transmitted.
+The \texttt{ok} and \texttt{nok} columns sum to $382+18=400$ transmissions for the first second, as do the following seconds. Iterating over the full Round 1 run and discarding the initial TCP slow-start period (considering only seconds where the grant count reaches at least 90\% of the structural ceiling), this averages to 400.0 grants/s at Location A and 399.7 grants/s at Location C, matching the same maximum established before. The 4G baseline, for comparison, measured the same way from the \gls{eNB} traces, grants 1000.0 and 992.5 subframes/s at the same two locations, respectively. This equates to a 2.5$\times$ reduction in uplink transmission opportunities ($1000.0/400.0 = 2.5$ at Location A, $992.5/399.7 = 2.48$ at Location C) between 4G and 5G performance, which no amount of signal quality could recover, since it is imposed before a single symbol is transmitted.
 
-On the subsequent rounds of testing, on which the TDD pattern was rebalanced to a symmetrical 2:2 pattern, it was expected to improve uplink throughput, at the cost of downlink throughput, making their performance almost equal, which Figure~\ref{fig:tdd-structure} presents. Only one configuration variable changes between each pair of rounds in the figure (the TDD pattern between rounds 1 and 2, and \texttt{rx\_gain} between rounds 2 and 3) so the two steps should be read as evidence for two separate effects rather than a single continuous trend.
+In the subsequent rounds of testing, the TDD pattern was rebalanced to a symmetrical 2:2 pattern, expected to improve uplink throughput at the cost of downlink throughput, making their performance almost equal, which Figure~\ref{fig:tdd-structure} presents. Only one configuration variable changes between each pair of rounds in the figure (the TDD pattern between rounds 1 and 2, and \texttt{rx\_gain} between rounds 2 and 3) so the two steps should be read as evidence for two separate effects rather than a single continuous trend.
 
 The pattern used from Round~2 onward, shown in Listing~\ref{lst:tdd-22-cfg} of Chapter~\ref{cha:methodology}, doubles \texttt{nof\_ul\_slots} to 2 within the same 5-slot, 2.5\,ms period, raising the structural ceiling to $2\times400=800$ uplink transmissions per second. Round~2 metrics data was extracted directly from srsRAN's native timestamped scheduler log rather than the periodic console dump used in Round~1, so the raw evidence takes a different shape: Listing~\ref{lst:ul-800-grant-ceiling} shows an excerpt of the relevant uplink fields from three consecutive one-second \texttt{gnb.log} entries for the Location A TCP uplink test (the full lines also report downlink and per-HARQ statistics, omitted here for space).
 
@@ -170,11 +230,11 @@ The \texttt{ul\_nof\_ok} and \texttt{ul\_nof\_nok} fields sum to exactly 800 in 
     \label{fig:tdd-structure}
 \end{figure}
 
-We see on the figure that initially, as expected, when using the 3:1 TDD pattern, the uplink throughput on both location A and C was significantly lower than the downlink throughput. On round 2, after rebalancing the TDD pattern to 2:2, the uplink performance rose to nearly match the downlink in location A, surpassing the downlink throughput at location C. We also note that the downlink throughput decreased in both locations, as expected.
+We see on the figure that initially, as expected, when using the 3:1 TDD pattern, the uplink throughput on both Location A and C was significantly lower than the downlink throughput. On Round 2, after rebalancing the TDD pattern to 2:2, the uplink performance rose to nearly match the downlink in Location A, surpassing the downlink throughput at location C. We also note that the downlink throughput decreased in both locations, as expected.
 
-The same airtime accounting also predicts the downlink share should fall to three-quarters of its Round 1 value ($\times0.75$); the observed downlink throughput fell further still, to $\times0.56$ at Location A and $\times0.44$ at Location C, so some factor beyond airtime alone also affected the downlink.
+The same airtime accounting also predicts the downlink share should fall $\times0.69$ of its Round 1 value ($\times0.75$); the observed downlink throughput fell further still, to $\times0.56$ at Location A and $\times0.44$ at Location C, so some factor beyond airtime alone also affected the downlink.
 
-Finally, on round 3, after adjusting the \texttt{rx\_gain} to 60: at location A (2 m), the overall network throughput increased significantly, as this change decreased the number of \texttt{ovl} events on the uplink, thus stabilizing the network's performance. However, at location C, further away from the radio, the uplink throughput decreased significantly as well, due to the lower \texttt{rx\_gain} desensitizing the receiver and reducing the link budget. This change was expected as a trade-off between the two locations, and it highlights the challenge of finding a single configuration that optimizes performance across all distances.
+Finally, on Round 3, after adjusting the \texttt{rx\_gain} to 60: at Location A (2\,m), the overall network throughput increased significantly, as this change decreased the number of \texttt{ovl} events on the uplink, thus stabilizing the network's performance. However, at Location C, further away from the radio, the uplink throughput decreased significantly as well, due to the lower \texttt{rx\_gain} desensitizing the receiver and reducing the link budget. This change was expected as a trade-off between the two locations, and it highlights the challenge of finding a single configuration that optimizes performance across all distances.
 
 We also see that in this final configuration, the throughput between both directions is closest to being equal at short range: at Location A the two directions converge to within a narrow margin (22.4 vs.\ 25.2\,Mb/s), the best balance observed anywhere in the dataset, while at Location C the \texttt{rx\_gain} reduction gives back most of the uplink gain Round 2 had recovered. This Location C behaviour is the trade-off associated with the \texttt{rx\_gain} change.
 
@@ -312,69 +372,14 @@ One loose end from this sweep is worth closing before moving on: PHR at \texttt{
 
 Taken together, these three rounds point to a single, well-evidenced limitation rather than a fixable bug: with a fixed, manually-set receiver gain and no automatic gain control, this gNB cannot serve the whole cell. \texttt{rx\_gain 70} is correct at 10\,m and overloads at 2\,m; \texttt{rx\_gain 60} is correct at 2\,m and desensitises at 10\,m. There is no single value that works, and the two campaigns bracket the same problem from opposite sides. This also retroactively explains the non-monotonic distance behaviour seen in both campaigns, and generalises beyond this testbed: it is a consequence of running a software RAN on a commercial-off-the-shelf SDR without per-UE receive-gain control, not an artefact of this specific configuration.
 
-% --- 4. Reliability: RLFs, re-attaches, and the Location B obstruction -------------
-% Source: FINDINGS.md S5 (Round 1: 9 RLFs at 2m from missed HARQ-ACKs, 0 in 4G) +
-% FINDINGS_RERUN_2026-08-02.md S2 (Round 2: Location B unusable, 18 re-attaches -- tie
-% this to the metal-stand obstruction already documented in Section~\ref{sec:test-round-2})
-% + FINDINGS_RERUN_2026-08-03.md S0/S5 (Round 3: attach behaviour "perfect" at every
-% location, 0 RLFs, stand removed). This section can double as evidence that the stand
-% hypothesis from the Methodology chapter is plausible, since its removal correlates
-% with the churn disappearing.
-
-% --- 5. TCP/uplink coupling: why downlink didn't benefit from 5G -------------------
-% Source: FINDINGS.md S4. One of the more interesting findings -- uplink BLER (53.7% at
-% 10m TCP DL vs 3.7% at the same distance/UDP) throttles the TCP downlink via lost ACKs,
-% even though the DL radio itself can sustain far more (proven by the UDP DL result at
-% the same distance/config). FINDINGS_RERUN_2026-08-03.md S5 has a nice confirming
-% coda: fixing the uplink in Round 3 also lifted 2m downlink TCP (16.5 -> 22.4 Mb/s).
-
-% --- 6. Unloaded latency ------------------------------------------------------------
-% Source: FINDINGS_RERUN_2026-08-03.md S6 (fig11_unloaded_latency.pdf), Round 3 only --
-% state plainly this was not measured in Rounds 1-2 and there is no 4G ping baseline to
-% compare against. Headline: 15.7-16.0ms floor, distance-independent (as expected --
-% propagation delay over 10m is negligible). The sawtooth/phase-beat analysis (RTT
-% cycling with the ~19ms uplink scheduling opportunity) is a nice, non-obvious result if
-% there's room for it, but the floor number alone is the one a reader will expect to see.
-
-% --- 7. Bufferbloat: the cost hiding inside the downlink numbers -------------------
-% Source: FINDINGS_RERUN_2026-08-02.md S8 (discovery, Round 2) + FINDINGS_RERUN_2026-08-03.md
-% S6 "Idle versus loaded" (Round 3, quantified against Section 6's floor: 35-81x RTT
-% inflation once a TCP download starts, from a 6.17MB RLC queue). Recommend placing this
-% right after Section 6 -- it reframes every downlink throughput number reported earlier
-% in the chapter ("10 Mb/s downlink" vs "10 Mb/s downlink at 2.7s RTT" are different
-% claims) and works well as a late "twist" rather than a footnote. State clearly this was
-% diagnosed but not fixed (RLC resize was deprioritised out of both lab sessions) --
-% frame as a concrete, well-evidenced future-work item, not an unresolved failure.
-
+%CHANGED BY CLAUDE: outlines for sections 4, 5, 9, 10 and 11 removed (not being written);
+% 6 and 7 are now drafted and moved up, after sec:4g-vs-5g. Old outlines are in git history.
 % --- 8. Control-plane latency -------------------------------------------------------
 % Source: FINDINGS.md S8 (Round 1 only, fig6_control_plane.pdf). 5G SA attach ~2.2x
 % slower end-to-end than 4G (166ms vs 360ms RRC-request-to-bearer), but the air-interface
 % stages are comparable or faster -- the gap is procedural (more NAS round trips, split
 % registration/PDU-session-setup) and the SBI-based core shows up directly in a 5x
 % slower NG setup (9.5ms vs 1.9ms). Not re-measured in Rounds 2-3; say so.
-
-% --- 9. Software RAN feasibility: processing time vs slot deadline -----------------
-% Source: FINDINGS.md S7 (Round 1, fig4_processing_time.pdf). 5G p99 processing time
-% occasionally exceeds the 500us slot budget (up to 1.4x over) with real logged
-% consequences (late DL data, RF underflows); 4G never comes close to its 1ms budget.
-% Caveat honestly: different host machines, so state both specs and don't oversell it as
-% a clean apples-to-apples CPU comparison. FINDINGS_RERUN_2026-08-02.md S5 notes
-% real-time health improved after the TDD rebalance (less DL duty cycle, less PHY load)
-% -- worth a sentence tying back to Section 2/3.
-
-% --- 10. Operational lessons: logging cost --------------------------------------
-% Source: FINDINGS.md S9 (Round 1). 2.81GB / 1341s at info level, ~7.5GB/hour
-% extrapolated to continuous operation -- ties directly to the "leave a working testbed
-% for future projects" objective from the Introduction/Implementation chapters, so it's
-% worth keeping even though it's not a performance result. Concrete recommendation:
-% warning level / hex_max_size 0 for normal operation.
-
-% --- 11. Smaller findings (one paragraph or a summary table) -----------------------
-% Candidates, pick what's not already covered incidentally above: 256QAM usage on both
-% stacks (FINDINGS.md S10), UL HARQ using rv=0 only / no incremental redundancy
-% (FINDINGS.md S6 -- ties into Section 3's BLER discussion, consider merging there
-% instead), downlink PRB occupancy saturated in both systems, 4G RF-overflow-at-startup
-% as a benign artefact, TCP-vs-UDP protocol sensitivity being 5G-specific.
 
 % --- Open items to state honestly, not paper over -----------------------------------
 % - The original ~33dB power deficit's real cause (Section 3) is still unconfirmed --
@@ -441,62 +446,3 @@ Taken together, these three rounds point to a single, well-evidenced limitation 
 
 % One caveat applies to comparing Round 1 and Round 2 by throughput directly: at identical gain settings, uplink SINR rose by 5.4\,dB at Location A and by 22.4\,dB at Location C between the two rounds, for reasons that remain unexplained. The raw uplink throughput gain between rounds therefore cannot be attributed to the TDD change alone --- the $19.9\times$ increase measured at Location C, for instance, far exceeds the $\times2$ that airtime alone predicts. The grants-per-second accounting above is unaffected by this confound, since the achieved grant rate does not depend on the SINR reported for each grant; the confound lives entirely in the bits-per-grant term.
 \fi % end of section not yet rewritten
-
-%CHANGED BY CLAUDE (draft of the unloaded latency section; numbers from data/ping_summary.csv
-% and FINDINGS_RERUN_2026-08-03.md S6. Placed after the \fi because the outline comment for
-% this section sits inside the hidden block above. No figures added, as requested: the data
-% for a per-echo plot is in data/ping_series.csv, and fig11_unloaded_latency.pdf is a draft.)
-\section{Unloaded latency}
-\label{sec:unloaded-latency}
-
-The throughput results presented so far describe how much data the network can carry, but not how quickly it responds when it is idle. To measure this, a \texttt{ping} command was used to send 30 ICMP echo requests at one-second intervals from the core machine to the \gls{UE}, at each of the three test locations, with no other traffic on the network. These measurements were taken during Round 3 only, with the 2:2 TDD pattern and \texttt{rx\_gain} 60, and were not repeated for the 4G network, so the figures in this section are from the 5G testbed latency, rather than the two generations. Table~\ref{tab:unloaded-latency} presents the results.
-
-\begin{table}[htbp]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-        \hline
-        \textbf{Location} & \textbf{Loss} & \textbf{Min} & \textbf{Mean} & \textbf{Median} & \textbf{p95} & \textbf{Max} \\
-        \hline
-        A (2\,m, line of sight) & 0\% & 16.0\,ms & 25.0\,ms & 24.6\,ms & 33.7\,ms & 34.9\,ms \\
-        \hline
-        B (6\,m, partition) & 0\% & 15.9\,ms & 28.1\,ms & 26.7\,ms & 41.6\,ms & 48.5\,ms \\
-        \hline
-        C (10\,m, concrete wall) & 0\% & 15.7\,ms & 26.2\,ms & 25.1\,ms & 35.3\,ms & 48.4\,ms \\
-        \hline
-    \end{tabular}
-    \caption{Round 3 round-trip time from the core machine to the \gls{UE}, 30 ICMP echoes per location, with no other traffic on the network.}
-    \label{tab:unloaded-latency}
-\end{table}
-
-Two results stand out. The first is that no packets were lost at any location, including through the concrete wall at Location C, which is consistent with the attach stability reported for this round. The second is that the minimum round-trip time is between 15.7 and 16.0\,ms at all three locations, varying by less than a third of a millisecond across the cell. This is expected, as ten metres of air adds 33\,ns in each direction, which is way below the measured floor, so propagation delay is irrelevant at these distances. The floor instead measures the fixed processing and scheduling overhead the packet passes through: the \gls{UE} modem, the \gls{gNB} PHY and MAC layers, the GTP-U tunnel through the \gls{UPF}, and the same path back. For a private 5G network built on general-purpose machines and a \gls{COTS} \gls{SDR}, a 16\,ms latency floor with no packet loss is a reasonable result, and it is the figure that best characterizes the latency of the testbed as deployed.
-
-The means, at 25 to 28\,ms, sit well above that floor, and the spread between the minimum and the maximum across the three locations is wide. Plotting the round-trip time of each echo in sequence, shown in Figure~\ref{fig:ping-sawtooth}, reveals a regular sawtooth in all locations, with the round-trip time falling steadily in steps of roughly 1.2\,ms then jumping back up, repeatedly throughout the ping test. 
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{Ping_Sawtooth.pdf}
-    \caption{Round-trip time of each of the 30 ICMP echoes at the three test locations, with the 15.7\,ms floor marked.}
-    \label{fig:ping-sawtooth}
-\end{figure}
-
-This near-identical descending rate points to a property of the scheduler rather than of any specific position in the room. What differs between locations is how often the ramp restarts: Location A completes two long ramps over the 30 echoes, while Locations B and C restart more frequently and peak higher, reaching 48\,ms against Location A's 35\,ms. Those higher peaks exceed the 19\,ms jump measured at Location A, so at the weaker locations an echo occasionally waits more than one cycle, which is consistent with the higher uplink block error rates at those distances reported earlier in this chapter.
-
-The cause behind the sawtooth is a desynchronization between the ping interval and the uplink scheduling cycle. The one-second ping interval and the scheduling cycle are not exact multiples of one another, so each echo arrives slightly further into the cycle than the one before it. Measured from the ramp, that offset is 1.27\,ms per echo: the time each reply waits for the next uplink opportunity shrinks by this amount from one echo to the next, until the wait runs out and the following echo has to wait a full cycle, producing the jump. The span of the sweep, approximately 19\,ms, is therefore the period of the uplink scheduling opportunity that the echo reply waits for. 
-
-The \gls{gNB}'s own configuration reference supports this explanation. The scheduling request period is set by the \texttt{sr\_period\_ms} parameter of the \texttt{pucch} block, which is, by default, set to 20\,ms. The cell ran with a scheduling request opportunity every 20\,ms throughout the campaign. The 19\,ms jump measured from the sawtooth in the ping series therefore matches the configured period to within the resolution of a one-second ping. 
-
-Listing~\ref{lst:sr-to-pusch} shows an excerpt of the relevant fields from three consecutive one-second metrics entries from the logs, the number of scheduling requests received in that second, and the mean and maximum delay between each request and the uplink transmission it was granted. 
-
-\begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Scheduling request fields extracted from three consecutive \texttt{gnb.log} scheduler-metrics entries at Location A in Round~3.},label={lst:sr-to-pusch}]
-17:39:53  sr_count=12  avg_sr_to_pusch_delay=7.79ms  max_sr_to_pusch_delay=8ms
-17:39:54  sr_count=3   avg_sr_to_pusch_delay=7.5ms   max_sr_to_pusch_delay=7.5ms
-17:39:55  sr_count=13  avg_sr_to_pusch_delay=7.5ms   max_sr_to_pusch_delay=7.5ms
-\end{lstlisting}
-
-Each second, the scheduler receives a number of scheduling requests, and the average and maximum delay between receiving a request and granting it is reported. The average delay from scheduling request to uplink grant is around 7.5\,ms, and the maximum never exceeds 8\,ms. This means that, out the 15.7\,ms floor, around 7.5\,ms is spent in fixed processing and scheduling overhead, with the remaining 8.2\,ms covering the downlink leg, the \gls{UE}'s own processing of the request, and the return path through the \gls{gNB} and the \gls{UPF} to the core machine.
-
-The latency of the testbed is therefore approximately 15.7\,ms of fixed processing delay, plus between 0 and 19\,ms spent waiting for an uplink scheduling opportunity. The time separating one echo from another depends on where it falls in the scheduling cycle, not how far it travelled.
-
-One qualification applies to all of the figures in this section: they describe an idle network. Once a transfer is running, the round-trip time rises by more than an order of magnitude, for reasons examined later in this chapter. 
-
-\textcolor{red}{Not finished.}

@@ -21,7 +21,7 @@ Figure~\ref{fig:5g_network_architecture} provides a high-level view of the 5G ar
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{Open5GS_CUPS-01.pdf}
-  \caption{\centering\small 5G Network architecture diagram from the Open5GS project~\cite{open5gs_repo}. Used under the AGPL-3.0 license.}
+  \caption{5G Network architecture diagram from the Open5GS project~\cite{open5gs_repo}. Used under the AGPL-3.0 license.}
   \label{fig:5g_network_architecture}
 \end{figure}
 
@@ -32,13 +32,13 @@ One of the clearest reflections of this shift is the \glsxtrlong{SBA}, which mar
 
 In this paradigm, the functions take the roles of either Service Providers or Service Consumers, depending on whether they offer or utilize specific services. The \gls{NRF}, which will be discussed in more detail further on, plays a crucial role in this architecture by maintaining a registry of available network functions and their services, enabling dynamic discovery and interaction among them.
 
-Closely tied to the \gls{SBA} is \gls{CUPS}: in 5G systems, the separation of the control plane and user plane is one of the fundamental design principles that sets them apart from previous generations, defining them as independent functional entities that can be deployed, scaled and managed separately, as shown on figure~\ref{fig:CUPS}.
+Closely tied to the \gls{SBA} is \gls{CUPS}: in 5G systems, the separation of the control plane and user plane is one of the fundamental design principles that sets them apart from previous generations, defining them as independent functional entities that can be deployed, scaled and managed separately, as shown on Figure~\ref{fig:CUPS}.
 
 \label{sec:CUPS}
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.9\textwidth]{5G CUPS.pdf}
-  \caption{\centering\small Control and User Plane Separation.}
+  \caption{Control and User Plane Separation.}
   \label{fig:CUPS}
 \end{figure}
 
@@ -46,7 +46,7 @@ This means that network operators can dimension their networks to adapt to real 
 %This allows both for independent scaling of control and user plane computing resources, as well as deployment of control plane and user plane functions in different locations, such as deploying user plane functions closer to the network edge to reduce latency for certain applications.
 
 \label{sec:network_slicing}
-Building on this separation, network slicing is a further key feature of the 5G architecture. The concept itself isn't new, but 5G develops upon it, driven by the rising popularity of odd use cases, such as \gls{LPWA} networks, \glsxtrshort{IoT} devices and \gls{URLLC} applications.
+Building on this separation, network slicing is a further key feature of the 5G architecture. The concept itself is not new, but 5G develops upon it, driven by the rising popularity of odd use cases, such as \gls{LPWA} networks, \glsxtrshort{IoT} devices and \gls{URLLC} applications.
 
 Network slicing allows operators to create and deploy multiple virtual networks on top of a shared physical infrastructure, each optimized for specific use cases and services. 5G network slicing also allows operators to dynamically allocate resources based on the subscription and applications running on the \gls{UE}.
 
@@ -62,7 +62,7 @@ Finally, building upon virtualization, 5G network functions are designed to be c
 Being cloud-native, network operators can also take advantage of orchestration and automation tools, such as Kubernetes and OpenStack \cite{mamushiane2023deploying}, to manage the lifecycle of network functions, deployment, scaling and healing, further enhancing the efficiency of their 5G networks.
 
 \label{sec:5g_security}
-Security is another dimension along which the 5G architecture departs from its predecessors. Rather than treating authentication as a function tied to a single access technology, 5G defines a single, unified authentication framework capable of serving both \gls{3GPP} and non-\gls{3GPP} access networks through a set of network functions, alongside mechanisms to conceal the subscriber's permanent identity over the air. Section~\ref{sec:5g_core_network_functions} revisits this framework when detailing the specific Core network functions responsible for enforcing it.
+Security is another dimension along which the 5G architecture departs from its predecessors. Rather than treating authentication as a function tied to a single access technology, 5G defines a single, unified authentication framework capable of serving both \gls{3GPP} and non-\gls{3GPP} access networks through a set of network functions, alongside mechanisms to conceal the subscriber's permanent identity over the air. Subection~\ref{sec:5g_core_network_functions} revisits this framework when detailing the specific Core network functions responsible for enforcing it.
 
 \section{\glsxtrlong{SA} vs \glsxtrlong{NSA} 5G Deployments}
 \label{sec:5g_sa_vs_nsa}
@@ -86,7 +86,7 @@ However, this approach is fundamentally constrained by its reliance on the legac
 
 \subsection{Standalone (SA) 5G Deployments}
 \label{sec:sa_deployments}
-\glsxtrlong{SA} deployments represent the true, end-to-end realization of the 5G system as originally defined by \glsxtrshort{3GPP} Release 15~\cite{3GPPRelease15} and expanded in subsequent releases. Formally known as 3GPP Deployment Option 2, this architecture completely decouples from legacy LTE networks. Both the \glsxtrlong{RAN} and the Core are built entirely on 5G protocols, utilizing the full suite of cloud-native network functions. In this model, all control plane and user plane traffic is natively routed through the 5G Core, thus fully realizing \gls{CUPS}.
+\glsxtrlong{SA} deployments represent the true end-to-end realization of the 5G system as originally defined by \glsxtrshort{3GPP} Release 15~\cite{3GPPRelease15} and expanded in subsequent releases. Formally known as 3GPP Deployment Option 2, this architecture completely decouples from legacy LTE networks. Both the \glsxtrlong{RAN} and the Core are built entirely on 5G protocols, utilizing the full suite of cloud-native network functions. In this model, all control plane and user plane traffic is natively routed through the 5G Core, thus fully realizing \gls{CUPS}.
 
 Although \gls{SA} deployments require a substantial upfront investment, they offer critical technical advantages over \gls{NSA} architectures. Operating a native 5G environment is the only way to facilitate strict \gls{URLLC} and dynamically instantiate end-to-end network slices for enterprise use cases. By eliminating the reliance on legacy 4G nodes, \gls{SA} networks reduce long-term signaling overhead and are inherently more future-proof, allowing operators to seamlessly integrate emerging 3GPP standards and dynamically scale resources to meet evolving market demands.
 
@@ -182,8 +182,8 @@ Driven by the increasing demand for higher bandwidths, \glsxtrshort{3GPP} Releas
 \end{figure}
 
 \begin{itemize}
-  \item \textbf{Frequency Range 1 (FR1)}: Known as the Sub-6GHz range, it encompasses frequencies from 410 MHz to 7.125 GHz. 
-  \item \textbf{Frequency Range 2 (FR2)}: Known as \glsxtrshort{mmWave}, it covers frequencies from 24.25 GHz to 71 GHz. This range  increases available bandwidth greatly and, therefore, throughput, but suffers from significant path loss. It is important to note that many \glsxtrshort{COTS} devices are not compatible with the frequency range.
+  \item Frequency Range 1 (FR1): Known as the Sub-6GHz range, it encompasses frequencies from 410 MHz to 7.125 GHz. 
+  \item Frequency Range 2 (FR2): Known as \glsxtrshort{mmWave}, it covers frequencies from 24.25 GHz to 71 GHz. This range  increases available bandwidth greatly and, therefore, throughput, but suffers from significant path loss. It is important to note that many \glsxtrshort{COTS} devices are not compatible with the frequency range.
 \end{itemize}
 
 Beyond the frequency range and numerology already discussed, a \gls{RAN} must also decide how uplink and downlink traffic share the available spectrum, a choice known as the duplex mode. \gls{3GPP} defines two duplex modes for \gls{NR}~\cite{3GPP38211}: \gls{FDD}, in which uplink and downlink are transmitted simultaneously over two separate, paired frequency channels, and \gls{TDD}, in which uplink and downlink share a single frequency channel, taking turns in time instead. \gls{FDD} guarantees each direction a fixed, dedicated share of spectrum at all times, but requires a pair of channels separated by a duplex gap, which is not always available. \gls{TDD}, by only requiring a single channel, is more spectrally flexible, and, as it does not need a duplex gap, allows the split between uplink and downlink capacity to be adjusted to match traffic demand, at the cost of requiring tight time synchronisation between the \gls{gNB} and every \glspl{UE} it serves, so that no \gls{UE} transmits while another is meant to be receiving.
@@ -233,25 +233,26 @@ As mentioned before in Section~\ref{sec:sba}, a key difference between the 5G Co
 \subsubsection{Control Plane}
 \label{sec:control_plane}
 
+%CHANGED BY CLAUDE: bold removed from the item labels (\normalfont overrides the description list's default bold)
 \begin{description}
-  \item[\textbf{\glsxtrlong{AMF}}]~\\
+  \item[{\normalfont\glsxtrlong{AMF}}]~\\
   The \gls{AMF} is the key control plane function in the 5G Core network, counterpart of the \gls{EPC}'s  \gls{MME}. It is responsible for handling connection and mobility management tasks for the \gls{UE}. It manages registration, authentication, reachability, and mobility procedures, ensuring seamless connectivity as users move across different network areas. The \gls{AMF} also interfaces with other network functions to facilitate session management and policy enforcement.
   
-  \item[\textbf{\glsxtrlong{SMF}}]~\\
+  \item[{\normalfont\glsxtrlong{SMF}}]~\\
   The \gls{SMF} is the function responsible for establishing, modifying and releasing \gls{PDU} sessions, determining the \gls{PDU} session type (IPv4, IPv6, IPv4v6, Ethernet, or Unstructured), and selecting the \gls{UPF} that will handle the user plane traffic for each session. It also manages IP address allocation for the \gls{UE} and, along with the \gls{PCF}, enforces policies related to session management.
 
-  \item[\textbf{\glsxtrlong{PCF}}]~\\ 
+  \item[{\normalfont\glsxtrlong{PCF}}]~\\ 
   Equivalent to \gls{EPC}'s \gls{PCRF}, the \gls{PCF} is responsible for policy control and decision-making within the 5G Core network. Besides this, the \gls{PCF} also has the additional responsibility of providing policy information to the \gls{UE}, such as Access Network Discovery, Selection Policies and UE Route Selection Policies.
 
-  \item[\textbf{\glsxtrlong{UDM} \& \glsxtrlong{UDR}}]~\\
+  \item[{\normalfont\glsxtrlong{UDM} \& \glsxtrlong{UDR}}]~\\
   The \gls{UDM}, along with the \gls{UDR}, serve as the 5GC equivalent to \gls{EPC}'s \gls{HSS}. These functions are responsible for storing and managing subscriber data and profiles. The \gls{UDR} stores user subscription information, including authentication credentials, service entitlements, and policy data. The \gls{UDM} serves as a front-end to the registry, interacting with other network functions, specifically with the \gls{PCF} and \glsxtrshort{NEF} to facilitate user authentication, authorization, and mobility management.
 
-  \item[\textbf{\glsxtrlong{NRF}}]~\\ 
+  \item[{\normalfont\glsxtrlong{NRF}}]~\\ 
   The \glsxtrlong{NRF} is a central component of the 5G Core network that serves as a service registry and discovery function. It maintains a database of available network functions and which services they offer, allowing other network functions to dynamically discover and interact with each other, without the need for them to be configured beforehand. The \gls{NRF} plays a crucial role in enabling the service-based architecture of the 5G Core, facilitating communication and coordination among various network functions.
 
-  \item[\textbf{\glsxtrlong{AUSF}}]~\\ 
+  \item[{\normalfont\glsxtrlong{AUSF}}]~\\ 
   The \gls{AUSF} is responsible for handling authentication procedures within the 5G Core network. It works in conjunction with the \gls{UDR}/\gls{UDM} to authenticate \glspl{UE}  attempting to access the network. The \gls{AUSF} is also responsible for providing security parameters in roaming contexts and ensuring that authentication processes comply with 5G security standards. 
-  \item[\textbf{\glsxtrlong{NEF}}]~\\ 
+  \item[{\normalfont\glsxtrlong{NEF}}]~\\ 
   Equivalent to \gls{EPC}'s \gls{SCEF}, the \gls{NEF} acts as an intermediary between the 5G Core network and external application functions. It exposes network services and events, such as the location of a \gls{UE}, its reachability, roaming status and loss of connectivity, to authorized applications and functions, enabling them to interact with the network in a secure and controlled manner. The \gls{NEF} also handles \glsxtrshort{API} management, security, and policy enforcement for these interactions.
 \end{description}
 
@@ -302,7 +303,7 @@ These tools play a crucial role in research, prototyping and, in some cases, eve
 
 \subsection{Open-Source 5G Core Implementations}
 \label{sec:open_source_5g_core_implementations}%
-On the core side, many projects have emerged to provide an accessible way to deploy a complete 5G core network using \gls{OSS} components, with varying levels of maturity. Some of the most notable projects will be described below, with a brief overview in Table~\ref{tab:5gcore_implementations}:
+On the core side, many projects have emerged to provide an accessible way to deploy a complete 5G core network using \gls{OSS} components, with varying levels of maturity. Some of the most notable projects will be described below, with a brief overview in Table~\ref{tab:5gcore_implementations}.
 
 \subsubsection{Open5GS}
 Open5GS \cite{open5gs_repo} is an open-source implementation of a 5G Core network, written in C language. Out-of-the-box, it provides a set of both 5G Core network functions, such as control plane functions (\gls{AMF}, \gls{SMF}, \gls{PCF}, etc.) and the user plane function (\gls{UPF}), as well as 4G \gls{EPC} functions for \gls{NSA} implementations and backwards compatibility. It focuses on being lightweight and easy to deploy, containing extensive documentation which guides a developer from installation to configuration and, finally, operation. Each network function in Open5GS is defined in a separate configuration file, making it straightforward to modify individual components without affecting the entire system.

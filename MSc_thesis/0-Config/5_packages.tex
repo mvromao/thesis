@@ -41,6 +41,11 @@
                % interparagraph space to fill the page (memoir defaults to
                % \flushbottom, which was causing visible gaps before floats)
 
+%CHANGED BY CLAUDE: left-align short captions too. By default memoir centres a caption that
+% fits on one line and justifies longer ones, so alignment depended on caption length.
+% Delete this line to go back to the default.
+\captionstyle[\raggedright]{}
+
 %CHANGED BY CLAUDE: number the appendix chapters (A, B, ...). NOVAthesis switches to
 % back matter (\@mainmatterfalse) before loading the appendices, and memoir does not
 % number chapters outside the main matter, so references to them rendered as ".7".
