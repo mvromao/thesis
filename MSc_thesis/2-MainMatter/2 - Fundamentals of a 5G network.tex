@@ -28,7 +28,7 @@ Figure~\ref{fig:5g_network_architecture} provides a high-level view of the 5G ar
 The 5G architecture represents a significant evolution from previous generations of mobile networks. Compared to these, 5G was designed to natively support a much broader and more divergent range of use cases, from enhanced mobile broadband to ultra-reliable low-latency and massive machine-type communications, while also strengthening network security through a unified authentication framework.
 
 \label{sec:sba}
-One of the clearest reflections of this shift is the \glsxtrlong{SBA}, which marks a departure from the monolithic architecture of 4G and previous generations. 5G adopts a service-based approach, where network functions are designed to be modular units that provide services to the network and can be independently configured and implemented. These network functions expose their capabilities and communicate via HTTP/2, using a standardized REST API, allowing for interoperability between services.
+One of the clearest reflections of this shift is the \glsxtrlong{SBA}, which marks a departure from the monolithic architecture of 4G and previous generations. 5G adopts a service-based approach, where network functions are designed to be modular units that provide services to the network and can be independently configured and implemented. These network functions expose their capabilities and communicate via HTTP/2, using a standardized REST \gls{API}, allowing for interoperability between services.
 
 In this paradigm, the functions take the roles of either Service Providers or Service Consumers, depending on whether they offer or utilize specific services. The \gls{NRF}, which will be discussed in more detail further on, plays a crucial role in this architecture by maintaining a registry of available network functions and their services, enabling dynamic discovery and interaction among them.
 
@@ -46,23 +46,23 @@ This means that network operators can dimension their networks to adapt to real 
 %This allows both for independent scaling of control and user plane computing resources, as well as deployment of control plane and user plane functions in different locations, such as deploying user plane functions closer to the network edge to reduce latency for certain applications.
 
 \label{sec:network_slicing}
-Building on this separation, network slicing is a further key feature of the 5G architecture. The concept itself is not new, but 5G develops upon it, driven by the rising popularity of odd use cases, such as \gls{LPWA} networks, \glsxtrshort{IoT} devices and \gls{URLLC} applications.
+Building on this separation, network slicing is a further key feature of the 5G architecture. The concept itself is not new, but 5G develops upon it, driven by the rising popularity of diverse use cases, such as \gls{LPWA} networks, \glsxtrshort{IoT} devices and \gls{URLLC} applications.
 
 Network slicing allows operators to create and deploy multiple virtual networks on top of a shared physical infrastructure, each optimized for specific use cases and services. 5G network slicing also allows operators to dynamically allocate resources based on the subscription and applications running on the \gls{UE}.
 
-In contrast to 4G EPS slicing, a 5GS network slice consists of both \gls{RAN} and Core components and allows for multiple concurrent slices to be active on a single \gls{UE}, with the only drawback being that the \gls{RAN} and \gls{AMF} must be shared across those network slices.
+In contrast to 4G \gls{EPS} slicing, a 5GS network slice consists of both \gls{RAN} and Core components and allows for multiple concurrent slices to be active on a single \gls{UE}, with the only drawback being that the \gls{RAN} and \gls{AMF} must be shared across those network slices.
 
 \label{sec:virtualization}
 % Mention how components of a mobile network were tied to a network which only ran that specific function. Now, in 5G, functions are virtualized, ran in VMs or containers, and can share physical hardware with other functions. This allowed for greater flexibility and resource optimization.
 Underlying all of these features is virtualization. Traditionally, components of a mobile network were tied to hardware appliances that only ran a specific function. This meant that software had to be pre-installed and configured for each network function, leading to inefficiencies in resource utilization and scalability. In 5G, network functions can be virtualized, running in \glspl{VM} or containers, allowing them to share physical hardware with other functions. This approach provides greater flexibility and resource optimization, since functions are no longer tied to the hardware and can be dynamically allocated and decommissioned given current network demands.
 
 \label{sec:cloud-native_functions}
-Finally, building upon virtualization, 5G network functions are designed to be cloud-native, meaning they are developed from scratch and optimized to be run in cloud environments, such as public clouds (e.g. \glsxtrlong{AWS}, \glsxtrlong{GCP}, \glsxtrlong{Azure}, etc.) or private operator clouds. This means that network operators can run part of their 5G network in a cloud environment, taking advantage of their inherent resilience, scalability, as well as the ability to deploy network functions closer to end-users, given their global reach, thus reducing network latency.
+Finally, building upon virtualization, 5G network functions are designed to be cloud-native, meaning they are developed from scratch and optimized to be run in cloud environments, such as public clouds (\glsxtrlong{AWS}, \glsxtrlong{GCP}, Microsoft Azure, etc.) or private operator clouds. This means that network operators can run part of their 5G network in a cloud environment, taking advantage of their inherent resilience, scalability, as well as the ability to deploy network functions closer to end-users, given their global reach, thus reducing network latency.
 
 Being cloud-native, network operators can also take advantage of orchestration and automation tools, such as Kubernetes and OpenStack \cite{mamushiane2023deploying}, to manage the lifecycle of network functions, deployment, scaling and healing, further enhancing the efficiency of their 5G networks.
 
 \label{sec:5g_security}
-Security is another dimension along which the 5G architecture departs from its predecessors. Rather than treating authentication as a function tied to a single access technology, 5G defines a single, unified authentication framework capable of serving both \gls{3GPP} and non-\gls{3GPP} access networks through a set of network functions, alongside mechanisms to conceal the subscriber's permanent identity over the air. Subection~\ref{sec:5g_core_network_functions} revisits this framework when detailing the specific Core network functions responsible for enforcing it.
+Security is another dimension along which the 5G architecture departs from its predecessors. Rather than treating authentication as a function tied to a single access technology, 5G defines a single, unified authentication framework capable of serving both \gls{3GPP} and non-\gls{3GPP} access networks through a set of network functions, alongside mechanisms to conceal the subscriber's permanent identity over the air. Subsection~\ref{sec:5g_core_network_functions} revisits this framework when detailing the specific Core network functions responsible for enforcing it.
 
 \section{\glsxtrlong{SA} vs \glsxtrlong{NSA} 5G Deployments}
 \label{sec:5g_sa_vs_nsa}
@@ -86,19 +86,19 @@ However, this approach is fundamentally constrained by its reliance on the legac
 
 \subsection{Standalone (SA) 5G Deployments}
 \label{sec:sa_deployments}
-\glsxtrlong{SA} deployments represent the true end-to-end realization of the 5G system as originally defined by \glsxtrshort{3GPP} Release 15~\cite{3GPPRelease15} and expanded in subsequent releases. Formally known as 3GPP Deployment Option 2, this architecture completely decouples from legacy LTE networks. Both the \glsxtrlong{RAN} and the Core are built entirely on 5G protocols, utilizing the full suite of cloud-native network functions. In this model, all control plane and user plane traffic is natively routed through the 5G Core, thus fully realizing \gls{CUPS}.
+\glsxtrlong{SA} deployments represent the true end-to-end realization of the 5G system as originally defined by \glsxtrshort{3GPP} Release 15~\cite{3GPPRelease15} and expanded in subsequent releases. Formally known as \gls{3GPP} Deployment Option 2, this architecture completely decouples from legacy \gls{LTE} networks. Both the \glsxtrlong{RAN} and the Core are built entirely on 5G protocols, utilizing the full suite of cloud-native network functions. In this model, all control plane and user plane traffic is natively routed through the 5G Core, thus fully realizing \gls{CUPS}.
 
-Although \gls{SA} deployments require a substantial upfront investment, they offer critical technical advantages over \gls{NSA} architectures. Operating a native 5G environment is the only way to facilitate strict \gls{URLLC} and dynamically instantiate end-to-end network slices for enterprise use cases. By eliminating the reliance on legacy 4G nodes, \gls{SA} networks reduce long-term signaling overhead and are inherently more future-proof, allowing operators to seamlessly integrate emerging 3GPP standards and dynamically scale resources to meet evolving market demands.
+Although \gls{SA} deployments require a substantial upfront investment, they offer critical technical advantages over \gls{NSA} architectures. Operating a native 5G environment is the only way to facilitate strict \gls{URLLC} and dynamically instantiate end-to-end network slices for enterprise use cases. By eliminating the reliance on legacy 4G nodes, \gls{SA} networks reduce long-term signaling overhead and are inherently more future-proof, allowing operators to seamlessly integrate emerging \gls{3GPP} standards and dynamically scale resources to meet evolving market demands.
 
 \section{5G RAN}
 \label{sec:5g_ran}
 %This section describes the 5G Radio Access Network (RAN). Replace this paragraph with the detailed description of the RAN architecture, key components (gNodeB, distributed units, central units), interfaces and deployment considerations.
-The 5G \glsxtrlong{RAN} constitutes the interface between \glspl{UE} and the 5G Core network, providing the radio connectivity and resource management functions essential to mobile communication. It encompasses the Physical, MAC and higher layers of the protocol stack, and enables data transmission, mobility management and strict service differentiation.
+The 5G \glsxtrlong{RAN} constitutes the interface between \glspl{UE} and the 5G Core network, providing the radio connectivity and resource management functions essential to mobile communication. It encompasses the Physical, \gls{MAC} and higher layers of the protocol stack, and enables data transmission, mobility management and strict service differentiation.
 Beyond providing radio connectivity, the 5G \gls{RAN} plays a central role in facilitating the diverse service categories defined for 5G networks, such as \gls{eMBB}, \gls{URLLC} and \gls{mMTC}. To meet these requirements, the 5G \gls{RAN} has evolved into a highly flexible, programmable architecture, capable of operating across a wide range of frequency bands, while actively adapting its numerology, scheduling and resource allocation strategies.
 
-The \gls{NG-RAN}, compared to its predecessors, has undergone extensive softwarization and disaggregation of the RAN. This architectural shift replaces fixed hardware entities with modular components and virtualized functions that can be deployed in cloud-native environments. As a result, in this generation, the \gls{RAN} acts closer to a platform that interacts closely with the 5G Core network, with its functions delivering optimized connectivity and services.
+The \gls{NG-RAN}, compared to its predecessors, has undergone extensive softwarization and disaggregation of the \gls{RAN}. This architectural shift replaces fixed hardware entities with modular components and virtualized functions that can be deployed in cloud-native environments. As a result, in this generation, the \gls{RAN} acts closer to a platform that interacts closely with the 5G Core network, with its functions delivering optimized connectivity and services.
 
-This section provides a detailed overview of the 5G \gls{RAN} architecture and features, highlighting its key components and functionalities. 
+This section provides a detailed overview of the 5G \gls{RAN} architecture and features, highlighting its key components and functionalities.
 
 \subsection{\gls{NG-RAN} Architecture}
 \label{sec:ran_architecture}
@@ -115,7 +115,7 @@ The architecture of the \gls{NG-RAN} has been fundamentally redesigned, from the
 \end{figure}
 
 The \gls{gNB} is further divided into three main units, as illustrated in Figure~\ref{fig:5g_ran_architecture}:
- 
+
 \begin{description}
   \item[\textbf{\glsxtrlong{CU}}]~\\
   This unit is responsible for higher-layer protocol processing, specifically the \gls{RRC} and \gls{PDCP} layers, handling mobility, security and \gls{QoS} flows, and is typically deployed in centralized locations and/or cloud environments. The \gls{CU} can manage multiple \glspl{DU}, coordinating resource usage across a wide area.
@@ -137,7 +137,7 @@ Figure~\ref{fig:5g_ran_deployment_options} shows how the \gls{PHY}, \gls{MAC}, \
 \subsection{RAN Interfaces}
 \label{sec:ran_interfaces}
 
-The \gls{RAN} interfaces, illustrated in Figure~\ref{fig:5g_ran_interfaces}, are communication channels that enable the exchange of signaling and user data between the components of the \gls{gNB} and the 5G Core network. These interfaces are standardized by \glsxtrshort{3GPP} to ensure interoperability between different vendors' equipment and to facilitate the deployment of multi-vendor networks. 
+The \gls{RAN} interfaces, illustrated in Figure~\ref{fig:5g_ran_interfaces}, are communication channels that enable the exchange of signaling and user data between the components of the \gls{gNB} and the 5G Core network. These interfaces are standardized by \glsxtrshort{3GPP} to ensure interoperability between different vendors' equipment and to facilitate the deployment of multi-vendor networks.
 
 \begin{figure}[htbp]
   \centering
@@ -150,18 +150,18 @@ The interfaces that make up the \gls{NG-RAN} are described below:
 
 \begin{description}
   \item[\underline{\textbf{NG Interface}}]~\\
-  The NG interface connects the \gls{gNB} to the 5G Core. It is structurally divided into two sub-interfaces: NG-C for control plane signaling with the AMF, and NG-U for user plane data transfer with the UPF, facilitating both control plane and user plane communications. 
+  The \gls{NG} interface connects the \gls{gNB} to the 5G Core. It is structurally divided into two sub-interfaces: \gls{NG-C} for control plane signaling with the \gls{AMF}, and NG-U for user plane data transfer with the \gls{UPF}, facilitating both control plane and user plane communications.
   \item[\underline{\textbf{Xn Interface}}]~\\
-  The Xn interface connects \glspl{gNB} to each other, enabling inter-cell coordination and handover management. This interface also supports dual connectivity scenarios, where a \gls{UE} can be simultaneously connected to multiple \glspl{gNB} for improved performance and reliability. 
+  The \gls{Xn} interface connects \glspl{gNB} to each other, enabling inter-cell coordination and handover management. This interface also supports dual connectivity scenarios, where a \gls{UE} can be simultaneously connected to multiple \glspl{gNB} for improved performance and reliability.
   \item[\underline{\textbf{F1 Interface}}]~\\
-  The F1 interface bridges the \glspl{DU} to the \gls{CU} within the disaggregated \gls{gNB}. It is also divided into two sub-interfaces: \gls{F1-U} for user plane data and \gls{F1AP} for control plane signaling.
+  The \gls{F1} interface bridges the \glspl{DU} to the \gls{CU} within the disaggregated \gls{gNB}. It is also divided into two sub-interfaces: \gls{F1-U} for user plane data and \gls{F1AP} for control plane signaling.
 \end{description}
 \subsection{RAN Features}
 \label{sec:ran_features}
 
 5G \glsxtrshort{NR} develops upon pre-existing technologies, introduced in previous generations, while introducing new features to meet the ever-demanding requirements of modern mobile communications. One such feature that sets \glsxtrshort{NR} apart from its predecessors is the possibility of utilizing advanced \gls{MIMO} technology, introducing Massive \gls{MIMO}.
 
-In 4G \glsxtrshort{LTE}, \gls{MIMO} capabilities were already employed, dividing the available antennas between different spatial cells to increase spectral efficiency and throughput. However, 5G \gls{NR} takes this concept further by significantly increasing the number of antennas at the base station, often with upwards of 100+ antennas per \gls{gNB} (Figure~\ref{fig:5g_ran_features}), allowing for \glsxtrlongpl{UE} to be served simultaneously by a single node using the same time-frequency resources. 
+In 4G \glsxtrshort{LTE}, \gls{MIMO} capabilities were already employed, dividing the available antennas between different spatial cells to increase spectral efficiency and throughput. However, 5G \gls{NR} takes this concept further by significantly increasing the number of antennas at the base station, often with upwards of 100+ antennas per \gls{gNB} (Figure~\ref{fig:5g_ran_features}), allowing for \glsxtrlongpl{UE} to be served simultaneously by a single node using the same time-frequency resources.
 
 \begin{figure}[htbp]
   \centering
@@ -172,7 +172,7 @@ In 4G \glsxtrshort{LTE}, \gls{MIMO} capabilities were already employed, dividing
 
 Each antenna is capable of beamforming, which dynamically adjusts the radio signal directly towards the \gls{UE}, rather than broadcasting omnidirectionally. By dynamically adjusting the phase and amplitude of the signal at each antenna, the system can create highly directional beams that target specific users or cells. This improves signal strength and efficiency, reducing wasted energy and interference with other devices, enhancing the \gls{QoS} and throughput.
 
-Driven by the increasing demand for higher bandwidths, \glsxtrshort{3GPP} Release 17~\cite{3GPPRelease17} extended the operation spectrum up to 71 GHz, subdividing the spectrum into two frequency ranges, shown in Figure~\ref{fig:5g_frequency_bands}.
+Driven by the increasing demand for higher bandwidths, \glsxtrshort{3GPP} Release 17~\cite{3GPPRelease17} extended the operation spectrum up to 71\,GHz, subdividing the spectrum into two frequency ranges, shown in Figure~\ref{fig:5g_frequency_bands}.
 
 \begin{figure}[htbp]
   \centering
@@ -182,11 +182,11 @@ Driven by the increasing demand for higher bandwidths, \glsxtrshort{3GPP} Releas
 \end{figure}
 
 \begin{itemize}
-  \item Frequency Range 1 (FR1): Known as the Sub-6GHz range, it encompasses frequencies from 410 MHz to 7.125 GHz. 
-  \item Frequency Range 2 (FR2): Known as \glsxtrshort{mmWave}, it covers frequencies from 24.25 GHz to 71 GHz. This range  increases available bandwidth greatly and, therefore, throughput, but suffers from significant path loss. It is important to note that many \glsxtrshort{COTS} devices are not compatible with the frequency range.
+  \item Frequency Range 1 (FR1): Known as the Sub-6GHz range, it encompasses frequencies from 410\,MHz to 7.125\,GHz.
+  \item Frequency Range 2 (FR2): Known as \glsxtrshort{mmWave}, it covers frequencies from 24.25\,GHz to 71\,GHz. This range  increases available bandwidth greatly and, therefore, throughput, but suffers from significant path loss. It is important to note that many \glsxtrshort{COTS} devices are not compatible with the frequency range.
 \end{itemize}
 
-Beyond the frequency range and numerology already discussed, a \gls{RAN} must also decide how uplink and downlink traffic share the available spectrum, a choice known as the duplex mode. \gls{3GPP} defines two duplex modes for \gls{NR}~\cite{3GPP38211}: \gls{FDD}, in which uplink and downlink are transmitted simultaneously over two separate, paired frequency channels, and \gls{TDD}, in which uplink and downlink share a single frequency channel, taking turns in time instead. \gls{FDD} guarantees each direction a fixed, dedicated share of spectrum at all times, but requires a pair of channels separated by a duplex gap, which is not always available. \gls{TDD}, by only requiring a single channel, is more spectrally flexible, and, as it does not need a duplex gap, allows the split between uplink and downlink capacity to be adjusted to match traffic demand, at the cost of requiring tight time synchronisation between the \gls{gNB} and every \glspl{UE} it serves, so that no \gls{UE} transmits while another is meant to be receiving.
+Beyond the frequency range and numerology already discussed, a \gls{RAN} must also decide how uplink and downlink traffic share the available spectrum, a choice known as the duplex mode. \gls{3GPP} defines two duplex modes for \gls{NR}~\cite{3GPP38211}: \gls{FDD}, in which uplink and downlink are transmitted simultaneously over two separate, paired frequency channels, and \gls{TDD}, in which uplink and downlink share a single frequency channel, taking turns in time instead. \gls{FDD} guarantees each direction a fixed, dedicated share of spectrum at all times, but requires a pair of channels separated by a duplex gap, which is not always available. \gls{TDD}, by only requiring a single channel, is more spectrally flexible, and, as it does not need a duplex gap, allows the split between uplink and downlink capacity to be adjusted to match traffic demand, at the cost of requiring tight time synchronization between the \gls{gNB} and every \gls{UE} it serves, so that no \gls{UE} transmits while another is meant to be receiving.
 
 \gls{TDD}'s time-domain split, defined by \gls{3GPP} in TS 38.211~\cite{3GPP38211}, divides each 10\,ms radio frame into 10 subframes of 1\,ms, a structure inherited unchanged from 4G. The two generations diverge, however, in how each subframe is further split: in 4G, a subframe is always composed of 2 slots of 0.5\,ms, each carrying 7 \glsxtrshort{OFDM} symbols, for a fixed 14 symbols per subframe, since 4G only ever operates at a single, fixed subcarrier spacing. 5G \gls{NR} instead fixes the slot itself at 14 \glsxtrshort{OFDM} symbols regardless of numerology, and lets the \gls{SCS} in use dictate the number of slots per subframe. Both quantities are set by a single numerology index $\mu$, defined by \gls{3GPP} in TS 38.211~\cite[§4.2]{3GPP38211}, through the subcarrier spacing
 \begin{equation}
@@ -233,26 +233,25 @@ As mentioned before in Section~\ref{sec:sba}, a key difference between the 5G Co
 \subsubsection{Control Plane}
 \label{sec:control_plane}
 
-%CHANGED BY CLAUDE: bold removed from the item labels (\normalfont overrides the description list's default bold)
 \begin{description}
   \item[{\normalfont\glsxtrlong{AMF}}]~\\
   The \gls{AMF} is the key control plane function in the 5G Core network, counterpart of the \gls{EPC}'s  \gls{MME}. It is responsible for handling connection and mobility management tasks for the \gls{UE}. It manages registration, authentication, reachability, and mobility procedures, ensuring seamless connectivity as users move across different network areas. The \gls{AMF} also interfaces with other network functions to facilitate session management and policy enforcement.
-  
+
   \item[{\normalfont\glsxtrlong{SMF}}]~\\
   The \gls{SMF} is the function responsible for establishing, modifying and releasing \gls{PDU} sessions, determining the \gls{PDU} session type (IPv4, IPv6, IPv4v6, Ethernet, or Unstructured), and selecting the \gls{UPF} that will handle the user plane traffic for each session. It also manages IP address allocation for the \gls{UE} and, along with the \gls{PCF}, enforces policies related to session management.
 
-  \item[{\normalfont\glsxtrlong{PCF}}]~\\ 
-  Equivalent to \gls{EPC}'s \gls{PCRF}, the \gls{PCF} is responsible for policy control and decision-making within the 5G Core network. Besides this, the \gls{PCF} also has the additional responsibility of providing policy information to the \gls{UE}, such as Access Network Discovery, Selection Policies and UE Route Selection Policies.
+  \item[{\normalfont\glsxtrlong{PCF}}]~\\
+  Equivalent to \gls{EPC}'s \gls{PCRF}, the \gls{PCF} is responsible for policy control and decision-making within the 5G Core network. Besides this, the \gls{PCF} also has the additional responsibility of providing policy information to the \gls{UE}, such as Access Network Discovery, Selection Policies and \gls{UE} Route Selection Policies.
 
   \item[{\normalfont\glsxtrlong{UDM} \& \glsxtrlong{UDR}}]~\\
-  The \gls{UDM}, along with the \gls{UDR}, serve as the 5GC equivalent to \gls{EPC}'s \gls{HSS}. These functions are responsible for storing and managing subscriber data and profiles. The \gls{UDR} stores user subscription information, including authentication credentials, service entitlements, and policy data. The \gls{UDM} serves as a front-end to the registry, interacting with other network functions, specifically with the \gls{PCF} and \glsxtrshort{NEF} to facilitate user authentication, authorization, and mobility management.
+  The \gls{UDM}, along with the \gls{UDR}, serve as the \gls{5GC} equivalent to \gls{EPC}'s \gls{HSS}. These functions are responsible for storing and managing subscriber data and profiles. The \gls{UDR} stores user subscription information, including authentication credentials, service entitlements, and policy data. The \gls{UDM} serves as a front-end to the registry, interacting with other network functions, specifically with the \gls{PCF} and \glsxtrshort{NEF} to facilitate user authentication, authorization, and mobility management.
 
-  \item[{\normalfont\glsxtrlong{NRF}}]~\\ 
+  \item[{\normalfont\glsxtrlong{NRF}}]~\\
   The \glsxtrlong{NRF} is a central component of the 5G Core network that serves as a service registry and discovery function. It maintains a database of available network functions and which services they offer, allowing other network functions to dynamically discover and interact with each other, without the need for them to be configured beforehand. The \gls{NRF} plays a crucial role in enabling the service-based architecture of the 5G Core, facilitating communication and coordination among various network functions.
 
-  \item[{\normalfont\glsxtrlong{AUSF}}]~\\ 
-  The \gls{AUSF} is responsible for handling authentication procedures within the 5G Core network. It works in conjunction with the \gls{UDR}/\gls{UDM} to authenticate \glspl{UE}  attempting to access the network. The \gls{AUSF} is also responsible for providing security parameters in roaming contexts and ensuring that authentication processes comply with 5G security standards. 
-  \item[{\normalfont\glsxtrlong{NEF}}]~\\ 
+  \item[{\normalfont\glsxtrlong{AUSF}}]~\\
+  The \gls{AUSF} is responsible for handling authentication procedures within the 5G Core network. It works in conjunction with the \gls{UDR}/\gls{UDM} to authenticate \glspl{UE}  attempting to access the network. The \gls{AUSF} is also responsible for providing security parameters in roaming contexts and ensuring that authentication processes comply with 5G security standards.
+  \item[{\normalfont\glsxtrlong{NEF}}]~\\
   Equivalent to \gls{EPC}'s \gls{SCEF}, the \gls{NEF} acts as an intermediary between the 5G Core network and external application functions. It exposes network services and events, such as the location of a \gls{UE}, its reachability, roaming status and loss of connectivity, to authorized applications and functions, enabling them to interact with the network in a secure and controlled manner. The \gls{NEF} also handles \glsxtrshort{API} management, security, and policy enforcement for these interactions.
 \end{description}
 
@@ -263,7 +262,7 @@ In terms of security advancements compared to 4G, the \gls{AUSF} and \gls{UDM} a
 \subsubsection{User Plane}
 \label{sec:user_plane}
 
-The user plane in the 5G Core network is composed of a single main function, the \glsxtrlong{UPF}. It is responsible for handling all the user data traffic between the \gls{RAN} and external data networks. It performs packet routing and forwarding, \glsxtrshort{QoS} enforcement, traffic shaping, as well as usage reporting and, in some cases, lawful interception. Multiple \glspl{UPF} can be deployed in series, co-existing within the same 5G Core network, enabling distributed architectures and facilitating scalability if necessary. 
+The user plane in the 5G Core network is composed of a single main function, the \glsxtrlong{UPF}. It is responsible for handling all the user data traffic between the \gls{RAN} and external data networks. It performs packet routing and forwarding, \glsxtrshort{QoS} enforcement, traffic shaping, as well as usage reporting and, in some cases, lawful interception. Multiple \glspl{UPF} can be deployed in series, co-existing within the same 5G Core network, enabling distributed architectures and facilitating scalability if necessary.
 
 \subsection{Core Interfaces}
 \label{sec:5gc_interfaces}
@@ -274,7 +273,7 @@ Information exchange between networks functions inside the 5G Core happens throu
   \centering
   \begin{tabular}{|c|c|c|}
     \hline
-    \rowcolor{gray!30} 
+    \rowcolor{gray!30}
     \textbf{Interface} & \textbf{Connections} & \textbf{Protocol} \\
     \hline
     N1 & \gls{UE} $\leftrightarrow$ \gls{AMF} & NAS over \glsxtrshort{NG-C} \\
@@ -299,7 +298,7 @@ Information exchange between networks functions inside the 5G Core happens throu
 
 Being a scope of this thesis, a comprehensive review of existing open-source software packages for 5G networks is provided in this section. The goal is to identify and analyze the most relevant and widely adopted open-source projects that can be leveraged for prototyping 5G networks. Overall, \gls{OSS} has been a growing tendency in the computer engineering field, and the telecommunications sector is no exception. The adoption of \gls{OSS} for 5G networks has been driven by the need for cost-effective solutions that can adapt to the rapidly evolving landscape of mobile communications, moving away from traditional vendor-locked closed-source solutions.
 
-These tools play a crucial role in research, prototyping and, in some cases, even production deployments of 5G networks, as they allow researchers to freely experiment with 5G architectures without relying on the expensive proprietary solutions. The existing suite of open-source projects already spans both the 5G Core and \gls{RAN}, as well as other tools for support testing, evaluating performance and validation.
+These tools play a crucial role in research, prototyping and, in some cases, even production deployments of 5G networks, as they allow researchers to freely experiment with 5G architectures without relying on the expensive proprietary solutions. The existing suite of open-source projects already spans both the 5G Core and \gls{RAN}, as well as other tools for support, testing, evaluating performance and validation.
 
 \subsection{Open-Source 5G Core Implementations}
 \label{sec:open_source_5g_core_implementations}%
@@ -317,14 +316,14 @@ Free5GC~\cite{free5gc_repo} is another open-source project that offers an implem
 \subsubsection{Magma}
 \label{sec:magma}
 
-Initially developed by Facebook, Magma~\cite{magma_repo} is a project that provides 2G, 3G, 4G and 5G Core network implementations, made open-source in 2019. Despite being relatively new, Magma has seen a spike in contributors and users, due to being designed from scratch to be implemented in poor, rural areas, where connectivity is scarce. Within their project, they offer a full 5G \gls{SA} Core network implementation, written mainly in C++, Go and Python.
+Initially developed by Facebook, Magma~\cite{magma_repo} is a project that provides 2G, 3G, 4G and 5G Core network implementations, made open-source in 2019. Despite being relatively new, Magma has seen a spike in contributors and users, due to being designed from scratch to be implemented in poor and rural areas, where connectivity is scarce. Within their project, they offer a full 5G \gls{SA} Core network implementation, written mainly in C++, Go and Python.
 
 While not as widely adopted as other solutions, due to its novelty and lack of extensive documentation, Magma has been used in research, as described in~\cite{hasan2023building}.
 
 \subsubsection{OpenAirInterface Core Network}
 \label{sec:openairinterface}
 
-The OpenAirInterface Software Alliance, composed by major global players (such as Nokia, Vodafone or Ericsson), provides a 5G Core~\cite{oai_core_repo} implementation, mainly maintained by its community. It is written in C++ and provides a complete set of 5G Core network functions, based on containers, making it easy to deploy and manage. The project is well-documented, has many tutorials and examples and has an active community. It is widely used in academia and research, as mentioned in \cites{bonati2025_5gct}{horstmann2025open5gcube}{vazquez2024maq5g}.
+The OpenAirInterface Software Alliance, composed of major global players (such as Nokia, Vodafone or Ericsson), provides a 5G Core~\cite{oai_core_repo} implementation, mainly maintained by its community. It is written in C++ and provides a complete set of 5G Core network functions, based on containers, making it easy to deploy and manage. The project is well-documented, has many tutorials and examples and has an active community. It is widely used in academia and research, as mentioned in \cites{bonati2025_5gct}{horstmann2025open5gcube}{vazquez2024maq5g}.
 
 
 \begin{table}[htbp]
@@ -332,7 +331,7 @@ The OpenAirInterface Software Alliance, composed by major global players (such a
 \footnotesize
 \begin{tabularx}{\textwidth}{|l|p{2.2cm}|p{2.1cm}|p{7.5cm}|}
 \hline
-\rowcolor{gray!30} 
+\rowcolor{gray!30}
 \textbf{Project} & \textbf{Programming Language} & \textbf{Supported Generations} & \textbf{Maturity level}\\ \hline
 \textbf{Open5GS} & C & 4G/5G & Most widely adopted open-source 5G Core implementation, with extensive documentation and community support. Used in multiple research projects. \\ \hline
 \textbf{Free5GC} & Go & 5G & Well-maintained project with a focus on web-services integration. Less popular than Open5GS but still used in academia.\\ \hline
@@ -346,14 +345,14 @@ The OpenAirInterface Software Alliance, composed by major global players (such a
 
 \subsection{Open-Source 5G RAN Implementations}
 \label{sec:open_source_5g_ran_implementations}
-On the \gls{RAN} side, many open-source projects have also emerged to provide 5G \gls{RAN} implementations, but two key players stand out from the rest, srsRAN and OpenAirInterface \gls{RAN}, due to their maturity, extensive documentation and active communities. These projects are described below, followed by a brief comparison on Table~\ref{tab:5gran_implementations}.
+On the \gls{RAN} side, many open-source projects have also emerged to provide 5G \gls{RAN} implementations, but two key players stand out from the rest, srsRAN and OpenAirInterface \gls{RAN}, due to their maturity, extensive documentation and active communities. These projects are described below, together with UERANSIM, a simulator that stands in for a \gls{RAN} when no radio hardware is available, followed by a brief comparison on Table~\ref{tab:5gran_implementations}. 
 \subsubsection{srsRAN}
 \label{sec:srsran}
 
 % Mention how srsRAN is a popular choice, how it integrates well with Open5GS, how it supports both 4G and 5G, etc.
 srsRAN \cite{ocudu_project} is an open-source software suite that provides a complete implementation of the 5G \gls{RAN}, as defined by \gls{3GPP}. It is written in both C and C++ languages and is designed to be modular, allowing the developer to customize both the \gls{CU} and \gls{DU} components of the \gls{gNB} separately.
 
-It supports all FR1 bands, FDD/TDD modes, all bandwidths up to 100 MHz TDD and 50 MHz FDD, 15/30 kHz subcarrier spacing, 256-QAM modulation, Network Slicing, among other features. srsRAN integrates well with Open5GS and is widely adopted in both academia and industry, as reported in \cites{horstmann2025open5gcube}{mamushiane2023deploying}{tio2025exploring5g}{vazquez2024maq5g}.
+It supports all FR1 bands, \gls{FDD}/\gls{TDD} modes, all bandwidths up to 100\,MHz \gls{TDD} and 50\,MHz \gls{FDD}, 15/30\,kHz subcarrier spacing, 256-QAM modulation, Network Slicing, among other features. srsRAN integrates well with Open5GS and is widely adopted in both academia and industry, as reported in \cites{horstmann2025open5gcube}{mamushiane2023deploying}{tio2025exploring5g}{vazquez2024maq5g}.
 
 The srsRAN project also provides 4G \glsxtrshort{LTE} support through its srsRAN 4G project~\cite{srsran_4g_repo}, allowing for backwards compatibility with existing 4G networks.
 
@@ -362,7 +361,12 @@ In June 2026, midway through this dissertation's development, the project was re
 \subsubsection{OpenAirInterface}
 \label{sec:openairinterface_ran}
 
-Along with a Core Network, the OpenAirInterface Software Alliance also provides a 5G RAN implementation~\cite{oai5g_repo}, implementing full \gls{gNB} and \gls{UE} functionalities. Also written in C and C++, it is the most complete 5G open-source RAN stack, supporting both \gls{NSA} and \gls{SA} deployments, monolithic \gls{gNB} as well as disaggregated \gls{CU}/\gls{DU} architectures and FR2 frequency band support. Just like srsRAN, it is widely used in academia, as mentioned in \cites{bonati2025_5gct}{horstmann2025open5gcube}.
+Along with a Core Network, the OpenAirInterface Software Alliance also provides a 5G \gls{RAN} implementation~\cite{oai5g_repo}, implementing full \gls{gNB} and \gls{UE} functionalities. Also written in C and C++, it is the most complete 5G open-source \gls{RAN} stack, supporting both \gls{NSA} and \gls{SA} deployments, monolithic \gls{gNB} as well as disaggregated \gls{CU}/\gls{DU} architectures and FR2 frequency band support. Just like srsRAN, it is widely used in academia, as mentioned in \cites{bonati2025_5gct}{horstmann2025open5gcube}.
+
+\subsubsection{UERANSIM}
+\label{sec:ueransim}
+
+UERANSIM~\cite{ueransim_repo} is not a real \gls{RAN} implementation, but rather a 5G \gls{UE} and \gls{RAN} simulator, written in C++. It can be used to test 5G Core networks without the need for \glspl{SDR}. It supports both \gls{NSA} and \gls{SA} deployments, and can simulate multiple \glspl{UE} simultaneously.
 
 \begin{table}[htbp]
 \centering
@@ -372,13 +376,13 @@ Along with a Core Network, the OpenAirInterface Software Alliance also provides 
 \hline
 \rowcolor{gray!30}
 \textbf{Feature} & \textbf{srsRAN} & \textbf{OpenAirInterface \gls{RAN}} \\ \hline
-Frequency Bands Supported & All FR1 (sub-6 GHz) bands & All FR1 and FR2 bands \\ \hline
-Deployments supported & NSA and SA & NSA and SA \\ \hline
-Duplex Mode & FDD/TDD & FDD/TDD \\ \hline
-Sub-Carrier Spacing & 15/30 kHz & 15 and 30 kHz (FR1), 120 kHz (FR2) \\ \hline
-Bandwidth (BW) & 10, 20, 40, 80, 100 MHz & 10, 20, 40, 80, 100 MHz \\ \hline
+Frequency Bands Supported & All FR1 (sub-6\,GHz) bands & All FR1 and FR2 bands \\ \hline
+Deployments supported & \gls{NSA} and \gls{SA} & \gls{NSA} and \gls{SA} \\ \hline
+Duplex Mode & \gls{FDD}/\gls{TDD} & \gls{FDD}/\gls{TDD} \\ \hline
+Sub-Carrier Spacing & 15/30\,kHz & 15 and 30\,kHz (FR1), 120\,kHz (FR2) \\ \hline
+Bandwidth (BW) & 10, 20, 40, 80, 100\,MHz & 10, 20, 40, 80, 100\,MHz \\ \hline
 Programming Language & C \& C++ & C \& C++ \\ \hline
-Antenna Configuration & SISO & SISO and MIMO \\ \hline
+Antenna Configuration & SISO & SISO and \gls{MIMO} \\ \hline
 Documentation \& Support & Extensive & Fair \\ \hline
 Deployment Complexity & Easier and faster to deploy & Complex to deploy \\ \hline
 \end{tabularx}
@@ -386,17 +390,12 @@ Deployment Complexity & Easier and faster to deploy & Complex to deploy \\ \hlin
 \label{tab:5gran_implementations}
 \end{table}
 
-\subsection{UERANSIM}
-\label{sec:ueransim}
-
-UERANSIM~\cite{ueransim_repo} is not a real \gls{RAN} implementation, but rather a 5G \gls{UE} and \gls{RAN} simulator, written in C++. It can be used to test 5G Core networks without the need for \glspl{SDR}. It supports both \gls{NSA} and \gls{SA} deployments, and can simulate multiple \glspl{UE} simultaneously.
-
 \section{Summary}
 \label{sec:5g_fundamentals_summary}
 
 The material covered above maps out both the architectural rationale and the practical toolset behind the testbed developed in this dissertation. Sections~\ref{sec:introduction_5g_architecture} and~\ref{sec:5g_sa_vs_nsa} established why 5G looks so different from previous generations at a structural level: the \gls{SBA} replaces monolithic network elements with independently deployable services, \gls{CUPS} decouples control and user plane functions so each can be scaled and placed according to its own latency and throughput needs, the advanced network slicing and cloud-native virtualization let a single physical infrastructure host multiple logical networks tailored to distinct use cases, and a unified, \gls{SUCI}-based authentication framework closes the \gls{IMSI}-exposure weakness inherited from 4G. Building on those principles, the contrast between \gls{NSA} and \gls{SA} deployments motivated this dissertation's choice of a full \gls{SA} architecture, free from any dependence on legacy 4G core infrastructure.
 
-Sections~\ref{sec:5g_ran} and~\ref{sec:5g_core} then worked through the two halves of the architecture in detail. On the \gls{RAN} side, the \gls{gNB} is composed of \gls{CU}, \gls{DU} and \gls{RU} components and the interfaces that connect them (F1, NG, Xn), alongside the radio-level features, Massive \gls{MIMO}, beamforming, and the FR1/FR2 frequency split, that set 5G \glsxtrshort{NR} apart from \glsxtrshort{LTE}. On the Core side, the control plane functions (\gls{AMF}, \gls{SMF}, \gls{PCF}, \gls{UDM}/\gls{UDR}, \gls{NRF}, \gls{AUSF} and \gls{NEF}) and the single user plane function (\gls{UPF}) were examined individually, along with the interfaces that tie them together.
+Sections~\ref{sec:5g_ran} and~\ref{sec:5g_core} then worked through the two halves of the architecture in detail. On the \gls{RAN} side, the \gls{gNB} is composed of \gls{CU}, \gls{DU} and \gls{RU} components and the interfaces that connect them (\gls{F1}, \gls{NG}, \gls{Xn}), alongside the radio-level features, Massive \gls{MIMO}, beamforming, and the FR1/FR2 frequency split, that set 5G \glsxtrshort{NR} apart from \glsxtrshort{LTE}. On the Core side, the control plane functions (\gls{AMF}, \gls{SMF}, \gls{PCF}, \gls{UDM}/\gls{UDR}, \gls{NRF}, \gls{AUSF} and \gls{NEF}) and the single user plane function (\gls{UPF}) were examined individually, along with the interfaces that tie them together.
 
 Finally, Section~\ref{sec:existing_5g_packages} surveyed the open-source ecosystem available for implementing all of the above, comparing Open5GS, Free5GC, Magma and \gls{OAI} Core on the Core side, and srsRAN, \gls{OAI} \gls{RAN} and UERANSIM on the \gls{RAN}/simulation side, and justified the selection of Open5GS and srsRAN as the tools underpinning the testbed built for this dissertation.
 
