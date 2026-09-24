@@ -98,6 +98,7 @@ The output should show successful ping responses, as shown in Figure~\ref{fig:pi
 \label{sec:app-core}
 
 This section installs and configures Open5GS, which serves as the core for both generations. The installation process consists of the following steps:
+\newpage
 \begin{enumerate}
     \item Installing MongoDB.
     \item Installing Open5GS.
@@ -130,7 +131,7 @@ In which the output, shown in Figure~\ref{fig:mongodb_status}, should indicate t
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{4G_MongoDB_response.png}
-    \caption{Output of the command to check MongoDB service status, showing that the service is active and running.}
+    \caption{Output of the \texttt{systemctl status mongod} command, showing that the service is active and running.}
     \label{fig:mongodb_status}
 \end{figure}
 To ensure MongoDB starts automatically on system boot, we can enable the service with the following command:

@@ -66,14 +66,14 @@ Security is another dimension along which the 5G architecture departs from its p
 
 \section{\glsxtrlong{SA} vs \glsxtrlong{NSA} 5G Deployments}
 \label{sec:5g_sa_vs_nsa}
-%Mention how the change from 4G to 5G was gradual, with many operators first deploying 5G in a non-standalone mode, relying on existing 4G infrastructure for control plane functions. Explain the difference between SA and NSA deployments.
+
 The adoption of 5G technology has been a gradual process for many network operators, as the advent of 5G networks, while innovative, also meant a significant revamp of existing infrastructure, which brought along considerable costs, logistical challenges and unavoidable service disruptions.
 Before evolving into fully independent 5G networks, many operators opted for integrating 5G radio capabilities into their existing 4G infrastructure. This hybrid approach is aptly named \glsxtrlong{NSA}, whereas completely independent 5G networks are known as \glsxtrlong{SA} deployments. In this section, we explore the differences between these two deployment modes, illustrated in Figure~\ref{fig:5g_sa_vs_nsa}.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{NSA-vs-SA.pdf}
-  \caption{5G NSA vs SA Deployments}
+  \caption[5G NSA vs SA Deployments]{Archirecture of 5G NSA Network vs SA Network deployments.}
   \label{fig:5g_sa_vs_nsa}
 \end{figure}
 
@@ -103,8 +103,6 @@ This section provides a detailed overview of the 5G \gls{RAN} architecture and f
 \subsection{\gls{NG-RAN} Architecture}
 \label{sec:ran_architecture}
 
-% Describe the architecture of the 5G RAN, including key components such as gNodeB, distributed units (DUs), central units (CUs), and their roles in the network, along with the interfaces between them (e.g., F1, NG, Xn).
-
 The architecture of the \gls{NG-RAN} has been fundamentally redesigned, from the beginning, to maximize deployment flexibility by disaggregating the traditional base station functions into modular logical nodes. At its core, the \gls{NG-RAN} is built around the \glsxtrlong{gNB}~(\glsxtrshort{gNB}) (Figure~\ref{fig:5g_ran_architecture}), the 5G equivalent of 4G's \glsxtrshort{eNB}, which is responsible for radio transmission, user-plane data forwarding and control-plane signaling with the 5G Core network.
 
 \begin{figure}[htbp]
@@ -130,7 +128,7 @@ Figure~\ref{fig:5g_ran_deployment_options} shows how the \gls{PHY}, \gls{MAC}, \
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.7\textwidth]{5G Protocol Stack.pdf}
-  \caption{5G RAN Protocol Stack across the three types of units\cite{sirotkin2021:5g}}
+  \caption[5G RAN Protocol Stack]{5G RAN Protocol Stack across the three types of units\cite{sirotkin2021:5g}}
   \label{fig:5g_ran_deployment_options}
 \end{figure}
 
@@ -142,7 +140,7 @@ The \gls{RAN} interfaces, illustrated in Figure~\ref{fig:5g_ran_interfaces}, are
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{5G RAN.pdf}
-  \caption{5G RAN ~\cite{sirotkin2021:5g}}
+  \caption[5G RAN Interfaces]{5G RAN Interfaces between the \gls{gNB} units and the 5G Core network.~\cite{sirotkin2021:5g}}
   \label{fig:5g_ran_interfaces}
 \end{figure}
 
@@ -166,7 +164,7 @@ In 4G \glsxtrshort{LTE}, \gls{MIMO} capabilities were already employed, dividing
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\textwidth]{Massive MIMO.pdf}
-  \caption{Massive MIMO antennas}
+  \caption[Massive MIMO antennas]{Example ofa massive MIMO, as one array of antennas serves several \glspl{UE} on the same time-frequency resources.}
   \label{fig:5g_ran_features}
 \end{figure}
 
@@ -177,7 +175,7 @@ Driven by the increasing demand for higher bandwidths, \glsxtrshort{3GPP} Releas
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.95\textwidth]{Frequency Spectrum.pdf}
-  \caption{5G Frequency Bands}
+  \caption[5G Frequency Bands]{5G Frequency Bands: FR1 (410 Mhz to 7.125 GHz) and FR2 (24.25 GHz to 71 GHz).}
   \label{fig:5g_frequency_bands}
 \end{figure}
 
@@ -221,7 +219,7 @@ Concretely: at $\mu=0$ (15\,kHz \gls{SCS}), 1 slot per subframe (14 symbols, 1\,
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{5G Core.drawio.pdf}
-  \caption{5G Core Network Architecture~\cite{sirotkin2021:5g}}
+  \caption[5G Core Network Architecture]{5G Core Network Architecture.~\cite{sirotkin2021:5g}}
   \label{fig:5g_core_network_architecture}
 \end{figure}
 
@@ -289,7 +287,7 @@ Information exchange between networks functions inside the 5G Core happens throu
     N9 & \glspl{UPF} $\leftrightarrow$ \glspl{UPF} & \glsxtrshort{GTP-U} \\
     \hline
   \end{tabular}
-  \caption{5G Core Network Interfaces~\cites{rommer2020:5g_core_networks}{sirotkin2021:5g}}
+  \caption[5G Core Network Interfaces]{5G Core Network Interfaces between the multiple Network Functions in the 5G Core network.~\cites{rommer2020:5g_core_networks}{sirotkin2021:5g}}
   \label{tab:5g_core_network_interfaces}
 \end{table}
 

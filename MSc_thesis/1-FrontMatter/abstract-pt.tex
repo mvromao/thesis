@@ -8,44 +8,19 @@
 
 \typeout{NT FILE abstract-pt.tex}%
 
-Independentemente da língua em que a dissertação está escrita, geralmente esta contém pelo menos dois resumos: um resumo na mesma língua do texto principal e outro resumo numa outra língua.
+O software de open-source e os rádios definidos por software de baixo custo permitem implementar uma rede 5G privada em modo Standalone sem o orçamento de um operador comercial. Implementá-la, porém, é apenas metade do problema, pois uma rede funcional pode ainda ficar muito aquém do que o equipamento permite, e calibrá-la às condições em que opera é um outro desafio, ainda mais difícil sem uma referência.
 
-A ordem dos resumos varia de acordo com a escola. Se a sua escola tiver regulamentos específicos sobre a ordem dos resumos, o template (\LaTeX)  irá respeitá-los. Caso contrário, a regra padrão no template é ter em primeiro lugar o resumo \emph{no mesmo idioma do texto principal} e depois o resumo \emph{no outro idioma}. Por exemplo, se a dissertação for escrita em português, a ordem dos resumos será primeiro o português e depois o inglês, seguido do texto principal em português. Se a dissertação for escrita em inglês, a ordem dos resumos será primeiro em inglês e depois em português, seguida do texto principal em inglês.
-%
-No entanto, esse pedido pode ser personalizado adicionando um dos seguintes ao arquivo \verb+5_packages.tex+.
+Esta dissertação constrói uma rede 5G Standalone, juntamente com uma rede 4G, para referência, partilhando o mesmo núcleo Open5GS. A rede 5G utiliza o srsRAN Project e uma USRP B210, e a rede 4G o srsRAN 4G e uma bladeRF xA4. As duas foram comparadas a três distâncias do rádio, ajustando a rede 5G ao longo de três rondas.
 
-\begin{verbatim}
-    \abstractorder(<MAIN_LANG>):={<LANG_1>,...,<LANG_N>}
-\end{verbatim}
+Face a esta referência, o uplink 5G sem ajustes era mais de 20 vezes mais lento a 10\,m. Mudar o padrão TDD de 3:1 para 2:2 igualou o throughput ao da rede 4G, e reduzir o ganho do recetor eliminou a saturação do equipamento a curta distância, atingindo 28,5\,Mbps a 2\,m, o dobro da 4G, mas à custa da cobertura a 10\,m. O downlink 5G atingiu 50,6\,Mbps, mais do dobro do 4G. O tempo de ida e volta médio, de 25 a 28\,ms sem carga, subiu para segundos sob tráfego TCP, devido a uma queue RLC sobredimensionada.
 
-Por exemplo, para um documento escrito em Alemão com resumos em Alemão, Inglês e Italiano (por esta ordem), pode usar-se:
-\begin{verbatim}
-    \ntsetup{abstractorder={de={de,en,it}}}
-\end{verbatim}
-
-Relativamente ao seu conteúdo, os resumos não devem ultrapassar uma página e frequentemente tentam responder às seguintes questões (é imprescindível a adaptação às práticas habituais da sua área científica):
-
-\begin{enumerate}
-  \item Qual é o problema?
-  \item Porque é que é um problema interessante/desafiante?
-  \item Qual é a proposta de abordagem/solução?
-  \item Quais são as consequências/resultados da solução proposta?
-\end{enumerate}
-
-% E agora vamos fazer um teste com uma quebra de linha no hífen a ver se a \LaTeX\ duplica o hífen na linha seguinte se usarmos \verb+"-+… em vez de \verb+-+.
-%
-% zzzz zzz zzzz zzz zzzz zzz zzzz zzz zzzz zzz zzzz zzz zzzz zzz zzzz zzz zzzz comentar"-lhe zzz zzzz zzz zzzz
-%
-% Sim!  Funciona! :)
+Estes resultados mostram que uma rede 5G Standalone open-source pode igualar ou superar uma rede 4G construída com o mesmo equipamento, mas só depois de ajustada às condições que pretende-se operar, e que nenhuma configuração fixa serve todos as localizações. A plataforma fica instalada e documentada para trabalho futuro.
 
 % Palavras-chave do resumo em Português
-% \begin{keywords}
-% Palavra-chave 1, Palavra-chave 2, Palavra-chave 3, Palavra-chave 4
-% \end{keywords}
 \keywords{
-  Primeira palavra-chave \and
-  Outra palavra-chave \and
-  Mais uma palavra-chave \and
-  A última palavra-chave
+  5G Standalone \and
+  Open-source \and
+  5G Testbed \and
+  Software-Defined Radio \and
+  Avaliação de desempenho
 }
-% to add an extra black line

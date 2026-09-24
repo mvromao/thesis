@@ -34,7 +34,7 @@ A view of the laboratory bench, showing all four machines, is shown in Figure~\r
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{machines.jpg}
-    \caption[The laboratory bench, with the four machines]{The bench, showing all four machines. From left to right: 4G RAN, 5G NSA (unused), Core and 5G RAN. Connected to the 4G RAN machine is the bladeRF xA4, and connected to the 5G RAN machine, is the NI B2901.}
+    \caption[The laboratory bench, with the four machines]{The bench, showing all four machines. From left to right: 4G RAN, 5G NSA (unused), Core and 5G RAN. Connected to the 4G RAN machine is the bladeRF xA4, and connected to the 5G RAN machine is the NI B2901.}
     \label{fig:bench-machines}
 \end{figure}
 
@@ -56,7 +56,7 @@ The hardware components of the testbed are described in this section. All four m
         Storage & 512\,GB SSD \\
         \hline
     \end{tabular}
-    \caption[Specifications of network's machines]{Specifications of the Dell OptiPlex Micro 7020 machines, identical across all four machines of the testbed.}
+    \caption[Specifications of testbed machines]{Specifications of the Dell OptiPlex Micro 7020 machines, identical across all four machines of the testbed.}
     \label{tab:hardware-specifications}
 \end{table}
 
@@ -106,14 +106,14 @@ Connected to the 5G \gls{RAN} machine is an NI B2901 (Figure~\ref{fig:b2901-gpsd
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{bladeRF.jpg}
-    \caption{The Nuand bladeRF xA4, connected and cabled on the bench.}
+    \caption{The Nuand bladeRF xA4, connected and cabled on the bench. This board had no external synchronization source, although an SMA cable is present in the Figure.}
     \label{fig:bladerf}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{b2901_gpsdo_collage.jpg}
-    \caption{The B2901 and the Leo Bodnar GPSDO, as connected on the bench.}
+    \caption{The B2901 and the Leo Bodnar GPSDO, as connected on the bench. Output 1 of the GPSDO provises a 1 PPS signal to the PPS IN port of the B2901, while Output 2 provides a 10\,MHz reference clock to the REF IN port.}
     \label{fig:b2901-gpsdo}
 \end{figure}
 
