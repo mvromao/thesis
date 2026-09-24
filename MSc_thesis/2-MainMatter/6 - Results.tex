@@ -84,7 +84,7 @@ Table~\ref{tab:throughput-summary} lists the mean throughput of every condition 
          & UDP & UL & 14.1 & 0.5 & 14.2 & 1.7 \\
         \hline
     \end{tabular}
-    \caption{Mean throughput, in Mbps, of every combination of location, protocol and direction, for the 4G baseline and the three 5G rounds. The 4G and Round~1 figures are single measurements ($n=1$); Rounds~2 and~3 are means over three repetitions ($n=3$).}
+    \caption[Mean throughput by location, protocol and direction]{Mean throughput, in Mbps, of every combination of location, protocol and direction, for the 4G baseline and the three 5G rounds. The 4G and Round~1 figures are single measurements ($n=1$); Rounds~2 and~3 are means over three repetitions ($n=3$).}
     \label{tab:throughput-summary}
 \end{table}
 
@@ -112,7 +112,7 @@ The throughput results describe how much data the network can carry, but not how
         C (10\,m, concrete wall) & 0\% & 15.7\,ms & 26.2\,ms & 25.1\,ms & 35.3\,ms & 48.4\,ms \\
         \hline
     \end{tabular}
-    \caption{Round 3 round-trip time from the core machine to the \gls{UE}, 30 ICMP echoes per location, with no other traffic on the network.}
+    \caption[Round 3 round-trip time with no other traffic]{Round 3 round-trip time from the core machine to the \gls{UE}, 30 ICMP echoes per location, with no other traffic on the network.}
     \label{tab:unloaded-latency}
 \end{table}
 
@@ -146,7 +146,7 @@ The uplink scheduling cycle comes from the way a \gls{UE} gains access to the up
         C (10\,m) & 1001.97\,ms & 1.97\,ms & 2.03\,ms/echo \\
         \hline
     \end{tabular}
-    \caption{Actual ping interval at each location, from the total duration in \texttt{ping}'s summary divided by 29 intervals, against the slope of the round-trip time ramp fitted from the 30 echoes.}
+    \caption[Ping interval against the fitted round-trip time ramp]{Actual ping interval at each location, from the total duration in \texttt{ping}'s summary divided by 29 intervals, against the slope of the round-trip time ramp fitted from the 30 echoes.}
     \label{tab:ping-drift}
 \end{table}
 
@@ -157,7 +157,7 @@ Figure~\ref{fig:phase-shift} illustrates this mechanism with four consecutive ec
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{phase shift.pdf}
-    \caption{Wait for the next scheduling request opportunity of four consecutive echo replies (echoes 23 to 26 of the Location A series), relative to the 20\,ms scheduling request cycle. Each wait is the echo's measured round-trip time minus the 15.7\,ms floor.}
+    \caption[Wait for the next scheduling request opportunity]{Wait for the next scheduling request opportunity of four consecutive echo replies (echoes 23 to 26 of the Location A series), relative to the 20\,ms scheduling request cycle. Each wait is the echo's measured round-trip time minus the 15.7\,ms floor.}
     \label{fig:phase-shift}
 \end{figure}
 
@@ -193,7 +193,7 @@ The round-trip times in Section~\ref{sec:unloaded-latency} describe the network 
         C (10\,m) & 6.1--7.3\,Mbps & \makecell{2133\,ms\\(1995--2255)} & 3.5--5.3\,s & 0--54 & 26.2\,ms \\
         \hline
     \end{tabular}
-    \caption{Round~3 TCP downlink tests at each location: the mean round-trip time reported by the \texttt{iperf3} server, averaged over the three repetitions, with the lowest and highest repetition in brackets; and the range across the three repetitions of the throughput, the maximum round-trip time, and the number of retransmissions, with the idle mean round-trip time from section~\ref{sec:unloaded-latency} for comparison.}
+    \caption[Round 3 TCP downlink: throughput, latency and retransmissions]{Round~3 TCP downlink tests at each location: the mean round-trip time reported by the \texttt{iperf3} server, averaged over the three repetitions, with the lowest and highest repetition in brackets; and the range across the three repetitions of the throughput, the maximum round-trip time, and the number of retransmissions, with the idle mean round-trip time from section~\ref{sec:unloaded-latency} for comparison.}
     \label{tab:loaded-latency}
 \end{table}
 
@@ -305,7 +305,7 @@ Table~\ref{tab:r1-link-quality} compares both metrics for the two generations in
         C (10\,m) & 12.0\,dB & $-3.8$\,dB & 9.8\,dB & $-13.8$\,dB \\
         \hline
     \end{tabular}
-    \caption{Round~1 mean uplink \gls{SINR} and \gls{UE} power headroom at each location, averaged over the TCP and UDP uplink tests ($n=1$).}
+    \caption[Round 1 uplink SINR and UE power headroom]{Round~1 mean uplink \gls{SINR} and \gls{UE} power headroom at each location, averaged over the TCP and UDP uplink tests ($n=1$).}
     \label{tab:r1-link-quality}
 \end{table}
 
@@ -333,7 +333,7 @@ Between Round~2 and Round~3, the 5G uplink was also affected by the receive gain
          & 60 & 2.2\,Mbps & 0.7\,dB & 1.0 & 5.7\% & $-22.6$\,dB \\
         \hline
     \end{tabular}
-    \caption{5G uplink at \texttt{rx\_gain} 70 (Round~2) and 60 (Round~3), averaged over the TCP and UDP uplink tests at each location ($n=3$): throughput, \gls{SINR}, mean \gls{MCS} index, \gls{BLER} and \gls{UE} power headroom.}
+    \caption[5G uplink at receive gain 70 and at 60]{5G uplink at \texttt{rx\_gain} 70 (Round~2) and 60 (Round~3), averaged over the TCP and UDP uplink tests at each location ($n=3$): throughput, \gls{SINR}, mean \gls{MCS} index, \gls{BLER} and \gls{UE} power headroom.}
     \label{tab:rxgain-link-quality}
 \end{table}
 
@@ -369,7 +369,7 @@ The same intervals can also be measured from the outside, in the \gls{NGAP} capt
         4G attach & 8 & 342\,ms & 322--386\,ms \\
         \hline
     \end{tabular}
-    \caption{Time from the \gls{UE}'s registration or attach request to the completion of the procedure, from the \gls{AMF} (5G) and \gls{MME} (4G) logs of the three test sessions.}
+    \caption[5G registration and 4G attach times]{Time from the \gls{UE}'s registration or attach request to the completion of the procedure, from the \gls{AMF} (5G) and \gls{MME} (4G) logs of the three test sessions.}
     \label{tab:registration-time}
 \end{table}
 
@@ -381,7 +381,7 @@ The second property accounts for most of the difference: in these six registrati
     \centering
     \includegraphics[width=\textwidth]{wireshark_pcap.png}\\[4ex]
     \includegraphics[width=\textwidth]{wireshark_pcap_fast.png}
-    \caption{Two 5G registrations as recorded in the \gls{NGAP} captures written by the \gls{gNB}. Top: the slowest registration of the campaign, at Location A in Round~1, in which the \gls{AMF} held no security context for the \gls{UE}. Bottom: a registration at Location B in the same round, in which it did. In both, the registration request is frame 3.}
+    \caption[Two 5G registrations in the NGAP captures]{Two 5G registrations as recorded in the \gls{NGAP} captures written by the \gls{gNB}. Top: the slowest registration of the campaign, at Location A in Round~1, in which the \gls{AMF} held no security context for the \gls{UE}. Bottom: a registration at Location B in the same round, in which it did. In both, the registration request is frame 3.}
     \label{fig:ngap-registration}
 \end{figure}
 

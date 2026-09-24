@@ -25,7 +25,7 @@ The machines connect to each other through an Ethernet switch, with static IP ad
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{IP-Addresses.pdf}
-    \caption{Network topology of the four machines, showing the role of each machine and its static IP address. The machine in gray was reserved for a 5G \gls{NSA} deployment, but ultimately was not used in the actual testbed.}
+    \caption[Network topology and static addresses of the four machines]{Network topology of the four machines, showing the role of each machine and its static IP address. The machine in gray was reserved for a 5G \gls{NSA} deployment, but ultimately was not used in the actual testbed.}
     \label{fig:ip-addresses}
 \end{figure}
 
@@ -34,7 +34,7 @@ A view of the laboratory bench, showing all four machines, is shown in Figure~\r
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{machines.jpg}
-    \caption{The bench, showing all four machines. From left to right: 4G RAN, 5G NSA (unused), Core and 5G RAN. Connected to the 4G RAN machine is the bladeRF xA4, and connected to the 5G RAN machine, is the NI B2901.}
+    \caption[The laboratory bench, with the four machines]{The bench, showing all four machines. From left to right: 4G RAN, 5G NSA (unused), Core and 5G RAN. Connected to the 4G RAN machine is the bladeRF xA4, and connected to the 5G RAN machine, is the NI B2901.}
     \label{fig:bench-machines}
 \end{figure}
 
@@ -56,7 +56,7 @@ The hardware components of the testbed are described in this section. All four m
         Storage & 512\,GB SSD \\
         \hline
     \end{tabular}
-    \caption{Specifications of the Dell OptiPlex Micro 7020 machines, identical across all four machines of the testbed.}
+    \caption[Specifications of network's machines]{Specifications of the Dell OptiPlex Micro 7020 machines, identical across all four machines of the testbed.}
     \label{tab:hardware-specifications}
 \end{table}
 
@@ -122,7 +122,7 @@ For both radios, the antennas used were the same. The 4G rig used a BT-200 \gls{
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{biastee components.jpg}
-    \caption{The BT-200 \gls{LNA} and BT-100 power amplifier bias tees, mounted on the bladeRF xA4's RX1 and TX1 ports respectively.}
+    \caption{The BT-200 \glsxtrshort{LNA} and BT-100 power amplifier bias tees, mounted on the bladeRF xA4's RX1 and TX1 ports respectively.}
     \label{fig:biastee-components}
 \end{figure}
 
@@ -158,7 +158,7 @@ Both generations are served by the same identity and addressing: a single \gls{P
         \gls{RAN}-facing address (N2, N3, S1-MME, S1-U) & 10.0.0.10 \\
         \hline
     \end{tabular}
-    \caption{Main configuration values of the Open5GS core, shared by the 4G and 5G networks.}
+    \caption[Main configuration values of the Open5GS core]{Main configuration values of the Open5GS core, shared by the 4G and 5G networks.}
     \label{tab:core-config}
 \end{table}
 
@@ -218,7 +218,7 @@ The 4G srsRAN \gls{RAN}~\cite{srsran_4g_repo} ran at commit 6bcbd9e5b, with no c
         \texttt{rx\_gain} & 60 & 70 (Rounds 1--2), 60 (Round 3) \\
         \hline
     \end{tabular}
-    \caption{Configuration of the 4G and 5G \glspl{RAN}. The 4G configuration did not change across test rounds; the 5G rows that did are detailed in Chapter~\ref{cha:methodology}.}
+    \caption[Configuration of the 4G and 5G RANs]{Configuration of the 4G and 5G \glspl{RAN}. The 4G configuration did not change across test rounds; the 5G rows that did are detailed in Chapter~\ref{cha:methodology}.}
     \label{tab:ran-config}
 \end{table}
 
@@ -238,7 +238,7 @@ The proposed \gls{UE} for the testbed was a Motorola Moto G56 5G, a mid-range sm
         Samsung Galaxy Z Flip5~\cite{gsmarena_z_flip5} & Qualcomm Snapdragon 8 Gen 2 & 12\,GB / 512\,GB \\
         \hline
     \end{tabular}
-    \caption{Comparison of the two candidate \glspl{UE}. Both support \gls{NR} band n78, the band used by this testbed.}
+    \caption[Comparison of the two candidate UEs]{Comparison of the two candidate \glspl{UE}. Both support \gls{NR} band n78, the band used by this testbed.}
     \label{tab:ue-comparison}
 \end{table}
 
@@ -291,6 +291,6 @@ This setup is the starting point for the evaluation that follows. Chapter~\ref{c
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{Testbed_Diagram.pdf}
-    \caption{The testbed as deployed: the Open5GS core on Machine 1, the 5G \gls{RAN} on Machine 2 with the NI B2901 and the \gls{GPSDO}, and the 4G \gls{RAN} on Machine 4 with the bladeRF xA4 and its BT-100/BT-200 front-end. The unused 5G \gls{NSA} machine, the Ethernet switch and the \gls{UE} are not shown.}
+    \caption[The testbed as deployed]{The testbed as deployed: the Open5GS core on Machine 1, the 5G \gls{RAN} on Machine 2 with the NI B2901 and the \gls{GPSDO}, and the 4G \gls{RAN} on Machine 4 with the bladeRF xA4 and its BT-100/BT-200 front-end. The unused 5G \gls{NSA} machine, the Ethernet switch and the \gls{UE} are not shown.}
     \label{fig:testbed-architecture}
 \end{figure}

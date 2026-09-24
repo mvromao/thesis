@@ -52,7 +52,7 @@ The output shows the available network interfaces, including the Ethernet interf
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{ip a.png}
-    \caption{Output of the \texttt{ip a} command on the core machine once set up, showing the Ethernet interface (enp0s31f6) at 10.0.0.10/24, and the \texttt{ogstun} interface created by Open5GS for the \gls{UE} address pool (10.45.0.1/16).}
+    \caption[Output of \texttt{ip a} on the core machine]{Output of the \texttt{ip a} command on the core machine once set up, showing the Ethernet interface (enp0s31f6) at 10.0.0.10/24, and the \texttt{ogstun} interface created by Open5GS for the \gls{UE} address pool (10.45.0.1/16).}
     \label{fig:ip_a_output}
 \end{figure}
 
@@ -89,7 +89,7 @@ The output should show successful ping responses, as shown in Figure~\ref{fig:pi
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{pings.png}
-    \caption{Pings from the core machine to the 5G \gls{RAN} machine (10.0.0.20) and the 4G \gls{RAN} machine (10.0.0.40), with no packet loss and round-trip times of around 1\,ms.}
+    \caption[Pings from the core machine to both RAN machines]{Pings from the core machine to the 5G \gls{RAN} machine (10.0.0.20) and the 4G \gls{RAN} machine (10.0.0.40), with no packet loss and round-trip times of around 1\,ms.}
     \label{fig:ping_output}
 \end{figure}
 
@@ -587,7 +587,7 @@ The output shows the device's status and the settings of each output, as shown i
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\textwidth]{lbe142x.png}
-    \caption{Output of \texttt{lbe142x.py detail} for the LBE-1421, reporting both satellite and PLL lock, and the two outputs set to 1PPS and 10\,MHz.}
+    \caption[Output of \texttt{lbe142x.py detail} for the LBE-1421]{Output of \texttt{lbe142x.py detail} for the LBE-1421, reporting both satellite and PLL lock, and the two outputs set to 1PPS and 10\,MHz.}
     \label{fig:app-lbe-detail}
 \end{figure}
 
@@ -773,7 +773,7 @@ Here, \texttt{-R} selects the reverse (downlink) direction, \texttt{-u -b 100M} 
 \begin{figure}[htbp]
     \centering
     \includegraphics[height=0.55\textheight]{cellularlab.jpg}
-    \caption{The CellularLab app on the \gls{UE}, configured for a TCP uplink test: the server address and port of the \texttt{iperf3} server on the core machine, a duration of 20 seconds, 8 parallel streams, and a reporting interval of one second.}
+    \caption[The CellularLab app configured for a TCP uplink test]{The CellularLab app on the \gls{UE}, configured for a TCP uplink test: the server address and port of the \texttt{iperf3} server on the core machine, a duration of 20 seconds, 8 parallel streams, and a reporting interval of one second.}
     \label{fig:app-cellularlab}
 \end{figure}
 
