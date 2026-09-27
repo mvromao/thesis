@@ -7,14 +7,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \typeout{NT FILE provisioning_esim.tex}%
-
-\chapter{Provisioning the eSIM and connecting to the network}
+    
+\chapter{Provisioning eSIM}
 \label{ch:provisioning_esim}
-In this chapter, we will provision an eSIM profile for the testbed and connect to the network. We will create an eSIM profile through a provisioning server and follow the steps to activate it on the \gls{UE}. Once the eSIM is activated, it can be used to connect to the network and transmit/receive data.
+In this appendix, we will provision an eSIM profile for the testbed and connect to the network. We will create an eSIM profile through a provisioning server and follow the steps to activate it on the \gls{UE}. Once the eSIM is activated, it can be used to connect to the network and transmit/receive data.
 
 \section{Creating an eSIM profile}
 \label{sec:creating_esim_profile}
-To create an eSIM profile for the testbench, we will use Simlessly~\cite{simlessly}, specifically their \gls{RSP} tool, which allows custom eSIM profile creation. This platform requires an account to access the provisioning services.
+To create an eSIM profile for the testbed, we will use Simlessly~\cite{simlessly}, specifically their \gls{RSP} tool, which allows custom eSIM profile creation. This platform requires an account to access the provisioning services.
 Once logged in, the user is greeted with a dashboard, shown in Figure~\ref{fig:simlessly_dashboard}, where we can manage our eSIM profiles and view their status.
 
 \begin{figure}[htbp]
@@ -43,7 +43,7 @@ From the dashboard, we can click the ``Generate AC'' button to create a new eSIM
         ICCID &  8900101000000000001 \\
         \gls{IMSI} &  001010000000001 \\
         KI &  465B5CE8B199B49FAA5F0A2EE238A6BC \\
-        OPC &  E8ED289DEBA952E4B4C389C94229606A \\
+        OPc &  E8ED289DEBA952E4B4C389C94229606A \\
         \hline
     \end{tabular}
     \caption{eSIM profile details.}
@@ -70,7 +70,7 @@ With the Activation Code displayed, the profile is installed on the phone by sca
     \includegraphics[width=0.3\textwidth]{Simlessly/lab_eSim2.jpeg}
     \hfill
     \includegraphics[width=0.3\textwidth]{Simlessly/lab_eSim3.jpeg}
-    \caption[Installing the eSIM profile on the UE.]{Installing the eSIM profile on the \gls{UE}. Left: the phone asks to confirm the \texttt{LAB\_eSIM} profile. Centre: the profile being downloaded from the provisioning server. Right: the SIM manager with the profile installed and enabled, and mobile data set to use it.}
+    \caption[Installing the eSIM profile on the UE.]{Installing the eSIM profile on the \gls{UE}. Left: the phone asks to confirm the \texttt{LAB\_eSIM} profile. Center: the profile being downloaded from the provisioning server. Right: the SIM manager with the profile installed and enabled, and mobile data set to use it.}
     \label{fig:esim_install}
 \end{figure}
 

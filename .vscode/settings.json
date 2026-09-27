@@ -1,15 +1,19 @@
 {
     "cSpell.words": [
         "chktex",
-        "iperf",
+        "eNB",
+        "esim",
         "gNB",
+        "iperf",
         "Moto",
+        "Oliveira",
+        "phdplan",
         "PLMN",
-        "RAN",
         "pucch",
         "pusch",
-        "Wireshark",
+        "RAN",
+        "ulisboa",
         "UPF",
-        "eNB"
+        "Wireshark"
     ]
 }

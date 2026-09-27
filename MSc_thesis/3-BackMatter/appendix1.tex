@@ -129,7 +129,9 @@ After executing the above commands, MongoDB will be installed on the machine. We
 sudo systemctl start mongod
 sudo systemctl status mongod
 \end{code}
-In which the output, shown in Figure~\ref{fig:mongodb_status}, should indicate that the MongoDB service is active and running:
+
+The output, shown in Figure~\ref{fig:mongodb_status}, should indicate that the MongoDB service is active and running:
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{4G_MongoDB_response.png}
@@ -180,7 +182,7 @@ After installing Node.js, we can proceed to install the Open5GS WebUI by running
 curl -fsSL https://open5gs.org/open5gs/assets/webui/install |
 sudo -E bash -
 \end{code}
-The WebUI can be accessed by navigating to `http://localhost:9999` in a web browser. The default login credentials are:
+The WebUI can be accessed by navigating to \texttt{http://localhost:9999} in a web browser. The default login credentials are:
 \begin{itemize}
     \item Username: admin
     \item Password: 1423
@@ -366,7 +368,7 @@ The plus button at the bottom right opens the subscriber form, shown in Figure~\
 \begin{itemize}
     \item \textbf{IMSI}: the subscriber's identity, whose first five digits (00101) are the \gls{PLMN} of the testbed.
     \item \textbf{Subscriber Key (K)} and \textbf{Operator Key (OPc)}: the secret keys used to authenticate the SIM, with the USIM type set to OPc.
-    \item \textbf{Authentication Management Field (\gls{AMF})}: left at its default, 8000.
+    \item \textbf{Authentication Management Field (AMF)}: left at its default, 8000.
 \end{itemize}
 
 The remaining fields, which set the slice and data network of the subscriber, are left at the WebUI's defaults (SST 1 and \texttt{internet}), which match the core configuration of Table~\ref{tab:core-config}. A single subscriber entry serves both generations: the same SIM authenticates against the 4G \gls{EPC} and the 5G core, since both read their subscriber data from the same database.
@@ -392,9 +394,10 @@ sudo add-apt-repository ppa:nuandllc/bladerf
 sudo apt update
 \end{code}
 After enabling the PPA, we can install the bladeRF software and firmware using the following command:
+
 \begin{code}
 sudo apt install bladerf
-sudo apt install bladerf-fpga-hostedx40
+sudo apt install bladerf-fpga-hostedxa4
 \end{code}
 
 To bridge the connection between the bladeRF xA4 and the \gls{RAN}, SoapySDR will be used, which will be covered in the next section (\ref{sec:SoapySDR}). For this to work, the header files for the bladeRF drivers need to be installed:
@@ -402,12 +405,12 @@ To bridge the connection between the bladeRF xA4 and the \gls{RAN}, SoapySDR wil
 \begin{code}
 sudo apt install libbladerf-dev
 \end{code}
-With the bladeRF drivers installed, we can proceed into the installation of SoapySDR, which will allow us to use the bladeRF xA4 as the radio interface for the \gls{RAN}.
+With the bladeRF drivers installed, we can proceed to the installation of SoapySDR, which will allow us to use the bladeRF xA4 as the radio interface for the \gls{RAN}.
 
 \subsection{Installing SoapySDR}
 \label{sec:SoapySDR}
 
-The SoapySDR component is comprised two parts: the SoapySDR library, which is the main interface for all types of \gls{SDR} devices, and the SoapyBladeRF plug-in, which provides specific support for the bladeRF xA4.
+The SoapySDR component comprises two parts: the SoapySDR library, which is the main interface for all types of \gls{SDR} devices, and the SoapyBladeRF plug-in, which provides specific support for the bladeRF xA4.
 
 First, we need to install the necessary dependencies:
 \begin{code}
@@ -634,7 +637,7 @@ Unlike srsRAN 4G, the srsRAN Project \gls{gNB} reads a single YAML configuration
     \item \texttt{ru\_sdr}: the radio. The B2901 is driven through UHD, takes both its clock and its time reference from the \gls{GPSDO} (\texttt{external}), and runs at the transmit and receive gains discussed in Chapter~\ref{cha:methodology}.
     \item \texttt{cell\_cfg}: the cell itself, in band n78 with a 20\,MHz channel and 30\,kHz subcarrier spacing, using the 2:2 \gls{TDD} pattern.
     \item \texttt{log} and \texttt{metrics}: logging of all layers at \texttt{info} level, with the per-second metrics written into the log, as described in Section~\ref{sec:data-collection}.
-    \item \texttt{pcap}: packet captures of the \gls{MAC} layer and of the \gls{NGAP} signalling with the core.
+    \item \texttt{pcap}: packet captures of the \gls{MAC} layer and of the \gls{NGAP} signaling with the core.
 \end{itemize}
 \begin{minted}[bgcolor=gray!20,frame=single,framerule=0.8pt,rulecolor=\color{black}]{yaml}
 cu_cp:
@@ -791,7 +794,7 @@ This section briefly lists the problems encountered while building and testing t
     \item[The \gls{gNB} starts, but the \gls{UE} does not find the network.]~\\
     Check if the \gls{UE} supports the band and channel configured in the \gls{gNB}'s YAML file (Section~\ref{sec:app-gnb-config}). Also check if the \gls{UE}'s operating system allows the use of the \gls{PLMN} configured in the Core and \gls{RAN}, as some phones restrict the use of non-standard PLMNs. If the \gls{UE} is not compatible with the network, it will not find it.
 
-    \item[The \gls{UE} cannot hold to the network.]~\\
+    \item[The \gls{UE} cannot stay connected to the network.]~\\
     Check that the \gls{GPSDO} reports both satellite and PLL lock (Section~\ref{sec:app-gpsdo}), and that the \gls{gNB} is properly configured to use it. Without the \gls{GPSDO}, the radio's clock and timing reference are not disciplined, and the \gls{UE} may fail to synchronize with the cell. Also check the gain settings on the \gls{gNB} or \gls{eNB}, as too low a gain may prevent the \gls{UE} from maintaining a stable connection. If needed, perform a gain sweep to find the optimal values for the test location.
 
     \item[The \gls{RAN} cannot connect to the core.]~\\

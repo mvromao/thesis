@@ -95,13 +95,13 @@ For the radio, two \glspl{SDR} were chosen:
     \item \underline {Nuand bladeRF xA4}: This is a cheaper mid-level \gls{SDR} that uses its own vendor library, libbladeRF, for communication with the host machine. It is less used than the USRP B210 in research projects, as it is not directly compatible with most software. Through the use of a wrapper library, it is possible to use this \gls{SDR} with most software which does not natively support it.
 \end{itemize}
 
-Both of these boards use an Analog Devices AD9361 transceiver, which makes their \glsxtrshort{RF} capabilities theoretically similar. The main difference between them is their \glspl{FPGA}, in which the B210 uses a Xilinx Spartan-6, while the bladeRF xA4 uses an Intel Altera Cyclone V.
+Both of these boards use an Analog Devices AD9361 transceiver, which makes their \glsxtrshort{RF} capabilities theoretically similar. The main difference between them is their \glspl{FPGA}: the B210 uses a Xilinx Spartan-6, while the bladeRF xA4 uses an Intel Altera Cyclone V.
 
-Along with the \glspl{SDR}, a Leo Bodnar \gls{GPSDO} was chosen to provide a stable clock source for the NI B2901, which is crucial for the proper operation of the 5G network, given the strict timing requirements of the 5G standard, compounded by the \gls{TDD} operation. The \gls{GPSDO} provides a stable 10\,MHz reference clock and a 1PPS signal, which are used to synchronize the \gls{SDR} and ensure accurate timing for the transmission and reception of signals.
+Along with the \glspl{SDR}, a Leo Bodnar \gls{GPSDO} was chosen to provide a stable clock source for the NI B2901, which is crucial for the proper operation of the 5G network, given the strict timing requirements of the 5G standard, compounded by the \gls{TDD} operation. The \gls{GPSDO} provides a stable 10\,MHz reference clock and a 1\,PPS signal, which are used to synchronize the \gls{SDR} and ensure accurate timing for the transmission and reception of signals.
 
 Connected to the 4G \gls{RAN} machine is the Nuand bladeRF xA4 (Figure~\ref{fig:bladerf}), which was used for the 4G deployment. This board, unlike the B2901, was powered entirely over its USB connection to the \gls{RAN} machine, with no separate power supply used.
 
-Connected to the 5G \gls{RAN} machine is an NI B2901 (Figure~\ref{fig:b2901-gpsdo}), the National Instruments designation for the USRP B210 described above. In addition to its USB connection to the \gls{RAN} machine, the B2901 was connected to a wall socket through its own power supply, which was required to sustain the board at the gain settings used during testing. Along with the board, the Leo Bodnar \gls{GPSDO} was connected to provide both a stable clock source and a 1PPS signal for synchronization. The \gls{GPSDO}'s GPS lock was verified using \texttt{lbgpsdo}~\cite{lbgpsdo}, an open-source command-line utility for configuring and querying Leo Bodnar \gls{GPSDO} devices.
+Connected to the 5G \gls{RAN} machine is an NI B2901 (Figure~\ref{fig:b2901-gpsdo}), the National Instruments designation for the USRP B210 described above. In addition to its USB connection to the \gls{RAN} machine, the B2901 was connected to a wall socket through its own power supply, which was required to sustain the board at the gain settings used during testing. Along with the board, the Leo Bodnar \gls{GPSDO} was connected to provide both a stable clock source and a 1\,PPS signal for synchronization. The \gls{GPSDO}'s GPS lock was verified using \texttt{lbgpsdo}~\cite{lbgpsdo}, an open-source command-line utility for configuring and querying Leo Bodnar \gls{GPSDO} devices.
 
 \begin{figure}[htbp]
     \centering
@@ -129,9 +129,9 @@ For both radios, the antennas used were the same. The 4G rig used a BT-200 \gls{
 \section{Core}
 \label{sec:core}
 
-The core network is implemented using Open5GS~\cite{open5gs_repo}, an open-source project that provides both a complete 5G core network (5GC) and a 4G \gls{EPC} implementation, following the \gls{3GPP} Release 17 specifications. This dual support makes the 4G/5G comparison possible on shared hardware, as the same Open5GS deployment serves as the core for both generations, so the 4G baseline and the 5G network under test differ only in their \gls{RAN}. Open5GS is designed to be modular, with each network function implemented as a separate process, each with its own configuration file on the machine. Subscriber data for both generations is held in a single MongoDB database, which Open5GS uses as its backend. The core network is deployed on its own dedicated machine.
+The core network is implemented using Open5GS~\cite{open5gs_repo}, an open-source project that provides both a complete 5G core network (5GC) and a 4G \gls{EPC} implementation, following the \gls{3GPP} Release 17 specifications. This dual support makes the 4G/5G comparison possible on shared hardware, as the same Open5GS deployment serves as the core for both generations, so the 4G baseline and the 5G network under test differ physically only in their \gls{RAN}. Open5GS is designed to be modular, with each network function implemented as a separate process, each with its own configuration file on the machine. Subscriber data for both generations is held in a single MongoDB database, which Open5GS uses as its backend. The core network is deployed on its own dedicated machine.
 
-The Open5GS~\cite{open5gs_repo} core ran at version 2.8.0, with the main configuration values listed in Table~\ref{tab:core-config}. Harking back to the reusability objective stated in the Introduction, all configuration files for the core were made available in a GitHub repository~\cite{thesis_repo}, and a script to deploy them directly onto the core machine was created and made public, allowing anyone to redeploy the same core configuration without having to reconstruct it by hand. The script \texttt{deploy\_open5gs\_configs.sh} checks out the configuration files from the project's GitHub repository and deploys them directly onto the core host. This approach ensures that the testbed's configuration can be easily replicated in the future, supporting the goal of reusability and facilitating further research or experimentation based on this work.
+The Open5GS~\cite{open5gs_repo} core ran at version 2.8.0, with the main configuration values listed in Table~\ref{tab:core-config}. Harking back to the reusability objective stated in the Introduction, all configuration files for the core were made available in a GitHub repository~\cite{thesis_repo}, and a script \texttt{deploy\_open5gs\_configs.sh} to deploy them directly onto the core machine was created and made public, allowing anyone to redeploy the same core configuration without having to reconstruct it by hand. This approach ensures that the testbed's configuration can be easily replicated in the future, supporting the goal of reusability and facilitating further research or experimentation based on this work.
 
 Both generations are served by the same identity and addressing: a single \gls{PLMN}, tracking area and data network, with every \gls{UE}, whether attached over 4G or 5G, drawing its IP address from the same pool. This is possible because Open5GS's \gls{SMF} and \gls{UPF} also act as the control and user plane halves of the \gls{EPC}'s \gls{PGW} (PGW-C and PGW-U), so the user plane of both generations terminates at the same function on the core machine. All interfaces facing the \glspl{RAN} are bound to the core machine's address, 10.0.0.10: the \gls{NGAP} (N2) and \gls{GTP-U} (N3) endpoints for the 5G \gls{RAN}, and the \gls{MME} (S1-MME) and \gls{SGW} user plane (SGW-U) endpoints for the 4G \gls{RAN}. 
 
@@ -191,9 +191,9 @@ The 4G srsRAN \gls{RAN}~\cite{srsran_4g_repo} ran at commit 6bcbd9e5b, with no c
         \hline
         Channel number & EARFCN 3350 & NR-ARFCN 627340 \\
         \hline
-        Downlink centre frequency & 2680.0\,MHz & 3410.1\,MHz \\
+        Downlink center frequency & 2680.0\,MHz & 3410.1\,MHz \\
         \hline
-        Uplink centre frequency & 2560.0\,MHz & 3410.1\,MHz \\
+        Uplink center frequency & 2560.0\,MHz & 3410.1\,MHz \\
         \hline
         Channel bandwidth & 10\,MHz & 20\,MHz \\
         \hline
@@ -211,7 +211,7 @@ The 4G srsRAN \gls{RAN}~\cite{srsran_4g_repo} ran at commit 6bcbd9e5b, with no c
         \hline
         \gls{RF} front-end & BT-200 \gls{LNA} (RX), BT-100 PA (TX) & None \\
         \hline
-        Clock reference & Internal & \gls{GPSDO} (10\,MHz + 1PPS) \\
+        Clock reference & Internal & \gls{GPSDO} (10\,MHz + 1\,PPS) \\
         \hline
         \texttt{tx\_gain} & 66 & 89.75 \\
         \hline
@@ -250,7 +250,7 @@ The Galaxy Z Flip5 supports both \gls{LTE} band 7 and \gls{NR} band n78, so the 
 Every result presented in Chapter~\ref{cha:results} is drawn from records the testbed itself produces while running, rather than from external measurement equipment. Table~\ref{tab:data-sources} lists these sources.
 
 The 5G \gls{RAN} is the more heavily measured of the two, because it was the network under investigation. In Round 1 its metrics were available only from the console, and its log also carried hex dumps of every message. From Round 2 onward the \gls{gNB} was configured to print its metrics into \texttt{gnb.log} with timestamps, which allows them to be aligned with the rest of the log, and hex dumps were turned off.
-In Round 1 the hex dumps made up 57 to 77\% of the lines in each log, or 41 to 60\% of its size, and the \gls{gNB} wrote an average of 1.7\,MB/s during testing, about 6.1\,GB per hour, with peaks of up to 12.9\,MB/s during saturated downlink tests. From Round 2 onward, without hex dumps but with the timestamped metrics and heavier traffic, the average fell to between 1.1 and 1.3\,MB/s, about 4 to 4.5\,GB per hour, and the peaks to 4.4\,MB/s. Anyone running the testbed continuously should plan for this, or lower the log levels.
+In Round 1 the hex dumps made up 57 to 77\% of the lines in each log, or 41 to 60\% of its size, and the \gls{gNB} wrote an average of 1.7\,MB/s during testing, about 6.1\,GB per hour, with peaks of up to 12.9\,MB/s during saturated downlink tests. From Round 2 onward, without hex dumps but with the timestamped metrics and heavier traffic, the average fell to between 1.1 and 1.3\,MB/s, about 4 to 4.7\,GB per hour, and the peaks to 4.4\,MB/s. Anyone running the testbed continuously should plan for this, or lower the log levels.
 
 \begin{table}[htbp]
     \centering

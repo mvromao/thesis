@@ -675,7 +675,7 @@
         <mxCell id="VGIiye6SKTIsCklfZba--197" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="SCS 60 kHz" vertex="1">
           <mxGeometry height="30" width="70" x="5" y="400" as="geometry" />
         </mxCell>
-        <mxCell id="VGIiye6SKTIsCklfZba--198" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="56 symbols&lt;div&gt;4 slots per subframe&lt;/div&gt;" vertex="1">
+        <mxCell id="VGIiye6SKTIsCklfZba--198" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="56 symbols&lt;div&gt;4 slot per subframe&lt;/div&gt;" vertex="1">
           <mxGeometry height="35" width="80" x="640" y="384.5" as="geometry" />
         </mxCell>
         <mxCell id="VGIiye6SKTIsCklfZba--199" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">

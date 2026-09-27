@@ -17,7 +17,7 @@ This chapter describes the methodology used to evaluate the testbed described in
 \label{sec:experimental-testbed}
 The network's performance was evaluated at three fixed \gls{UE} positions in the same room as the \gls{RAN}, chosen to combine increasing distance from the radio with different obstruction conditions at each point. Figure~\ref{fig:lab-floor-plan} shows the top plan view of the room, and Figure~\ref{fig:test-location-heights} shows the elevation, giving the height of the radio and of the \gls{UE} at each location above the floor.
 
-Material and thickness are recorded for each obstruction as they, and not distance alone, also account for the difference between the three locations: signal attenuation through a wall depends strongly on its material and thickness, particularly at the 3.4\,GHz centre frequency used by the 5G \gls{RAN}, so the three locations should be read as distance-plus-obstruction conditions rather than a simple distance variation. Figure~\ref{fig:thickness-collage} shows the tape-measure readings taken for both obstructions.
+Material and thickness are recorded for each obstruction as they, and not distance alone, also account for the difference between the three locations: signal attenuation through a wall depends strongly on its material and thickness, particularly at the 3.4\,GHz center frequency used by the 5G \gls{RAN}, so the three locations should be read as distance-plus-obstruction conditions rather than a simple distance variation. Figure~\ref{fig:thickness-collage} shows the tape-measure readings taken for both obstructions.
 
 \begin{figure}
     \centering
@@ -36,11 +36,11 @@ Material and thickness are recorded for each obstruction as they, and not distan
 \begin{figure}
     \centering
     \includegraphics[width=0.95\textwidth]{thickness_collage.jpg}
-    \caption[Measured thickness of the two obstructions.]{Tape measured thickness readings for the two obstructions on the direct path: the concrete wall at Location C (25.3\,cm) and the office partition at Location B (3\,cm).}
+    \caption[Measured thickness of the two obstructions.]{Tape measured thickness readings for the two obstructions on the direct path: the concrete wall at Location C (25.3\,cm) and the office divider at Location B (3\,cm).}
     \label{fig:thickness-collage}
 \end{figure}
 
-Besides obstructions, the objects present in the room may account for signal attenuation as well. In Figure~\ref{fig:lab-floor-plan}, the objects shown in dark grey are metal furniture and equipment present in the room. None of these lie directly on the signal path between the \gls{RAN} and any of the three test locations, but their metal construction means they may still have contributed to reflections and multipath propagation, and should be kept in mind when interpreting the results. Other objects present in the room, such as the tables and doors shown on the diagram, present minimal attenuation and are not expected to have a significant effect on the results.
+Besides obstructions, the objects present in the room may account for signal attenuation as well. In Figure~\ref{fig:lab-floor-plan}, the objects shown in dark gray are metal furniture and equipment present in the room. None of these lie directly on the signal path between the \gls{RAN} and any of the three test locations, but their metal construction means they may still have contributed to reflections and multipath propagation, and should be kept in mind when interpreting the results. Other objects present in the room, such as the tables and doors shown on the diagram, present minimal attenuation and are not expected to have a significant effect on the results.
 A summary of all measurements and signal obstruction conditions for each of the three test locations is presented in Table~\ref{tab:test-locations}.
 % These measurements are also intended to support a comparison between the obstructions' theoretical attenuation and the attenuation actually observed in the collected data.
 
@@ -52,7 +52,7 @@ A summary of all measurements and signal obstruction conditions for each of the 
         \hline
         A & 2\,m  & 75\,cm & Clear line of sight & --- & --- \\
         \hline
-        B & 6\,m  & 72\,cm & Office partition & Plastic and Felt & 3\,cm \\
+        B & 6\,m  & 72\,cm & Office divider & Plastic and felt & 3\,cm \\
         \hline
         C & 10\,m & 59\,cm & Concrete wall & Concrete & 25.3\,cm \\
         \hline
@@ -67,7 +67,7 @@ A summary of all measurements and signal obstruction conditions for each of the 
 \label{sec:experimental-methodology}
 At each location, tests were run for each generation of network, for both TCP and UDP, and for both uplink and downlink, giving four traffic conditions per location, per generation. For the 4G network, each of these conditions was tested once ($n=1$); for the 5G network, each was repeated three times ($n=3$). This difference was not a deliberate methodological choice about sample size per generation: the 4G network was only tested during the first round of testing, in which every combination, both in 4G and 5G, was only tested once. Subsequent rounds of testing focused on the 5G network, following configuration corrections described later in this chapter, and used three repetitions per condition from that point onward. The 4G tests were meant to be repeated under the same procedure, which would have made the results of the two generations more directly comparable, but this could not be carried out, as the Nuand bladeRF used by the 4G \gls{RAN} was no longer available at the time.
 
-Traffic was generated with \texttt{iperf3}, with the server running on the core machine and the client running on the \gls{UE} through the CellularLab app~\cite{cellularlab}, which provides an \texttt{iperf3} client for Android devices. Each test consisted of a single 20-second \texttt{iperf3} run, over either TCP or UDP, in either the uplink or the downlink direction. To saturate the link, the client opened eight parallel streams. TCP tests used the default \texttt{iperf3} parameters, while UDP tests set a target rate of 100\,Mbps per stream (\texttt{-b 100M}), roughly 800\,Mbps in total. This is well above the capacity of either network, so the measured UDP throughput reflects what the link can carry at its maximum, rather than the rate that was offered. The results of each run were recorded both on the \gls{UE} and on the server.
+Traffic was generated with \texttt{iperf3}, with the server running on the core machine and the client running on the \gls{UE} through the CellularLab app~\cite{cellularlab}, which provides an \texttt{iperf3} client for Android devices. Each test consisted of a single 20-second \texttt{iperf3} run, over either TCP or UDP, in either the uplink or the downlink direction. To saturate the link, the client opened eight parallel streams. TCP tests used the default \texttt{iperf3} parameters, while UDP tests set a target rate of 100\,Mbps per stream (\texttt{-b 100M}), for 800\,Mbps in total. This is well above the capacity of either network, so the measured UDP throughput reflects what the link can carry at its maximum, rather than the rate that was offered. The results of each run were recorded both on the \gls{UE} and on the server.
 
 Figure~\ref{fig:photo-locations} shows the three test locations as they were used for testing, with the \gls{UE} in place.
 
@@ -77,7 +77,7 @@ Initially, the 5G network was configured with a 3:1 \gls{TDD} structure. As spec
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{locations_collage.jpg}
-    \caption[The three test locations, with the UE in place.]{The three test locations, with the \gls{UE} in place: Location A, 2\,m, clear line of sight; Location B, 6\,m, behind the office partition; Location C, 10\,m, behind the concrete wall.}
+    \caption[The three test locations, with the UE in place.]{The three test locations, with the \gls{UE} in place: Location A, 2\,m, clear line of sight; Location B, 6\,m, behind the office divider; Location C, 10\,m, behind the concrete wall.}
     \label{fig:photo-locations}
 \end{figure}
 
@@ -155,7 +155,7 @@ All together, the rebalance is expected to roughly double the uplink airtime ava
 \subsection{Test Round 1}
 \label{sec:test-round-1}
 
-This test round was the first to be run, on the 25th and 28th of July 2026. It comprised 24 tests, 12 for each generation, differing in location, protocol and direction, each with a single repetition. The 5G network was run with the 3:1 \gls{TDD} structure, remnant of the original srsRAN configuration used as a basis for the network configuration, which was later found to structurally cap the maximum uplink airtime and was rebalanced to a symmetrical 2:2 structure for Round 2. Running a single test for each configuration was also found to produce insufficient analytical data, thus not capturing the real behavior of the 5G network, so the following rounds were run with three repetitions per configuration. Results from this round are presented in Chapter~\ref{cha:results}.
+This test round was the first to be run, on the 25th and 28th of July 2026. It comprised 24 tests, 12 for each generation, differing in location, protocol and direction, each with a single repetition. The 5G network was run with the 3:1 \gls{TDD} structure, a remnant of the original srsRAN configuration used as a basis for the network configuration, which was later found to structurally cap the maximum uplink airtime and was rebalanced to a symmetrical 2:2 structure for Round 2. Running a single test for each configuration was also found to produce insufficient analytical data, thus not capturing the real behavior of the 5G network, so the following rounds were run with three repetitions per configuration. Results from this round are presented in Chapter~\ref{cha:results}.
 
 \subsection{Test Round 2}
 \label{sec:test-round-2}
@@ -169,7 +169,7 @@ This test round was run on the 2nd of August. The 5G network was reconfigured wi
     \label{fig:stand}
 \end{wrapfigure}
 
-A likely, though unconfirmed, explanation was only identified afterward: a full metal stand (Figure~\ref{fig:stand}), belonging to an unrelated thesis project sharing the lab, was standing directly in the signal path between the \gls{UE} and \gls{RAN} at this location and was unnoticed at the time. A metal obstruction of this size may have been enough to block the link given the radio's otherwise limited transmit power. Keeping \texttt{rx\_gain} at 70 for this round was later found to be overloading the receiver at 2\,m, and measures were taken to address this issue on Round 3. Results from this round are also presented in Chapter~\ref{cha:results}.
+A likely, though unconfirmed, explanation was only identified afterward: a full metal stand (Figure~\ref{fig:stand}), belonging to an unrelated thesis project sharing the lab, was standing directly in the signal path between the \gls{UE} and \gls{RAN} at this location and was unnoticed at the time. A metal obstruction of this size may have been enough to block the link given the radio's otherwise limited transmit power. Keeping \texttt{rx\_gain} at 70 for this round was later found to overload the receiver at 2\,m, and measures were taken to address this issue on Round 3. Results from this round are also presented in Chapter~\ref{cha:results}.
 
 \subsection{Test Round 3}
 \label{sec:test-round-3}
@@ -184,7 +184,7 @@ Table~\ref{tab:test-rounds-summary} summarizes the 5G configuration and data val
         \hline
         \textbf{Round} & \textbf{Date} & \textbf{TDD} & \textbf{\texttt{rx\_gain}} & \textbf{Reps} & \textbf{4G tested} & \textbf{Total reps} & \textbf{Locations valid} \\
         \hline
-        1 & 25-28 Jul & 3:1 & 70 & 1 & Yes & 24 & A, B, C \\
+        1 & 25--28 Jul & 3:1 & 70 & 1 & Yes & 24 & A, B, C \\
         \hline
         2 & 2 Aug & 2:2 & 70 & 3 & No & 36 & A, C \\
         \hline
@@ -195,4 +195,4 @@ Table~\ref{tab:test-rounds-summary} summarizes the 5G configuration and data val
     \label{tab:test-rounds-summary}
 \end{table}
 
-Together, these three rounds make up the full test campaign analysed in Chapter~\ref{cha:results}.
+Together, these three rounds make up the full test campaign analyzed in Chapter~\ref{cha:results}.

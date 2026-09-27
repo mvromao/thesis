@@ -32,10 +32,10 @@ The two networks were evaluated at three locations in the same room, with increa
 
     \item During a TCP download, the mean round-trip time rose to between 0.2 and 2.3\,s, as the default 6.17\,MB downlink \gls{RLC} queue filled with data that TCP had no reason to hold back. The downlink throughput measured in the test rounds is real, but it came with seconds of delay that would degrade the performance of any interactive application sharing the link.
 
-    \item A 5G registration took 186\,ms median, and a 4G attach took 342\,ms median. The only cost specific to the 5G \gls{SBA} was the discovery of the other network functions through the \gls{NRF}, which added around 13\,ms to the first registrations after the core was started, and did not recur once the connections were established.
+    \item A 5G registration took a median of 186\,ms, and a 4G attach took 342\,ms median. The only cost specific to the 5G \gls{SBA} was the discovery of the other network functions through the \gls{NRF}, which added around 13\,ms to the first registrations after the core was started, and did not recur once the connections were established.
 \end{itemize}
 
-Taken together, these findings answer the question posed in Chapter~\ref{cha:introduction}: a 5G \gls{SA} network built entirely from open-source software and \gls{COTS} hardware can match or exceed a 4G network built with the same tools, but only after its configuration has been adapted to the hardware and environment in which it runs. The 4G network reached the performance reported here with its first configuration and was never tuned again, while the 5G network needed a rebalanced \gls{TDD} pattern and a swept receive gain before it matched, and then doubled, that baseline at short range, and the value it ended on still serves only part of the room.
+Taken together, these findings answer the question posed in Chapter~\ref{cha:introduction}: a 5G \gls{SA} network built entirely from open-source software and \gls{COTS} hardware can match or exceed a 4G network built with the same tools, but only after its configuration has been adapted to the hardware and environment in which it runs. The 4G network reached the performance reported here with its first configuration and was never tuned again, while the 5G network needed a rebalanced \gls{TDD} pattern and a receive gain sweep before it matched (and then doubled) at short range, which still serves only part of the room.
 
 What makes these parameters easy to miss is that none of them prevent the network from working: the cell starts, the \gls{UE} attaches, and traffic flows in both directions with all of them at the wrong value, and only a measurement reveals what they cost. Most of the problems found in this work were therefore not limitations of 5G or of the open-source stack, but defaults and inherited values that had never been revisited, and the diagnosis of each one is documented so that others deploying a similar stack can avoid repeating it.
 
@@ -47,9 +47,11 @@ The results of this dissertation should be read with the following limitations i
 \begin{itemize}
     \item The 4G network was only tested in Round~1, with a single repetition per condition, and its throughput was taken from the \gls{RAN}'s own metrics rather than from \texttt{iperf3}. Rounds~2 and~3 carried three repetitions, with throughput measured by \texttt{iperf3} itself. A repetition of the 4G tests under the later procedure was planned but could not be carried out, as the Nuand bladeRF used by the 4G \gls{RAN} was no longer available in the laboratory. The comparisons between the 4G baseline and the later 5G rounds are therefore indicative rather than exact.
 
-    \item The 4G and 5G networks use different frequency bands, bandwidths, duplexing schemes and radios, and only the 4G receive chain includes a low-noise amplifier. Each result therefore compares this 4G deployment with this 5G deployment, rather than the two generations in general.
-
-    \item The reason why the 5G \gls{UE} had no transmit power in reserve even at the closest location was not established, just as the reason why the Motorola \gls{UE} could not connect to the 5G network was not determined, and the \texttt{ping} latency measurements were only carried out for the 5G network, in Round~3.
+    \item The 4G and 5G networks use different frequency bands, bandwidths, duplexing schemes and radios, and only the 4G receive chain includes a low noise amplifier. Each result therefore compares this 4G deployment with this 5G deployment, rather than the two generations in general.
+    
+    \item \texttt{ping} latency measurements were only carried out for the 5G network, in Round~3.
+    
+    \item The reason why the 5G \gls{UE} had no transmit power in reserve even at the closest location was not established, just as the reason why the Motorola \gls{UE} could not connect to the 5G network was not determined.
 \end{itemize}
 
 \section{Future Work}
@@ -62,7 +64,7 @@ The testbed remains in place, and the findings of this work suggest several idea
 
     \item A shorter scheduling request period than the default 20\,ms would reduce the time an uplink packet waits for its next opportunity, and with it the mean round-trip time, at the cost of more uplink control resources.
 
-    \item The 4G \gls{RAN} uses a power amplifier on its transmit chain and a \gls{LNA} on its receive chain, while the 5G \gls{RAN} has neither. A power amplifier was proposed during the project, but none was available in time. Adding an amplifier on transmit would extend the downlink range, while a \gls{LNA} on the receive chain, combined with a fixed attenuator, would raise the uplink sensitivity at the farther locations without saturating the receiver close to the radio, which is the trade-off the \texttt{rx\_gain} sweep could not resolve on its own.
+    \item The 4G \gls{RAN} uses a power amplifier on its transmit chain and an \gls{LNA} on its receive chain, while the 5G \gls{RAN} has neither. A power amplifier was proposed during the project, but none was available in time. Adding an amplifier on transmit would extend the downlink range, while an \gls{LNA} on the receive chain, combined with a fixed attenuator, would raise the uplink sensitivity at the farther locations without saturating the receiver close to the radio, which is the trade-off the \texttt{rx\_gain} sweep could not resolve on its own.
 
     \item Calibrating the cell's power parameters against the radio hardware would address the lack of \gls{UE} power headroom found in Round~1.
 
