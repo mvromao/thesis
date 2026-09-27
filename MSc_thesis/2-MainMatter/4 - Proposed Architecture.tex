@@ -25,7 +25,7 @@ The machines connect to each other through an Ethernet switch, with static IP ad
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{IP-Addresses.pdf}
-    \caption[Network topology and static addresses of the four machines]{Network topology of the four machines, showing the role of each machine and its static IP address. The machine in gray was reserved for a 5G \gls{NSA} deployment, but ultimately was not used in the actual testbed.}
+    \caption[Network topology and static addresses of the four machines.]{Network topology of the four machines, showing the role of each machine and its static IP address. The machine in gray was reserved for a 5G \gls{NSA} deployment, but ultimately was not used in the actual testbed.}
     \label{fig:ip-addresses}
 \end{figure}
 
@@ -34,7 +34,7 @@ A view of the laboratory bench, showing all four machines, is shown in Figure~\r
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{machines.jpg}
-    \caption[The laboratory bench, with the four machines]{The bench, showing all four machines. From left to right: 4G RAN, 5G NSA (unused), Core and 5G RAN. Connected to the 4G RAN machine is the bladeRF xA4, and connected to the 5G RAN machine is the NI B2901.}
+    \caption[The laboratory bench, with the four machines.]{The bench, showing all four machines. From left to right: 4G RAN, 5G NSA (unused), Core and 5G RAN. Connected to the 4G RAN machine is the bladeRF xA4, and connected to the 5G RAN machine is the NI B2901.}
     \label{fig:bench-machines}
 \end{figure}
 
@@ -56,7 +56,7 @@ The hardware components of the testbed are described in this section. All four m
         Storage & 512\,GB SSD \\
         \hline
     \end{tabular}
-    \caption[Specifications of testbed machines]{Specifications of the Dell OptiPlex Micro 7020 machines, identical across all four machines of the testbed.}
+    \caption[Specifications of testbed machines.]{Specifications of the Dell OptiPlex Micro 7020 machines, identical across all four machines of the testbed.}
     \label{tab:hardware-specifications}
 \end{table}
 
@@ -92,7 +92,7 @@ All machines run Ubuntu 22.04 LTS. The software running on each of them, and the
 For the radio, two \glspl{SDR} were chosen:
 \begin{itemize}
     \item \underline {National Instruments B2901 (B210)}: This is a mid-level \gls{SDR} that uses \gls{UHD}, the gold standard for \gls{SDR} development. These boards are widely used in research projects and testbeds, and they are natively compatible with most \gls{SDR} software.
-    \item \underline {Nuand bladeRF xA4}: This is a cheaper mid-level \gls{SDR} that uses a proprietary library, libbladeRF, for communication with the host machine. It is less used than the USRP B210 in research projects, as it is not directly compatible with most software. Through the use of a wrapper library, it is possible to use this \gls{SDR} with most software which does not natively support it.
+    \item \underline {Nuand bladeRF xA4}: This is a cheaper mid-level \gls{SDR} that uses its own vendor library, libbladeRF, for communication with the host machine. It is less used than the USRP B210 in research projects, as it is not directly compatible with most software. Through the use of a wrapper library, it is possible to use this \gls{SDR} with most software which does not natively support it.
 \end{itemize}
 
 Both of these boards use an Analog Devices AD9361 transceiver, which makes their \glsxtrshort{RF} capabilities theoretically similar. The main difference between them is their \glspl{FPGA}, in which the B210 uses a Xilinx Spartan-6, while the bladeRF xA4 uses an Intel Altera Cyclone V.
@@ -106,14 +106,14 @@ Connected to the 5G \gls{RAN} machine is an NI B2901 (Figure~\ref{fig:b2901-gpsd
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{bladeRF.jpg}
-    \caption{The Nuand bladeRF xA4, connected and cabled on the bench. This board had no external synchronization source, although an SMA cable is present in the Figure.}
+    \caption{The Nuand bladeRF xA4, connected and cabled on the bench. This board had no external synchronization source, although an SMA cable is present in the figure.}
     \label{fig:bladerf}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{b2901_gpsdo_collage.jpg}
-    \caption{The B2901 and the Leo Bodnar GPSDO, as connected on the bench. Output 1 of the GPSDO provises a 1 PPS signal to the PPS IN port of the B2901, while Output 2 provides a 10\,MHz reference clock to the REF IN port.}
+    \caption{The B2901 and the Leo Bodnar GPSDO, as connected on the bench. Output 1 of the GPSDO provides a 1 PPS signal to the PPS IN port of the B2901, while Output 2 provides a 10\,MHz reference clock to the REF IN port.}
     \label{fig:b2901-gpsdo}
 \end{figure}
 
@@ -158,7 +158,7 @@ Both generations are served by the same identity and addressing: a single \gls{P
         \gls{RAN}-facing address (N2, N3, S1-MME, S1-U) & 10.0.0.10 \\
         \hline
     \end{tabular}
-    \caption[Main configuration values of the Open5GS core]{Main configuration values of the Open5GS core, shared by the 4G and 5G networks.}
+    \caption[Main configuration values of the Open5GS core.]{Main configuration values of the Open5GS core, shared by the 4G and 5G networks.}
     \label{tab:core-config}
 \end{table}
 
@@ -218,7 +218,7 @@ The 4G srsRAN \gls{RAN}~\cite{srsran_4g_repo} ran at commit 6bcbd9e5b, with no c
         \texttt{rx\_gain} & 60 & 70 (Rounds 1--2), 60 (Round 3) \\
         \hline
     \end{tabular}
-    \caption[Configuration of the 4G and 5G RANs]{Configuration of the 4G and 5G \glspl{RAN}. The 4G configuration did not change across test rounds; the 5G rows that did are detailed in Chapter~\ref{cha:methodology}.}
+    \caption[Configuration of the 4G and 5G RANs.]{Configuration of the 4G and 5G \glspl{RAN}. The 4G configuration did not change across test rounds; the 5G rows that did are detailed in Chapter~\ref{cha:methodology}.}
     \label{tab:ran-config}
 \end{table}
 
@@ -238,7 +238,7 @@ The proposed \gls{UE} for the testbed was a Motorola Moto G56 5G, a mid-range sm
         Samsung Galaxy Z Flip5~\cite{gsmarena_z_flip5} & Qualcomm Snapdragon 8 Gen 2 & 12\,GB / 512\,GB \\
         \hline
     \end{tabular}
-    \caption[Comparison of the two candidate UEs]{Comparison of the two candidate \glspl{UE}. Both support \gls{NR} band n78, the band used by this testbed.}
+    \caption[Comparison of the two candidate UEs.]{Comparison of the two candidate \glspl{UE}. Both support \gls{NR} band n78, the band used by this testbed.}
     \label{tab:ue-comparison}
 \end{table}
 
@@ -291,6 +291,6 @@ This setup is the starting point for the evaluation that follows. Chapter~\ref{c
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{Testbed_Diagram.pdf}
-    \caption[The testbed as deployed]{The testbed as deployed: the Open5GS core on Machine 1, the 5G \gls{RAN} on Machine 2 with the NI B2901 and the \gls{GPSDO}, and the 4G \gls{RAN} on Machine 4 with the bladeRF xA4 and its BT-100/BT-200 front-end. The unused 5G \gls{NSA} machine, the Ethernet switch and the \gls{UE} are not shown.}
+    \caption[The testbed as deployed.]{The testbed as deployed: the Open5GS core on Machine 1, the 5G \gls{RAN} on Machine 2 with the NI B2901 and the \gls{GPSDO}, and the 4G \gls{RAN} on Machine 4 with the bladeRF xA4 and its BT-100/BT-200 front-end. The unused 5G \gls{NSA} machine, the Ethernet switch and the \gls{UE} are not shown.}
     \label{fig:testbed-architecture}
 \end{figure}

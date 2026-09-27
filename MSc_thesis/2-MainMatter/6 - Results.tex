@@ -84,7 +84,7 @@ Table~\ref{tab:throughput-summary} lists the mean throughput of every condition 
          & UDP & UL & 14.1 & 0.5 & 14.2 & 1.7 \\
         \hline
     \end{tabular}
-    \caption[Mean throughput by location, protocol and direction]{Mean throughput, in Mbps, of every combination of location, protocol and direction, for the 4G baseline and the three 5G rounds. The 4G and Round~1 figures are single measurements ($n=1$); Rounds~2 and~3 are means over three repetitions ($n=3$).}
+    \caption[Mean throughput by location, protocol and direction.]{Mean throughput, in Mbps, of every combination of location, protocol and direction, for the 4G baseline and the three 5G rounds. The 4G and Round~1 figures are single measurements ($n=1$); Rounds~2 and~3 are means over three repetitions ($n=3$).}
     \label{tab:throughput-summary}
 \end{table}
 
@@ -112,7 +112,7 @@ The throughput results describe how much data the network can carry, but not how
         C (10\,m, concrete wall) & 0\% & 15.7\,ms & 26.2\,ms & 25.1\,ms & 35.3\,ms & 48.4\,ms \\
         \hline
     \end{tabular}
-    \caption[Round 3 round-trip time with no other traffic]{Round 3 round-trip time from the core machine to the \gls{UE}, 30 ICMP echoes per location, with no other traffic on the network.}
+    \caption[Round 3 round-trip time with no other traffic.]{Round 3 round-trip time from the core machine to the \gls{UE}, 30 ICMP echoes per location, with no other traffic on the network.}
     \label{tab:unloaded-latency}
 \end{table}
 
@@ -127,7 +127,7 @@ The means, at 25 to 28\,ms, sit well above that floor, and the spread between th
     \label{fig:ping-sawtooth}
 \end{figure}
 
-The rate of descent is similar at Locations A and B, around 1.2\,ms per echo, and steeper at Location C, around 2.0\,ms per echo, a difference that lies in the ping tool rather than in the network. The locations also differ in how often the ramp restarts: Location A completes two long ramps over the 30 echoes, while Locations B and C restart more frequently and peak higher, reaching 48\,ms against Location A's 35\,ms. Those higher peaks exceed the 19\,ms jump measured at Location A, so at the weaker locations an echo occasionally waits more than one cycle, which is consistent with the weaker uplink signal at those locations under Round~3's \texttt{rx\_gain} of 60, examined later in this chapter.
+The rate of descent is similar at Locations A and B, around 1.2\,ms per echo, and steeper at Location C, around 2.0\,ms per echo, a difference that lies in the ping tool rather than in the network. The locations also differ in how often the ramp restarts: Location A completes two long ramps over the 30 echoes, while Locations B and C restart more frequently and peak higher, reaching 48\,ms against Location A's 35\,ms. Those higher peaks reach upwards of 48\,ms, so at the weaker locations an echo occasionally waits more than one cycle, which is consistent with the weaker uplink signal at those locations under Round~3's \texttt{rx\_gain} of 60, examined later in this chapter.
 
 The sawtooth is caused by a drift between the ping interval and the uplink scheduling cycle. Although \texttt{ping} was set to send one echo every 1000\,ms, the total interval duration reported in \texttt{ping}'s own summary, divided by the 29 intervals between the 30 echoes, gives 1001.24\,ms at Location A, 1001.28\,ms at Location B and 1001.97\,ms at Location C, most likely because the software timer on the core machine overshoots each interval by a small amount.
 
@@ -146,18 +146,18 @@ The uplink scheduling cycle comes from the way a \gls{UE} gains access to the up
         C (10\,m) & 1001.97\,ms & 1.97\,ms & 2.03\,ms/echo \\
         \hline
     \end{tabular}
-    \caption[Ping interval against the fitted round-trip time ramp]{Actual ping interval at each location, from the total duration in \texttt{ping}'s summary divided by 29 intervals, against the slope of the round-trip time ramp fitted from the 30 echoes.}
+    \caption[Ping interval against the fitted round-trip time ramp.]{Actual ping interval at each location, from the total duration in \texttt{ping}'s summary divided by 29 intervals, against the slope of the round-trip time ramp fitted from the 30 echoes.}
     \label{tab:ping-drift}
 \end{table}
 
-This proves that, despite \texttt{ping}'s time drift, the network maintains the 20\,ms scheduling cycle with precision. With a perfectly timed one-second interval, every echo would have arrived at the same point of the cycle, and the round-trip time would have been constant. By sweeping the echoes across the whole cycle, the drift shows that a packet the \gls{UE} has to send at an arbitrary moment waits anywhere between 0 and 20\,ms, about 10\,ms on average, for its next scheduling request opportunity. This is why the mean round-trip times, at 25 to 28\,ms, sit around 10\,ms above the 15.7\,ms floor.
+This shows that, despite \texttt{ping}'s time drift, the network maintains the 20\,ms scheduling cycle with precision. With a perfectly timed one-second interval, every echo would have arrived at the same point of the cycle, and the round-trip time would have been constant. By sweeping the echoes across the whole cycle, the drift shows that a packet the \gls{UE} has to send at an arbitrary moment waits anywhere between 0 and 20\,ms, about 10\,ms on average, for its next scheduling request opportunity. This is why the mean round-trip times, at 25 to 28\,ms, sit around 10\,ms above the 15.7\,ms floor.
 
 Figure~\ref{fig:phase-shift} illustrates this mechanism with four consecutive echoes from the Location A \texttt{ping} series, echoes 23 to 26. Each bar is the time the echo's reply waits for the next scheduling request opportunity, taken as its measured round-trip time minus the 15.7\,ms floor. From one echo to the next, the reply becomes ready roughly 1.2\,ms later in the 20\,ms cycle, the amount by which Location A's ping interval exceeds one second, so the wait shrinks from 3.2\,ms to 2.0\,ms and then to 0.3\,ms. Echo 26 becomes ready just after the opportunity at 20\,ms has passed, and has to wait 19.2\,ms for the following one, which produces the jump from 16.0\,ms to 34.9\,ms seen in Figure~\ref{fig:ping-sawtooth}.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{phase shift.pdf}
-    \caption[Wait for the next scheduling request opportunity]{Wait for the next scheduling request opportunity of four consecutive echo replies (echoes 23 to 26 of the Location A series), relative to the 20\,ms scheduling request cycle. Each wait is the echo's measured round-trip time minus the 15.7\,ms floor.}
+    \caption[Wait for the next scheduling request opportunity.]{Wait for the next scheduling request opportunity of four consecutive echo replies (echoes 23 to 26 of the Location A series), relative to the 20\,ms scheduling request cycle. Each wait is the echo's measured round-trip time minus the 15.7\,ms floor.}
     \label{fig:phase-shift}
 \end{figure}
 
@@ -193,7 +193,7 @@ The round-trip times in Section~\ref{sec:unloaded-latency} describe the network 
         C (10\,m) & 6.1--7.3\,Mbps & \makecell{2133\,ms\\(1995--2255)} & 3.5--5.3\,s & 0--54 & 26.2\,ms \\
         \hline
     \end{tabular}
-    \caption[Round 3 TCP downlink: throughput, latency and retransmissions]{Round~3 TCP downlink tests at each location: the mean round-trip time reported by the \texttt{iperf3} server, averaged over the three repetitions, with the lowest and highest repetition in brackets; and the range across the three repetitions of the throughput, the maximum round-trip time, and the number of retransmissions, with the idle mean round-trip time from section~\ref{sec:unloaded-latency} for comparison.}
+    \caption[Round 3 TCP downlink: throughput, latency and retransmissions.]{Round~3 TCP downlink tests at each location: the mean round-trip time reported by the \texttt{iperf3} server, averaged over the three repetitions, with the lowest and highest repetition in brackets; and the range across the three repetitions of the throughput, the maximum round-trip time, and the number of retransmissions, with the idle mean round-trip time from Section~\ref{sec:unloaded-latency} for comparison.}
     \label{tab:loaded-latency}
 \end{table}
 
@@ -288,6 +288,7 @@ We also see that in this final configuration, the throughput between both direct
 The previous section showed that the \gls{TDD} pattern limits how often the 5G uplink can transmit. How much data each transmission carries depends on the quality of the radio link, which this section examines through two metrics the \gls{RAN} reports for every uplink transmission: the \gls{SINR} measured by the base station, and the power headroom reported by the \gls{UE}. The power headroom is the difference between the \gls{UE}'s maximum transmit power and the power it is currently using, so a positive value means the \gls{UE} still has power in reserve, and a negative value means it is being asked for more power than it can deliver.
 
 \subsection{Round 1: 4G and 5G}
+\label{sec:round-1-link-quality}
 
 Table~\ref{tab:r1-link-quality} compares both metrics for the two generations in Round~1, averaged over the uplink tests at each location.
 
@@ -304,14 +305,16 @@ Table~\ref{tab:r1-link-quality} compares both metrics for the two generations in
         C (10\,m) & 12.0\,dB & $-3.8$\,dB & 9.8\,dB & $-13.8$\,dB \\
         \hline
     \end{tabular}
-    \caption[Round 1 uplink SINR and UE power headroom]{Round~1 mean uplink \gls{SINR} and \gls{UE} power headroom at each location, averaged over the TCP and UDP uplink tests ($n=1$).}
+    \caption[Round 1 uplink SINR and UE power headroom.]{Round~1 mean uplink \gls{SINR} and \gls{UE} power headroom at each location, averaged over the TCP and UDP uplink tests ($n=1$).}
     \label{tab:r1-link-quality}
 \end{table}
 
 At Location A, both networks see a similar uplink \gls{SINR}. With increasing distance, however, the two behave very differently: the 4G \gls{SINR} stays between 12 and 14.3\,dB at every location, while the 5G \gls{SINR} falls by more than 18\,dB between Locations A and C. The power headroom explains the difference. The 4G \gls{UE} keeps between 10 and 17\,dB of transmit power in reserve at every location, so as the path loss grows, the \gls{eNB}'s power control can ask it to transmit harder and hold the \gls{SINR} roughly constant. The 5G \gls{UE}, on the other hand, has no headroom left even at Location A, and is well beyond its maximum at Locations B and C, so every additional decibel of path loss is lost directly from the received \gls{SINR}.
 
 Part of this difference is expected, as the 5G \gls{RAN} operates at a higher frequency, 3.4\,GHz against 2.6\,GHz, and without the low-noise amplifier used on the 4G receive chain. However, why the 5G \gls{UE} runs out of headroom this early was not established.
+
 \subsection{Rounds 2 and 3: the receiver gain trade-off}
+\label{sec:round-2-3-link-quality}
 
 Between Round~2 and Round~3, the 5G uplink was also affected by the receive gain of the radio, set by the \texttt{rx\_gain} parameter. Table~\ref{tab:rxgain-link-quality} compares the uplink at each location with \texttt{rx\_gain} at 70, in Round~2, and at 60, in Round~3, with the same 2:2 \gls{TDD} pattern in both. Location B is only shown for Round~3, as its Round~2 data was excluded (Section~\ref{sec:test-round-2}).
 
@@ -319,7 +322,7 @@ Between Round~2 and Round~3, the 5G uplink was also affected by the receive gain
     \centering
     \begin{tabular}{|c|c|c|c|c|c|c|}
         \hline
-        \textbf{Location} & \textbf{\texttt{rx\_gain}} & \textbf{Throughput} & \textbf{\gls{SINR}} & \textbf{\gls{MCS}} & \textbf{\gls{BLER}} & \textbf{Headroom} \\
+        \textbf{Location} & \textbf{\texttt{rx\_gain}} & \textbf{Throughput} & \textbf{\gls{SINR}} & \textbf{\gls{MCS}} & \textbf{\glsxtrshort{BLER}} & \textbf{Headroom} \\
         \hline
         A (2\,m) & 70 & 13.9\,Mbps & 20.5\,dB & 18.5 & 22.4\% & $-1.9$\,dB \\
         \cline{2-7}
@@ -332,7 +335,7 @@ Between Round~2 and Round~3, the 5G uplink was also affected by the receive gain
          & 60 & 2.2\,Mbps & 0.7\,dB & 1.0 & 5.7\% & $-22.6$\,dB \\
         \hline
     \end{tabular}
-    \caption[5G uplink at receive gain 70 and at 60]{5G uplink at \texttt{rx\_gain} 70 (Round~2) and 60 (Round~3), averaged over the TCP and UDP uplink tests at each location ($n=3$): throughput, \gls{SINR}, mean \gls{MCS} index, \gls{BLER} and \gls{UE} power headroom.}
+    \caption[5G uplink at receive gain 70 and at 60.]{5G uplink at \texttt{rx\_gain} 70 (Round~2) and 60 (Round~3), averaged over the TCP and UDP uplink tests at each location ($n=3$): throughput, \gls{SINR}, mean \gls{MCS} index, \gls{BLER} and \gls{UE} power headroom.}
     \label{tab:rxgain-link-quality}
 \end{table}
 
@@ -342,7 +345,9 @@ The radio's own \texttt{ovl} flag, which srsRAN reports whenever the receiver is
 
 Lowering \texttt{rx\_gain} to 60 in Round~3 removed the overload at Location A, where the flag was raised only three times over a session of comparable length. The uplink \gls{BLER} fell from 22.4 to 6.6\%, and the throughput doubled to 28.5\,Mbps, the highest uplink throughput measured in the testbed. At Location C, the same change had the opposite effect: the \gls{SINR} fell by 17\,dB, to just above the noise floor, and the throughput fell to less than a fifth of its Round~2 value.
 
-The power headroom shows why the same 10\,dB reduction in receive gain helped one location and harmed the other. With less gain in the receiver, the \gls{gNB}'s power control asks the \gls{UE} to transmit harder to compensate. At Location A, its headroom fell by 11\,dB, almost exactly the gain removed from the receiver, so the received signal recovered, now without overloading the receiver. At Location C, the \gls{UE} was already asked for more than its maximum power in Round~2, with a headroom of $-16.1$\,dB, and had no power left to give, so the gain reduction was lost directly from the received \gls{SINR}.
+The power headroom rules out one possible explanation for why the same 10\,dB reduction in receive gain helped one location and harmed the other. At \texttt{rx\_gain} 70 the \gls{UE} was already at or beyond its maximum transmit power at both locations, with a headroom of $-1.9$\,dB at Location A and $-16.1$\,dB at Location C, so in neither case could it transmit harder to make up for the gain removed from the receiver. The further drop in headroom in Round~3, by 11\,dB at Location A and 6.5\,dB at Location C, reflects the power the \gls{gNB}'s power control asked for, not power the \gls{UE} was able to deliver.
+
+What separates the two locations is instead what limited the link at \texttt{rx\_gain} 70. At Location A, the signal was strong enough to saturate the receiver, and the link was limited by the resulting distortion rather than by noise. Removing 10\,dB of gain brought the signal back into the receiver's linear range, the distortion disappeared, and the \gls{SINR} rose from 20.5 to 25.2\,dB, even though less signal reached the digital stage. At Location C, the receiver was never overloaded, and the link was already limited by noise. With no low-noise amplifier ahead of the radio, lowering its gain raises the noise contributed by the rest of the receive chain relative to the signal, and with the \gls{UE} unable to compensate, the \gls{SINR} fell from 18.0 to 0.7\,dB.
 
 With a single, manually set receive gain and no automatic gain control, the \gls{gNB} cannot serve the whole room. A gain of 70 suits Location C and overloads the receiver at Location A, while a gain of 60 suits Location A and leaves Location C barely above the noise floor. This is a consequence of running a software \gls{RAN} on an \gls{SDR} whose receive gain is fixed at start-up.
 
@@ -359,16 +364,16 @@ The same intervals can also be measured from the outside, in the \gls{NGAP} capt
         \hline
         \textbf{Procedure} & \textbf{Count} & \textbf{Median} & \textbf{Range} \\
         \hline
-        5G registration, all & 39 & 186\,ms & 142--382\,ms \\
+        5G registration, all & 39 & 186\,ms & 142--383\,ms \\
         \hline
-        \quad with network function discovery & 6 & 320\,ms & 289--382\,ms \\
+        \quad with network function discovery & 6 & 320\,ms & 289--383\,ms \\
         \hline
         \quad without network function discovery & 33 & 186\,ms & 142--350\,ms \\
         \hline
         4G attach & 8 & 342\,ms & 322--386\,ms \\
         \hline
     \end{tabular}
-    \caption[5G registration and 4G attach times]{Time from the \gls{UE}'s registration or attach request to the completion of the procedure, from the \gls{AMF} (5G) and \gls{MME} (4G) logs of the three test sessions.}
+    \caption[5G registration and 4G attach times.]{Time from the \gls{UE}'s registration or attach request to the completion of the procedure, from the \gls{AMF} (5G) and \gls{MME} (4G) logs of the three test sessions.}
     \label{tab:registration-time}
 \end{table}
 
@@ -380,7 +385,7 @@ The second property accounts for most of the difference: in these six registrati
     \centering
     \includegraphics[width=\textwidth]{wireshark_pcap.png}\\[4ex]
     \includegraphics[width=\textwidth]{wireshark_pcap_fast.png}
-    \caption[Two 5G registrations in the NGAP captures]{Two 5G registrations as recorded in the \gls{NGAP} captures written by the \gls{gNB}. Top: the slowest registration of the campaign, at Location A in Round~1, in which the \gls{AMF} held no security context for the \gls{UE}. Bottom: a registration at Location B in the same round, in which it did. In both, the registration request is frame 3.}
+    \caption[Two 5G registrations in the NGAP captures.]{Two 5G registrations as recorded in the \gls{NGAP} captures written by the \gls{gNB}. Top: the slowest registration of the campaign, at Location A in Round~1, in which the \gls{AMF} held no security context for the \gls{UE}. Bottom: a registration at Location B in the same round, in which it did. In both, the registration request is frame 3.}
     \label{fig:ngap-registration}
 \end{figure}
 

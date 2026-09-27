@@ -52,7 +52,7 @@ The output shows the available network interfaces, including the Ethernet interf
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{ip a.png}
-    \caption[Output of \texttt{ip a} on the core machine]{Output of the \texttt{ip a} command on the core machine once set up, showing the Ethernet interface (enp0s31f6) at 10.0.0.10/24, and the \texttt{ogstun} interface created by Open5GS for the \gls{UE} address pool (10.45.0.1/16).}
+    \caption[Output of \texttt{ip a} on the core machine.]{Output of the \texttt{ip a} command on the core machine once set up, showing the Ethernet interface (enp0s31f6) at 10.0.0.10/24, and the \texttt{ogstun} interface created by Open5GS for the \gls{UE} address pool (10.45.0.1/16).}
     \label{fig:ip_a_output}
 \end{figure}
 
@@ -89,16 +89,18 @@ The output should show successful ping responses, as shown in Figure~\ref{fig:pi
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{pings.png}
-    \caption[Pings from the core machine to both RAN machines]{Pings from the core machine to the 5G \gls{RAN} machine (10.0.0.20) and the 4G \gls{RAN} machine (10.0.0.40), with no packet loss and round-trip times of around 1\,ms.}
+    \caption[Pings from the core machine to both RAN machines.]{Pings from the core machine to the 5G \gls{RAN} machine (10.0.0.20) and the 4G \gls{RAN} machine (10.0.0.40), with no packet loss and round-trip times of around 1\,ms.}
     \label{fig:ping_output}
 \end{figure}
 
 %%--------------------------------------------------------------------------------------
+
+\newpage
 \section{Core Machine (Machine 1)}
 \label{sec:app-core}
 
 This section installs and configures Open5GS, which serves as the core for both generations. The installation process consists of the following steps:
-\newpage
+
 \begin{enumerate}
     \item Installing MongoDB.
     \item Installing Open5GS.
@@ -588,7 +590,7 @@ The output shows the device's status and the settings of each output, as shown i
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\textwidth]{lbe142x.png}
-    \caption[Output of \texttt{lbe142x.py detail} for the LBE-1421]{Output of \texttt{lbe142x.py detail} for the LBE-1421, reporting both satellite and PLL lock, and the two outputs set to 1PPS and 10\,MHz.}
+    \caption[Output of \texttt{lbe142x.py detail} for the LBE-1421.]{Output of \texttt{lbe142x.py detail} for the LBE-1421, reporting both satellite and PLL lock, and the two outputs set to 1PPS and 10\,MHz.}
     \label{fig:app-lbe-detail}
 \end{figure}
 
@@ -742,7 +744,7 @@ The log and packet captures in \texttt{/tmp} should then be copied elsewhere, as
 
 \subsection{Verifying the Connection}
 \label{sec:app-verify}
-With either \gls{RAN} running, the \gls{UE} should find the network under its Mobile Network (or Cellular) settings, when searching for mobile networks, listed under the testbed's \gls{PLMN} (00101). Once the \gls{UE} is connected, the registration be seen on the Core's logs. For the 5G network, the \gls{AMF} log, \path{/var/log/open5gs/amf.log}, records the registration of the subscriber, and the \gls{SMF} log, \path{/var/log/open5gs/smf.log}, the IP address assigned to it:
+With either \gls{RAN} running, the \gls{UE} should find the network under its Mobile Network (or Cellular) settings, when searching for mobile networks, listed under the testbed's \gls{PLMN} (00101). Once the \gls{UE} is connected, the registration can be seen on the Core's logs. For the 5G network, the \gls{AMF} log, \path{/var/log/open5gs/amf.log}, records the registration of the subscriber, and the \gls{SMF} log, \path{/var/log/open5gs/smf.log}, the IP address assigned to it:
 \begin{code}
 [amf] INFO: InitialUEMessage (../src/amf/ngap-handler.c:668)
 [gmm] INFO: Registration request (../src/amf/gmm-sm.c:1678)
@@ -774,7 +776,7 @@ Here, \texttt{-R} selects the reverse (downlink) direction, \texttt{-u -b 100M} 
 \begin{figure}[htbp]
     \centering
     \includegraphics[height=0.55\textheight]{cellularlab.jpg}
-    \caption[The CellularLab app configured for a TCP uplink test]{The CellularLab app on the \gls{UE}, configured for a TCP uplink test: the server address and port of the \texttt{iperf3} server on the core machine, a duration of 20 seconds, 8 parallel streams, and a reporting interval of one second.}
+    \caption[The CellularLab app configured for a TCP uplink test.]{The CellularLab app on the \gls{UE}, configured for a TCP uplink test: the server address and port of the \texttt{iperf3} server on the core machine, a duration of 20 seconds, 8 parallel streams, and a reporting interval of one second.}
     \label{fig:app-cellularlab}
 \end{figure}
 
@@ -790,7 +792,7 @@ This section briefly lists the problems encountered while building and testing t
     Check if the \gls{UE} supports the band and channel configured in the \gls{gNB}'s YAML file (Section~\ref{sec:app-gnb-config}). Also check if the \gls{UE}'s operating system allows the use of the \gls{PLMN} configured in the Core and \gls{RAN}, as some phones restrict the use of non-standard PLMNs. If the \gls{UE} is not compatible with the network, it will not find it.
 
     \item[The \gls{UE} cannot hold to the network.]~\\
-    Check that the \gls{GPSDO} reports both satellite and PLL lock (Section~\ref{sec:app-gpsdo}), and that the \gls{gNB} is properly configured to use it. Without the \gls{GPSDO}, the radio's clock and timing reference are not disciplined, and the \gls{UE} may fail to synchronize with the cell. Also check the gain settings on the \gls{gNB} or {eNB}, as too low a gain may prevent the \gls{UE} from maintaining a stable connection. If needed, perform a gain sweep to find the optimal values for the test location.
+    Check that the \gls{GPSDO} reports both satellite and PLL lock (Section~\ref{sec:app-gpsdo}), and that the \gls{gNB} is properly configured to use it. Without the \gls{GPSDO}, the radio's clock and timing reference are not disciplined, and the \gls{UE} may fail to synchronize with the cell. Also check the gain settings on the \gls{gNB} or \gls{eNB}, as too low a gain may prevent the \gls{UE} from maintaining a stable connection. If needed, perform a gain sweep to find the optimal values for the test location.
 
     \item[The \gls{RAN} cannot connect to the core.]~\\
     If the \gls{gNB} or \gls{eNB} reports that the connection to the \gls{AMF} or \gls{MME} was refused, check that the core machine is reachable at 10.0.0.10 (Section~\ref{sec:app-network}), that the \gls{AMF} and \gls{MME} are configured to listen on that address, and that their services are running, with \texttt{systemctl status open5gs-amfd} or \texttt{open5gs-mmed}.
