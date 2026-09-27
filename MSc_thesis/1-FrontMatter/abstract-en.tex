@@ -10,11 +10,11 @@
 
 Open-source software and commodity software-defined radios have made it possible to deploy a private 5G Standalone network without a commercial operator's budget. Deploying it, however, is only half the problem: a working network can still perform far below what its hardware allows, and calibrating and tuning it for the conditions it operates in is a challenge of its own, harder still without a reference to compare against.
 
-This dissertation builds a 5G Standalone network alongside a 4G one, to serve as reference, sharing the same tools and Open5GS core. The 5G network is based on the srsRAN Project gNB and a USRP B210, and the 4G network on srsRAN 4G and a bladeRF xA4. The two were compared at three distances, tuning the 5G network over three rounds.
+This dissertation has focused on the implementation of a 5G Standalone network alongside a 4G one, to serve as reference, sharing the same tools and Open5GS core. The 5G network is based on the srsRAN Project gNB and a USRP B210, and the 4G network on srsRAN 4G and a bladeRF xA4. The two were compared at three distances, tuning the 5G network over three rounds.
 
-Against this baseline, the untuned 5G uplink was more than 20 times slower at 10\,m. Rebalancing the TDD pattern from 3:1 to 2:2 brought it to the 4G level, and lowering the receiver gain removed a short-range overload, reaching 28.5\,Mbps at 2\,m, twice the 4G baseline, but at the cost of coverage at 10\,m. The 5G downlink reached 50.6\,Mbps, over twice that of 4G. The idle round-trip time averaged 25 to 28\,ms, but rose to seconds under TCP load due to an oversized default RLC queue.
+Against this baseline, the untuned 5G uplink was more than 20 times slower at 10\,m. Rebalancing the TDD pattern from 3:1 to 2:2 brought it to the 4G level, and lowering the receiver gain removed a short-range overload, reaching 28.5\,Mbps at 2\,m, twice the 4G baseline, but at the cost of lower performance on longer distances. The 5G downlink reached 50.6\,Mbps, over twice that of 4G. The idle round-trip time averaged 25 to 28\,ms, but rose to seconds under TCP load due to an oversized default RLC queue.
 
-These results show that an open-source 5G Standalone network can match or exceed a 4G network built with the same tools, but only once tuned to its hardware and environment, and that no fixed configuration suits every location. The documented testbed remains in place for future work.
+These results show that an open-source 5G Standalone network can match or exceed a 4G network built with the same tools, but only once tuned to its hardware and environment, and that no fixed configuration suits every location. The implemented networks are now ready to support future experimental activities.
 
 % Abstract keywords
 \keywords{
