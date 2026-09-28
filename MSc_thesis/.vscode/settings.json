@@ -1,0 +1,30 @@
+{
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk-novathesis",
+            "command": "latexmk",
+            "args": [
+                "-shell-escape",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOCFILE%"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk (NOVAthesis 8)",
+            "tools": [
+                "latexmk-novathesis"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipe.default": "first",
+    "latex-workshop.latex.clean.method": "command",
+    "latex-workshop.latex.clean.command": "latexmk",
+    "latex-workshop.latex.clean.args": [
+        "-c",
+        "%TEX%"
+    ]
+}

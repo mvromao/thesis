@@ -300,3 +300,8 @@
 % \usepackage{algorithm2e}
 % \RestyleAlgo{ruled}
 
+
+% Restore the v7 NOVA FCT cover font (Gillius ADF No2). NOVAthesis 8 no longer
+% loads nova-fct-defaults.ldf, so the cover fell back to the new global sans
+% default (Inter). Delayed to the end of the preamble so it overrides Inter.
+\AtEndPreamble{\RequirePackage{gillius2}}
