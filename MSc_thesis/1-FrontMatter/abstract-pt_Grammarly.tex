@@ -1,0 +1,26 @@
+%!TEX root = ../template.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% abstract-pt.tex
+%% NOVA thesis document file
+%%
+%% Abstract in Portuguese
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{NT FILE abstract-pt.tex}%
+
+O software open-source e os rádios definidos por software de baixo custo permitem implementar uma rede 5G privada em modo Standalone sem o orçamento de um operador comercial. Implementá-la, porém, é apenas metade do problema, pois uma rede funcional ainda pode ficar muito aquém do que o equipamento permite, e calibrá-la às condições em que opera é outro desafio, ainda mais difícil sem uma referência.
+
+Esta dissertação focou-se na implementação de uma rede 5G Standalone, juntamente com uma rede 4G, como referência, partilhando o mesmo núcleo Open5GS. A rede 5G utiliza o srsRAN Project e uma USRP B210, e a rede 4G utiliza o srsRAN 4G e uma bladeRF xA4. As duas foram comparadas a três distâncias do rádio, com a rede 5G ajustada ao longo de três rondas.
+
+Face a esta referência, o uplink 5G, sem ajustes, era mais de 20 vezes mais lento a 10\,m. A mudança do padrão TDD de 3:1 para 2:2 igualou o débito ao da rede 4G, e a redução do ganho do recetor eliminou a saturação do equipamento a curta distância, atingindo 28,5\,Mbps a 2\,m, o dobro da 4G, mas à custa da diminuição do desempenho nas maiores distâncias. O downlink 5G atingiu 50,6\,Mbps, mais do dobro da 4G. O tempo de ida e volta médio, de 25 a 28\,ms sem carga, subiu para segundos sob tráfego TCP, devido a uma queue RLC sobredimensionada.
+
+Estes resultados mostram que uma rede 5G Standalone open-source pode igualar ou superar uma rede 4G construída com as mesmas ferramentas, mas só depois de ajustada às condições em que se pretende operar, e que nenhuma configuração fixa serve a todas as localizações. As redes implementadas ficam disponíveis para auxiliar em trabalhos laboratoriais futuros.
+
+% Palavras-chave do resumo em Português
+\keywords{
+  5G Standalone \and
+  Open-source \and
+  5G Testbed \and
+  Software-Defined Radio \and
+  Avaliação de desempenho
+}
