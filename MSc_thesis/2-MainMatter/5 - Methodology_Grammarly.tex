@@ -39,7 +39,7 @@ Material and thickness are recorded for each obstruction, as they, and not dista
     \caption[Measured thickness of the two obstructions.] {Tape-measured thickness readings for the two obstructions on the direct path: the concrete wall at Location C (25.3\,cm) and the office divider at Location B (3\,cm).}
     \label{fig:thickness-collage}
 \end{figure}
-
+\newpage
 Besides obstructions, the objects present in the room may account for signal attenuation as well. In Figure~\ref{fig:lab-floor-plan}, the objects shown in dark gray are metal furniture and equipment present in the room. None of these lie directly on the signal path between the \gls{RAN} and any of the three test locations. However, their metal construction means they may still have contributed to reflections and multipath propagation, and should be kept in mind when interpreting the results. Other objects present in the room, such as the tables and doors shown on the diagram, present minimal attenuation and are not expected to have a significant effect on the results.
 A summary of all measurements and signal obstruction conditions for each of the three test locations is presented in Table~\ref{tab:test-locations}.
 % These measurements are also intended to support a comparison between the obstructions' theoretical attenuation and the attenuation actually observed in the collected data.
@@ -72,7 +72,6 @@ Traffic was generated with \texttt{iperf3}, with the server running on the core 
 Figure~\ref{fig:photo-locations} shows the three test locations as they were used for testing, with the \gls{UE} in place.
 
 Initially, the 5G network was configured with a 3:1 \gls{TDD} structure. As specified by TS 38.213~\cite{3GPP38213} and described in Section~\ref{sec:ran_features}, the \gls{TDD} structure is defined by the TDD-UL-DL-ConfigurationCommon parameter, which is the \texttt{tdd\_ul\_dl\_cfg} block of the srsRAN \gls{gNB} configuration file, shown in Listing~\ref{lst:tdd-31-cfg}.
-\newpage
 
 \begin{figure}[htbp]
     \centering

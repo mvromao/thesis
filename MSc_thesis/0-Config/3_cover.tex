@@ -12,153 +12,280 @@
 
 
 
-%-------------------------------------------------------------------
-% Thesis/Dissertation title (valid for all languages unless redefined as below)
-% SYNTAX: \nttitle(type,lang){title}
-%         For [type] use: [main]  for main title
-%                         [sub]   for sub-title
-%                         [spine] for a book spine version of the title
-%                                 (if omitted defaults to main title without line breaks)
-%-------------------------------------------------------------------
-%         You may use "\\" to force line breaks
+%-------------------------------------------------------------
+% Thesis/Dissertation title
+%
+%     \nttitle(<type>,<lang>){title}
+%.............................................................
+%
+% <type>:  main -> the main title
+%           sub -> the sub-title, comment out (or define as empty "{}") for no sub title
+%         cover -> [optional] a customized version of the title for use in the cover
+%      abstract -> [optional] a customized version of the title for use in the abstract
+%         spine -> [optional] a customized version of the title for use in the book spine
+%
+% <lang>:       -> cat (catalan), cz (czech), de (german), dk (danish), en (english), 
+%                  es (spanish), fr (french), gr (greek), it (italian), nl (dutch), 
+%                  pl (polish), pt (portuguese), sk (slovak), uk (ukrainian)
+%
+% Add more lines for other languages
+% You may use "\\" to force line breaks
+%-------------------------------------------------------------
 \nttitle(main,en){5G Networks: Deployment of an experimental 5G CORE and\\Radio Access Network}%
-%\nttitle(main,pt){Um Título de Tese Longo\\e com uma Mudança de Linha Forçada}%
+% \nttitle(main,pt){Um Título de Tese Longo\\e com uma Mudança de Linha Forçada}%
 
-%         You may use "\\" to force line breaks
-%\nttitle(sub,en){Pre-Dissertation Information}%
-%\nttitle(sub,pt){Algumas considerações sobre a Vida,\\o Universo e Tudo o Mais}%
-
-%         You may NOT use "\\" to force line breaks
-% \nttitle(spine,en){A Very Long and Impressive Thesis Title}%
-% \nttitle(spine,pt){Um Título de Tese Longo e Impressionante}%
+% \nttitle(sub,en){Some thoughts on the Life, the Universe,\\and Everything Else}%
+% \nttitle(sub,pt){Algumas considerações sobre a Vida,\\o Universo e Tudo o Mais}%
 
 
 
-%-------------------------------------------------------------------
-% DEPARTMENT NAME customization
-% SYNTAX: \ntdepartment(language){name}
-%         You may use "\\" to force line breaks
-%         The stared (*) version will only define if undefined, otherwise ignored
-% \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
-%    For NOVA FCT, please open file “9_nova_fct.tex” and uncomment
-%    the right name for your Department from the given list
-%    otherwise fill the entries below
-%-------------------------------------------------------------------
-\ntdepartment*(pt){Departamento de Engenharia Eletrotécnica e de Computadores}
-\ntdepartment*(en){Department of Electrical and Computer Engineering}
+%-------------------------------------------------------------
+% Deapartment name
+%
+%     \ntdepartment(<lang>){name}
+%.............................................................
+%
+% <lang>: -> cat (catalan), cz (czech), de (german), dk (danish), en (english), 
+%            es (spanish), fr (french), gr (greek), it (italian), nl (dutch), 
+%            pl (polish), pt (portuguese), sk (slovak), uk (ukrainian)
+%
+% For ** NOVA FCT **, please open file “0-Config/9_nova_fct.tex”
+%     and uncomment the right name for the Department.
+% For other Schools, fill the entries below.
+%
+% Add more lines for other languages
+% You may use "\\" to force line breaks
+%-------------------------------------------------------------
+\ntdepartment(en){Electrical and Computer Engineering} % <== WITHOUT "Department of"
+\ntdepartment(pt){Engenharia Eletrotécnica e de Computadores}   % <== SEM "Departmento de"
 
 
 
-%-------------------------------------------------------------------
-% DEGREE NAME customization
-% SYNTAX: \ntdegreename(language){degree_name}
-%         You may use "\\" to force line breaks
-%         The stared (*) version will only define if undefined, otherwise ignored
-% \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
-%    For NOVA FCT, please open file “9_nova_fct.tex” and uncomment
-%    the right name(s) for the PhD/MSc program from the given list
-%    otherwise fill the entries below
-%-------------------------------------------------------------------
-%\ntdegreename*(pt){Nome do Programa de Estudos}
-%\ntdegreename*(en){Study Program Name}
+%-------------------------------------------------------------
+% Degree name
+%
+%     \ntdegreename(<lang>){name}
+%.............................................................
+%
+% <lang>: -> cat (catalan), cz (czech), de (german), dk (danish), en (english), 
+%            es (spanish), fr (french), gr (greek), it (italian), nl (dutch), 
+%            pl (polish), pt (portuguese), sk (slovak), uk (ukrainian)
+%
+% For ** NOVA FCT **, please open file “0-Config/9_nova_fct.tex”
+%     and uncomment the right name for the PhD/MSc program.
+% For other Schools, fill the entries below.
+%
+% Add more lines for other languages
+% You may use "\\" to force line breaks
+%-------------------------------------------------------------
+\ntdegreename(en){Electrical and Computer Engineering}          % Example: Computer Science
+\ntdegreename(pt){Engenharia Eletrotécnica e de Computadores} % Examplo: Engenharia Informática
 
 
 
-%-------------------------------------------------------------------
-% DEGREE SPECIALIZATION customization
-%   If the degree includes a specialization, otherwise comment the
-%   lines below
-% SYNTAX: \ntspecialization(language){name}
-%         You may use "\\" to force line breaks
-%         The stared (*) version will only define if undefined, otherwise ignored
-%-------------------------------------------------------------------
-%\ntspecialization*(pt){Designação da Especialidade}
-%\ntspecialization*(en){Specialization Name}
+%-------------------------------------------------------------
+% Specialization name
+%
+%     \ntspecialization(<lang>){name}
+%.............................................................
+%
+% <lang>: -> cat (catalan), cz (czech), de (german), dk (danish), en (english), 
+%            es (spanish), fr (french), gr (greek), it (italian), nl (dutch), 
+%            pl (polish), pt (portuguese), sk (slovak), uk (ukrainian)
+%
+% Add more lines for other languages
+% You may use "\\" to force line breaks
+%
+% If the degree has no specialization, comment the lies below.
+%-------------------------------------------------------------
+% \ntspecialization(en){Specialization Name}         % Example: Distributed Systems
+% \ntspecialization(pt){Designação da Especialidade} % Exemplo: Sistemas Distribuídos
 
 
 
-%-------------------------------------------------------------------
-% SPONSORS customization
-%   Some Schools require the work sponsors to be listed in the cover
-% SYNTAX: \ntsponsors(language){names}
-%-------------------------------------------------------------------
-% \ntsponsors(en,1,logo){\includegraphics[height=1.5cm]{NOVAthesisFiles/Images/republica_portuguesa_CTES}}
-% \ntsponsors(en,2,logo){\includegraphics[height=1.5cm]{NOVAthesisFiles/Images/FCT_MEC_logo_positive}}
-% \ntsponsors(en,1,text){Funding Agency}
-
-% \ntsponsors(pt,1,logo){\includegraphics[height=1.5cm]{NOVAthesisFiles/Images/republica_portuguesa_CTES}}
-% \ntsponsors(pt,2,logo){\includegraphics[height=1.5cm]{NOVAthesisFiles/Images/FCT_MEC_logo_positive}}
-% \ntsponsors(pt,1,text){Entidade Financiadora}
-
-
-
-%-------------------------------------------------------------------
-% AUTHOR customization
-%    Author gender, full name, abd abbreviated name
-% SYNTAX: \ntauthorname(gender){full name}{abbreviated name}
-%         Use [f] for female and [m] for male
-%-------------------------------------------------------------------
+%-------------------------------------------------------------
+% Author name
+%
+%     \ntauthorname(<gender>){Full Name}{First Last}
+%.............................................................
+%
+% <gender>: m -> male
+%           f -> female
+%-------------------------------------------------------------
 \ntauthorname(m){Marcos Vinicius Bonfim Romão}{Marcos Romão}
 
 
 
-%-------------------------------------------------------------------
-% AUTHOR previous degree
-% SYNTAX: \ntauthordegree{degree}
-%-------------------------------------------------------------------
+%-------------------------------------------------------------
+% Author's date/place of birth -- OTHER/HUBERLIN ONLY
+%
+%     \SetAuthorBirthDate*()={<ISO date>}
+%     \SetAuthorBirthPlace*(<lang>)={<place>}
+%.............................................................
+%
+% Only the Humboldt-Universität zu Berlin cover (school=other/huberlin)
+% prints this ("geb. am ... in ..."). Leave both commented out for every
+% other school. Notice that the commands exist for any school (see nt-core.sty)
+% but only that school's cover renders them, so setting them elsewhere is
+% simply ignored.
+%
+% \SetAuthorBirthDate*()={1998-03-03}   % ISO format; no language key
+% \SetAuthorBirthPlace*(de)={Berlin}    % one line per cover language you use
+% \SetAuthorBirthPlace*(en)={Berlin}
+%-------------------------------------------------------------
+% \SetAuthorBirthDate*()={1998-03-03}   % ISO format; no language key
+% \SetAuthorBirthPlace*(de)={Berlin}    % one line per cover language you use
+
+
+
+%-------------------------------------------------------------
+% Author previous highest degree
+%
+%     \ntauthordegree(<lang>){name}
+%.............................................................
+%
+% <lang>: -> cat (catalan), cz (czech), de (german), dk (danish), en (english), 
+%            es (spanish), fr (french), gr (greek), it (italian), nl (dutch), 
+%            pl (polish), pt (portuguese), sk (slovak), uk (ukrainian)
+%
+% Add more lines for other languages
+% You may use "\\" to force line breaks
+%-------------------------------------------------------------
 \ntauthordegree(en){BSc in Electrical and Computer Engineering}
 \ntauthordegree(pt){Licenciatura em Engenharia Eletrotécnica e de Computadores}
 
 
 
+%-------------------------------------------------------------
+% Author previous highest degree
+%
+%     \ntauthordegree(<lang>){name}
+%.............................................................
+%
+% <lang>: -> cat (catalan), cz (czech), de (german), dk (danish), en (english), 
+%            es (spanish), fr (french), gr (greek), it (italian), nl (dutch), 
+%            pl (polish), pt (portuguese), sk (slovak), uk (ukrainian)
+%
+% Add more lines for other languages
+% You may use "\\" to force line breaks
+%-------------------------------------------------------------
+
+
+
 %-------------------------------------------------------------------
-% SUBMISSION/EXAM DATE
-% SYNTAX: \ntdate(submission){year-month-day}       \ntdate(exam){year-month-day}
-%         If <month> is a number, it will be converted to the month
-%                   name in the cover language.
+% Relevant dates
+%     \ntdate(<type>){<date>}
+%
+% <type>: submission -> the submission date
+%               exam -> the exam date
+%
+% <date>: YYYY-MM-DD -> this is the prefered format
+%         YYYY-MM    -> the day can be omitted
+%         YYYY       -> both the day and the month can be omitted
 %-------------------------------------------------------------------
-%Replay with your submission and exam dates in format YYYY-MM-DD
+% \ntdate(submission){year-month-day}
 \ntdate(submission){2026-09-30}
 % \ntdate(exam){year-month-day}
 
 
 
-%-------------------------------------------------------------------
-% ADVISERS LIST
-% Advisers' gender and info (name, position, school)
-% SYNTAX: \ntaddperson{adviser}(role,gender){Name, Position, School}
-%         For [role] use: [a] for adviser
-%                         [c] for co-adviser
-%         For [gender] use: [f] for female
-%                           [m] for male
-%         You may use "\\" to force line breaks
-%-------------------------------------------------------------------
-% Advisers(s)
-\ntaddperson{adviser}(a,m){Rodolfo Oliveira, Full Professor, NOVA University Lisbon}
-% Co-advisers(s)
-% \ntaddperson{adviser}(c,m){John Doe Co-Adviser Name, Associate Professor, NOVA University Lisbon}
-% \ntaddperson{adviser}(c,f){John Doe other Co-Adviser Name, Full Professor, NOVA University Lisbon}
+%-------------------------------------------------------------
+% Advisers' names
+%
+%     \ntaddperson{adviser}(<role>,<gender>){Full Name}
+%       [title=..., position=..., institution=...]
+%.............................................................
+%
+%   <role>: a  -> adviser
+%           c  -> co-adviser
+%           co -> co-adviser (same as 'c')
+%           t  -> tutor
+%
+% <gender>: m -> male
+%           f -> female
+%
+% title, position, and institution are all optional -- omit any (or all)
+% of them, or the whole bracket, if not needed.
+%
+% Legacy syntax (still accepted, but deprecated -- only the first two
+% commas are significant, so a comma-containing institution stays whole):
+%     \ntaddperson{adviser}(<role>,<gender>){Full Name, Position, and School}
+%
+% You may use "\\" to force line breaks
+%-------------------------------------------------------------
+% other/huberlin's cover format ("<akad. Grade/Vorname/Name>") expects an
+% academic-degree title prefixed to the name; every other school's demo
+% preview stays exactly as it was (no title). The [...] bracket is read
+% unexpanded by \ntaddperson (it's passed straight into \keys_set:nn), so
+% a macro placeholder for "title=...," would never expand there -- the
+% two branches below spell out the full bracket content literally instead.
+\ntaddperson{adviser}(a,m){Rodolfo Oliveira}
+  [position=Full Professor, institution=NOVA University Lisbon]
 
 
 
-%-------------------------------------------------------------------
-% COMMITTEE MEMBERS
-% SYNTAX: \ntaddperson{committee}(role,gender){Name, Position, School}
-%         For [role] use: [c] for committee chair
-%                         [r] for rapporteurs
-%                         [a] for advisers
-%                         [ca] for co-advisers
-%                         [m] for remaining members
-%                         [g] for guests
-%         For [gender] use: [f] for female
-%                           [m] for male
-%         You may use "\\" to force line breaks
-%-------------------------------------------------------------------
-%\ntaddperson{committee}(c,m){Name of the committee chairperson, Full Professor, NOVA FCT}
-%\ntaddperson{committee}(r,m){Name of a rapporteur, Associate Professor, Another University}
-% \ntaddperson{committee}(r,m){Name of another rapporteur, Assistant Professor, Another University}
-% \ntaddperson{committee}(a,m){Name of the adviser present in defense, Associate Professor, Some University}
-% \ntaddperson{committee}(ca,m){Name of the co-adviser present in defense, Associate Professor, Some University}
-%\ntaddperson{committee}(m,f){Another member of the committee, Full Professor, Another University}
-%\ntaddperson{committee}(m,f){Yet another member of the committee, Assistant Professor, Another University}
-% \ntaddperson{committee}(g,m){Guest member of the committee, Position, University}
+%-------------------------------------------------------------
+% Advisers' names
+%
+%     \ntaddperson{committee}(<role>,<gender>){Full Name}
+%       [title=..., position=..., institution=...]
+%.............................................................
+%
+%   <role>: c  -> committee chair (presidente do júri)
+%           r  -> rapporteur (arguente)
+%           a  -> adviser (orientador)
+%           co -> co-adviser (coorientador)
+%           m  -> other committee members (restantes memebros)
+%           g  -> guest (memebro convidado)
+%
+% <gender>: m -> male
+%           f -> female
+%
+% title, position, and institution are all optional -- omit any (or all)
+% of them, or the whole bracket, if not needed.
+%
+% Legacy syntax (still accepted, but deprecated -- only the first two
+% commas are significant, so a comma-containing institution stays whole):
+%     \ntaddperson{committee}(<role>,<gender>){Full Name, Position, and School}
+%
+% You may use "\\" to force line breaks
+%-------------------------------------------------------------
+% \ntaddperson{committee}(c,m){Committee chairperson's Name}
+%   [position=Full Professor, institution=NOVA School of Science and technology]
+% \ntaddperson{committee}(r,m){Rapporteur's Name}
+%   [position=Associate Professor, institution=University of Somewhere]
+% \ntaddperson{committee}(r,m){Another Rapporteur's Name}[position=Assistant Professor, institution=Another University]
+% \ntaddperson{committee}(a,m){Adviser's Name (if present in the jury)}[position=Associate Professor, institution=NOVA School of Science and technology]
+% \ntaddperson{committee}(ca,m){Co-Adviser's Name (if present in the jury)}[position=Associate Professor, institution=Some University]
+% \ntaddperson{committee}(m,f){Another Committee Member}
+%   [position=Full Professor, institution=Another University]
+% \ntaddperson{committee}(m,f){Yet Another Member of the Committee}
+%   [position=Assistant Professor, institution=Another University]
+% \ntaddperson{committee}(g,m){Guest Member of the Committee, Position, University}
+
+
+
+%-------------------------------------------------------------
+% Sponsors
+%
+%     \ntsponsors(<order>,<type>,<lang>){name}
+%.............................................................
+%
+% <order>:      -> 1, 2, 3, ...
+%
+% <type>:  text -> Some text (possibly inside a '\parbox' command)
+%          logo -> A proper '\includegraphics' command
+%
+% <lang>:       -> cat (catalan), cz (czech), de (german), dk (danish), en (english), 
+%                  es (spanish), fr (french), gr (greek), it (italian), nl (dutch), 
+%                  pl (polish), pt (portuguese), sk (slovak), uk (ukrainian)
+%
+% Add more lines for other languages
+%-------------------------------------------------------------
+% \ntsponsors(1,logo,en){\includegraphics[height=1.5cm]{republica_portuguesa_CTES}}
+% \ntsponsors(2,logo,en){\includegraphics[height=1.5cm]{FCT_MEC_logo_positive}}
+% \ntsponsors(1,text,en){Funding Agency}
+%
+% \ntsponsors(1,logo,pt){\includegraphics[height=1.5cm]{republica_portuguesa_CTES}}
+% \ntsponsors(2,logo,pt){\includegraphics[height=1.5cm]{FCT_MEC_logo_positive}}
+% \ntsponsors(1,text,pt){Entidade Financiadora}
