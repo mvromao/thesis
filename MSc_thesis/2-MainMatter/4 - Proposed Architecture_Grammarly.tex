@@ -24,7 +24,7 @@ The machines connect through an Ethernet switch, with static IP addresses assign
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{IP-Addresses.pdf}
+    \includegraphics[width=0.90\textwidth]{IP-Addresses.pdf}
     \caption[Network topology and static addresses of the four machines.]{Network topology of the four machines, showing each machine's role and static IP address. The machine in gray was reserved for a 5G \gls{NSA} deployment but was ultimately not used in the actual testbed.}
     \label{fig:ip-addresses}
 \end{figure}
@@ -101,19 +101,19 @@ Along with the \glspl{SDR}, a Leo Bodnar \gls{GPSDO} was chosen to provide a sta
 
 Connected to the 4G \gls{RAN} machine is the Nuand bladeRF xA4 (Figure~\ref{fig:bladerf}), which was used for the 4G deployment. Unlike the B2901, this board was powered entirely over its USB connection to the \gls{RAN} machine, with no separate power supply.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.90\textwidth]{bladeRF.jpg}
+    \caption[The Nuand bladeRF xA4, connected and cabled on the bench.]{The Nuand bladeRF xA4, connected and cabled on the bench. This board had no external synchronization source, although an SMA cable is present in the figure.}
+    \label{fig:bladerf}
+\end{figure}
+
 Connected to the 5G \gls{RAN} machine is an NI B2901 (Figure~\ref{fig:b2901-gpsdo}), the National Instruments designation for the USRP B210 described above. In addition to its USB connection to the \gls{RAN} machine, the B2901 was connected to a wall socket through its own power supply, which was required to sustain the board at the gain settings used during testing. Along with the board, the Leo Bodnar \gls{GPSDO} was connected to provide both a stable clock source and a 1\,PPS signal for synchronization. The \gls{GPSDO}'s GPS lock was verified using \texttt{lbgpsdo}~\cite{lbgpsdo}, an open-source command-line utility for configuring and querying Leo Bodnar \gls{GPSDO} devices.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{bladeRF.jpg}
-    \caption{The Nuand bladeRF xA4, connected and cabled on the bench. This board had no external synchronization source, although an SMA cable is present in the figure.}
-    \label{fig:bladerf}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
     \includegraphics[width=\textwidth]{b2901_gpsdo_collage.jpg}
-    \caption{The B2901 and the Leo Bodnar GPSDO, as connected on the bench. Output 1 of the GPSDO provides a 1 PPS signal to the B2901's PPS IN port, while Output 2 provides a 10\,MHz reference clock to the REF IN port.}
+    \caption[The B2901 and the Leo Bodnar GPSDO, as connected on the bench.]{The B2901 and the Leo Bodnar GPSDO, as connected on the bench. Output 1 of the GPSDO provides a 1 PPS signal to the B2901's PPS IN port, while Output 2 provides a 10\,MHz reference clock to the REF IN port.}
     \label{fig:b2901-gpsdo}
 \end{figure}
 
@@ -122,7 +122,7 @@ Both radios used the same antennas. The 4G rig used a BT-200 \gls{LNA} on the RX
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{biastee components.jpg}
-    \caption{The BT-200 \glsxtrshort{LNA} and BT-100 power amplifier bias tees, mounted on the bladeRF xA4's RX1 and TX1 ports respectively.}
+    \caption[The BT-200 \glsxtrshort{LNA} and BT-100 power amplifier bias tees.]{The BT-200 \glsxtrshort{LNA} and BT-100 power amplifier bias tees, mounted on the bladeRF xA4's RX1 and TX1 ports respectively.}
     \label{fig:biastee-components}
 \end{figure}
 
