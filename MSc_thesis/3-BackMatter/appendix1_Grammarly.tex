@@ -161,7 +161,7 @@ sudo systemctl status open5gs-*
 
 \subsection{Installing the WebUI for Open5GS}
 \label{sec:Installing_WebUI_for_Open5GS}
-Open5GS provides a WebUI for easier management of subscriber information, network configurations, and monitoring. The interface depends on Node.js, which needs to be installed first (on most Ubuntu builds, Node.js comes pre-installed).
+Open5GS provides a WebUI for easier management of subscriber information, network configurations, and monitoring. The interface depends on Node.js, which needs to be installed first.
 To install Node.js, we can use the following commands:
 \begin{code}
 sudo apt update
@@ -728,7 +728,7 @@ Before starting the 5G network, confirm that the \gls{GPSDO} has GPS lock (Secti
 \begin{code}
 sudo gnb -c gnb.yaml
 \end{code}
-On start-up, the \gls{gNB} opens an \gls{SCTP} connection to the \gls{AMF} at 10.0.0.10 and exchanges an \gls{NG} Setup Request and Response with it. The following lines in \texttt{/tmp/gnb.log} show a successful start:
+On start-up, the \gls{gNB} opens a \gls{SCTP} connection to the \gls{AMF} at 10.0.0.10 and exchanges an \gls{NG} Setup Request and Response with it. The following lines in \texttt{/tmp/gnb.log} show a successful start:
 \begin{code}
 [CU-CP] N2: Connection to AMF on 10.0.0.10:38412 was established
 [NGAP ] Tx PDU: NGSetupRequest
