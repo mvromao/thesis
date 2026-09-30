@@ -34,7 +34,7 @@ Figure~\ref{fig:bench-machines} shows the laboratory bench with all four machine
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{machines.jpg}
-    \caption[The laboratory bench, with the four machines.]{The bench, showing all four machines. From left to right: 4G RAN, 5G NSA (unused), Core, and 5G RAN. Connected to the 4G RAN machine is the bladeRF xA4, and connected to the 5G RAN machine is the NI B2901.}
+    \caption[The laboratory bench, with the four machines.]{The bench, showing all four machines. From left to right: 4G RAN, 5G NSA (unused), Core, and 5G RAN. Connected to the 4G RAN machine is the bladeRF xA4, and connected to the 5G RAN machine is the USRP-2901.}
     \label{fig:bench-machines}
 \end{figure}
 
@@ -91,15 +91,15 @@ All machines run Ubuntu 22.04 LTS. Table~\ref{tab:software-versions} lists the s
 
 For the radio, two \glspl{SDR} were chosen:
 \begin{itemize}
-    \item \underline {National Instruments B2901 (B210)}: This is a mid-level \gls{SDR} that uses \gls{UHD}, the gold standard for \gls{SDR} development. These boards are widely used in research projects and testbeds, and they are natively compatible with most \gls{SDR} software.
-    \item \underline{Nuand bladeRF xA4}: This is a cheaper mid-level \gls{SDR} that uses its own vendor library, libbladeRF, to communicate with the host machine. It is less common than the USRP B210 in research projects because it is not directly compatible with most software. Through the use of a wrapper library, it is possible to use this \gls{SDR} with most software that does not natively support it.
+    \item \underline {National Instruments USRP-2901 (Ettus Research USRP B210)}: This is a mid-level \gls{SDR} that uses \gls{UHD}, the gold standard for \gls{SDR} development. These boards are widely used in research projects and testbeds, and they are natively compatible with most \gls{SDR} software.
+    \item \underline{Nuand bladeRF xA4}: This is a cheaper mid-level \gls{SDR} that uses its own vendor library, libbladeRF, to communicate with the host machine. It is less common than the USRP-2901 in research projects because it is not directly compatible with most software. Through the use of a wrapper library, it is possible to use this \gls{SDR} with most software that does not natively support it.
 \end{itemize}
 
-Both of these boards use an Analog Devices AD9361 transceiver, which makes their \glsxtrshort{RF} capabilities theoretically similar. The main difference between them is their \glspl{FPGA}: the B210 uses a Xilinx Spartan-6, while the bladeRF xA4 uses an Intel Altera Cyclone V.
+Both of these boards use an Analog Devices AD9361 transceiver, which makes their \glsxtrshort{RF} capabilities theoretically similar. The main difference between them is their \glspl{FPGA}: the USRP-2901 uses a Xilinx Spartan-6, while the bladeRF xA4 uses an Intel Altera Cyclone V.
 
-Along with the \glspl{SDR}, a Leo Bodnar \gls{GPSDO} was chosen to provide a stable clock source for the NI B2901, which is crucial for the proper operation of the 5G network, given the strict timing requirements of the 5G standard, compounded by the \gls{TDD} operation. The \gls{GPSDO} provides a stable 10\,MHz reference clock and a 1\,PPS signal, which synchronize the \gls{SDR} and ensure accurate timing for signal transmission and reception.
+Along with the \glspl{SDR}, a Leo Bodnar \gls{GPSDO} was chosen to provide a stable clock source for the USRP-2901, which is crucial for the proper operation of the 5G network, given the strict timing requirements of the 5G standard, compounded by the \gls{TDD} operation. The \gls{GPSDO} provides a stable 10\,MHz reference clock and a 1\,PPS signal, which synchronize the \gls{SDR} and ensure accurate timing for signal transmission and reception.
 
-Connected to the 4G \gls{RAN} machine is the Nuand bladeRF xA4 (Figure~\ref{fig:bladerf}), which was used for the 4G deployment. Unlike the B2901, this board was powered entirely over its USB connection to the \gls{RAN} machine, with no separate power supply.
+Connected to the 4G \gls{RAN} machine is the Nuand bladeRF xA4 (Figure~\ref{fig:bladerf}), which was used for the 4G deployment. Unlike the USRP-2901, this board was powered entirely over its USB connection to the \gls{RAN} machine, with no separate power supply.
 
 \begin{figure}[htbp]
     \centering
@@ -108,12 +108,12 @@ Connected to the 4G \gls{RAN} machine is the Nuand bladeRF xA4 (Figure~\ref{fig:
     \label{fig:bladerf}
 \end{figure}
 
-Connected to the 5G \gls{RAN} machine is an NI B2901 (Figure~\ref{fig:b2901-gpsdo}), the National Instruments designation for the USRP B210 described above. In addition to its USB connection to the \gls{RAN} machine, the B2901 was connected to a wall socket through its own power supply, which was required to sustain the board at the gain settings used during testing. Along with the board, the Leo Bodnar \gls{GPSDO} was connected to provide both a stable clock source and a 1\,PPS signal for synchronization. The \gls{GPSDO}'s GPS lock was verified using \texttt{lbgpsdo}~\cite{lbgpsdo}, an open-source command-line utility for configuring and querying Leo Bodnar \gls{GPSDO} devices.
+Connected to the 5G \gls{RAN} machine is the USRP-2901 (Figure~\ref{fig:b2901-gpsdo}) described above. In addition to its USB connection to the \gls{RAN} machine, the USRP-2901 was connected to a wall socket through its own power supply, which was required to sustain the board at the gain settings used during testing. Along with the board, the Leo Bodnar \gls{GPSDO} was connected to provide both a stable clock source and a 1\,PPS signal for synchronization. The \gls{GPSDO}'s GPS lock was verified using \texttt{lbgpsdo}~\cite{lbgpsdo}, an open-source command-line utility for configuring and querying Leo Bodnar \gls{GPSDO} devices.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{b2901_gpsdo_collage.jpg}
-    \caption[The B2901 and the Leo Bodnar GPSDO, as connected on the bench.]{The B2901 and the Leo Bodnar GPSDO, as connected on the bench. Output 1 of the GPSDO provides a 1 PPS signal to the B2901's PPS IN port, while Output 2 provides a 10\,MHz reference clock to the REF IN port.}
+    \caption[The USRP-2901 and the Leo Bodnar GPSDO, as connected on the bench.]{The USRP-2901 and the Leo Bodnar GPSDO, as connected on the bench. Output 1 of the GPSDO provides a 1 PPS signal to the USRP-2901's PPS IN port, while Output 2 provides a 10\,MHz reference clock to the REF IN port.}
     \label{fig:b2901-gpsdo}
 \end{figure}
 
@@ -129,7 +129,7 @@ Both radios used the same antennas. The 4G rig used a BT-200 \gls{LNA} on the RX
 \section{Core}
 \label{sec:core}
 
-The core network is implemented using Open5GS~\cite{open5gs_repo}, an open-source project that provides both a complete 5G core network (5GC) and a 4G \gls{EPC} implementation, following the \gls{3GPP} Release 17 specifications. This dual support enables 4G/5G comparison on shared hardware, as the same Open5GS deployment serves as the core for both generations; the 4G baseline and the 5G network under test differ physically only in their \gls{RAN}. Open5GS is designed to be modular, with each network function implemented as a separate process, each with its own configuration file on the machine. Open5GS stores subscriber data for both generations in a single MongoDB database, which it uses as its backend. The core network is deployed on its own dedicated machine.
+The core network is implemented using Open5GS~\cite{open5gs_repo}, an open-source project that provides both a complete 5G core network (5GC) and a 4G \gls{EPC} implementation, following the \gls{3GPP} Release 17 specifications. This dual support enables 4G/5G comparison on shared hardware, as the same Open5GS deployment serves as the core for both generations; the 4G reference and the 5G network under test differ physically only in their \gls{RAN}. Open5GS is designed to be modular, with each network function implemented as a separate process, each with its own configuration file on the machine. Open5GS stores subscriber data for both generations in a single MongoDB database, which it uses as its backend. The core network is deployed on its own dedicated machine.
 
 The Open5GS~\cite{open5gs_repo} core ran at version 2.8.0, with the main configuration values listed in Table~\ref{tab:core-config}. Harking back to the reusability objective stated in the Introduction, all configuration files for the core were made available in a GitHub repository~\cite{thesis_repo}, and a script \texttt{deploy\_open5gs\_configs.sh} to deploy them directly onto the core machine was created and made public, allowing anyone to redeploy the same core configuration without having to reconstruct it by hand. This approach ensures the testbed configuration can be easily replicated in the future, supporting the goal of reusability and facilitating further research or experimentation based on this work.
 
@@ -165,7 +165,7 @@ Both generations are served by the same identity and addressing: a single \gls{P
 \section{\gls{RAN}}
 \label{sec:ran}
 
-The \gls{RAN} is implemented using srsRAN~\cite{ocudu_project} (renamed OCUDU partway through this project; see Section~\ref{sec:srsran}), an open-source software suite that provides a complete 5G \gls{NR} \gls{RAN}, following the \gls{3GPP} Release 17 specifications. Written in C++, it is modular by design, allowing developers to customize the \gls{CU} and \gls{DU} components of the \gls{gNB} separately. Each generation's \gls{RAN}, deployed on its dedicated machine, connects to its \gls{SDR} via USB 3.0.
+The 5G \gls{RAN} is implemented using srsRAN~\cite{ocudu_project} (renamed OCUDU partway through this project; see Section~\ref{sec:srsran}), an open-source software suite that provides a complete 5G \gls{NR} \gls{RAN}, following the \gls{3GPP} Release 17 specifications. Written in C++, it is modular by design, allowing developers to customize the \gls{CU} and \gls{DU} components of the \gls{gNB} separately. The 4G \gls{RAN} uses srsRAN 4G~\cite{srsran_4g_repo}, a separate \gls{LTE} implementation from the same developers. Each generation's \gls{RAN}, deployed on its dedicated machine, connects to its \gls{SDR} via USB 3.0.
 
 \subsection{5G RAN}
 \label{sec:ran-5g}
@@ -207,7 +207,7 @@ The 4G srsRAN \gls{RAN}~\cite{srsran_4g_repo} ran at commit 6bcbd9e5b, with no c
         \hline
         PCI & 1 & 1 \\
         \hline
-        \gls{SDR} & Nuand bladeRF xA4 & NI B2901 (USRP B210) \\
+        \gls{SDR} & Nuand bladeRF xA4 & USRP-2901 \\
         \hline
         \gls{RF} front-end & BT-200 \gls{LNA} (RX), BT-100 PA (TX) & None \\
         \hline
@@ -227,6 +227,8 @@ The 4G srsRAN \gls{RAN}~\cite{srsran_4g_repo} ran at commit 6bcbd9e5b, with no c
 
 The proposed \gls{UE} for the testbed was a Motorola Moto G56 5G, a mid-range smartphone chosen for its 5G and eSIM support. This did not match what was actually used: the Moto G56 struggled to connect to the network during testing for a reason that was never identified. A Samsung Galaxy Z Flip5 (personal device) was brought in instead and became the primary \gls{UE} for the actual test campaigns. Both devices connect to the network using an eSIM profile, provisioned through a remote SIM provisioning service. Table~\ref{tab:ue-comparison} compares the two candidate devices.
 
+The Galaxy Z Flip5 supports both \gls{LTE} band 7 and \gls{NR} band n78, so the same device was used against both networks throughout every test round. The \gls{UE} is therefore not a variable in the comparison between generations. The eSIM profile it used was created and installed as described in Appendix~\ref{ch:provisioning_esim}, and the same procedure applies to any eSIM-capable device a future project wishes to connect.
+
 \begin{table}[htbp]
     \centering
     \begin{tabular}{|c|c|c|}
@@ -241,8 +243,6 @@ The proposed \gls{UE} for the testbed was a Motorola Moto G56 5G, a mid-range sm
     \caption[Comparison of the two candidate UEs.]{Comparison of the two candidate \glspl{UE}. Both support \gls{NR} band n78, the band used by this testbed.}
     \label{tab:ue-comparison}
 \end{table}
-
-The Galaxy Z Flip5 supports both \gls{LTE} band 7 and \gls{NR} band n78, so the same device was used against both networks throughout every test round. The \gls{UE} is therefore not a variable in the comparison between generations. The eSIM profile it used was created and installed as described in Appendix~\ref{ch:provisioning_esim}, and the same procedure applies to any eSIM-capable device a future project wishes to connect.
 
 \section{Metrics Collection}
 \label{sec:data-collection}
@@ -286,11 +286,11 @@ The scripts used to parse these records and produce the figures in Chapter~\ref{
 
 Figure~\ref{fig:testbed-architecture} maps the elements described in this chapter together into a single view of the testbed as it was used in the test campaigns, and how it is connected. Both \gls{RAN} machines reach the core over Ethernet, so the 4G and 5G networks share everything behind the \gls{RAN} and differ in what lies in front of it: band, duplexing, bandwidth, \gls{SDR}, and \gls{RF} front-end, as listed in Table~\ref{tab:ran-config}.
 
-This setup is the starting point for the evaluation that follows. Chapter~\ref{cha:methodology} describes how it was put to the test: where the \gls{UE} was placed relative to the radios, the traffic used to load each network, and the three test rounds across which the 5G \gls{RAN} configuration was adjusted, namely its \gls{TDD} structure and \texttt{rx\_gain}, while the 4G network was left untouched as the baseline.
+This setup is the starting point for the evaluation that follows. Chapter~\ref{cha:methodology} describes how it was put to the test: where the \gls{UE} was placed relative to the radios, the traffic used to load each network, and the three test rounds across which the 5G \gls{RAN} configuration was adjusted, namely its \gls{TDD} structure and \texttt{rx\_gain}, while the 4G network was left untouched as the reference.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{Testbed_Diagram.pdf}
-    \caption[The testbed as deployed.]{The testbed as deployed: the Open5GS core on Machine 1, the 5G \gls{RAN} on Machine 2 with the NI B2901 and the \gls{GPSDO}, and the 4G \gls{RAN} on Machine 4 with the bladeRF xA4 and its BT-100/BT-200 front-end. The unused 5G \gls{NSA} machine, the Ethernet switch and the \gls{UE} are not shown.}
+    \caption[The testbed as deployed.]{The testbed as deployed: the Open5GS core on Machine 1, the 5G \gls{RAN} on Machine 2 with the USRP-2901 and the \gls{GPSDO}, and the 4G \gls{RAN} on Machine 4 with the bladeRF xA4 and its BT-100/BT-200 front-end. The unused 5G \gls{NSA} machine, the Ethernet switch and the \gls{UE} are not shown.}
     \label{fig:testbed-architecture}
 \end{figure}

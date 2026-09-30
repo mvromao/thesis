@@ -12,14 +12,16 @@
 \chapter{Results}
 \label{cha:results}
 
-This chapter presents the results of the performance evaluation of the 4G and 5G networks implemented in the testbed described in Chapter~\ref{cha:proposed-architecture}.
+This chapter presents the results of the performance evaluation of the 5G network implemented in the testbed described in Chapter~\ref{cha:proposed-architecture}, alongside the 4G reference network.
 
-\section{General comparison between 4G and 5G performance}
+\section{5G throughput against the 4G reference}
 \label{sec:4g-vs-5g}
 
-This section presents a comparison of the 4G baseline against the 5G network across the three test rounds described in Section~\ref{sec:experiments}, focusing on the evolution of performance metrics. Because the 5G configuration changed between rounds, namely the \gls{TDD} structure and the \texttt{rx\_gain} setting, these results are presented as a progression rather than a single snapshot, tracking how each change affected throughput at each location and in each direction. As will become clear over the following sections, no single round can be presented as the definitive 5G result: the configuration that performs best at short range is not the same as the one that performs best at long range, a trade-off examined in more detail later in this chapter.
+The 4G network is used here as a reference rather than as a controlled comparison. The two networks share the core, the room, the test locations and, in Round~1, the test procedure, but differ in band, bandwidth, duplexing and radio hardware, so a difference between them is not read as a property of either generation. It is instead a signal that something in the 5G network deserves a closer look, and the explanation is then sought in the 5G network's own metrics, as the following sections do for the uplink deficit of Round~1, the \gls{TDD} pattern and the receive gain.
 
-In Figures \ref{fig:tp-tcp-dl} through \ref{fig:tp-udp-ul}, the mean throughput results for TCP and UDP in both downlink and uplink directions are presented for each test location, with black lines representing the range between Min/Max throughput values between each repetition for that combination. These figures mainly illustrate the performance differences between 4G and 5G across the three rounds of testing, with the results showing that the 5G network can outperform the 4G baseline in certain configurations and locations, but also underperform in others.
+This section presents the throughput of the 5G network across the three test rounds described in Section~\ref{sec:experiments}, against the 4G reference. Because the 5G configuration changed between rounds, namely the \gls{TDD} structure and the \texttt{rx\_gain} setting, these results are presented as a progression rather than a single snapshot, following the throughput at each location and in each direction after each change. As will become clear over the following sections, no single round can be presented as the definitive 5G result: of the configurations tested, the one that performed best at short range was not the one that performed best at long range, a trade-off examined in more detail later in this chapter.
+
+In Figures \ref{fig:tp-tcp-dl} through \ref{fig:tp-udp-ul}, the mean throughput results for TCP and UDP in both downlink and uplink directions are presented for each test location, with black lines representing the range between Min/Max throughput values between each repetition for that combination. These figures mainly illustrate how the 5G network compared to the 4G reference across the three rounds of testing, with the results showing that the 5G network can outperform the 4G reference in certain configurations and locations, but also underperform in others.
 
 \begin{figure}[p]
     \centering
@@ -46,8 +48,6 @@ In Figures \ref{fig:tp-tcp-dl} through \ref{fig:tp-udp-ul}, the mean throughput 
     \caption[UDP uplink throughput at each test location.]{UDP uplink throughput at each test location, throughout the three rounds of testing. The black lines represent the range between Min/Max throughput values between each repetition for that combination.}
     \label{fig:tp-udp-ul}
 \end{figure}
-
-\newpage
 
 Table~\ref{tab:throughput-summary} lists the mean throughput of every condition measured, and the same values are plotted in Figures~\ref{fig:tp-tcp-dl} to~\ref{fig:tp-udp-ul}.
 
@@ -82,15 +82,17 @@ Table~\ref{tab:throughput-summary} lists the mean throughput of every condition 
          & UDP & UL & 14.1 & 0.5 & 14.2 & 1.7 \\
         \hline
     \end{tabular}
-    \caption[Mean throughput by location, protocol and direction.]{Mean throughput, in Mbps, of every combination of location, protocol and direction, for the 4G baseline and the three 5G rounds. The 4G and Round~1 figures are single measurements ($n=1$); Rounds~2 and~3 are means over three repetitions ($n=3$).}
+    \caption[Mean throughput by location, protocol and direction.]{Mean throughput, in Mbps, of every combination of location, protocol and direction, for the 4G reference and the three 5G rounds. The 4G and Round~1 figures are single measurements ($n=1$) and were taken at the \gls{RAN}, so include MAC layer overhead; Rounds~2 and~3 are means over three repetitions ($n=3$) of measurements taken by \texttt{iperf3}.}
     \label{tab:throughput-summary}
 \end{table}
 
-In Round~1 the comparison divides cleanly by direction. Over UDP, the 5G downlink was ahead of the 4G baseline at every location, by roughly a factor of two, close to what the twofold difference in channel bandwidth alone would predict; over TCP, the two generations were nearly level. The uplink went the other way, and by a far wider margin, falling to 0.6\,Mbps over TCP and 0.5\,Mbps over UDP at Location~C, 21 and 28 times below the 4G baseline. Part of that deficit was structural, as Section~\ref{sec:tdd-rebalance} shows.
+In Round~1 the comparison divides cleanly by direction. Over UDP, the 5G downlink was ahead of the 4G reference at every location, by roughly a factor of two, close to what the twofold difference in channel bandwidth alone would predict; over TCP, the two generations were nearly level. The uplink went the other way, and by a far wider margin, falling to 0.6\,Mbps over TCP and 0.5\,Mbps over UDP at Location~C, 21 and 28 times below the 4G reference. Part of that deficit was structural, as Section~\ref{sec:tdd-rebalance} shows.
 
-Round~2 reversed the uplink result. With the rebalanced 2:2 \gls{TDD} pattern, the 5G uplink matched the 4G baseline at both of the locations measured, and the downlink lost between 22 and 56\% of its Round~1 throughput in exchange.
+Round~2 reversed the uplink result. With the rebalanced 2:2 \gls{TDD} pattern, the 5G uplink matched the 4G reference at both of the locations measured, and the downlink lost between 22 and 56\% of its Round~1 throughput in exchange.
 
-Round~3 separated the two ends of the room. Lowering \texttt{rx\_gain} to 60 roughly doubled the Location~A uplink again, to about twice the 4G baseline at that location. At Location~C, the same change worked in reverse, leaving every measurement there, in both directions and over both protocols, below the 4G baseline. This is the trade-off referred to above, and Sections~\ref{sec:tdd-rebalance} and~\ref{sec:radio-link-quality} examine its two causes in turn.
+\newpage
+
+Round~3 separated the two ends of the room. Lowering \texttt{rx\_gain} to 60 roughly doubled the Location~A uplink again, to about twice the 4G reference at that location. At Location~C, the same change worked in reverse, leaving every measurement there, in both directions and over both protocols, below the 4G reference. This is the trade-off referred to above, and Sections~\ref{sec:tdd-rebalance} and~\ref{sec:radio-link-quality} examine its two causes in turn.
 
 \section{Unloaded latency}
 \label{sec:unloaded-latency}
@@ -99,15 +101,15 @@ The throughput results describe how much data the network can carry, but not how
 
 \begin{table}[htbp]
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|}
         \hline
-        \textbf{Location} & \textbf{Loss} & \textbf{Min} & \textbf{Mean} & \textbf{Median} & \textbf{p95} & \textbf{Max} \\
+        \textbf{Location} & \textbf{Loss} & \textbf{Min} & \textbf{Mean} & \textbf{Median} & \textbf{Max} \\
         \hline
-        A (2\,m, line of sight) & 0\% & 16.0\,ms & 25.0\,ms & 24.6\,ms & 33.7\,ms & 34.9\,ms \\
+        A (2\,m, line of sight) & 0\% & 16.0\,ms & 25.0\,ms & 24.6\,ms & 34.9\,ms \\
         \hline
-        B (6\,m, divider) & 0\% & 15.9\,ms & 28.1\,ms & 26.7\,ms & 41.6\,ms & 48.5\,ms \\
+        B (6\,m, divider) & 0\% & 15.9\,ms & 28.1\,ms & 26.7\,ms & 48.5\,ms \\
         \hline
-        C (10\,m, concrete wall) & 0\% & 15.7\,ms & 26.2\,ms & 25.1\,ms & 35.3\,ms & 48.4\,ms \\
+        C (10\,m, concrete wall) & 0\% & 15.7\,ms & 26.2\,ms & 25.1\,ms & 48.4\,ms \\
         \hline
     \end{tabular}
     \caption[Round 3 round-trip time with no other traffic.]{Round 3 round-trip time from the core machine to the \gls{UE}, 30 ICMP echoes per location, with no other traffic on the network.}
@@ -242,7 +244,7 @@ cell_cfg:
 
 Listing~\ref{lst:ul-grant-ceiling} shows an excerpt of the raw uplink metrics from one of the Round~1 \gls{gNB} trace files at Location A, taken while a TCP uplink transfer was saturating the link. The columns of interest here are \texttt{ok} and \texttt{nok}: the number of successful and failed uplink transmissions the scheduler reports for that one-second period. The remaining columns (\gls{SINR}, \gls{RSRP}, and \gls{MCS}) speak to link quality rather than to the \gls{TDD} structure itself.
 
-\begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Console trace from the Location A (2\,m) TCP uplink test in Round~1.},label={lst:ul-grant-ceiling}]
+\begin{lstlisting}[backgroundcolor=\color{gray!20},frame=single,framerule=0.8pt,rulecolor=\color{black},basicstyle=\ttfamily\small,columns=fixed,keepspaces=true,caption={Console trace during peak load from the Location A (2\,m) TCP uplink test in Round~1.},label={lst:ul-grant-ceiling}]
 |-------------------------------UL-----------------------------
 | pusch  rsrp  ri  mcs  brate   ok  nok  (%)    bsr     ta  phr
 |  18.3 -17.0   1   14  7.77M  382   18   4%   700k   240n    3
@@ -250,9 +252,9 @@ Listing~\ref{lst:ul-grant-ceiling} shows an excerpt of the raw uplink metrics fr
 |  19.7 -15.6   1   16  6.25M  308   92  23%   700k   234n   -3
 \end{lstlisting}
 
-The \texttt{ok} and \texttt{nok} columns sum to $382+18=400$ transmissions for the first second, as do the following seconds. Iterating over the full Round 1 run and discarding the initial TCP slow-start period (considering only seconds where the grant count reaches at least 90\% of the structural ceiling), this averages to 400.0 grants/s at Location A and 399.7 grants/s at Location C, matching the same maximum established before. The 4G baseline, for comparison, measured the same way from the \gls{eNB} traces, grants 1000.0 and 992.5 subframes/s at the same two locations, respectively. This equates to a 2.5$\times$ reduction in uplink transmission opportunities ($1000.0/400.0 = 2.5$ at Location A, $992.5/399.7 = 2.48$ at Location C) between 4G and 5G performance, which no amount of signal quality could recover, since it is imposed before a single symbol is transmitted.
+These are three seconds at peak load; the Round~1 figure in Table~\ref{tab:throughput-summary} is the mean over the whole transfer. The \texttt{ok} and \texttt{nok} columns sum to $382+18=400$ transmissions for the first second, as do the following seconds. Iterating over the full Round 1 run and discarding the initial TCP slow-start period (considering only seconds where the grant count reaches at least 90\% of the structural ceiling), this averages to 400.0 grants/s at Location A and 399.7 grants/s at Location C, matching the same maximum established before. The 4G reference, for comparison, measured the same way from the \gls{eNB} traces, grants 1000.0 and 992.5 subframes/s at the same two locations, respectively. This equates to a 2.5$\times$ reduction in uplink transmission opportunities ($1000.0/400.0 = 2.5$ at Location A, $992.5/399.7 = 2.48$ at Location C) between 4G and 5G performance, which no amount of signal quality could recover, since it is imposed before a single symbol is transmitted.
 
-In the subsequent rounds of testing, the \gls{TDD} pattern was rebalanced to a symmetrical 2:2 pattern, expected to improve uplink throughput at the cost of downlink throughput, making their performance almost equal, as shown in Figure~\ref{fig:tdd-structure}. Only one configuration variable changes between each pair of rounds in the figure (the \gls{TDD} pattern between Rounds 1 and 2, and \texttt{rx\_gain} between Rounds 2 and 3), so the two steps should be read as evidence for two separate effects rather than a single continuous trend.
+In the subsequent rounds of testing, the \gls{TDD} pattern was rebalanced to a symmetrical 2:2 pattern, expected to improve uplink throughput at the cost of downlink throughput, making their performance almost equal, as shown in Figure~\ref{fig:tdd-structure}. Only one radio parameter was changed deliberately between each pair of rounds in the figure: the \gls{TDD} pattern between Rounds~1 and~2, and \texttt{rx\_gain} between Rounds~2 and~3. Other conditions changed as well. Between Rounds~1 and~2, the traffic went from one stream to eight, throughput moved from the \gls{RAN}'s console trace to \texttt{iperf3}, the \gls{gNB} stopped writing hex dumps to its log, and each condition went from one repetition to three. Between Rounds~2 and~3, the metal stand in the path of Location~B was moved, and every round was run on a different day. The two steps are therefore attributed to the \gls{TDD} pattern and to the receive gain through the mechanisms measured directly in the \gls{gNB}'s metrics, the uplink transmissions per second in this section and the receiver overload in Section~\ref{sec:round-2-3-link-quality}, rather than through the change in throughput alone.
 
 The pattern used from Round~2 onward, shown in Listing~\ref{lst:tdd-22-cfg} of Chapter~\ref{cha:methodology}, doubles \texttt{nof\_ul\_slots} to 2 within the same 5-slot, 2.5\,ms period, raising the structural ceiling to $2\times400=800$ uplink transmissions per second. Round~2 metrics data was extracted directly from srsRAN's native timestamped scheduler log rather than the periodic console dump used in Round~1, so the raw evidence takes a different shape: Listing~\ref{lst:ul-800-grant-ceiling} shows an excerpt of the relevant uplink fields from three consecutive one-second \texttt{gnb.log} entries for the Location A TCP uplink test (the full lines also report downlink and per-HARQ statistics, omitted here for space).
 
@@ -273,7 +275,38 @@ The \texttt{ul\_nof\_ok} and \texttt{ul\_nof\_nok} fields sum to exactly 800 in 
 
 We see in the figure that initially, as expected, when using the 3:1 \gls{TDD} pattern, the uplink throughput in both Location A and C was significantly lower than the downlink throughput. In Round 2, after rebalancing the \gls{TDD} pattern to 2:2, the uplink performance rose to nearly match the downlink in Location A, surpassing the downlink throughput at Location C. We also note that the downlink throughput decreased in both locations, as expected.
 
-The same airtime accounting also predicts the downlink share should fall to $\times0.69$ of its Round 1 value; the observed downlink throughput fell further still, to $\times0.56$ at Location A and $\times0.44$ at Location C, so some factor beyond airtime alone also affected the downlink.
+The same airtime accounting also predicts the downlink share should fall to $\times0.69$ of its Round 1 value; the observed downlink throughput fell further still, to $\times0.56$ at Location A and $\times0.44$ at Location C, so some factor beyond airtime alone also affected the downlink. At Location~C, the uplink changed by more than airtime predicts, in the opposite direction. As Table~\ref{tab:round-1-2-link} shows, its throughput rose more than $\times20$ and its \gls{SINR} by about 22\,dB, far more than the doubled airtime can explain, since the \gls{TDD} pattern changes how often the \gls{UE} transmits but not how much of its signal reaches the \gls{gNB}. The uplink power received at Location~C also rose, by about 25\,dB, with the same software, gains and \gls{UE} position, and with the \gls{UE} at its maximum power in both rounds, while the downlink \gls{MCS} fell. This is not an artefact of the metrics or of the heavier logging in Round~1: at Location~C, the Round~1 scheduler used the lowest \gls{MCS} and 98\% of its uplink transmissions were decoded, which is what a weak but otherwise healthy link produces, whereas an overloaded real-time process would show late or failed decodes instead. The cause of this difference between the two sessions was not identified; since only the uplink improved, it more likely lies in the receive chain of the \gls{gNB} than in the radio path, but it is not an effect of the \gls{TDD} pattern.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        & \multicolumn{2}{c|}{\textbf{Location A (2\,m)}} & \multicolumn{2}{c|}{\textbf{Location C (10\,m)}} \\
+        \cline{2-5}
+        & \textbf{Round 1} & \textbf{Round 2} & \textbf{Round 1} & \textbf{Round 2} \\
+        \hline
+        \gls{TDD} pattern & 3:1 & 2:2 & 3:1 & 2:2 \\
+        \hline
+        Uplink transmissions/s & 400 & 800 & 400 & 800 \\
+        \hline
+        Uplink throughput & 4.9\,Mbps & 13.9\,Mbps & 0.6\,Mbps & 12.9\,Mbps \\
+        \hline
+        Uplink received power & $-20.8$\,dB & $-4.6$\,dB & $-36.3$\,dB & $-10.6$\,dB \\
+        \hline
+        Uplink \gls{SINR} & 14.6\,dB & 20.5\,dB & $-3.8$\,dB & 18.0\,dB \\
+        \hline
+        Uplink \gls{MCS} & 8.7 & 18.5 & 0.0 & 12.1 \\
+        \hline
+        Uplink \glsxtrshort{BLER} & 3.1\% & 22.5\% & 1.6\% & 1.3\% \\
+        \hline
+        \gls{UE} headroom & $-1.7$\,dB & $-1.9$\,dB & $-13.8$\,dB & $-16.1$\,dB \\
+        \hline
+        Downlink \gls{MCS} & 22.5 & 19.2 & 13.8 & 9.1 \\
+        \hline
+    \end{tabular}
+    \caption[5G link metrics before and after the TDD rebalance.]{5G link metrics at Locations A and C in Round~1 (3:1 \gls{TDD}) and Round~2 (2:2), both at \texttt{rx\_gain} 70. Uplink values are averaged over the TCP and UDP uplink tests, and the downlink \gls{MCS} over the downlink tests. The received power is the \gls{gNB}'s uncalibrated measurement, relative to the digital full scale of the radio, so only differences between rounds are meaningful.}
+    \label{tab:round-1-2-link}
+\end{table}
 
 Finally, in Round 3, after adjusting the \texttt{rx\_gain} to 60: at Location A (2\,m), the overall network throughput increased significantly, as this change removed the receiver overload reported at that location, thus stabilizing the network's performance. However, at Location C, further away from the radio, the uplink throughput decreased significantly as well, due to the lower \texttt{rx\_gain} desensitizing the receiver and reducing the link budget. This change was foreseeable as a trade-off between the two locations, and it highlights the challenge of finding a single configuration that optimizes performance across all distances.
 
@@ -309,7 +342,7 @@ Table~\ref{tab:r1-link-quality} compares both metrics for the two generations in
 
 At Location A, both networks see a similar uplink \gls{SINR}. With increasing distance, however, the two behave very differently: the 4G \gls{SINR} stays between 12 and 14.3\,dB at every location, while the 5G \gls{SINR} falls by more than 18\,dB between Locations A and C. The power headroom explains the difference. The 4G \gls{UE} keeps between 10 and 17\,dB of transmit power in reserve at every location, so as the path loss grows, the \gls{eNB}'s power control can ask it to transmit harder and hold the \gls{SINR} roughly constant. The 5G \gls{UE}, on the other hand, has no headroom left even at Location A, and is well beyond its maximum at Locations B and C, so every additional decibel of path loss is lost directly from the received \gls{SINR}.
 
-Part of this difference is expected, as the 5G \gls{RAN} operates at a higher frequency, 3.4\,GHz against 2.6\,GHz, and without the low noise amplifier used on the 4G receive chain. However, why the 5G \gls{UE} runs out of headroom this early was not established.
+Part of this difference is expected, as the 5G \gls{RAN} operates at a higher frequency, 3.4\,GHz against 2.6\,GHz, and without the low noise amplifier used on the 4G receive chain. Neither explains, however, why the 5G \gls{UE} has no headroom left at 2\,m. Section~\ref{sec:round-2-3-link-quality} returns to this after the Round~2 and~3 results.
 
 \subsection{Rounds 2 and 3: the receiver gain trade-off}
 \label{sec:round-2-3-link-quality}
@@ -341,13 +374,17 @@ At \texttt{rx\_gain} 70, the two ends of the room show an inconsistency. The \gl
 
 The radio's own \texttt{ovl} flag, which srsRAN reports whenever the receiver is saturated, supports this reading. The \gls{gNB} writes one metrics line per second for as long as the \gls{UE} is attached, so they cover the whole session at each location, the twelve tests and the intervals between them. At \texttt{rx\_gain} 70, the flag was raised 28 times at Location A and 12 times at Location B, and never at Location C. Of the 28 at Location A, six were raised while the uplink was carrying between 6 and 10\,Mbps and four during downlink transfers, several of them with uplink error rates between 25 and 100\%.
 
-Lowering \texttt{rx\_gain} to 60 in Round~3 removed the overload at Location A, where the flag was raised only three times over a session of comparable length. The uplink \gls{BLER} fell from 22.4 to 6.6\%, and the throughput doubled to 28.5\,Mbps, the highest uplink throughput measured in the testbed. At Location C, the same change had the opposite effect: the \gls{SINR} fell by 17\,dB, to just above the noise floor, and the throughput fell to less than a fifth of its Round~2 value.
+Lowering \texttt{rx\_gain} to 60 in Round~3 removed the overload at Location A, where the flag was raised only three times over a session of comparable length. The uplink \gls{BLER} fell from 22.4 to 6.6\%, and the throughput doubled to 28.5\,Mbps, the highest uplink throughput measured in the testbed. At Location C, the same change had the opposite effect: the \gls{SINR} fell by 17\,dB, to just above the noise floor, and the throughput fell to roughly a sixth of its Round~2 value.
 
-The power headroom rules out one possible explanation for why the same 10\,dB reduction in receive gain helped one location and harmed the other. At \texttt{rx\_gain} 70, the \gls{UE} was already at or beyond its maximum transmit power at both locations, with a headroom of $-1.9$\,dB at Location A and $-16.1$\,dB at Location C, so in neither case could it transmit harder to make up for the gain removed from the receiver. The further drop in headroom in Round~3, by 11\,dB at Location A and 6.5\,dB at Location C, reflects the power the \gls{gNB}'s power control asked for, not the power the \gls{UE} was able to deliver.
+The power headroom rules out one possible explanation for why the same 10\,dB reduction in receive gain helped one location and harmed the other. At \texttt{rx\_gain} 70, the \gls{UE} was already at or beyond its maximum transmit power at both locations, with a headroom of $-1.9$\,dB at Location A and $-16.1$\,dB at Location C, so in neither case could it transmit harder to make up for the gain removed from the receiver. The further drop in headroom in Round~3, by 11\,dB at Location A and 6.5\,dB at Location C, cannot come from the lower receive gain, which the \gls{UE} does not see, and with closed-loop power control disabled the \gls{gNB} did not request it either; it most likely reflects a change in the downlink power the \gls{UE} received between the two sessions.
 
-What separates the two locations is instead what limited the link at \texttt{rx\_gain} 70. At Location A, the signal was strong enough to saturate the receiver, and the link was limited by the resulting distortion rather than by noise. Removing 10\,dB of gain brought the signal back into the receiver's linear range; the distortion disappeared, and the \gls{SINR} rose from 20.5 to 25.2\,dB, even though less signal reached the digital stage. At Location C, the receiver was never overloaded, and the link was already limited by noise. With no low noise amplifier ahead of the radio, lowering its gain raises the noise contributed by the rest of the receive chain relative to the signal. With the \gls{UE} unable to compensate, the \gls{SINR} fell from 18.0 to 0.7\,dB.
+The headroom itself suggests that the uplink power control was not working as intended, since a \gls{UE} 2\,m from the radio should not need its maximum power. The \gls{UE} sets its transmit power from the path loss it estimates, which is the transmit power of the synchronization signal advertised by the \gls{gNB} in \gls{SIB1} minus the power it actually receives. The \gls{gNB} advertised the srsRAN default of $-16$\,dBm (\texttt{ssb\_block\_power\_dbm}), which was never calibrated against what the USRP-2901 radiates at \texttt{tx\_gain} 89.75. The closed-loop power control, which would let the \gls{gNB} correct such an error from the signal it receives, is disabled by default in srsRAN (\texttt{enable\_cl\_loop\_pw\_control}) and was not enabled, so nothing corrected the \gls{UE}'s estimate.
 
-With a single, manually set receive gain and no automatic gain control, the \gls{gNB} cannot serve the whole room. A gain of 70 suits Location C and overloads the receiver at Location A, while a gain of 60 suits Location A and leaves Location C barely above the noise floor. This is a consequence of running a software \gls{RAN} on an \gls{SDR} whose receive gain is fixed at start-up.
+Reverse engineering the reported headroom with the advertised power control parameters gives the path loss the \gls{UE} assumed: in Round~2, around 81\,dB at Location A and 95\,dB at Location C, against 49 and 63\,dB of free-space loss. The excess, about 32\,dB, is the same at both locations, which points to a fixed offset rather than to the radio environment, and an advertised power above the actual one would produce such an offset. The \gls{UE} would then overestimate the path loss and transmit near its maximum power everywhere, which would also explain why the receiver overloaded at 2\,m. This could not be confirmed, as no calibrated measurement of the radiated power, or of the \gls{RSRP} measured by the \gls{UE}, was taken.
+
+What separates the two locations is what limited the link at \texttt{rx\_gain} 70. At Location A, the signal was strong enough to saturate the receiver, and the link was limited by the resulting distortion rather than by noise. Removing 10\,dB of gain brought the signal back into the receiver's linear range; the distortion disappeared, and the \gls{SINR} rose from 20.5 to 25.2\,dB, even though less signal reached the digital stage. At Location C, the receiver was never overloaded, and the link was already limited by noise. With no low noise amplifier ahead of the radio, lowering its gain raises the noise contributed by the rest of the receive chain relative to the signal, but by at most the 10\,dB removed, whereas the \gls{SINR} fell by 17.3\,dB, from 18.0 to 0.7\,dB. The rest came from a weaker link. The power received from the \gls{UE} fell by 19\,dB, 9\,dB more than the gain removed, and the downlink weakened as well: the \gls{UE}'s headroom was 6.5\,dB lower, meaning it measured a higher path loss, and the downlink \gls{MCS} fell from 9.1 to 5.0. The receive gain affects neither, so this part is the same kind of difference between sessions as the one found between Rounds~1 and~2 (Section~\ref{sec:tdd-rebalance}), and only around half of the \gls{SINR} lost at Location~C can be attributed to the lower receive gain.
+
+Neither of the two gains tested served the whole room. A gain of 70 suited Location C and overloaded the receiver at Location A, while a gain of 60, chosen at Location A, left Location C barely above the noise floor. Only these two values were measured at every location, so the results show that the fixed gain had to favour one end of the room in these tests, not that no single value could serve both; no value between the two was tested at Location C. The trade-off also arose under a \gls{UE} that, with the uncalibrated power control described above, transmitted near its maximum power at every location. With calibrated power control, the \gls{UE} would transmit less power close to the radio, and a single gain might serve both ends of the room; this was not tested. 
 
 \section{Core network performance}
 \label{sec:core-performance}
@@ -377,7 +414,7 @@ The same intervals can also be measured from the outside, in the \gls{NGAP} capt
 
 A 5G registration took a median of 186\,ms. The six registrations that required network function discovery were among the slowest and share two properties, both visible in the \gls{AMF} logs. The first is that the \gls{AMF} had to set up its connections to the \gls{AUSF}, \gls{UDM} and \gls{PCF} during the registration rather than reuse existing ones: in the \gls{SBA}, a network function does not know in advance where the others are, so it first asks the \gls{NRF} for them, and then connects to each one. Timing this directly, from the \gls{AMF}'s request for each network function to the endpoint being established, gives between 12 and 16\,ms for all three together.
 
-The second property accounts for most of the difference: in these six registrations, the \gls{AMF}, three held no security context for the \gls{UE}, so the procedure ran a full authentication, exchanging an identity request, an authentication request, and a security mode command with the \gls{UE}, each one a round trip over the air. One of the six, the slowest registration of the campaign, was also captured on the \gls{NGAP} interface at the \gls{gNB}, and Figure~\ref{fig:ngap-registration} places it next to a registration that reused a context, so that the two can be followed frame by frame.
+The second property accounts for most of the difference: in these six registrations, the \gls{AMF} held no security context for the \gls{UE}, so the procedure ran a full authentication, exchanging an identity request, an authentication request, and a security mode command with the \gls{UE}, each one a round trip over the air. One of the six, the slowest registration of the campaign, was also captured on the \gls{NGAP} interface at the \gls{gNB}, and Figure~\ref{fig:ngap-registration} places it next to a registration that reused a context, so that the two can be followed frame by frame.
 
 \begin{figure}[htbp]
     \centering

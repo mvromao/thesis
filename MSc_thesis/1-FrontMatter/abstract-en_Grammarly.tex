@@ -7,15 +7,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \typeout{NT FILE abstract-en.tex}%
-\enlargethispage{3\baselineskip}% let the keywords fit on the abstract page
 
-Open-source software and commodity software-defined radios have made it possible to deploy a private 5G Standalone network without a commercial operator's budget. Deploying it, however, is only half the problem: a working network can still perform far below what its hardware allows, and calibrating and tuning it for the conditions it operates in is a challenge of its own, harder still without a reference to compare against.
+Open-source software and commodity software-defined radios have made it possible to deploy a private 5G Standalone network without a commercial operator's budget. Deploying it, however, is only half the problem: a working network can still perform far below what its hardware allows, and tuning it is a challenge of its own.
 
-This dissertation has focused on the implementation of a 5G Standalone network alongside a 4G one, to serve as a reference, sharing the same tools and Open5GS core. The 5G network is based on the srsRAN Project gNB and a USRP B210, and the 4G network on srsRAN 4G and a bladeRF xA4. The two were compared at three distances, tuning the 5G network over three rounds.
+This dissertation implemented a 5G Standalone network alongside a 4G reference network, sharing the same Open5GS core: the srsRAN Project gNB with a USRP-2901, and srsRAN 4G with a bladeRF xA4. The 5G network was evaluated at three distances over three rounds of tuning.
 
-Against this baseline, the untuned 5G uplink was more than 20 times slower at 10\,m. Rebalancing the TDD pattern from 3:1 to 2:2 brought it to the 4G level, and lowering the receiver gain removed a short-range overload, reaching 28.5\,Mbps at 2\,m, twice the 4G baseline, but at the cost of lower performance on longer distances. The 5G downlink reached 50.6\,Mbps, over twice that of 4G. The idle round-trip time averaged 25 to 28\,ms, but rose to seconds under TCP load due to an oversized default RLC queue.
+Against this reference, the untuned 5G uplink was more than 20 times slower at 10\,m, partly because a 3:1 TDD pattern limited its airtime. After rebalancing the pattern to 2:2, the uplink reached the 4G level, and lowering the receiver gain removed a short-range overload, reaching 28.5\,Mbps at 2\,m, twice the 4G reference, at the cost of range. The idle round-trip time averaged 25 to 28\,ms, but rose to seconds under TCP load due to an oversized default RLC queue.
 
-These results show that an open-source 5G Standalone network can match or exceed a 4G network built with the same tools, but only once tuned to its hardware and environment, and that no fixed configuration suits every location. The implemented networks are now ready to support future experimental activities.
+These results show that an open-source 5G Standalone network can be deployed and operated as a laboratory network: once adapted to its hardware and environment, it matched the 4G reference and exceeded it at short range, and much of what limited it came from default or inherited parameters rather than from the software. Both networks remain available for future experimental work.
 % Abstract keywords
 \keywords{
   5G Standalone \and

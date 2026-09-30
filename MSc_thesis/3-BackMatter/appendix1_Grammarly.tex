@@ -502,12 +502,12 @@ This completes the one-time setup of the 4G \gls{RAN} machine. The next steps to
 \section{5G RAN Machine (Machine 2)}
 \label{sec:app-5g-ran}
 
-This section sets up the 5G \gls{RAN}: the drivers for the NI B2901, the \gls{GPSDO}, and the srsRAN Project \gls{gNB}. The hardware itself is described in Section~\ref{sec:hardware-components}.
+This section sets up the 5G \gls{RAN}: the drivers for the USRP-2901, the \gls{GPSDO}, and the srsRAN Project \gls{gNB}. The hardware itself is described in Section~\ref{sec:hardware-components}.
 
 \subsection{Installing UHD}
 \label{sec:app-uhd}
 
-The B2901 is driven through UHD, the USRP Hardware Driver. The testbed ran UHD version 4.10.0.0, built from source at that release rather than installed from the Ubuntu repositories, which may provide a different version.
+The USRP-2901 is driven through UHD, the USRP Hardware Driver. The testbed ran UHD version 4.10.0.0, built from source at that release rather than installed from the Ubuntu repositories, which may provide a different version.
 The OCUDU installation guide names UHD 4.6.0.0 as its requirement; the later 4.10.0.0 release worked with the \gls{gNB} used in this dissertation. First, install the build dependencies:
 \begin{code}
 sudo apt-get install autoconf automake build-essential ccache cmake cpufrequtils doxygen ethtool g++ git inetutils-tools libboost-all-dev libncurses-dev libusb-1.0-0 libusb-1.0-0-dev libusb-dev python3-dev python3-mako python3-numpy python3-requests python3-scipy python3-setuptools python3-ruamel.yaml libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc
@@ -528,11 +528,11 @@ make test
 sudo make install
 sudo ldconfig
 \end{code}
-The B2901 loads its \gls{FPGA} image from the host each time it is powered on, so the images matching the installed UHD version must be downloaded:
+The USRP-2901 loads its \gls{FPGA} image from the host each time it is powered on, so the images matching the installed UHD version must be downloaded:
 \begin{code}
 sudo uhd_images_downloader
 \end{code}
-Finally, with the B2901 connected over USB 3.0, check that UHD detects it and that it reports the board's details without errors:
+Finally, with the USRP-2901 connected over USB 3.0, check that UHD detects it and that it reports the board's details without errors:
 \begin{code}
 uhd_find_devices
 uhd_usrp_probe
@@ -542,7 +542,7 @@ The second command loads the \gls{FPGA} image onto the board, so it takes a few 
 \subsection{Setting up the GPSDO}
 \label{sec:app-gpsdo}
 
-The B2901 synchronizes its frequency and time references to the Leo Bodnar \gls{GPSDO}, which in turn disciplines its oscillator to the GPS satellites. The \gls{GPSDO} provides two signals, each connected to the matching input on the rear of the B2901, as shown in Figure~\ref{fig:b2901-gpsdo}:
+The USRP-2901 synchronizes its frequency and time references to the Leo Bodnar \gls{GPSDO}, which in turn disciplines its oscillator to the GPS satellites. The \gls{GPSDO} provides two signals, each connected to the matching input on the rear of the USRP-2901, as shown in Figure~\ref{fig:b2901-gpsdo}:
 \begin{itemize}
   \item a 1PPS (one pulse per second) signal, on Output 1, connected to the \texttt{PPS IN} port, which aligns the board's time to the start of each second;
     \item a 10\,MHz reference clock, on Output 2, connected to the \texttt{REF IN} port, from which the board derives all of its sampling and carrier frequencies.
@@ -601,7 +601,7 @@ The output shows the device's status and the settings of each output, as shown i
 \label{sec:app-srsran-project}
 
 The srsRAN Project \gls{gNB} is now developed under the name OCUDU~\cite{ocudu_project}.
-UHD must be installed, as described in Section~\ref{sec:app-uhd}, before the \gls{gNB} is built. The build checks for UHD only when it is configured, and includes support for the B2901 only if UHD is found at that point.
+UHD must be installed, as described in Section~\ref{sec:app-uhd}, before the \gls{gNB} is built. The build checks for UHD only when it is configured, and includes support for the USRP-2901 only if UHD is found at that point.
 
 A \gls{gNB} built without UHD pre-installed compiles and installs without errors, but will not detect the radio when started, and installing UHD afterward does not fix it. The \gls{gNB} has to be rebuilt from the \texttt{cmake} step onwards. With UHD in place, install the build dependencies:
 
@@ -634,7 +634,7 @@ The build takes several minutes. Once installed, the \gls{gNB} is available syst
 Unlike srsRAN 4G, the srsRAN Project \gls{gNB} reads a single YAML configuration file, passed to it through the startup command. The file used in this dissertation is kept in the project's repository~\cite{thesis_repo} as \texttt{gnb.yaml}, and is shown below, as used in Round 3. It has five parts:
 \begin{itemize}
     \item \texttt{cu\_cp}: the connection to the \gls{AMF} on the core machine, and the tracking area, \gls{PLMN} and slice the \gls{gNB} supports, which must match the core configuration.
-    \item \texttt{ru\_sdr}: the radio. The B2901 is driven through UHD, takes both its clock and its time reference from the \gls{GPSDO} (\texttt{external}), and runs at the transmit and receive gains discussed in Chapter~\ref{cha:methodology}.
+    \item \texttt{ru\_sdr}: the radio. The USRP-2901 is driven through UHD, takes both its clock and its time reference from the \gls{GPSDO} (\texttt{external}), and runs at the transmit and receive gains discussed in Chapter~\ref{cha:methodology}.
     \item \texttt{cell\_cfg}: the cell itself, in band n78 with a 20\,MHz channel and 30\,kHz subcarrier spacing, using the 2:2 \gls{TDD} pattern.
     \item \texttt{log} and \texttt{metrics}: logging of all layers at \texttt{info} level, with the per-second metrics written into the log, as described in Section~\ref{sec:data-collection}.
     \item \texttt{pcap}: packet captures of the \gls{MAC} layer and of the \gls{NGAP} signaling with the core.
@@ -724,7 +724,7 @@ The \gls{eNB} connects to the \gls{MME} at 10.0.0.10. Once it reports the S1 con
 
 \subsection{Starting the 5G Network}
 \label{sec:app-start-5g}
-Before starting the 5G network, confirm that the \gls{GPSDO} has GPS lock (Section~\ref{sec:app-gpsdo}), as the B2901 takes both its clock and its time reference from it, and the \gls{gNB} will not transmit correctly without them. Then start the \gls{gNB} on Machine 2, passing it the configuration file from Section~\ref{sec:app-gnb-config}:
+Before starting the 5G network, confirm that the \gls{GPSDO} has GPS lock (Section~\ref{sec:app-gpsdo}), as the USRP-2901 takes both its clock and its time reference from it, and the \gls{gNB} will not transmit correctly without them. Then start the \gls{gNB} on Machine 2, passing it the configuration file from Section~\ref{sec:app-gnb-config}:
 \begin{code}
 sudo gnb -c gnb.yaml
 \end{code}
@@ -769,7 +769,7 @@ On the core machine, start the server, writing its results to a JSON file, which
 iperf3 -s -J --logfile results_location_A.json
 \end{code}
 
-On the \gls{UE}, the tests are run from the CellularLab app~\cite{cellularlab}, pointing its \texttt{iperf3} client to the core machine's \texttt{ogstun} address, 10.45.0.1. The parameters used are a duration of 20 seconds and 8 parallel streams, with a target rate of 100\,Mbps per stream in the case of UDP tests. The app runs these as standard \texttt{iperf3} commands and records the exact command at the top of each result it exports. For a UDP downlink test, for example:
+On the \gls{UE}, the tests are run from the CellularLab app~\cite{cellularlab}, pointing its \texttt{iperf3} client to the core machine's \texttt{ogstun} address, 10.45.0.1. The parameters used in Rounds~2 and~3 are a duration of 20 seconds and 8 parallel streams, with a target rate of 100\,Mbps per stream in the case of UDP tests; Round~1 used the same parameters with a single stream. The app runs these as standard \texttt{iperf3} commands and records the exact command at the top of each result it exports. For a UDP downlink test, for example:
 
 \begin{code}
 iperf3 -c 10.45.0.1 -p 5201 -t 20 -i 1 -P 8 -R -u -b 100M -d -V
